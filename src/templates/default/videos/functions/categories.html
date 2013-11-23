@@ -1,0 +1,18 @@
+{*
+
+Template-Funktion: Kategorien auflisten
+=======================================
+
+CATEGORY = Liste der Kategorien
+CATEGORY.ID = ID
+CATEGORY.TITLE = Kategorie-Titel
+CATEGORY.LEVEL = Level (bei Unterkategorien)
+CATEGORY.ICON = Kategorie-Symbol
+CATEGORY.LINK = Link: Nur Videos aus dieser Kategorie
+
+*}
+
+<form action="videos.php{if SECTION_ID}?sec={SECTION_ID}{/if}" method="post" style="text-align:center;">
+<select name="catid"><option value=""></option>{list CATEGORY}<option value="{CATEGORY.ID}"{if CATEGORY.ID==SERVER_REQUEST_CATID} selected="selected"{/if}>{if CATEGORY.LEVEL==2}&nbsp;&nbsp;{/if}{if CATEGORY.LEVEL==3}&nbsp;&nbsp;&nbsp;&nbsp;{/if}{CATEGORY.TITLE}</option>{/list}</select>
+<input type="submit" name="send" value="Go!" class="button" />
+</form>

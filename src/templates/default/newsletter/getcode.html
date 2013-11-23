@@ -1,0 +1,21 @@
+{*
+
+Aktivierungscode neu anfordern
+==============================
+
+POSTTO = Adresse an die das Formular gesendet werden soll
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td colspan="2" class="header1">{LANG[GETCODE]}</td></tr>
+<tr class="color">
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" size="60" class="input" value="{LOGGED_EMAIL}" /></td>
+</tr>
+</tbody>
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>

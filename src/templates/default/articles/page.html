@@ -1,0 +1,199 @@
+{*
+
+Seite eines Artikels
+====================
+
+Artikel:
+--------
+ID = Artikel-ID
+TITLE = Artikel-Titel
+SUBTITLE = Artikel-Untertitel
+TEASER = Artikel-Teaser
+PICTURE = Artikel-Bild
+PICTURE_POPUP = Link: "größe Version des Artikel-Bilds anzeigen"
+PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+LINK = Link zum Artikel
+TIME = Zeit (Timestamp)
+TOP = Top-Artikel?
+RESTRICTED = Altersabfrage aktiviert?
+HITS = Klicks
+PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+USERID = Benutzer-ID des Autors
+USERNAME = Benutzername des Autors
+EMAIL = eMail-Adresse des Autors
+EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+
+CATID = Kategorie-ID
+CATTITLE = Kategorie-Titel
+CATLINK = Link: Nur Inhalte aus dieser Kategorie
+CATICON = Kategorie-Icon
+
+RELATED = Liste der "Links zu diesem Artikel"
+RELATED.TITLE = Vorangestellte Linkbezeichnung
+RELATED.TEXT = Verlinkter Text
+RELATED.URL = URL
+RELATED.POPUP = Neues Fenster öffnen?
+
+PICSERIES = Bilderserie, sofern vorhanden
+PICSERIES.IMAGE = Pfad zum Thumbnail
+PICSERIES.FULLSIZE = Pfad zur großen Version des Bilds
+PICSERIES.LINK = Link zur Großansicht
+
+
+Verknüpfte Galerie
+------------------
+GALLERY_ID = ID der Galerie
+GALLERY_TITLE = Titel der Galerie
+GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Artikelseite:
+-------------
+PAGE_PREVIOUS = Link "vorherige Seite"
+PAGE_NEXT = Link "nächste Seite"
+PAGE_FIRST = Link "erste Seite"
+PAGE_LAST = Link "letzte Seite"
+PAGE_NUMBER = Aktuelle Seitenzahl
+PAGE_TITLE = Titel der Seite
+PAGE_TEXT = Inhalt der Seite
+
+INDEX = Liste aller Artikelseiten
+INDEX.NUMBER = Seitenzahl
+INDEX.TITLE = Seitentitel
+INDEX.LINK = Link zu dieser Seite
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Bewertung (Template includen?)
+------------------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+Alle Platzhalter finden Sie in der Datei templates/default/ratings/rating.html
+
+*}
+
+<style type="text/css">
+<!--
+
+.articles_list {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+	margin:10px 0px;
+}
+
+.articles_title {
+	font-size:16px;
+	margin:0px;
+}
+
+.articles_info {
+	font-size:11px;
+	margin:0px 0px 10px 0px;
+}
+
+.articles_footer {
+	margin-top:10px;
+}
+
+.articles_footer td {
+	font-size:11px;
+}
+
+.articles_page_title {
+	font-size:14px;
+	text-decoration:underline;
+	margin-bottom:5px;
+}
+
+.articles_index {
+	float:right;
+	background:#F0F0F0;
+	border:1px solid #C2C2C2;
+	padding:3px;
+	margin:0px 0px 5px 10px;
+}
+
+.articles_links {
+	font-size:11px;
+}
+
+.articles_pics {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+	text-align:center;
+}
+
+.articles_pics img {
+	border:1px solid #898989;
+	margin:2px 0px;
+}
+
+-->
+</style>
+
+<div class="articles_list">
+
+<table width="100%"><tr><td width="100%" valign="top">
+
+<p class="articles_title"> <a href="{LINK}">{TITLE}</a>{if TOP} <img src="modules/articles/images/top.gif" alt="" align="bottom" />{/if}</p>
+<p class="articles_info">{if SUBTITLE}{SUBTITLE} | {/if} <!--{CATICON}<a href="php?catid={CATID}">-->{CATTITLE}<!--</a>--> | {DATE('d.m.Y - H:i:s',TIME)}</p>
+
+<div class="articles_page_title">{LANG[PAGE]} {PAGE_NUMBER}<!--/{PAGE_COUNT}-->: {PAGE_TITLE}</div>
+<div class="articles_index">{list INDEX}{LANG[PAGE]} {INDEX.NUMBER}: <a href="{INDEX.LINK}">{INDEX.TITLE}</a><br />{/list}</div>
+<div style="text-align:justify;">
+{PAGE_TEXT}
+
+{* Links zu diesem Artikel *}
+{if RELATED}<div class="articles_links">{list RELATED}<br />{RELATED.TITLE} <a href="{RELATED.URL}"{if RELATED.POPUP} target="_blank"{/if}>{RELATED.TEXT}</a>{/list}</div>{/if}
+</div>
+
+<!-- Buttons zum Blättern
+<div align="right">
+{if PAGE_PREVIOUS}<a href="{PAGE_PREVIOUS}"><img src="modules/articles/images/previous.gif" alt="" /></a>{/if}
+{if PAGE_NEXT} <a href="{PAGE_NEXT}"><img src="modules/articles/images/next.gif" alt="" /></a>{/if}
+</div>
+-->
+
+{* Wenn eine Bilderserie existiert, wird diese angezeigt. Die Auflistung wird nach 5 Bildern abgebrochen *}
+{if PICSERIES}
+</td><td>&nbsp;&nbsp;</td><td valign="top">
+<div class="articles_pics">{list PICSERIES}{++COUNT}{if COUNT>=6}{break}{/if}<a href="{PICSERIES.LINK}"><img src="{PICSERIES.IMAGE}" alt="" /></a><br />{/list}</div>
+
+{* Wenn eine Galerie verknüpft ist, wird diese angezeigt *}
+{elseif GALLERY_ID}
+</td><td>&nbsp;&nbsp;</td><td valign="top">
+<div class="articles_pics">{GALLERY(5,GALLERY_ID)}</div>
+{/if}
+
+</td></tr></table>
+
+<table width="100%" class="articles_footer"><tr>
+<td nowrap="nowrap">{if DISPLAY_RATING}{include ../ratings/rating.html}{/if}</td>
+<td width="100%" align="right">{if DISPLAY_COMMENTS}<a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a> | {/if}<a href="{PRINT()}" target="_blank">{LANG[PRINT]}</a> |  <a href="{TELL()}" target="_blank">{LANG[TELL]}</a> | {HITS} {LANG[HITS]} | {if USERID}<a href="{PROFILE(USERID)}" target="_blank">{/if}{USERNAME}{if USERID}</a>{/if} {if EMAIL}({EMAIL}){/if}</td>
+</tr></table>
+
+</div>
+
+<div class="tags">{list TAG} <a href="articlearchive.php?action=search&amp;tag={TAG.NAME|urlencode}" style="{TAGSIZE=50+50*TAG.WEIGHT}font-size:{TAGSIZE}%;">{TAG.NAME}</a>{/list}</div>
+
+{if PRODUCT_ID}{PRODUCT_INFO(PRODUCT_ID)}{/if}
+
+{if DISPLAY_COMMENTS}<br />&nbsp;{include ../comments/comments.html}{/if}

@@ -1,0 +1,41 @@
+{*
+
+Design für die Druckansicht (Forum)
+===================================
+
+CHARSET = In der Konfiguration festgelegtes Charset
+CONTENT = Inhalt der Seite
+WEBSITE_NAME = In der Konfiguration festgelegter Seitentitel
+WEBSITE_URL = URL/Domain zur Website
+FORUM_NAME = In der Konfiguration festgelegter Forumtitel
+FORUM_URL = URL zum Forum
+
+*}
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>apexx -  CMS &amp; Portalsystem | {LANG[CORE_PRINT]}</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="design/print.css" type="text/css" />
+</head>
+<body>
+
+<h1><img src="../design/logo_print.gif" alt="{WEBSITE_NAME}" title="{WEBSITE_NAME}" /></h1>
+<input type="button" name="print" value="{LANG[CORE_PRINT]}" onclick="print();" style="float:right;" />
+
+<p>
+<a href="{FORUM_URL}">{FORUM_NAME}</a> ({FORUM_URL}){list PATH}<br />{++LEVEL}{repeat LEVEL-1}&nbsp;&nbsp;{/repeat}-- <a href="{PATH.LINK}">{PATH.TITLE}</a> ({FORUM_URL}{PATH.LINK}){/list}
+<br />{repeat LEVEL}&nbsp;&nbsp;{/repeat}-- <a href="{PATHEND_LINK}">{PATHEND}</a> ({FORUM_URL}{PATHEND_LINK})
+</p>
+
+<hr />
+
+{CONTENT}
+
+<hr />
+
+{DATE('d.m.Y - H:i:s')}
+
+</body>
+</html>

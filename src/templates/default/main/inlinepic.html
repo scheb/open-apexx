@@ -1,0 +1,28 @@
+{*
+
+Inline-Bild ausgeben
+====================
+
+ID = ID
+PICTURE = Pfad zum Bild
+POPUP = Popup-Link zur Großansicht
+FULLSIZE = Pfad zum Bild in voller Größe
+TEXT = Bildtext
+ALIGN = Gewählte Ausrichtung (entweder "left", "right" oder leer)
+
+Anmerkung:
+In diesem Beispiel-Template wird die Ausrichtung nur beachtet, wenn
+kein Text angegeben wurde.
+
+*}
+
+{if TEXT}
+<table width="100%" style="background:#F0F0F0;border:1px solid #C2C2C2;">
+<tr>
+<td>{if POPUP}<a href="{POPUP}">{/if}<img src="{PICTURE}" alt="" />{if POPUP}</a>{/if}</td>
+<td>{TEXT}</td>
+</tr>
+</table>
+{else}
+{if POPUP}<a href="{POPUP}">{/if}<img src="{PICTURE}" alt=""{if ALIGN} style="float:{ALIGN}"{/if} />{if POPUP}</a>{/if}
+{/if}

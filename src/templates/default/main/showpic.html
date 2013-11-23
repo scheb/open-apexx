@@ -1,0 +1,42 @@
+{*
+
+Bild anzeigen
+=============
+
+CHARSET = In der Konfiguration festgelegtes Charset
+IMAGE = Bild-Pfad
+
+*}
+
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Bild ansehen</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="design/style.css" type="text/css" />
+<script type="text/javascript" src="/lib/yui/yahoo/yahoo-min.js"></script>
+<script type="text/javascript" src="/lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="lib/javascript/global.js"></script>
+</head>
+<body>
+<style type="text/css">
+<!--
+
+body {
+	padding:0px;
+	margin:0px;
+}
+
+img {
+	border:0px;
+}
+
+-->
+</style>
+
+
+<div style="text-align:center;"><a href="javascript:window.close();"><img src="{IMAGE}" alt="" /></a></div>
+
+</body>
+</html>

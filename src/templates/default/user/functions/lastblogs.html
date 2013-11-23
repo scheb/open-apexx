@@ -1,0 +1,39 @@
+{*
+
+Template-Funktion: Neuste Bentzer-Blogs
+=======================================
+
+Blogeinträge
+------------
+BLOG = Liste der Blogs
+BLOG.ID = ID
+BLOG.TITLE = Titel
+BLOG.TEXT = Text
+BLOG.LINK = Link zum Blogeintrag
+BLOG.TIME = Veröffentlichung (Timestamp)
+
+
+Autor
+-----
+BLOG.USERID = Benutzer-ID des Autors
+BLOG.USERNAME = Benutzername
+BLOG.REALNAME = Echter Name
+BLOG.AVATAR = Avatar des Autors
+BLOG.AVATAR_TITLE = Avatar-Titel
+
+
+Kommentare
+----------
+BLOG.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+BLOG.COMMENT_COUNT = Anzahl der Kommentare
+BLOG.COMMENT_LINK = Link zur Kommentar-Seite
+BLOG.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+BLOG.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+BLOG.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+*}
+
+{list BLOG}
+<a href="{BLOG.LINK}">{BLOG.TITLE}</a>{DATE('d.m.Y',BLOG.TIME)}<br />
+{/list}

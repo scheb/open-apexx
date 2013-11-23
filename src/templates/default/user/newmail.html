@@ -1,0 +1,41 @@
+{*
+
+eMail schreiben
+===============
+
+POSTTO = Formular senden an...
+USERNAME = Ausgewählter Benutzer
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td class="header1" colspan="2">{LANG[HEADLINE_NEWMAIL]}</td></tr>
+<tr class="color">
+<td>{LANG[NAME]}:</td>
+<td><input type="text" name="name" value="{LOGGED_USERNAME}" maxlength="30" size="40" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" value="{LOGGED_EMAIL|replace}" maxlength="100" size="40" class="input" /></td>
+</tr>
+<tr>
+<td class="color">{LANG[RECIEVER]}:</td>
+<td class="color"><input type="text" name="touser" value="{USERNAME}" class="input" size="30" /><span class="small"> &raquo; <a href="user.php?action=list{if SECTION_ID}&amp;sec={SECTION_ID}{/if}" target="_blank">{LANG[SEARCH]}</a></span></td>
+</tr>
+<tr>
+<td class="color">{LANG[SUBJECT]}:</td>
+<td class="color"><input type="text" name="subject" class="input" size="80" maxlength="50" /></td>
+</tr>
+<tr>
+<td class="color">{LANG[TEXT]}:</td>
+<td class="color"><textarea name="text" cols="80" rows="7"></textarea></td>
+</tr>
+{if CAPTCHA}<tr class="color">
+<td>{LANG[CAPTCHA]}:</td>
+<td>{CAPTCHA} =&gt; <input type="text" name="captcha" size="15" class="input" /></td>
+</tr>{/if}
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>

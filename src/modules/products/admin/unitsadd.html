@@ -1,0 +1,135 @@
+<form action="action.php" method="post" enctype="multipart/form-data" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_PRODUCTS_UADD]}</td></tr>
+<tr>
+<td>{LANG[TYPE]}:</td>
+<td>
+<input type="radio" name="type" value="person" id="ip_type_person" onclick="displayType(this);" onchange="displayType(this);" style="vertical-align:middle;"{if TYPE=='person'} checked="checked"{/if} /><label for="ip_type_person" onclick="displayType(yDom.get('ip_type_person'));"> {LANG[TYPE_PERSON]}</label> &nbsp;&nbsp;&nbsp;
+<input type="radio" name="type" value="company" id="ip_type_company" onclick="displayType(this);" onchange="displayType(this);" style="vertical-align:middle;"{if TYPE=='company'} checked="checked"{/if} /><label for="ip_type_company" onclick="displayType(yDom.get('ip_type_company'));"> {LANG[TYPE_COMPANY]}</label>
+</td>
+</tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin:10px 0;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[OPTIONAL]}</td></tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td>{TEXTAREA('text',15,TEXT)}</td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+<tr>
+<td>{LANG[LOGO]}:<br /><small>({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</small></td>
+<td>
+<table width="100%" class="clear">
+<colgroup>
+<col width="100" />
+<col />
+</colgroup>
+<tr><td nowrap="nowrap">{LANG[PICTURE_UPLOAD]}:</td><td><input type="file" name="pic_upload" size="60" /></td></tr>
+<tr><td nowrap="nowrap" style="padding-top:3px;">{LANG[PICTURE_PATH]}:</td><td style="padding-top:3px;"><input type="text" name="pic_copy" id="pic_copy" value="{PIC_COPY}" class="input" size="53" style="width:260px;" /> <input type="button" name="mediamanager" value="{LANG[CORE_MEDIAMANAGER]}" onclick="javascript:openmm('mediamanager.php?action=mediamanager.index&amp;module=products')" class="button" /></td></tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>{LANG[FULLNAME]}:</td>
+<td><input type="text" name="fullname" value="{FULLNAME}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tr>
+<td>{LANG[ADDRESS]}:</td>
+<td><input type="text" name="address" value="{ADDRESS}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tr>
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" value="{EMAIL}" class="input" maxlength="255" size="60" style="width:200px" /></td>
+</tr>
+<tr>
+<td>{LANG[PHONE]}:</td>
+<td><input type="text" name="phone" value="{PHONE}" class="input" maxlength="255" size="60" style="width:200px" /></td>
+</tr>
+<tr>
+<td>{LANG[WEBSITE]}:</td>
+<td><input type="text" name="website" value="{WEBSITE}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tbody id="companyfields"{if TYPE=='person'} style="display:none;"{/if}>
+<tr>
+<td>{LANG[FOUNDER]}:</td>
+<td><input type="text" name="founder" value="{FOUNDER}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tr>
+<td>{LANG[FOUNDINGYEAR]}:</td>
+<td><input type="text" name="founding_year" value="{FOUNDING_YEAR}" class="input" maxlength="255" size="60" style="width:100px" /></td>
+</tr>
+<tr>
+<td>{LANG[FOUNDINGCOUNTRY]}:</td>
+<td><input type="text" name="founding_country" value="{FOUNDING_COUNTRY}" class="input" maxlength="255" size="60" style="width:200px" /></td>
+</tr>
+<tr>
+<td>{LANG[LEGALFORM]}:</td>
+<td><input type="text" name="legalform" value="{LEGALFORM}" class="input" maxlength="255" size="60" style="width:200px" /></td>
+</tr>
+<tr>
+<td>{LANG[HEADQUATERS]}:</td>
+<td><input type="text" name="headquaters" value="{HEADQUATERS}" class="input" maxlength="255" size="60" style="width:200px" /></td>
+</tr>
+<tr>
+<td>{LANG[EXECUTIVE]}:</td>
+<td><input type="text" name="executive" value="{EXECUTIVE}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tr>
+<td>{LANG[EMPLOYEES]}:</td>
+<td><input type="text" name="employees" value="{EMPLOYEES}" class="input" maxlength="255" size="60" style="width:100px" /></td>
+</tr>
+<tr>
+<td>{LANG[TURNOVER]}:</td>
+<td><input type="text" name="turnover" value="{TURNOVER}" class="input" maxlength="255" size="60" style="width:100px" /></td>
+</tr>
+<tr>
+<td>{LANG[SECTOR]}:</td>
+<td><input type="text" name="sector" value="{SECTOR}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tr>
+<td>{LANG[PRODUCTS]}:</td>
+<td><input type="text" name="products" value="{PRODUCTS}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+</tbody>
+</table>
+
+<table width="100%" class="table">
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_ADD]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="products.uadd" />
+<input type="hidden" name="updateparent" value="{UPDATEPARENT}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="ignore" value="0" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript">
+
+function displayType(radio) {
+	if ( radio.value=='person' ) {
+		if ( radio.checked ) getobject('companyfields').style.display = 'none';
+		else getobject('companyfields').style.display = '';
+	}
+	else if ( radio.value=='company' ) {
+		if ( radio.checked ) getobject('companyfields').style.display = '';
+		else getobject('companyfields').style.display = 'none';
+	}
+}
+
+</script>

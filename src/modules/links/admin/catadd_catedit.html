@@ -1,0 +1,35 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_LINKS_CATADD]}{else}{LANG[TITLE_LINKS_CATEDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[CREATEIN]}:</td>
+<td><select name="parent">{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" maxlength="255" size="80" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="text" cols="100" rows="10" style="width:98%;">{TEXT}</textarea></td>
+</tr>
+<tr>
+<td>{LANG[ICON]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="icon" value="{ICON}" class="input" maxlength="255" size="80" style="width:400px;" /></td>
+</tr>
+{if !UPDATEPARENT}<tr>
+<td>{LANG[OPEN]}:</td>
+<td><input type="checkbox" name="open" value="1"{if OPEN} checked="checked"{/if} /></td>
+</tr>{else}<input type="hidden" name="open" value="1" />{/if}
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="links.cat{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="updateparent" value="{UPDATEPARENT}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

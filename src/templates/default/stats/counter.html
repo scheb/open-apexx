@@ -1,0 +1,25 @@
+{*
+
+Template-Funktion: Besucherzähler
+=================================
+
+VISITS_RECORD = Besucherrekord
+VISITS_RECORD_TIME = Zeitpunkt des Besucherrekords (Timestamp)
+VISITS_TOTAL = Besucherzahl gesamt
+VISITS_TODAY = Besucherzahl heute
+VISITS_YESTERDAY = Besucherzahl gestern
+HITS_TOTAL = Klicks gesamt
+HITS_TODAY = Klicks heute
+HITS_YESTERDAY = Klicks gestern
+
+*}
+
+<p align="center">
+{LANG[VISITS_RECORD]}: {VISITS_RECORD}, {DATE('d.m.Y',VISITS_RECORD_TIME)}<br />
+{LANG[VISITS_TOTAL]}: {VISITS_TOTAL}<br />
+{LANG[VISITS_TODAY]}: {VISITS_TODAY}<br />
+{LANG[VISITS_YESTERDAY]}: {VISITS_YESTERDAY}<br />
+{LANG[HITS_TOTAL]}: {HITS_TOTAL}<br />
+{LANG[HITS_TODAY]}: {HITS_TODAY}<br />
+{LANG[HITS_YESTERDAY]}: {HITS_YESTERDAY}
+</p>

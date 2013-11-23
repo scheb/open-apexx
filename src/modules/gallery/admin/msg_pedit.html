@@ -1,0 +1,23 @@
+<table width="100%" style="text-align:left;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[CAPTION]}:</td>
+<td><input type="text" name="caption" value="{CAPTION}" class="input" maxlength="255" style="width:350px;" /></td>
+</tr>
+<tr>
+<td>{LANG[COMMENTS]}</td>
+<td><input type="checkbox" name="allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[RATINGS]}</td>
+<td><input type="checkbox" name="allowrating" value="1"{if ALLOWRATING} checked="checked"{/if} /></td>
+</tr>
+</table>
+<p class="buttons"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_EDIT]}" accesskey="s" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="parent.MessageOverlayManager.closeLayer();" class="button" /></p>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="gid" value="{GID}" />
+<input type="hidden" name="action" value="gallery.pedit" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />

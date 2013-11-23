@@ -1,0 +1,49 @@
+#messagebox {
+	position:absolute;
+	width:600px;
+	top:35%;
+	left:50%;
+	right:50%;
+	margin-left:-300px;
+	text-align:left;
+}
+
+#message_shadow {
+	background:#787878;
+}
+
+#message_text {
+	position:relative;
+	left:-3px;
+	top:-3px;
+	border:1px solid #575757;
+	background:#f2f2f2;
+	text-align:center;
+	padding:10px;
+}
+
+#message_text a:link,
+#message_text a:active, 
+#message_text a:visited {
+	color:#2B2B2B;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+#message_text a:hover {
+	text-decoration:underline;
+}
+
+#message_text .buttons {
+	margin-top:7px;
+}
+
+#message_text small {
+	color:#757575;
+}
+
+#message_redirect {
+	font-weight:bold;
+	font-size:10px;
+	margin:7px 0px 0px 0px;
+}

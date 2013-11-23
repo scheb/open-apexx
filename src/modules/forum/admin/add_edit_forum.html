@@ -1,0 +1,161 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_FORUM_ADD]}{else}{LANG[TITLE_FORUM_EDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" size="60" maxlength="255" style="width:400px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td>{TEXTAREA('description',5,DESCRIPTION,0,0)}</td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+<tr>
+<td>{LANG[STYLESHEET]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="stylesheet" value="{STYLESHEET}" size="60" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[LINK]}:<br /><small>({LANG[OPTIONAL]}, {LANG[LINKINFO]})</small></td>
+<td><input type="text" name="link" value="{LINK}" size="60" maxlength="255" style="width:400px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[MODERATORS]}:<br /><small>({LANG[MODINFO]})</small></td>
+<td style="line-height:20px;">
+<div id="modlist">
+{list MODLIST}
+<p id="mod{MODLIST.USERID}"><input type="button" name="" value="{LANG[CORE_DEL]}" class="button" style="font-size:11px;" onclick="removeMod({MODLIST.USERID});" />&nbsp;&nbsp; <input type="hidden" name="moderator[]" value="{MODLIST.USERID}" />{MODLIST.USERNAME}</p>
+{/list}
+</div>
+<p><a href="javascript:searchuser('username')"><img src="design/add.gif" alt="" /> {LANG[SELECTUSER]}</a></p>
+</td>
+</tr>
+<tr>
+<td>{LANG[PREFIXES]}:<br /><small>({LANG[OPTIONAL]})</small></td>
+<td>
+
+<table width="410" class="clear">
+<colgroup>
+<col width="110" />
+<col width="300" />
+</colgroup>
+<tbody>
+<tr>
+<td><small>{LANG[TITLE]}:</small></td>
+<td><small>{LANG[CODE]}:</small></td>
+</tr>
+</tbody>
+<tbody id="prefixes">
+{PCOUNT=0}{list PREFIX}
+<tr>
+<td><input type="hidden" name="prefix[{PCOUNT}][id]" value="{PREFIX.ID}" /><input type="text" name="prefix[{PCOUNT}][title]" class="input" value="{PREFIX.TITLE}" style="width:100px;" /></td>
+<td><input type="text" name="prefix[{PCOUNT}][code]" class="input code" maxlength="255" value="{PREFIX.CODE}" style="width:300px;" /></td>
+</tr>
+{++PCOUNT}{/list}
+</tbody>
+</table>
+
+<p style="margin-top:3px;"><a href="javascript:addPrefix();"><img src="design/add.gif" alt="{LANG[NEWPREFIX]}" title="{LANG[NEWPREFIX]}" style="vertical-align:middle;" /> {LANG[NEWPREFIX]}</a></p>
+</td>
+</tr>
+</table>
+
+<!-- RECHTE -->
+{include rightmanagement.html}
+<!-- RECHTE -->
+
+<table width="100%" class="table" style="margin-top:10px;">
+<tr class="tableheader"><td>{LANG[OPTIONS]}</td></tr>
+<tr>
+<td>
+<input type="checkbox" name="open" id="ip_open" value="1"{if OPEN} checked="checked"{/if} /><label for="ip_open"> {LANG[OPEN]}</label><br />
+<input type="checkbox" name="searchable" id="ip_searchable" value="1"{if SEARCHABLE} checked="checked"{/if} /><label for="ip_searchable"> {LANG[SEARCHABLE]}</label><br />
+<input type="checkbox" name="countposts" id="ip_countposts" value="1"{if COUNTPOSTS} checked="checked"{/if} /><label for="ip_countposts"> {LANG[COUNTPOSTS]}</label>
+</td>
+</tr>
+</table>
+
+<table width="100%" style="margin-top:10px;">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="parentid" value="{PARENTID}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="forum.{ACTION}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript">
+<!--
+
+var prefixCode1 = '<input type="text" name="prefix[###][title]" class="input" style="width:100px;" />';
+var prefixCode2 = '<input type="text" name="prefix[###][code]" class="input code" maxlength="255" style="width:300px;" />';
+var prefixId = {PCOUNT};
+
+
+function addPrefix() {
+	var container = yDom.get('prefixes');
+	var tr = document.createElement('tr');
+	var td1 = document.createElement('td');
+	var td2 = document.createElement('td');
+	tr.appendChild(td1);
+	tr.appendChild(td2);
+	td1.innerHTML = prefixCode1.replace(/###/g, prefixId);
+	td2.innerHTML = prefixCode2.replace(/###/g, prefixId);
+	container.appendChild(tr); 
+	++prefixId;
+}
+
+{if PCOUNT==0}addPrefix();{/if}
+
+
+function update_rights(boxvalue) {
+	if ( boxvalue==true ) {
+		getobject('rights').style.display='none';
+	}
+	else {
+		getobject('rights').style.display='';
+	}
+}
+
+function searchuser() {
+	window.open('action.php?action=forum.searchuser&insertfunc=insert_username','searchuser','toolbar=no,resizable=yes,scrollbars=yes,width=400,height=250');
+}
+
+function insert_username(id,name) {
+	addMod(id, name);
+}
+
+function removeMod(id) {
+	var p = yDom.get('mod'+id);
+	if ( p ) {
+		p.parentNode.removeChild(p);
+	}
+}
+
+function addMod(id, name) {
+	
+	//Prüfen, ob existiert
+	var exists = yDom.get('mod'+id);
+	if ( exists ) return;
+	
+	//Eintrag einfügen
+	var p = document.createElement('p');
+	p.id = 'mod'+id;
+	p.innerHTML = '<input type="button" name="" value="{LANG[CORE_DEL]}" class="button" style="font-size:11px;" onclick="removeMod('+id+');" />&nbsp;&nbsp; <input type="hidden" name="moderator[]" value="'+id+'" />'+name;
+	yDom.get('modlist').appendChild(p);
+}
+
+function getModByUsername(username) {
+	alert(username);
+}
+
+//-->
+</script>

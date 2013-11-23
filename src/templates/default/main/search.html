@@ -1,0 +1,60 @@
+{*
+
+Globale Suche
+=============
+
+MODULE = Liste der durchsuchten Module und Ergebnisse
+MODULE.TITLE = Titel des Moduls
+MODULE.RESULT = Liste der Ergebnisse
+MODULE.RESULT.TITLE = Bezeichnung des gefundenen Elements
+MODULE.RESULT.LINK = Link zu Element
+
+POSTTO = Formular senden an...
+ITEM = Suchbegriff(e)
+CONN = Verbindung (and/or)
+
+POSSIBLE = Liste der durchsuchbaren Module
+POSSIBLE.ID = Modul-ID
+POSSIBLE.TITLE = Modul-Titel
+POSSIBLE.CHECKED = Modul ist ausgewählt?
+
+*}
+
+{* Ergebnisse auflisten *}
+{list MODULE}
+<p><b>{MODULE.TITLE}</b>
+<span class="small">{list MODULE.RESULT}<br />&raquo; <a href="{MODULE.RESULT.LINK}" target="_blank">{MODULE.RESULT.TITLE}</a>{/list}
+{if !MODULE.RESULT}<br />{LANG[NONE]}{/if}
+</span></p>
+{/list}
+
+{* Such-Formular *}
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[SEARCHWEBSITE]}</td></tr>
+<tr>
+<td class="color">{LANG[TERM]}:</td>
+<td class="color"><input type="text" name="item" value="{ITEM}" class="input" size="80" /></td>
+</tr>
+<tr>
+<td class="color">{LANG[CONN]}:</td>
+<td class="color"><input type="radio" name="conn" value="and"{if CONN=='and'} checked="checked"{/if} /> {LANG[CONNAND]} &nbsp; <input type="radio" name="conn" value="or"{if CONN=='or'} checked="checked"{/if} /> {LANG[CONNOR]}</td>
+</tr>
+<tr>
+<td class="color">{LANG[SEARCHIN]}:</td>
+<td class="color">
+{list POSSIBLE}<input type="checkbox" name="searchin[{POSSIBLE.ID}]" value="1"{if POSSIBLE.CHECKED} checked="checked"{/if} /> {POSSIBLE.TITLE}<br />{/list}
+</td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="submit" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="send" value="1" />
+</form>
+
+<p style="margin-bottom:5px;"><strong>{LANG[LAST_SEARCHES]}:</strong></p>
+<div class="tags">
+{list LASTSEARCH} <a href="{LASTSEARCH.LINK}" style="{TAGSIZE=50+50*LASTSEARCH.WEIGHT}font-size:{TAGSIZE}%;">{LASTSEARCH.ITEM}</a>{/list}</div>

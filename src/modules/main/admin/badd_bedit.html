@@ -1,0 +1,23 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[HEADLINE_ADD]}{else}{LANG[HEADLINE_EDIT]}{/if}</td></tr>
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[FIND]}:</td>
+<td><input type="text" name="find" value="{FIND}" class="input" size="80" maxlength="50" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[REPLACE]}:</td>
+<td><input type="text" name="replace" value="{REPLACE}" class="input" size="80" maxlength="50" style="width:400px;" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="main.bshow" />
+<input type="hidden" name="do" value="{ACTION}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

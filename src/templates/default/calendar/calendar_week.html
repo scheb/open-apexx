@@ -1,0 +1,178 @@
+{*
+
+Kalender: Wochenansicht
+=======================
+
+MODE = Aktueller Modus (public = öffentlich, private = privat)
+SELECTED_WEEK = Gewählte Woche (1-53)
+SELECTED_YEAR = Gewähltes Jahr
+
+
+Navigation
+----------
+TIME_PREVIOUSMONTH = Erster Tag des vorherigen Monats (Timestamp)
+TIME_THISMONTH = Erster Tag des gewählten Monats (Timestamp)
+TIME_NEXTMONTH = Erster Tag des nächsten Monats (Timestamp)
+LINK_PREVIOUSMONTH = Link: vorheriger Monat
+LINK_NEXTMONTH = Link: nächster Monat
+LINK_SHOWTODAY = Link: In die aktuelle Tagesansicht wechseln
+LINK_SHOWWEEK = Link: In die Wochenansicht wechseln
+LINK_SHOWMONTH = Link: In die Monatsansicht wechseln
+LINK_SHOWYEAR = Link: In die Jahresansicht wechseln
+LINK_SHOWPRIVATE = Link: In den privaten Modus wechseln
+LINK_SHOWPUBLIC = Link: In den öffentlichen Modus wechseln
+
+
+Tage der gewählten Woche
+------------------------
+DAY = Liste der Tage dieser Woche
+DAY.LINK = Link zur Tages-Detailansicht
+DAY.LINK_ADDEVENT = Link: Neuen Termin hinzufügen (nur wenn angemeldet)
+DAY.TIME = Dieser Tages (Timestamp), Datum ausgeben mit {DATE('d.m.Y',DAY.TIME)}
+DAY.TODAY = Entspricht dieser Tag dem heutigen?
+DAY.NEWMONTH = Hat ein neuer Monat begonnen?
+DAY.BIRTHDAY_COUNT = Anzahl der Geburtstage an diesem Tag
+DAY.EVENT_COUNT = Anzahl der Termine an diesem Tag
+
+
+Geburtstage
+-----------
+DAY.BIRTHDAY = Liste der Geburtstage
+DAY.BIRTHDAY.USERID = Benutzer-ID
+DAY.BIRTHDAY.USERNAME = Benutzername
+DAY.BIRTHDAY.AGE = Alter (wenn Jahrgang angegeben)
+
+
+Termine
+-------
+DAY.EVENT = Liste der Termine
+DAY.EVENT.ID = ID
+DAY.EVENT.LINK = Link zur Detailansicht
+DAY.EVENT.TITLE = Titel
+DAY.EVENT.TEXT = Informations-Text
+DAY.EVENT.LOCATION = Ort der Veranstaltung
+DAY.EVENT.LOCATION_LINK = Link zum Ort
+DAY.EVENT.PICTURE = Aufmacher-Bild
+DAY.EVENT.PICTURE_POPUP = Link: Großansicht des Aufmacher-Bilds
+DAY.EVENT.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+DAY.EVENT.USERID = Benutzer-ID des Autors
+DAY.EVENT.USERNAME = Benutzername des Autors
+DAY.EVENT.CATID = Kategorie-ID
+DAY.EVENT.CATTITLE = Kategorie-Titel
+DAY.EVENT.CATICON = Pfad zum Kategorie-Symbol
+DAY.EVENT.HITS = Klicks
+DAY.EVENT.PRIORITY = Priorität (1=hoch, 2=normal, 3=niedrig)
+DAY.EVENT.RESTRICTED = Altersabfrage aktiviert?
+DAY.EVENT.STARTDAY = Beginn dieses Termins. Ausgabe des Datums mit {DATE('d.m.Y',DAY.EVENT.STARTDAY)}
+DAY.EVENT.STARTTIME = Hat einen Wert, wenn eine konkrete Zeit angegeben wurde. Ausgabe mit {DATE('H:i',DAY.EVENT.STARTTIME)}
+DAY.EVENT.ENDDAY = Hat einen Wert, wenn der Termin mehrtägig ist. Gibt den letzten Tag des Termins an. Ausgabe mit {DATE('d.m.Y',DAY.EVENT.ENDDAY)}
+DAY.EVENT.ENDTIME = Hat einen Wert, wenn der Termin mehrtägig ist und zu einem bestimmten Zeitpunkt endet. Ausgabe mit {DATE('H:i',DAY.EVENT.ENDTIME)}
+
+DAY.EVENT.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+DAY.EVENT.TAG = Liste aller Tags
+DAY.EVENT.TAG.ID = ID des Tags
+DAY.EVENT.TAG.NAME = Darstellbarer Name des Tags
+DAY.EVENT.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+Angehängte Links
+----------------
+DAY.EVENT.RELATED = Liste der "Links zu dieser News"
+DAY.EVENT.RELATED.TITLE = Vorangestellte Linkbezeichnung
+DAY.EVENT.RELATED.TEXT = Verlinkter Text
+DAY.EVENT.RELATED.URL = URL
+DAY.EVENT.RELATED.POPUP = Neues Fenster öffnen?
+
+*}
+
+<style type="text/css">
+<!--
+
+.thisweek {
+	font-size:18px;
+	font-weight:bold;
+}
+
+.week td {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+	vertical-align:top;
+}
+
+.week .monthhead {
+	font-weight:bold;
+	color:#f2f2f2;
+	border:1px solid #C2C2C2;
+	border-bottom:1px solid #B3B3B3;
+	background:#C2C2C2 url('design/header1.gif') bottom;
+}
+
+.week .day {
+	font-size:10px;
+	color:#848484;
+	text-align:center;
+}
+
+.week .addevent {
+	float:right;
+}
+
+.week .today {
+	font-size:10px;
+	color:#848484;
+	border:2px outset #B0B0B0;
+	background:#FFFFFF;
+	text-align:center;
+}
+
+.week .today a,
+.week .day a {
+	font-weight:bold;
+	font-size:20px;
+	color:#2B2B2B;
+}
+
+-->
+</style>
+
+<table width="100%">
+<tr>
+<td width="20%" align="left">{if LINK_PREVIOUSWEEK}<a href="{LINK_PREVIOUSWEEK}">&laquo; {DATE('W',TIME_PREVIOUSWEEK)}. KW {DATE('Y',TIME_PREVIOUSWEEK)}</a>{/if}</td>
+<td width="60%" align="center" class="thisweek">{DATE('W',TIME_THISWEEK)}. {LANG[CALWEEK]} {DATE('Y',TIME_THISWEEK)}</td>
+<td width="20%" align="right">{if LINK_NEXTWEEK}<a href="{LINK_NEXTWEEK}">{DATE('W',TIME_NEXTWEEK)}. KW {DATE('Y',TIME_NEXTWEEK)} &raquo;</a>{/if}</td>
+</tr>
+</table>
+
+&nbsp;
+
+<table width="100%" class="week">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+{list DAY}
+{if DAY.NEWMONTH}<tr><td class="monthhead" colspan="2">{DATE('F Y',DAY.TIME)}</td></tr>{/if}
+<tr>
+<td class="{if DAY.TODAY}today{else}day{/if}"><a href="{DAY.LINK}">{DATE('d',DAY.TIME)}</a><br />{DATE('l',DAY.TIME)}</td>
+<td>
+{if DAY.LINK_ADDEVENT}<div class="addevent"><a href="{DAY.LINK_ADDEVENT}"><img src="modules/calendar/images/addevent.gif" alt="{LANG[ADDEVENT]}" title="{LANG[ADDEVENT]}" /></a></div>{/if}
+{list DAY.EVENT}<a href="{DAY.EVENT.LINK}">{DAY.EVENT.TITLE}</a>{if DAY.EVENT.STARTTIME && DAY.EVENT.STARTDAY==DAY.TIME} ({DATE('H:i',DAY.EVENT.STARTTIME)} {LANG[CORE_OCLOCK]}){/if}<br />{/list}
+{if DAY.BIRTHDAY}{BCOUNT=0}{LANG[BIRTHDAYS]}: {list DAY.BIRTHDAY}{++BCOUNT}{if BCOUNT>1}, {/if}<a href="{PROFILE(DAY.BIRTHDAY.USERID)}">{DAY.BIRTHDAY.USERNAME}</a> {if DAY.BIRTHDAY.AGE}({DAY.BIRTHDAY.AGE}){/if}{/list}{/if}
+</td>
+</tr>
+{/list}
+</table>
+
+&nbsp;
+
+<div style="text-align:right;">
+
+{* Moduswechsel nur wenn angemeldet *}
+{if LOGGED_ID}{LANG[SWITCHMODE]}: {if MODE=='public'}<a href="{LINK_SHOWPRIVATE}">{LANG[MODE_PRIVATE]}</a>{else}<a href="{LINK_SHOWPUBLIC}">{LANG[MODE_PUBLIC]}</a>{/if}<br />{/if}
+
+{* Ansichtwechsel *}
+<a href="{LINK_SHOWTODAY}">{LANG[TODAY]}</a> | 
+<a href="{LINK_SHOWMONTH}">{LANG[SHOWMONTH]}</a> |
+<a href="{LINK_SHOWYEAR}">{LANG[SHOWYEAR]}</a>
+
+</div>

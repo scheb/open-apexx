@@ -1,0 +1,19 @@
+{if INFO}<p class="info">{INFO}</p>{/if}
+<table width="100%" style="text-align:left;">
+<colgroup>
+<col width="150" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[FILENAME]}:</td>
+<td><input type="text" name="filename" value="{FILENAME}" size="50" class="input" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[DESTINATION]}:</td>
+<td><select name="dir">{DIRLIST}</select></td>
+</tr>
+</table>
+<p class="buttons"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="parent.MessageOverlayManager.closeLayer();" class="button" /></p>
+<input type="hidden" name="file" value="{FILE}" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />

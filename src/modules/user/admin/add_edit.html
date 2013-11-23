@@ -1,0 +1,381 @@
+<form action="action.php?action=user.{ACTION}" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr><td colspan="2" class="tableheader">{LANG[ACCOUNT]}</td></tr>
+<tr>
+<td>{LANG[USERNAME_LOGIN]}:</td>
+<td><input type="text" name="username_login" value="{USERNAME_LOGIN}" class="input" size="30" maxlength="50" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td><input type="text" name="username" value="{USERNAME}" class="input" size="30" maxlength="50" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>{LANG[PWD]}:</td>
+<td><input type="password" name="pwd1" value="" class="input" size="30" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>{LANG[PWD]}: <small>({LANG[REPEAT]})</small></td>
+<td><input type="password" name="pwd2" value="" class="input" size="30" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" value="{EMAIL}" class="input" size="30" maxlength="255" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>{LANG[GROUP]}:</td>
+<td><select name="groupid">{GROUP}</select></td>
+</tr>
+<tr>
+<td>{LANG[ACTIVE]}:</td>
+<td><input type="checkbox" name="active" value="1"{if ACTIVE} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[REGKEY]}:</td>
+<td><input type="text" name="reg_key" value="{REG_KEY}" class="input" size="15" maxlength="30" style="width:200px;" /></td>
+</tr>
+</table>
+
+<h2 style="margin:15px 0 10px 0;">{LANG[ADDNL]}</h2>
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr><td colspan="2" class="tableheader">{LANG[CONTACT]}</td></tr>
+<tr>
+<td>{LANG[HOMEPAGE]}:</td>
+<td><input type="text" name="homepage" value="{HOMEPAGE}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>ICQ:</td>
+<td><input type="text" name="icq" value="{if ICQ}{ICQ}{/if}" class="input" size="30" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>AIM:</td>
+<td><input type="text" name="aim" value="{AIM}" class="input" size="30" maxlength="255" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>YIM:</td>
+<td><input type="text" name="yim" value="{YIM}" class="input" size="30" maxlength="255" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>MSN:</td>
+<td><input type="text" name="msn" value="{MSN}" class="input" size="30" maxlength="255" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>Skype:</td>
+<td><input type="text" name="skype" value="{SKYPE}" class="input" size="30" maxlength="255" style="width:200px;" /></td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin-top:15px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr><td colspan="2" class="tableheader">{LANG[PERS]}</td></tr>
+<tr>
+<td>{LANG[REALNAME]}:</td>
+<td><input type="text" name="realname" value="{REALNAME}" class="input" size="40" maxlength="255" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>{LANG[GENDER]}:</td>
+<td>
+<input type="radio" name="gender" id="ip_gender_0" value="0"{if !GENDER} checked="checked"{/if} /> <label for="ip_gender_0">{LANG[SECRET]}</label>&nbsp;&nbsp;&nbsp;
+<input type="radio" name="gender" id="ip_gender_1" value="1"{if GENDER==1} checked="checked"{/if} /> <label for="ip_gender_1">{LANG[MALE]}</label>&nbsp;&nbsp;&nbsp;
+<input type="radio" name="gender" id="ip_gender_2" value="2"{if GENDER==2} checked="checked"{/if} /> <label for="ip_gender_2">{LANG[FEMALE]}</label>
+</td>
+</tr>
+<tr>
+<td>{LANG[BDAY]}:</td>
+<td>
+<select name="bd_day">
+<option value=""></option>
+<option value="1"{if BD_DAY==1} selected="selected"{/if}>01</option>
+<option value="2"{if BD_DAY==2} selected="selected"{/if}>02</option>
+<option value="3"{if BD_DAY==3} selected="selected"{/if}>03</option>
+<option value="4"{if BD_DAY==4} selected="selected"{/if}>04</option>
+<option value="5"{if BD_DAY==5} selected="selected"{/if}>05</option>
+<option value="6"{if BD_DAY==6} selected="selected"{/if}>06</option>
+<option value="7"{if BD_DAY==7} selected="selected"{/if}>07</option>
+<option value="8"{if BD_DAY==8} selected="selected"{/if}>08</option>
+<option value="9"{if BD_DAY==9} selected="selected"{/if}>09</option>
+<option value="10"{if BD_DAY==10} selected="selected"{/if}>10</option>
+<option value="11"{if BD_DAY==11} selected="selected"{/if}>11</option>
+<option value="12"{if BD_DAY==12} selected="selected"{/if}>12</option>
+<option value="13"{if BD_DAY==13} selected="selected"{/if}>13</option>
+<option value="14"{if BD_DAY==14} selected="selected"{/if}>14</option>
+<option value="15"{if BD_DAY==15} selected="selected"{/if}>15</option>
+<option value="16"{if BD_DAY==16} selected="selected"{/if}>16</option>
+<option value="17"{if BD_DAY==17} selected="selected"{/if}>17</option>
+<option value="18"{if BD_DAY==18} selected="selected"{/if}>18</option>
+<option value="19"{if BD_DAY==19} selected="selected"{/if}>19</option>
+<option value="20"{if BD_DAY==20} selected="selected"{/if}>20</option>
+<option value="21"{if BD_DAY==21} selected="selected"{/if}>21</option>
+<option value="22"{if BD_DAY==22} selected="selected"{/if}>22</option>
+<option value="23"{if BD_DAY==23} selected="selected"{/if}>23</option>
+<option value="24"{if BD_DAY==24} selected="selected"{/if}>24</option>
+<option value="25"{if BD_DAY==25} selected="selected"{/if}>25</option>
+<option value="26"{if BD_DAY==26} selected="selected"{/if}>26</option>
+<option value="27"{if BD_DAY==27} selected="selected"{/if}>27</option>
+<option value="28"{if BD_DAY==28} selected="selected"{/if}>28</option>
+<option value="29"{if BD_DAY==29} selected="selected"{/if}>29</option>
+<option value="30"{if BD_DAY==30} selected="selected"{/if}>30</option>
+<option value="31"{if BD_DAY==31} selected="selected"{/if}>31</option>
+</select>.<select name="bd_mon">
+<option value=""></option>
+<option value="1"{if BD_MON==1} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if BD_MON==2} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if BD_MON==3} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if BD_MON==4} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if BD_MON==5} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if BD_MON==6} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if BD_MON==7} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if BD_MON==8} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if BD_MON==9} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if BD_MON==10} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if BD_MON==11} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if BD_MON==12} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select> <input type="text" name="bd_year" value="{if BD_YEAR}{BD_YEAR}{/if}" size="4" maxlength="4" class="input" style="width:50px;" />
+</td>
+</tr>
+<tr>
+<td>PLZ:</td>
+<td><input type="text" name="plz" value="{PLZ}" class="input" size="10" maxlength="5" /></td>
+</tr>
+<tr>
+<td>{LANG[CITY]}:</td>
+<td><input type="text" name="city" value="{CITY}" class="input" size="30" /></td>
+</tr>
+<tr>
+<td>{LANG[COUNTRY]}:</td>
+<td><select name="country">
+<option value=""></option>
+<option value="AL"{if COUNTRY=="AL"} selected="selected"{/if}>Albanien</option>
+<option value="AL"{if COUNTRY=="AL"} selected="selected"{/if}>Albanien</option>
+<option value="AD"{if COUNTRY=="AD"} selected="selected"{/if}>Andorra</option>
+<option value="BE"{if COUNTRY=="BE"} selected="selected"{/if}>Belgien</option>
+<option value="BA"{if COUNTRY=="BA"} selected="selected"{/if}>Bosnien-Herzegowina</option>
+<option value="BG"{if COUNTRY=="BG"} selected="selected"{/if}>Bulgarien</option>
+<option value="DK"{if COUNTRY=="DK"} selected="selected"{/if}>Dänemark</option>
+<option value="DE"{if COUNTRY=="DE"} selected="selected"{/if}>Deutschland</option>
+<option value="EE"{if COUNTRY=="EE"} selected="selected"{/if}>Estland</option>
+<option value="FI"{if COUNTRY=="FI"} selected="selected"{/if}>Finnland</option>
+<option value="FR"{if COUNTRY=="FR"} selected="selected"{/if}>Frankreich</option>
+<option value="GR"{if COUNTRY=="GR"} selected="selected"{/if}>Griechenland</option>
+<option value="IE"{if COUNTRY=="IE"} selected="selected"{/if}>Irland</option>
+<option value="IS"{if COUNTRY=="IS"} selected="selected"{/if}>Island</option>
+<option value="IT"{if COUNTRY=="IT"} selected="selected"{/if}>Italien</option>
+<option value="HR"{if COUNTRY=="HR"} selected="selected"{/if}>Kroatien</option>
+<option value="LV"{if COUNTRY=="LV"} selected="selected"{/if}>Lettland</option>
+<option value="LI"{if COUNTRY=="LI"} selected="selected"{/if}>Liechtenstein</option>
+<option value="LT"{if COUNTRY=="LT"} selected="selected"{/if}>Litauen</option>
+<option value="LU"{if COUNTRY=="LU"} selected="selected"{/if}>Luxemburg</option>
+<option value="MK"{if COUNTRY=="MK"} selected="selected"{/if}>Makedonien</option>
+<option value="MT"{if COUNTRY=="MT"} selected="selected"{/if}>Malta</option>
+<option value="MD"{if COUNTRY=="MD"} selected="selected"{/if}>Moldavien</option>
+<option value="MC"{if COUNTRY=="MC"} selected="selected"{/if}>Monaco</option>
+<option value="NL"{if COUNTRY=="NL"} selected="selected"{/if}>Niederlande</option>
+<option value="NO"{if COUNTRY=="NO"} selected="selected"{/if}>Norwegen</option>
+<option value="AT"{if COUNTRY=="AT"} selected="selected"{/if}>Österreich</option>
+<option value="PL"{if COUNTRY=="PL"} selected="selected"{/if}>Polen</option>
+<option value="PT"{if COUNTRY=="PT"} selected="selected"{/if}>Portugal</option>
+<option value="RO"{if COUNTRY=="RO"} selected="selected"{/if}>Rumänien</option>
+<option value="SM"{if COUNTRY=="SM"} selected="selected"{/if}>San Marino</option>
+<option value="SE"{if COUNTRY=="SE"} selected="selected"{/if}>Schweden</option>
+<option value="CH"{if COUNTRY=="CH"} selected="selected"{/if}>Schweiz</option>
+<option value="SK"{if COUNTRY=="SK"} selected="selected"{/if}>Slowakei</option>
+<option value="SI"{if COUNTRY=="SI"} selected="selected"{/if}>Slowenien</option>
+<option value="ES"{if COUNTRY=="ES"} selected="selected"{/if}>Spanien</option>
+<option value="CZ"{if COUNTRY=="CZ"} selected="selected"{/if}>Tschechien</option>
+<option value="UA"{if COUNTRY=="UA"} selected="selected"{/if}>Ukraine</option>
+<option value="HU"{if COUNTRY=="HU"} selected="selected"{/if}>Ungarn</option>
+<option value="GB"{if COUNTRY=="GB"} selected="selected"{/if}>Vereintes Königreich</option>
+<option value="BY"{if COUNTRY=="BY"} selected="selected"{/if}>Weißrussland</option>
+</select></td>
+</tr>
+<tr>
+<td>{LANG[INTERESTS]}:</td>
+<td><input type="text" name="interests" value="{INTERESTS}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[WORK]}:</td>
+<td><input type="text" name="work" value="{WORK}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>
+</table>
+
+{if CUSFIELD1_NAME}
+<table width="100%" class="table" style="margin-top:15px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr><td colspan="2" class="tableheader">{LANG[CUSTOM]}</td></tr>
+<tr>
+<td>{CUSFIELD1_NAME}:</td>
+<td><input type="text" name="custom1" value="{CUSTOM1}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD2_NAME}<tr>
+<td>{CUSFIELD2_NAME}:</td>
+<td><input type="text" name="custom2" value="{CUSTOM2}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD3_NAME}<tr>
+<td>{CUSFIELD3_NAME}:</td>
+<td><input type="text" name="custom3" value="{CUSTOM3}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD4_NAME}<tr>
+<td>{CUSFIELD4_NAME}:</td>
+<td><input type="text" name="custom4" value="{CUSTOM4}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD5_NAME}<tr>
+<td>{CUSFIELD5_NAME}:</td>
+<td><input type="text" name="custom5" value="{CUSTOM5}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD6_NAME}<tr>
+<td>{CUSFIELD6_NAME}:</td>
+<td><input type="text" name="custom6" value="{CUSTOM6}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD7_NAME}<tr>
+<td>{CUSFIELD7_NAME}:</td>
+<td><input type="text" name="custom7" value="{CUSTOM7}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD8_NAME}<tr>
+<td>{CUSFIELD8_NAME}:</td>
+<td><input type="text" name="custom8" value="{CUSTOM8}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD9_NAME}<tr>
+<td>{CUSFIELD9_NAME}:</td>
+<td><input type="text" name="custom9" value="{CUSTOM9}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD10_NAME}<tr>
+<td>{CUSFIELD10_NAME}:</td>
+<td><input type="text" name="custom10" value="{CUSTOM10}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+</table>
+
+<table width="100%" class="table" style="margin-top:15px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr><td colspan="2" class="tableheader">{LANG[PUBLICOPTIONS]}</td></tr>
+<tr>
+<td>{LANG[SIGNATURE]}:</td>
+<td>
+<textarea name="signature" id="signature" cols="80" rows="8" class="input" style="width:98%;" onChange="sig_maxlen(this);" onFocus="sig_maxlen(this);" onKeyDown="sig_maxlen(this);" onKeyUp="sig_maxlen(this);">{SIGNATURE}</textarea>
+<small id="sig_info"></small>
+</td>
+</tr>
+{if AVATAR}<tr>
+<td>{LANG[AVATAR]}:</td>
+<td><img src="{AVATAR_PATH}" alt="" style="vertical-align:middle;" /> <input type="checkbox" name="delavatar" value="1"{if DELAVATAR} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[DELAVATAR]}<br /><input type="text" name="avatar_title" value="{AVATAR_TITLE}" class="input" style="width:200px;" /><input type="hidden" name="avatar" value="{AVATAR}" />
+</td>
+</tr>{/if}
+<tr>
+<td>{LANG[INVISIBLE]}</td>
+<td><input type="checkbox" name="pub_invisible" value="1"{if PUB_INVISIBLE} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[HIDEMAIL]}</td>
+<td><input type="checkbox" name="pub_hidemail" value="1"{if PUB_HIDEMAIL} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[PROFILEFORFRIENDS]}?</td>
+<td><input type="checkbox" name="pub_profileforfriends" value="1"{if PUB_PROFILEFORFRIENDS} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[POPPM]}</td>
+<td><input type="checkbox" name="pub_poppm" value="1"{if PUB_POPPM} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[SHOWBUDDIES]}?</td>
+<td><input type="checkbox" name="pub_showbuddies" value="1"{if PUB_SHOWBUDDIES} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[USEGB]}?</td>
+<td><select name="pub_usegb">
+<option value="0"{if PUB_USEGB==0} selected="selected"{/if}>{LANG[GBDISABLED]}</option>
+<option value="1"{if PUB_USEGB==1} selected="selected"{/if}>{LANG[GBENABLED]}</option>
+<option value="2"{if PUB_USEGB==2} selected="selected"{/if}>{LANG[GBFRIENDS]}</option>
+</select></td>
+</tr>
+<tr>
+<td>{LANG[GBMAIL]}?</td>
+<td><input type="checkbox" name="pub_gbmail" value="1"{if PUB_GBMAIL} checked="checked"{/if} /></td>
+</tr>
+{if MODULE_FORUM}
+<tr>
+<td>{LANG[AUTOSUBSCRIBE]}?</td>
+<td><input type="checkbox" name="forum_autosubscribe" value="1"{if FORUM_AUTOSUBSCRIBE} checked="checked"{/if} /></td>
+</tr>
+{/if}
+<tr>
+<td>{LANG[LANG]}:</td>
+<td><select name="pub_lang"><option value="">{LANG[USEDEFAULT]}</option>{PUB_LANG}</select></td>
+</tr>
+<tr>
+<td>{LANG[THEME]}:</td>
+<td><select name="pub_theme"><option value="">{LANG[USEDEFAULT]}</option>{PUB_THEME}</select></td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin-top:15px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr><td colspan="2" class="tableheader">{LANG[ADMINOPTIONS]}</td></tr>
+<tr>
+<td>{LANG[EDITOR]}</td>
+<td><input type="checkbox" name="admin_editor" value="1"{if ADMIN_EDITOR} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[LANG]}:</td>
+<td><select name="admin_lang"><option value="">{LANG[USEDEFAULT]}</option>{ADMIN_LANG}</select></td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin-top:10px;">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+<input type="hidden" name="send" value="1" />
+</form>
+
+<script type="text/javascript" src="../lib/yui/calendar/calendar-min.js"></script>
+<script type="text/javascript" src="../lib/yui/container/container_core-min.js"></script>
+<script type="text/javascript" src="../lib/yui/element/element-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/calendarselection.js"></script>
+<script language="JavaScript">
+
+var maxlen={MAXLEN};
+var lang_charsleft='{LANG[CHARSLEFT]}';
+
+function sig_maxlen(obj) {
+	strlen=obj.value.length
+	
+	if( strlen > maxlen ) {
+		obj.value=obj.value.substring(0,maxlen)
+		charsleft=0
+	}
+	else {
+		charsleft=maxlen-strlen;
+	}
+	
+	yDom.get('sig_info').innerHTML = lang_charsleft+': '+charsleft;
+}
+
+sig_maxlen(getobject('signature'));
+
+yEvent.onDOMReady(function() {
+	var form = document.forms[0];
+	new CalendarSelection({day: form.bd_day, month: form.bd_mon, year: form.bd_year}, 'bd');
+});
+
+</script>

@@ -1,0 +1,353 @@
+{*
+
+Produkte-Liste
+==============
+
+LINK_SHOWALL = Link: Alle Produkte zeigen
+LINK_SHOWNORMAL = Link: Produkte vom Typ "Allgemein" zeigen
+LINK_SHOWGAME = Link: Produkte vom Typ "Videospiel" zeigen
+LINK_SHOWSOFTWARE = Link: Produkte vom Typ "Software" zeigen
+LINK_SHOWHARDWARE = Link: Produkte vom Typ "Hardware" zeigen
+LINK_SHOWMUSIC = Link: Produkte vom Typ "Musik" zeigen
+LINK_SHOWMOVIE = Link: Produkte vom Typ "Film" zeigen
+LINK_SHOWBOOK = Link: Produkte vom Typ "Literatur" zeigen
+TYPE = Aktuell gewählter Typ ("normal", "game", "music", "movie", "book", "software", "hardware" oder nichts)
+
+
+Produkte
+--------
+PRODUCT = Liste der Spiele
+PRODUCT.ID = ID
+PRODUCT.TITLE = Spiel-Titel
+PRODUCT.LINK = Link zur Detailseite
+PRODUCT.TYPE = Produkttyp (normal, game, music, movie, book, software, hardware)
+PRODUCT.TEXT = Beschreibung
+PRODUCT.TIME = Zeitpunkt der Erstellung (Timestamp)
+PRODUCT.HITS = Anzahl Klicks
+PRODUCT.PICTURE = Produkt-Bild
+PRODUCT.PICTURE_POPUP = Link: Popup zur Großansicht des Produktbilds
+PRODUCT.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+PRODUCT.TEASERPIC = Teaser-Bild
+PRODUCT.TEASERPIC_POPUP = Link: Popup zur Großansicht des Teaserbilds
+PRODUCT.TEASERPIC_POPUPPATH = Pfad zur großen Version des Bilds
+PRODUCT.WEBSITE = Website
+PRODUCT.BUYLINK = "Kaufen"-Link
+PRODUCT.PRICE = Preis
+PRODUCT.RECOMMENDED_PRICE = Unverbindliche Preisempfehlung
+PRODUCT.GUARANTEE = Garantiedauer
+PRODUCT.PRODUCT_ID = ID des verknüpften Produkts (nicht die ID des Produkts selbst!)
+
+PRODUCT.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+PRODUCT.TAG = Liste aller Tags
+PRODUCT.TAG.ID = ID des Tags
+PRODUCT.TAG.NAME = Darstellbarer Name des Tags
+PRODUCT.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Meine Sammlung (nur für registrierte Benutzer)
+----------------------------------------------
+PRODUCT.LINK_COLLECTION_ADD = Link: zu meiner Sammlung hinzufügen (wenn noch nicht in der Sammlung)
+PRODUCT.LINK_COLLECTION_REMOVE = Link: aus meiner Sammlung entfernen (wenn bereits in der Sammlung)
+
+
+Veröffentlichung
+----------------
+Das Veröffentlichungs-Datum ist in Form einer Liste aufgebaut. In der Regel hat diese
+Liste jedoch nur einen Eintrag. Nur bei Videospielen kann es aufgrund der verschiedenen
+Systeme mehrere Release-Daten geben.
+PRODUCT.RELEASE = Liste der Release-Daten
+PRODUCT.RELEASE.SYSTEM = Titel des Systems (nur beim Typ "Videospiel")
+PRODUCT.RELEASE.SYSTEM_ICON = Pfad zum System-Symbol (nur beim Typ "Videospiel")
+PRODUCT.RELEASE.MEDIA = Titel des Systems (nur beim Typ "Film")
+PRODUCT.RELEASE.MEDIA_ICON = Pfad zum System-Symbol (nur beim Typ "Film")
+PRODUCT.RELEASE.DATE = Release-Datum
+
+
+Benuterdefinierte Felder
+------------------------
+PRODUCT.CUSTOM1_NAME -> PRODUCT.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+PRODUCT.CUSTOM1 -> PRODUCT.CUSTOM10 = Wert des Eingabefelds
+
+
+Platzhalter des Typs "Allgemein" (TYPE = normal)
+------------------------------------------------
+PRODUCT.MANUFACTURER = Hersteller Name
+PRODUCT.MANUFACTURER_WEBSITE = Webseite des Herstellers
+PRODUCT.MANUFACTURER_LINK = Link zur Herstellerseite
+
+
+Platzhalter des Typs "Videospiel" (TYPE = game)
+-----------------------------------------------
+PRODUCT.DEVELOPER = Entwickler Name
+PRODUCT.DEVELOPER_WEBSITE = Webseite des Entwicklers
+PRODUCT.DEVELOPER_LINK = Link zur Herstellerseite
+PRODUCT.PUBLISHER = Verlag Name
+PRODUCT.PUBLISHER_WEBSITE = Webseite des Verlags
+PRODUCT.PUBLISHER_LINK = Link zur Herstellerseite
+PRODUCT.GENRE = Genre
+PRODUCT.MEDIA = Liste der Medienformate des Produkts
+PRODUCT.MEDIA.TITLE = Titel des Medienformats
+PRODUCT.MEDIA.ICON = Pfad zum Medium-Symbol
+PRODUCT.SYSTEM = Liste der Systeme, für die dieses Spiel erscheint
+PRODUCT.SYSTEM.TITLE = Titel des Systems
+PRODUCT.SYSTEM.ICON = Pfad zum System-Icon
+PRODUCT.USK = Usk-Bewertung, Variable ist leer oder hat einen der Werte:
+      'all' (freigegeben für Alle)
+			'6' (ab 6 Jahren)
+			'12' (ab 12 Jahren)
+			'16' (ab 16 Jahren)
+			'18' (ab 18 Jahren bzw. keine Jugendfreigabe)
+			'none' (Indiziert)
+      => IF verwenden z.B: {if USK=='18'}keine Jugendfreigabe{/if}
+
+
+Platzhalter des Typs "Software" (TYPE = software)
+-------------------------------------------------
+PRODUCT.MANUFACTURER = Hersteller Name
+PRODUCT.MANUFACTURER_WEBSITE = Webseite des Herstellers
+PRODUCT.MANUFACTURER_LINK = Link zur Herstellerseite
+PRODUCT.OS = Betriebsysteme
+PRODUCT.LANGUAGES = Sprachen
+PRODUCT.REQUIREMENTS = Systemvoraussetungen
+PRODUCT.LICENSE = Lizenz ('commercial' = Kaufversion, 'freeware' = Freeware, 'shareware' = Shareware)
+PRODUCT.VERSION = Aktuelle Version
+
+
+Platzhalter des Typs "Hardware" (TYPE = hardware)
+-------------------------------------------------
+PRODUCT.MANUFACTURER = Hersteller Name
+PRODUCT.MANUFACTURER_WEBSITE = Webseite des Herstellers
+PRODUCT.MANUFACTURER_LINK = Link zur Herstellerseite
+PRODUCT.EQUIPMENT = Lieferumfang
+
+
+Platzhalter des Typs "Musik" (TYPE = music)
+-------------------------------------------
+PRODUCT.ARTIST = Künstler
+PRODUCT.ARTIST_WEBSITE = Webseite des Künstlers
+PRODUCT.ARTIST_LINK = Link zur Herstellerseite
+PRODUCT.LABEL = Label Name
+PRODUCT.LABEL_WEBSITE = Webseite des Labels
+PRODUCT.LABEL_LINK = Link zur Herstellerseite
+PRODUCT.GENRE = Genre
+PRODUCT.MEDIA = Liste der Medienformate des Produkts
+PRODUCT.MEDIA.TITLE = Titel des Medienformats
+PRODUCT.MEDIA.ICON = Pfad zum Medium-Symbol
+PRODUCT.FSK = Fsk-Bewertung (funktioniert wie der Platzhalter USK von Videospielen, Erklärung siehe oben)
+
+
+Platzhalter des Typs "Film" (TYPE = movie)
+------------------------------------------
+PRODUCT.REGISSEUR = Regisseur
+PRODUCT.ACTORS = Darsteller
+PRODUCT.STUDIO = Studio Name
+PRODUCT.STUDIO_WEBSITE = Webseites des Studios
+PRODUCT.STUDIO_LINK = Link zur Herstellerseite
+PRODUCT.LENGTH = Spieldauer
+PRODUCT.GENRE = Genre
+PRODUCT.MEDIA = Liste der Medienformate des Produkts
+PRODUCT.MEDIA.TITLE = Titel des Medienformats
+PRODUCT.MEDIA.ICON = Pfad zum Medium-Symbol
+PRODUCT.FSK = Fsk-Bewertung (funktioniert wie der Platzhalter USK von Videospielen, Erklärung siehe oben)
+
+
+Platzhalter des Typs "Literatur" (TYPE = book)
+----------------------------------------------
+PRODUCT.AUTHOR = Autor
+PRODUCT.AUTHOR_WEBSITE = Webseite des Autors
+PRODUCT.AUTHOR_LINK = Link zur Herstellerseite
+PRODUCT.PUBLISHER = Verlag Name
+PRODUCT.PUBLISHER_WEBSITE = Webseite des Verlags
+PRODUCT.PUBLISHER_LINK = Link zur Herstellerseite
+PRODUCT.GENRE = Genre
+PRODUCT.MEDIA = Liste der Medienformate des Produkts
+PRODUCT.MEDIA.TITLE = Titel des Medienformats
+PRODUCT.MEDIA.ICON = Pfad zum Medium-Symbol
+PRODUCT.ISBN = ISBN-Nummer
+
+
+Kommentare
+----------
+PRODUCT.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+PRODUCT.COMMENT_COUNT = Anzahl der Kommentare
+PRODUCT.COMMENT_LINK = Link zur Kommentar-Seite
+PRODUCT.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+PRODUCT.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+PRODUCT.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+PRODUCT.DISPLAY_RATING = Bewerten ist erlaubt?
+PRODUCT.RATING = durchschnittliche Bewertung
+PRODUCT.RATING_VOTES = Anzahl der Stimmen
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+
+Buchstaben-Auswahl
+------------------
+Alle Platzhalter finden Sie in der Datei templates/default/letters.html
+
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_TITLE = Link: Sortieren nach Titel
+SORTBY_RELEASE = Link: Sortieren nach Veröffentlichungs-Datum
+SORTBY_HITS = Link: Sortieren nach Klicks
+
+
+Suchformular
+------------
+SEARCH_POSTTO = URL, an die das Formular gesendet werden soll
+
+*}
+
+<!-- TYPAUSWAHL START -->
+<div class="tabbar clearfix">
+<ul>
+<li{if !TYPE} class="selected"{/if}><a href="{LINK_SHOWALL}">{LANG[TYPE_ALL]}</a></li>
+<li{if TYPE=='normal'} class="selected"{/if}><a href="{LINK_SHOWNORMAL}">{LANG[TYPE_NORMAL]}</a></li>
+<li{if TYPE=='game'} class="selected"{/if}><a href="{LINK_SHOWGAME}">{LANG[TYPE_GAME]}</a></li>
+<li{if TYPE=='software'} class="selected"{/if}><a href="{LINK_SHOWSOFTWARE}">{LANG[TYPE_SOFTWARE]}</a></li>
+<li{if TYPE=='hardware'} class="selected"{/if}><a href="{LINK_SHOWHARDWARE}">{LANG[TYPE_HARDWARE]}</a></li>
+<li{if TYPE=='music'} class="selected"{/if}><a href="{LINK_SHOWMUSIC}">{LANG[TYPE_MUSIC]}</a></li>
+<li{if TYPE=='movie'} class="selected"{/if}><a href="{LINK_SHOWMOVIE}">{LANG[TYPE_MOVIE]}</a></li>
+<li{if TYPE=='book'} class="selected"{/if}><a href="{LINK_SHOWBOOK}">{LANG[TYPE_BOOK]}</a></li>
+</ul>
+</div>
+<!-- TYPAUSWAHL ENDE -->
+
+<div class="tabbody">
+
+{include ../letters.html}
+{include ../pages.html}
+<table width="100%">
+<tr>
+<td width="50%" class="header2">{LANG[PRODUCT]}</td>
+<td width="25%" class="header2">{LANG[MANUFACTURER]}</td>
+<td width="25%" class="header2">{LANG[RELEASE]}</td>
+</tr>
+{list PRODUCT}
+
+{* Allgemeine Produkte *}
+{if PRODUCT.TYPE=='normal'}
+<tr class="color">
+<td><a href="{PRODUCT.LINK}">{PRODUCT.TITLE}</a></td>
+<td align="center" class="small">
+{if PRODUCT.MANUFACTURER}<div>{LANG[MANUFACTURER]}: <a href="{PRODUCT.MANUFACTURER_LINK}" target="_blank">{PRODUCT.MANUFACTURER}</a></div>{/if}
+</td>
+<td align="center" class="small">{list PRODUCT.RELEASE}{PRODUCT.RELEASE.DATE}<br>{/list}</td>
+</tr>
+
+{* Videospiel *}
+{elseif PRODUCT.TYPE=='game'}
+<tr class="color">
+<td><a href="{PRODUCT.LINK}">{PRODUCT.TITLE}</a></td>
+<td align="center" class="small">
+{if PRODUCT.DEVELOPER}<div>{LANG[DEVELOPER]}: <a href="{PRODUCT.DEVELOPER_LINK}" target="_blank">{PRODUCT.DEVELOPER}</a></div>{/if}
+{if PRODUCT.PUBLISHER}<div>{LANG[PUBLISHER]}: <a href="{PRODUCT.PUBLISHER_LINK}" target="_blank">{PRODUCT.PUBLISHER}</a></div>{/if}
+</td>
+<td align="center" class="small">{list PRODUCT.RELEASE}{if PRODUCT.RELEASE.SYSTEM}{PRODUCT.RELEASE.SYSTEM}: {/if}{PRODUCT.RELEASE.DATE}<br>{/list}</td>
+</tr>
+
+{* Software *}
+{elseif PRODUCT.TYPE=='software'}
+<tr class="color">
+<td><a href="{PRODUCT.LINK}">{PRODUCT.TITLE}</a></td>
+<td align="center" class="small">
+{if PRODUCT.MANUFACTURER}<div>{LANG[MANUFACTURER]}: <a href="{PRODUCT.MANUFACTURER_LINK}" target="_blank">{PRODUCT.MANUFACTURER}</a></div>{/if}
+</td>
+<td align="center" class="small">{list PRODUCT.RELEASE}{if PRODUCT.RELEASE.MEDIA}{PRODUCT.RELEASE.MEDIA}: {/if}{PRODUCT.RELEASE.DATE}<br>{/list}</td>
+</tr>
+
+{* Hardware *}
+{elseif PRODUCT.TYPE=='hardware'}
+<tr class="color">
+<td><a href="{PRODUCT.LINK}">{PRODUCT.TITLE}</a></td>
+<td align="center" class="small">
+{if PRODUCT.MANUFACTURER}<div>{LANG[MANUFACTURER]}: <a href="{PRODUCT.MANUFACTURER_LINK}" target="_blank">{PRODUCT.MANUFACTURER}</a></div>{/if}
+</td>
+<td align="center" class="small">{list PRODUCT.RELEASE}{PRODUCT.RELEASE.DATE}<br>{/list}</td>
+</tr>
+
+{* Musik *}
+{elseif PRODUCT.TYPE=='music'}
+<tr class="color">
+<td><a href="{PRODUCT.LINK}">{PRODUCT.TITLE}</a></td>
+<td align="center" class="small">
+{if PRODUCT.ARTIST}<div>{LANG[ARTIST]}: <a href="{PRODUCT.ARTIST_LINK}" target="_blank">{PRODUCT.ARTIST}</a></div>{/if}
+{if PRODUCT.LABEL}<div>{LANG[LABEL]}: <a href="{PRODUCT.LABEL_LINK}" target="_blank">{PRODUCT.LABEL}</a></div>{/if}
+</td>
+<td align="center" class="small">{list PRODUCT.RELEASE}{if PRODUCT.RELEASE.MEDIA}{PRODUCT.RELEASE.MEDIA}: {/if}{PRODUCT.RELEASE.DATE}<br>{/list}</td>
+</tr>
+
+{* Film *}
+{elseif PRODUCT.TYPE=='movie'}
+<tr class="color">
+<td><a href="{PRODUCT.LINK}">{PRODUCT.TITLE}</a></td>
+<td align="center" class="small">
+{if PRODUCT.STUDIO}<div>{LANG[STUDIO]}: <a href="{PRODUCT.STUDIO_LINK}" target="_blank">{PRODUCT.STUDIO}</a></div>{/if}
+</td>
+<td align="center" class="small">{list PRODUCT.RELEASE}{if PRODUCT.RELEASE.MEDIA}{PRODUCT.RELEASE.MEDIA}: {/if}{PRODUCT.RELEASE.DATE}<br>{/list}</td>
+</tr>
+
+{* Literatur *}
+{elseif PRODUCT.TYPE=='book'}
+<tr class="color">
+<td><a href="{PRODUCT.LINK}">{PRODUCT.TITLE}</a></td>
+<td align="center" class="small">
+{if PRODUCT.AUTHOR}<div>{LANG[AUTHOR]}: <a href="{PRODUCT.AUTHOR_LINK}" target="_blank">{PRODUCT.AUTHOR}</a></div>{/if}
+{if PRODUCT.PUBLISHER}<div>{LANG[PUBLISHER]}: <a href="{PRODUCT.PUBLISHER_LINK}" target="_blank">{PRODUCT.PUBLISHER}</a></div>{/if}
+</td>
+<td align="center" class="small">{list PRODUCT.RELEASE}{if PRODUCT.RELEASE.MEDIA}{PRODUCT.RELEASE.MEDIA}: {/if}{PRODUCT.RELEASE.DATE}<br>{/list}</td>
+</tr>
+{/if}
+
+{/list}
+{if !PRODUCT}<tr><td class="color" colspan="3" style="text-align:center;">{LANG[NONE]}</td></tr>{/if}
+</table>
+<p class="sortby">{LANG[SORTBY]}:
+<a href="{SORTBY_TITLE}">{LANG[TITLE]}</a>{if SORTBY=='title.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='title.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+<a href="{SORTBY_RELEASE}">{LANG[RELEASE]}</a>{if SORTBY=='release.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='release.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+<a href="{SORTBY_HITS}">{LANG[HITS]}</a>{if SORTBY=='hits.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='hits.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}
+</p>
+
+</div>
+
+<br />&nbsp;
+
+<form action="{SEARCH_POSTTO}" method="post">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[SEARCH]}</td></tr>
+<tr class="color">
+<td>{LANG[ITEM]}:</td>
+<td><input type="text" name="item" size="50" class="input" /><br /><input type="radio" name="conn" value="and" checked="checked" /> {LANG[CONNAND]} &nbsp; <input type="radio" name="conn" value="or" /> {LANG[CONNOR]}</td>
+</tr>
+<tr class="color">
+<td>{LANG[TYPE]}:</td>
+<td>
+<input type="checkbox" name="type[]" value="normal" checked="checked" /> {LANG[TYPE_NORMAL]}<br />
+<input type="checkbox" name="type[]" value="game" checked="checked" /> {LANG[TYPE_GAME]}<br />
+<input type="checkbox" name="type[]" value="software" checked="checked" /> {LANG[TYPE_SOFTWARE]}<br />
+<input type="checkbox" name="type[]" value="hardware" checked="checked" /> {LANG[TYPE_HARDWARE]}<br />
+<input type="checkbox" name="type[]" value="music" checked="checked" /> {LANG[TYPE_MUSIC]}<br />
+<input type="checkbox" name="type[]" value="movie" checked="checked" /> {LANG[TYPE_MOVIE]}<br />
+<input type="checkbox" name="type[]" value="book" checked="checked" /> {LANG[TYPE_BOOK]}
+</td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="submit" value="{LANG[SEARCH]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="search" />
+<input type="hidden" name="send" value="1" />
+</form>
+
+{PRODUCTS_TAGCLOUD()}

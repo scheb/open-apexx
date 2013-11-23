@@ -1,0 +1,23 @@
+{*
+
+Beitrag melden
+==============
+
+ID = ID des Beitrags
+
+*}
+<form action="report.php" method="post">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tr><td class="form_header" colspan="2">{LANG[HEADLINE_REPORT]}</td></tr>
+<tr class="cell1">
+<td>{LANG[CAUSE]}:</td>
+<td><textarea name="text" id="text" rows="10" cols="80" style="width:98%"></textarea><br />{LANG[CAUSE_INFO]}</td>
+</tr>
+<tr><td class="form_footer" colspan="2"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" accesskey="s" /></td></tr>
+</table>
+<input type="hidden" name="id" value="{ID}" />
+</form>

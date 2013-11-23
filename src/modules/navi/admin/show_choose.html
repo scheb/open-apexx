@@ -1,0 +1,4 @@
+<form action="action.php" method="get" style="margin-bottom:10px;">
+<input type="hidden" name="action" value="navi.show" />
+<p>{LANG[CHOOSE]}: <select name="nid" onchange="this.form.submit();">{list NAVI}<option value="{NAVI.ID}"{if NAVI.SELECTED} selected="selected"{/if}>{NAVI.TITLE}</option>{/list}</select></p>
+</form>

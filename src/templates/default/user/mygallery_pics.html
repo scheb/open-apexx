@@ -1,0 +1,65 @@
+{*
+
+Galerie-Verwaltung: Bilder-Übersicht
+====================================
+
+LINK_NEW = Link: Bilder hochladen
+
+Bilder
+------
+PICTURE.ID = ID des Eintrags
+PICTURE.IMAGE = Pfad zum Thumbnail
+PICTURE.LINK = Link: Großansicht anzeigen
+PICTURE.CAPTION = Bildunterschrift
+PICTURE.LINK_EDIT = Link: Diesen Eintrag bearbeiten
+PICTURE.LINK_DEL = Link: Diesen Eintrag löschen
+
+
+Seitenzahlen (Template includen?)
+---------------------------------
+PAGE_COUNT = Anzahl der Seiten
+PAGE_SELECTED = Ausgewählte Seitenzahl
+PAGE = Liste der Seitenzahlen
+PAGE.NUMBER = Seitenzahl
+PAGE.LINK = Link
+PAGE_PREVIOUS = Link "vorherige Seite"
+PAGE_NEXT = Link "nächste Seite"
+PAGE_FIRST = Link "erste Seite"
+PAGE_LAST = Link "letzte Seite"
+
+*}
+<style type="text/css">
+<!--
+
+.gallery {
+	border-collapse:separate;
+	border-spacing:10px;
+}
+
+.gallery td {
+	width:25%;
+	background:#F1F1F1;
+	padding:5px;
+}
+
+-->
+</style>
+
+<p><a href="{LINK_NEW}">&raquo; {LANG[UPLOADIMAGES]}</a></p>
+{include ../pages.html}
+<table width="100%" class="gallery">
+{list PICTURE}{++COUNTER}
+{if COUNTER%4==1}<tr>{/if}
+<td align="center">
+<a href="{PICTURE.LINK}"><img src="{PICTURE.IMAGE}" alt="{PICTURE.CAPTION|notags}" title="{PICTURE.CAPTION|notags}" style="border:2px solid #2B2B2B;" /></a>
+{if PICTURE.CAPTION}<br /><span class="small">{PICTURE.CAPTION}</span>{/if}
+<br /><a href="{PICTURE.LINK_EDIT}"><img src="design/edit.gif" alt="" /></a> <a href="{PICTURE.LINK_DEL}"><img src="design/delete.gif" alt="" /></a>
+</td>
+{if COUNTER%4==0}</tr>{/if}
+{/list}
+{* Leere Zellen füllen *}
+{if COUNTER%4==1}<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if COUNTER%4==2}<td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if COUNTER%4==3}<td>&nbsp;</td></tr>{/if}
+{if !PICTURE}<tr><td class="color" align="center">{LANG[NONE_PICS]}</td></tr>{/if}
+</table>

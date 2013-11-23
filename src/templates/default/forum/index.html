@@ -1,0 +1,148 @@
+{*
+
+Foren-Index
+===========
+
+LINK_ALLREAD = Link: Alle Beiträge als gelesen markieren
+LINK_NEWPOSTS = Link: Neue Beiträge anzeigen
+
+
+Foren auf oberster Ebene
+------------------------
+FORUM = Liste der Foren
+FORUM.ID = ID
+FORUM.LEVEL = Untergliederungs-Level des Forums (1)
+FORUM.TITLE = Titel
+FORUM.DESCRIPTION = Beschreibung
+FORUM.ISCAT = Ist das Forum eine Kategorie?
+FORUM.COLLAPSE = Alle Foren verstecken, die sich in dieser Kategorie befinden
+FORUM.CLOSED = Ist das Forum geschlossen?
+FORUM.LINKTO = Forum ist nur ein Link zu dieser URL
+FORUM.LINK = Link zur Themenübersicht
+FORUM.THREADS = enthaltene Themen
+FORUM.POSTS = enthaltene Beiträge
+FORUM.LINK_NEWTHREAD = Link: neues Thema erstellen (nur wenn Schreibrechte)
+FORUM.NEWPOSTS = Sind neue Beiträge im Forum?
+FORUM.LASTPOST_THREADID = ID des Themas mit den neustem Beitrag
+FORUM.LASTPOST_THREADTITLE = Titel des Themas mit den neustem Beitrag
+FORUM.LASTPOST_THREADPREFIX = Themen-Präfix
+FORUM.LASTPOST_ICON = Pfad zum Themen-Symbol
+FORUM.LASTPOST_USERNAME = Benutzer, der den letzten Beitrag verfasst hat
+FORUM.LASTPOST_USERID = Benutzer-ID dieses Benutzers
+FORUM.LASTPOST_TIME = Zeitpunkt (Timestamp) zu dem der Beitrag verfasst wurde
+FORUM.LASTPOST_LINK = Link zum letzten Beitrag
+FORUM.MODERATOR = Liste der Betreuer
+FORUM.MODERATOR.USERID = ID des Betreuers
+FORUM.MODERATOR.USERNAME = Benutzername des Betreuers
+
+
+Unter-Foren
+-----------
+FORUM.SUB = Liste der Unterforen es Forums
+FORUM.SUB.ID = ID
+FORUM.SUB.LEVEL = Untergliederungs-Level des Forums (2)
+FORUM.SUB.TITLE = Titel
+FORUM.SUB.DESCRIPTION = Beschreibung
+FORUM.SUB.ISCAT = Ist das Forum eine Kategorie?
+FORUM.SUB.CLOSED = Ist das Forum geschlossen?
+FORUM.SUB.LINKTO = Forum ist nur ein Link zu dieser URL
+FORUM.SUB.LINK = Link zur Themenübersicht
+FORUM.SUB.THREADS = enthaltene Themen
+FORUM.SUB.POSTS = enthaltene Beiträge
+FORUM.SUB.LINK_NEWTHREAD = Link: neues Thema erstellen (nur wenn Schreibrechte)
+FORUM.SUB.NEWPOSTS = Sind neue Beiträge im Forum?
+FORUM.SUB.LASTPOST_THREADID = ID des Themas mit den neustem Beitrag
+FORUM.SUB.LASTPOST_THREADTITLE = Titel des Themas mit den neustem Beitrag
+FORUM.SUB.LASTPOST_THREADPREFIX = Themen-Präfix
+FORUM.SUB.LASTPOST_ICON = Pfad zum Themen-Symbol
+FORUM.SUB.LASTPOST_USERNAME = Benutzer, der den letzten Beitrag verfasst hat
+FORUM.SUB.LASTPOST_USERID = Benutzer-ID dieses Benutzers
+FORUM.SUB.LASTPOST_TIME = Zeitpunkt (Timestamp) zu dem der Beitrag verfasst wurde
+FORUM.SUB.LASTPOST_LINK = Link zum letzten Beitrag
+FORUM.SUB.MODERATOR = Liste der Betreuer
+FORUM.SUB.MODERATOR.USERID = ID des Betreuers
+FORUM.SUB.MODERATOR.USERNAME = Benutzername des Betreuers
+
+
+Unter-Unter-Foren
+-----------------
+FORUM.SUB.SUB2 = Liste der Unterforen eines Unterforums (Unter-Unter-Foren)
+FORUM.SUB.SUB2.ID = ID
+FORUM.SUB.SUB2.LEVEL = Untergliederungs-Level des Forums (2)
+FORUM.SUB.SUB2.TITLE = Titel
+FORUM.SUB.SUB2.DESCRIPTION = Beschreibung
+FORUM.SUB.SUB2.ISCAT = Ist das Forum eine Kategorie?
+FORUM.SUB.SUB2.CLOSED = Ist das Forum geschlossen?
+FORUM.SUB.SUB2.LINKTO = Forum ist nur ein Link zu dieser URL
+FORUM.SUB.SUB2.LINK = Link zur Themenübersicht
+FORUM.SUB.SUB2.THREADS = enthaltene Themen
+FORUM.SUB.SUB2.POSTS = enthaltene Beiträge
+FORUM.SUB.SUB2.LINK_NEWTHREAD = Link: neues Thema erstellen (nur wenn Schreibrechte)
+
+
+Onlineliste
+-----------
+ONLINE_TOTAL = Anzahl der aktiven Besucher
+ONLINE_USERS = Anzahl der aktiven registrierten Benutzer
+ONLINE_GUESTS = Anzahl der aktiven Gäste
+ONLINE_INVISIBLE = Anzahl der aktiven unsichtbaren Benutzer
+ONLINE = Liste der aktiven Benutzer
+ONLINE.USERID = Benutzer-ID
+ONLINE.USERNAME = Benutzername
+ONLINE.INVISIBLE = Ist der Nutzer unsichtbar?
+ONLINE.IS_ADMIN = Ist der Benutzer ein Administrator?
+ONLINE.IS_TEAM = Ist der Benutzer ein Teammitglied?
+ONLINE.IS_MODERATOR = Ist der Benutzer ein Foren-Betreuer?
+ONLINE.RANK_COLOR = Farbe für den Rang des Benutzers
+
+
+Statistik
+---------
+STATS_THREADS = Anzahl der Themen
+STATS_POSTS = Anzahl der Beiträge
+STATS_USERS = Anzahl der registrierten Benutzer
+NEWUSER = Liste der neusten 5 Benutzer
+NEWUSER.ID = Benutzer-ID
+NEWUSER.NAME = Benutzername
+
+
+Geburtstage
+-----------
+BIRTHDAY = Liste der Gebutrtstagskinder
+BIRTHDAY.USERID = Benutzer-ID
+BIRTHDAY.USERNAME = Benutzername
+BIRTHDAY.AGE = Alter (nur wenn Jahrgang vorhanden)
+
+*}
+
+<!-- FOREN START -->
+{include forumlist.html}
+<!-- FOREN ENDE -->
+
+<!-- INFOBOXEN START -->
+<table width="100%" style="margin-top:30px;">
+<tr><td class="infobox_header"><a href="../user.php?action=online">{ONLINE_TOTAL} {LANG[USERONLINE]}</a></td></tr>
+<tr><td class="infobox">{ONLINE_USERS} {LANG[USERS]} ({ONLINE_INVISIBLE} {LANG[INV]}), {ONLINE_GUESTS} {LANG[GUESTS]}:<br />{list ONLINE}{++OCOUNT}{if OCOUNT>1}, {/if}<a href="{PROFILE(ONLINE.USERID)}" target="_blank" style="{if ONLINE.INVISIBLE}font-style:italic;{/if}{if ONLINE.RANK_COLOR && !ONLINE.IS_ADMIN && !ONLINE.IS_TEAM && !ONLINE.IS_MODERATOR}color:{ONLINE.RANK_COLOR};{/if}"{if ONLINE.IS_ADMIN} class="user_admin"{elseif ONLINE.IS_TEAM} class="user_team"{elseif ONLINE.IS_MODERATOR} class="user_moderator"{/if}>{ONLINE.USERNAME}</a>{/list}</td></tr>
+</table>
+
+<table width="100%" style="margin-top:10px;">
+<tr><td class="infobox_header">{LANG[STATS]}</td></tr>
+<tr><td class="infobox">{STATS_THREADS} {LANG[THREADS]}, {STATS_POSTS} {LANG[POSTS]}, {STATS_USERS} {LANG[USERS]}<br />{LANG[WELCOMENEW]}: {list NEWUSER}{++NEWCOUNT}{if NEWCOUNT>1}, {/if}<a href="{PROFILE(NEWUSER.ID)}" target="_blank">{NEWUSER.NAME}</a>{/list}</td></tr>
+</table>
+
+{if BIRTHDAY}
+<table width="100%" style="margin-top:10px;">
+<tr><td class="infobox_header">{LANG[BIRTHDAYS]}</td></tr>
+<tr><td class="infobox">{list BIRTHDAY}{++BCOUNT}{if BCOUNT>1}, {/if}<a href="{PROFILE(BIRTHDAY.USERID)}" target="_blank">{BIRTHDAY.USERNAME}</a>{if BIRTHDAY.AGE} ({BIRTHDAY.AGE}){/if}{/list}</td></tr>
+</table>
+{/if}
+<!-- INFOBOXEN ENDE -->
+
+<!-- LEGENDE START -->
+<div class="legend">
+<img src="design/forum_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[NONEWPOSTS]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/forum_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[NEWPOSTS]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/forum_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[CLOSED]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/forum_link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[LINK]}
+</div>
+<!-- LEGENDE ENDE -->

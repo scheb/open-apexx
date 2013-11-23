@@ -1,0 +1,18 @@
+<form action="action.php" method="post" target="postframe" style="margin-top:20px;">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[BLOCKSTRING]}</td></tr>
+<tr>
+<td>{LANG[STRING]}:<br /><small>({LANG[JOKER]})</small></td>
+<td><input type="text" name="string" class="input" size="80" style="width:400px;" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="comments.blockcontent" />
+<input type="hidden" name="do" value="add" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

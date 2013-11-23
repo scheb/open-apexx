@@ -1,0 +1,124 @@
+{*
+
+Benutzer-Blog Detailansicht
+===========================
+
+Benutzer-Informationen
+----------------------
+USERID = Benutzer-ID
+USERNAME = Benutzer-Name
+
+
+Benutzer-Funktionen
+-------------------
+LINK_REPORT = Link: Verstoß melden
+LINK_PROFILE = Link: Zum Profil des Benutzers
+LINK_BLOG = Link: Zum Blog des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GUESTBOOK = Zum Gästebuch des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GALLERY = Zur Galerie des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_COLLECTION = Zur Sammlung des Benutzers (nur verfügbar, wenn aktiviert und Produkt-Modul vorhanden)
+
+
+Blog-Einträge
+-------------
+ID = ID des Eintrags
+TITLE = Titel
+TEXT = Text
+LINK = Link zum Blogeintrag
+TIME = Veröffentlichung (Timestamp)
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Besucher des Blogs
+------------------
+VISITOR = Liste der Besucher
+VISITOR.USERID = Benutzer-ID
+VISITOR.USERNAME = Benutzername
+VISITOR.GROUPID = ID der Benutzergruppe
+VISITOR.ONLINE = Ist der Benutzer online?
+VISITOR.REALNAME = Echter Name
+VISITOR.GENDER = Geschlecht (1=m, 2=w)
+VISITOR.CITY = Stadt
+VISITOR.PLZ = Postleitzahl
+VISITOR.COUNTRY = Land
+VISITOR.LASTACTIVE = Zuletzt aktiv (Timestamp)
+VISITOR.AVATAR = Pfad zum Avatar
+VISITOR.AVATAR_TITLE = Avatar-Titel
+
+Benuterdefinierte Felder
+------------------------
+VISITOR.CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+VISITOR.CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+*}
+<style type="text/css">
+<!--
+
+.blog_datehead {
+	text-align:center;
+	font-size:14px;
+	font-weight:bold;
+	background:#F0F0F0;
+	border-top:1px solid #C2C2C2;
+	border-bottom:1px solid #C2C2C2;
+	margin:10px 0px;
+	padding:2px;
+}
+
+.blog_list {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+	margin:10px 0px;
+}
+
+.blog_title {
+	font-size:16px;
+	margin:0px;
+	font-weight:bold;
+}
+
+.blog_info {
+	font-size:11px;
+	margin:0px 0px 10px 0px;
+}
+
+.blog_footer {
+	text-align:right;
+	font-size:11px;
+	margin:10px 0px 0px 0px;
+}
+
+-->
+</style>
+
+<div class="tabbar clearfix">
+<ul>
+<li><a href="{LINK_PROFILE}">{LANG[USER_PROFILE]}</a></li>
+<li class="selected"><a href="{LINK_BLOG}">{LANG[USER_BLOG]}</a></li>
+<li><a href="{LINK_GALLERY}">{LANG[USER_GALLERY]}</a></li>
+<li><a href="{LINK_COLLECTION}">{LANG[USER_COLLECTION]}</a></li>
+<li><a href="{LINK_GUESTBOOK}">{LANG[USER_GUESTBOOK]}</a></li>
+</ul>
+</div>
+<div class="tabbody">
+
+<div class="blog_list">
+<p class="blog_title"><a href="{LINK}">{TITLE}</a></p>
+<p class="blog_info">{DATE('d.m.Y - H:i:s',TIME)}{if DISPLAY_COMMENTS} | {COMMENT_COUNT} {LANG[COMMENTS]}{/if}</p>
+<div style="text-align:justify;">{TEXT}</div>
+</div>
+
+<p>&raquo; <a href="{LINK_REPORT}">{LANG[REPORTTHIS]}</a></p>
+
+{if DISPLAY_COMMENTS}<br />&nbsp;{include ../comments/comments.html}{/if}
+
+</div>

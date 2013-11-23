@@ -1,0 +1,299 @@
+{*
+
+Template-Funktion: Produkt-Details
+==================================
+Bitte beachten Sie, dass die verschiedenen Produkttypen jeweils eigene Platzhalter
+besitzen
+
+
+Allgemeine Informationen (existieren bei jedem Produkttyp)
+----------------------------------------------------------
+ID = ID
+TYPE = Produkttyp (normal, game, music, movie, book, software, hardware)
+TITLE = Spiel-Titel
+LINK = Link zur Detailseite
+TEXT = Beschreibung
+TIME = Zeitpunkt der Erstellung (Timestamp)
+HITS = Anzahl Klicks
+PICTURE = Produkt-Bild
+PICTURE_POPUP = Link: Popup zur Großansicht des Produktbilds
+PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+TEASERPIC = Teaser-Bild
+TEASERPIC_POPUP = Link: Popup zur Großansicht des Teaserbilds
+TEASERPIC_POPUPPATH = Pfad zur großen Version des Bilds
+WEBSITE = Website
+BUYLINK = "Kaufen"-Link
+PRICE = Preis
+RECOMMENDED_PRICE = Unverbindliche Preisempfehlung
+GUARANTEE = Garantiedauer
+PRODUCT_ID = ID des verknüpften Produkts (nicht die ID des Produkts selbst!)
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Meine Sammlung (nur für registrierte Benutzer)
+----------------------------------------------
+LINK_COLLECTION_ADD = Link: zu meiner Sammlung hinzufügen (wenn noch nicht in der Sammlung)
+LINK_COLLECTION_REMOVE = Link: aus meiner Sammlung entfernen (wenn bereits in der Sammlung)
+
+
+Veröffentlichung
+----------------
+Das Veröffentlichungs-Datum ist in Form einer Liste aufgebaut. In der Regel hat diese
+Liste jedoch nur einen Eintrag. Nur bei Videospielen kann es aufgrund der verschiedenen
+Systeme mehrere Release-Daten geben.
+RELEASE = Liste der Release-Daten
+RELEASE.SYSTEM = Titel des Systems (nur beim Typ "Videospiel")
+RELEASE.SYSTEM_ICON = Pfad zum System-Symbol (nur beim Typ "Videospiel")
+RELEASE.MEDIA = Titel des Systems (nur bei den Typen "Film", "Musik", "Literatur" und "Software")
+RELEASE.MEDIA_ICON = Pfad zum System-Symbol (nur bei den Typen "Film", "Musik", "Literatur" und "Software")
+RELEASE.DATE = Release-Datum
+
+
+Benuterdefinierte Felder
+------------------------
+CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Im folgenden werden die Platzhalter aufgelistet, die nur bei einem bestimmten
+Produkttyp existieren. Verwenden Sie IF, um zu prüfen um welchen Produkttyp es
+sich handelt, z.B. für Videospiele:
+{if TYPE=='game'} ... {/if}
+
+
+Platzhalter des Typs "Allgemein" (TYPE = normal)
+------------------------------------------------
+MANUFACTURER = Hersteller Name
+MANUFACTURER_WEBSITE = Webseite des Herstellers
+MANUFACTURER_LINK = Link zur Herstellerseite
+
+
+Platzhalter des Typs "Videospiel" (TYPE = game)
+-----------------------------------------------
+DEVELOPER = Entwickler Name
+DEVELOPER_WEBSITE = Webseite des Entwicklers
+DEVELOPER_LINK = Link zur Herstellerseite
+PUBLISHER = Verlag Name
+PUBLISHER_WEBSITE = Webseite des Verlags
+PUBLISHER_LINK = Link zur Herstellerseite
+REQUIREMENTS = Systemvoraussetzungen
+GENRE = Genre
+MEDIA = Liste der Medienformate des Produkts
+MEDIA.TITLE = Titel des Medienformats
+MEDIA.ICON = Pfad zum Medium-Symbol
+SYSTEM = Liste der Systeme, für die dieses Spiel erscheint
+SYSTEM.TITLE = Titel des Systems
+SYSTEM.ICON = Pfad zum System-Icon
+USK = Usk-Bewertung, Variable ist leer oder hat einen der Werte:
+      'all' (freigegeben für Alle)
+			'6' (ab 6 Jahren)
+			'12' (ab 12 Jahren)
+			'16' (ab 16 Jahren)
+			'18' (ab 18 Jahren bzw. keine Jugendfreigabe)
+			'none' (Indiziert)
+      => IF verwenden z.B: {if USK=='18'}keine Jugendfreigabe{/if}
+
+
+Platzhalter des Typs "Musik" (TYPE = music)
+-------------------------------------------
+ARTIST = Künstler
+ARTIST_WEBSITE = Webseite des Künstlers
+ARTIST_LINK = Link zur Herstellerseite
+LABEL = Label Name
+LABEL_WEBSITE = Webseite des Labels
+LABEL_LINK = Link zur Herstellerseite
+GENRE = Genre
+MEDIA = Liste der Medienformate des Produkts
+MEDIA.TITLE = Titel des Medienformats
+MEDIA.ICON = Pfad zum Medium-Symbol
+FSK = Fsk-Bewertung (funktioniert wie der Platzhalter USK von Videospielen, Erklärung siehe oben)
+
+
+Platzhalter des Typs "Software" (TYPE = software)
+-------------------------------------------------
+MANUFACTURER = Hersteller Name
+MANUFACTURER_WEBSITE = Webseite des Herstellers
+MANUFACTURER_LINK = Link zur Herstellerseite
+OS = Betriebsysteme
+LANGUAGES = Sprachen
+REQUIREMENTS = Systemvoraussetungen
+LICENSE = Lizenz ('commercial' = Kaufversion, 'freeware' = Freeware, 'shareware' = Shareware)
+VERSION = Aktuelle Version
+
+
+Platzhalter des Typs "Hardware" (TYPE = hardware)
+-------------------------------------------------
+MANUFACTURER = Hersteller Name
+MANUFACTURER_WEBSITE = Webseite des Herstellers
+MANUFACTURER_LINK = Link zur Herstellerseite
+EQUIPMENT = Lieferumfang
+
+
+Platzhalter des Typs "Film" (TYPE = movie)
+------------------------------------------
+REGISSEUR = Regisseur
+ACTORS = Darsteller
+STUDIO = Studio Name
+STUDIO_WEBSITE = Webseites des Studios
+STUDIO_LINK = Link zur Herstellerseite
+LENGTH = Spieldauer
+GENRE = Genre
+MEDIA = Liste der Medienformate des Produkts
+MEDIA.TITLE = Titel des Medienformats
+MEDIA.ICON = Pfad zum Medium-Symbol
+FSK = Fsk-Bewertung (funktioniert wie der Platzhalter USK von Videospielen, Erklärung siehe oben)
+
+
+Platzhalter des Typs "Literatur" (TYPE = book)
+----------------------------------------------
+AUTHOR = Autor
+AUTHOR_WEBSITE = Webseite des Autors
+AUTHOR_LINK = Link zur Herstellerseite
+PUBLISHER = Verlag Name
+PUBLISHER_WEBSITE = Webseite des Verlags
+PUBLISHER_LINK = Link zur Herstellerseite
+GENRE = Genre
+MEDIA = Liste der Medienformate des Produkts
+MEDIA.TITLE = Titel des Medienformats
+MEDIA.ICON = Pfad zum Medium-Symbol
+ISBN = ISBN-Nummer
+
+
+Bewertung (Template includen?)
+------------------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+Alle Platzhalter finden Sie in der Datei templates/default/ratings/rating.html
+
+*}
+
+<style type="text/css">
+<!--
+
+.product_info {
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+	padding:2px;
+}
+
+-->
+</style>
+
+
+<div class="product_info">
+<div><u>{LANG[PRODUCTINFO]}</u></div>
+
+{* Allgemein *}
+{if TYPE=='normal'}
+<table width="100%">
+<colgroup><col width="33%" /><col width="33%" /><col width="33%" /></colgroup>
+<tr>
+<td><a href="{LINK}">{TITLE}</a></td>
+<td>{if PRICE}{LANG[PRICE]}: {PRICE}{/if}</td>
+<td>{if WEBSITE}{LANG[WEBSITE]}: <a href="{WEBSITE}" terget="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{* Videospiel *}
+{elseif TYPE=='game'}
+<table width="100%">
+<colgroup><col width="33%" /><col width="33%" /><col width="33%" /></colgroup>
+<tr>
+<td><a href="{LINK}">{TITLE}</a></td>
+<td>{if DEVELOPER}{LANG[DEVELOPER]}: {if DEVELOPER_WEBSITE}<a href="{DEVELOPER_WEBSITE}" target="_blank">{/if}{DEVELOPER}{if DEVELOPER_WEBSITE}</a>{/if}{/if}</td>
+<td>{if PUBLISHER}{LANG[PUBLISHER]}: {if PUBLISHER_WEBSITE}<a href="{PUBLISHER_WEBSITE}" target="_blank">{/if}{PUBLISHER}{if PUBLISHER_WEBSITE}</a>{/if}{/if}</td>
+</tr>
+<tr>
+<td>{if SYSTEM}{LANG[SYSTEMS]}: {list SYSTEM}{if SYSTEM.ICON}<img src="{SYSTEM.ICON}" alt="" />{/if} {SYSTEM.TITLE}{/list}{/if}</td>
+<td>{if PRICE}{LANG[PRICE]}: {PRICE}{/if}</td>
+<td>{if WEBSITE}{LANG[WEBSITE]}: <a href="{WEBSITE}" terget="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{* Software *}
+{elseif TYPE=='software'}
+<table width="100%">
+<colgroup><col width="33%" /><col width="33%" /><col width="33%" /></colgroup>
+<tr>
+<td>{LANG[MANUFACTURER]}: {if MANUFACTURER_WEBSITE}<a href="{MANUFACTURER_WEBSITE}" target="_blank">{MANUFACTURER}</a>{else}{MANUFACTURER}{/if}</td>
+<td>{LANG[OS]}: {OS}</td>
+<td>{LANG[LICENSE]}: {LICENSE}</td>
+</tr>
+<tr>
+<td>{LANG[VERSION]}: {VERSION}</td>
+<td>{LANG[LANGUAGES]}: {LANGUAGES}</td>
+<td>{LANG[WEBSITE]}: {if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+<tr>
+<td colspan="3">{LANG[SYSTEMREQUIREMENTS]}: {REQUIREMENTS}</td>
+</tr>
+</table>
+
+{* Hardware *}
+{elseif TYPE=='hardware'}
+<table width="100%">
+<colgroup><col width="50%" /><col width="50%" /></colgroup>
+<tr>
+<td>{LANG[MANUFACTURER]}: {if MANUFACTURER_WEBSITE}<a href="{MANUFACTURER_WEBSITE}" target="_blank">{MANUFACTURER}</a>{else}{MANUFACTURER}{/if}</td>
+<td>{LANG[WEBSITE]}: {if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+<tr>
+<td colspan="2">{LANG[EQUIPMENT]}: {EQUIPMENT}</td>
+</tr>
+</table>
+
+{* Musik *}
+{elseif TYPE=='music'}
+<table width="100%">
+<colgroup><col width="33%" /><col width="33%" /><col width="33%" /></colgroup>
+<tr>
+<td><a href="{LINK}">{TITLE}</a></td>
+<td>{if ARTIST}{LANG[ARTIST]}: {if ARTIST_WEBSITE}<a href="{ARTIST_WEBSITE}" target="_blank">{/if}{ARTIST}{if ARTIST_WEBSITE}</a>{/if}{/if}</td>
+<td>{if LABEL}{LANG[LABEL]}: {if LABEL_WEBSITE}<a href="{LABEL_WEBSITE}" target="_blank">{/if}{LABEL}{if LABEL_WEBSITE}</a>{/if}{/if}</td>
+</tr>
+<tr>
+<td>{if GENRE}{LANG[GENRE]}: {GENRE}{/if}</td>
+<td>{if PRICE}{LANG[PRICE]}: {PRICE}{/if}</td>
+<td>{if WEBSITE}{LANG[WEBSITE]}: <a href="{WEBSITE}" terget="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{* Film *}
+{elseif TYPE=='movie'}
+<table width="100%">
+<colgroup><col width="33%" /><col width="33%" /><col width="33%" /></colgroup>
+<tr>
+<td><a href="{LINK}">{TITLE}</a></td>
+<td>{if STUDIO}{LANG[STUDIO]}: {if STUDIO_WEBSITE}<a href="{STUDIO_WEBSITE}" target="_blank">{/if}{STUDIO}{if STUDIO_WEBSITE}</a>{/if}{/if}</td>
+<td>{if REGISSEUR}{LANG[REGISSEUR]}: {REGISSEUR}{/if}</td>
+</tr>
+<tr>
+<td>{if GENRE}{LANG[GENRE]}: {GENRE}{/if}</td>
+<td>{if PRICE}{LANG[PRICE]}: {PRICE}{/if}</td>
+<td>{if WEBSITE}{LANG[WEBSITE]}: <a href="{WEBSITE}" terget="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{* Literatur *}
+{elseif TYPE=='book'}
+<table width="100%">
+<colgroup><col width="33%" /><col width="33%" /><col width="33%" /></colgroup>
+<tr>
+<td><a href="{LINK}">{TITLE}</a></td>
+<td>{if AUTHOR}{LANG[AUTHOR]}: {if AUTHOR_WEBSITE}<a href="{AUTHOR_WEBSITE}" target="_blank">{/if}{AUTHOR}{if AUTHOR_WEBSITE}</a>{/if}{/if}</td>
+<td>{if PUBLISHER}{LANG[PUBLISHER]}: {if PUBLISHER_WEBSITE}<a href="{PUBLISHER_WEBSITE}" target="_blank">{/if}{PUBLISHER}{if PUBLISHER_WEBSITE}</a>{/if}{/if}</td>
+</tr>
+<tr>
+<td>{if GENRE}{LANG[GENRE]}: {GENRE}{/if}</td>
+<td>{if PRICE}{LANG[PRICE]}: {PRICE}{/if}</td>
+<td>{if WEBSITE}{LANG[WEBSITE]}: <a href="{WEBSITE}" terget="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{/if}
+
+</div>

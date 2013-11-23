@@ -1,0 +1,131 @@
+# In dieser .htaccess-Datei sind die Rewrite-Regeln definiert, mit denen das CMS
+# suchmaschinenoptimierte URLs erzeugt. Wenn Sie diese Funktion nicht verwenden
+# benötigen Sie diese Datei nicht.
+
+
+# --------------------------------------------------------------------------------------------------------
+
+
+# Rewrite-Engine aktivieren
+# -------------------------
+# Diese Option funktioniert natürlich nur, wenn der Apache-Webserver "mod_rewrite" unterstützt.
+RewriteEngine On
+
+
+# Symbolische Links
+# -----------------
+# Auf machen Webservern ist es notwendig diese Option zu aktivieren.
+# Entfernen Sie hierzu einfach die Raute am Anfang der folgenden Zeile:
+# Options FollowSymLinks
+
+
+# RewriteBase
+# -----------
+# Aktivieren Sie die nachfolgende Zeile nur, wenn Ihr Server die Rewrite-Regeln nicht
+# umsetzt oder einen Fehler 500 anzeigt. Sie müssen den Pfad zu Ihrem apexx-Verzeichnis angeben.
+# Der Pfad "/" entspricht dabei dem Hauptverzeichnis der Domain (siehe Vorgabe unten).
+# Liegt Ihre apexx-Installation beispielsweise im Ordner "cms" dann geben Sie an: RewriteBase /cms/
+# RewriteBase /
+
+
+# --------------------------------------------------------------------------------------------------------
+
+
+########## Sektionen ##########
+# Rewrite-Funktionen für Sektionen hier einfügen
+# Beispiel: Sektion ID #123 mit virtuellem Ordner "sektion123" (natürlich ohne Raute am Anfang)
+# RewriteRule ^sektion123/(.*)$ $1?sec=123 [QSA]
+
+
+########## Einfache Seiten ohne Parameter ##########
+RewriteRule ^(index|search|tell|user|team|contact|guestbook|poll|faq|gallery|news|newsarchive|sendnews|articles|previews|reviews|articlearchive|downloads|videos|senddownload|newsletter|links|sendlink|glossar|products|manufacturers|calendar|events|sendevent)\.html$ $1.php [L]
+
+
+########## Benutzersystem ##########
+RewriteRule ^user,profile,([0-9]*)(,.*)?\.html$ user.php?action=profile&id=$1 [QSA,L]
+RewriteRule ^user,list,([A-Za-z0]*),([0-9]*)\.html$ user.php?action=list&letter=$1&p=$2 [QSA,L]
+RewriteRule ^user,pms,(in|out)\.html$ user.php?action=pms&dir=$1 [QSA,L]
+RewriteRule ^user,(newmail|newpm),([0-9]*)\.html$ user.php?action=$1&touser=$2 [QSA,L]
+RewriteRule ^user,(addbuddy|delbuddy|delbookmark|readpm|delpm),([0-9]*)\.html$ user.php?action=$1&id=$2 [QSA,L]
+RewriteRule ^user,([A-Za-z]*)\.html$ user.php?action=$1 [QSA,L]
+RewriteRule ^user,(blog|guestbook),([0-9]*),([0-9]*)\.html$ user.php?action=$1&id=$2&p=$3 [QSA,L]
+RewriteRule ^user,blog,([0-9]*),id([0-9]*)(,.*)?\.html$ user.php?action=blog&id=$1&blogid=$2 [QSA,L]
+RewriteRule ^user,gallery,([0-9]*),([0-9]*),([0-9]*)\.html$ user.php?action=gallery&id=$1&galid=$2&p=$3 [QSA,L]
+RewriteRule ^user,collection,([0-9]*),([A-Za-z0]*),([0-9]*)\.html$ user.php?action=collection&id=$1&type=$2&p=$3 [QSA,L]
+
+########## Gästebuch ##########
+RewriteRule ^guestbook,add\.html$ guestbook.php?add=1 [QSA,L]
+RewriteRule ^guestbook,([0-9]*)\.html$ guestbook.php?p=$1 [QSA,L]
+
+
+########## Poll ##########
+RewriteRule ^poll,recent\.html$ poll.php?recent=1 [QSA,L]
+RewriteRule ^poll,([0-9]*)(,.*)?\.html$ poll.php?id=$1 [QSA,L]
+
+
+########## Content ##########
+RewriteRule ^content,([0-9]*)(,.*)?\.html$ content.php?id=$1 [QSA,L]
+
+
+########## FAQ ##########
+RewriteRule ^faq,([0-9]*)(,.*)?\.html$ faq.php?id=$1 [QSA,L]
+
+
+########## Gallery ##########
+RewriteRule ^gallery,([A-Za-z0]*),([0-9]*)\.html$ gallery.php?letter=$1&p=$2 [QSA,L]
+RewriteRule ^gallery,list([0-9]*),([0-9]*)(,.*)?\.html$ gallery.php?id=$1&p=$2 [QSA,L]
+RewriteRule ^gallery,pic([0-9]*)(,.*)?\.html$ gallery.php?pic=$1 [QSA,L]
+
+
+########## News ##########
+RewriteRule ^news,([0-9]*),([0-9]*)\.html$ news.php?catid=$1&p=$2 [QSA,L]
+RewriteRule ^news,id([0-9]*)(,.*)?\.html$ news.php?id=$1 [QSA,L]
+RewriteRule ^newsarchive,([0-9]*),([0-9]*),([0-9]*)\.html$ newsarchive.php?month=$1$2&p=$3 [QSA,L]
+
+
+########## Artikel ##########
+RewriteRule ^(articles|previews|reviews),([A-Za-z0]*),([0-9]*),([0-9]*)\.html$ $1.php?letter=$2&catid=$3&p=$4 [QSA,L]
+RewriteRule ^(articles|previews|reviews),id([0-9]*),([0-9]*)(,.*)?\.html$ $1.php?id=$2&page=$3 [QSA,L]
+RewriteRule ^articlearchive,([0-9]*),([0-9]*),([0-9]*)\.html$ articlearchive.php?month=$1$2&p=$3 [QSA,L]
+
+
+########## Downloads ##########
+RewriteRule ^downloads,([0-9]*),([0-9]*)(,.*)?\.html$ downloads.php?catid=$1&p=$2 [QSA,L]
+RewriteRule ^downloads,id([0-9]*)(,.*)?\.html$ downloads.php?id=$1 [QSA,L]
+
+
+########## Videos ##########
+RewriteRule ^videos,([0-9]*),([0-9]*)(,.*)?\.html$ videos.php?catid=$1&p=$2 [QSA,L]
+RewriteRule ^videos,id([0-9]*)(,.*)?\.html$ videos.php?id=$1 [QSA,L]
+
+
+########## Links ##########
+RewriteRule ^links,([0-9]*),([0-9]*)(,.*)?\.html$ links.php?catid=$1&p=$2 [QSA,L]
+RewriteRule ^links,id([0-9]*)(,.*)?\.html$ links.php?id=$1 [QSA,L]
+
+
+########## Glossar ##########
+RewriteRule ^glossar,([0-9]*),([A-Za-z0]*),([0-9]*)(,.*)?\.html$ glossar.php?catid=$1&letter=$2&p=$3 [QSA,L]
+RewriteRule ^glossar,id([0-9]*)(,.*)?\.html$ glossar.php?id=$1 [QSA,L]
+
+
+########## Produkte ##########
+RewriteRule ^(products|releases),([A-Za-z0]*),([A-Za-z0]*),([0-9]*)\.html$ $1.php?type=$2&letter=$3&p=$4 [QSA,L]
+RewriteRule ^products,id([0-9]*)(,.*)?\.html$ products.php?id=$1 [QSA,L]
+RewriteRule ^manufacturers,([A-Za-z0]*),([0-9]*)\.html$ manufacturers.php?letter=$1&p=$2 [QSA,L]
+RewriteRule ^manufacturers,id([0-9]*)(,.*)?\.html$ manufacturers.php?id=$1 [QSA,L]
+
+
+########## Termine/Kalender ##########
+RewriteRule ^events,(add|search)\.html$ events.php?$1=1 [QSA,L]
+RewriteRule ^events,(edit|del)([0-9]*)\.html$ events.php?$1=$2 [QSA,L]
+RewriteRule ^events,(public|private)\.html$ events.php?mode=$1 [QSA,L]
+RewriteRule ^events,(public|private),day([0-9]{2})([0-9]{2})([0-9]{4})\.html$ events.php?mode=$1&day=$2&month=$3&year=$4 [QSA,L]
+RewriteRule ^events,id([0-9]*)(,.*)?\.html$ events.php?id=$1 [QSA,L]
+
+RewriteRule ^calendar,(public|private)\.html$ calendar.php?mode=$1 [QSA,L]
+RewriteRule ^calendar,(public|private),today\.html$ calendar.php?mode=$1&today=1 [QSA,L]
+RewriteRule ^calendar,(public|private),year([0-9]{4})\.html$ calendar.php?mode=$1&year=$2 [QSA,L]
+RewriteRule ^calendar,(public|private),week([0-9]{2})([0-9]{4})\.html$ calendar.php?mode=$1&week=$2&year=$3 [QSA,L]
+RewriteRule ^calendar,(public|private),month([0-9]{2})([0-9]{4})\.html$ calendar.php?mode=$1&month=$2&year=$3 [QSA,L]
+RewriteRule ^calendar,(public|private),day([0-9]{2})([0-9]{2})([0-9]{4})\.html$ calendar.php?mode=$1&day=$2&month=$3&year=$4 [QSA,L]

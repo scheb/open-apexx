@@ -1,0 +1,41 @@
+{*
+
+RSS-Feed für Downloads
+======================
+
+WEBSITENAME = Titel der Website (in der Konfiguration eingestellt)
+
+DOWNLOAD = Liste der Downloads
+DOWNLOAD.TITLE = Titel
+DOWNLOAD.TEXT = Gekürzte Beschreibung
+DOWNLOAD.TIME = Zeit+Datum im RFC2822-Format
+DOWNLOAD.LINK = Link zum Downloads
+DOWNLOAD.USERNAME = Benutzername des Uploaders
+DOWNLOAD.EMAIL = eMail-Adresse des Uploadsers
+DOWNLOAD.CATTITLE = Kategorie-Titel
+DOWNLOAD.TOP = Top-Download?
+
+*}
+<?xml version="1.0" encoding="{CHARSET}" ?>
+<rss version="2.0">
+<channel>
+<title>{WEBSITENAME} Downloads</title>
+<link>{SERVER_HTTPHOST}</link>
+<description></description>
+<language>de</language>
+
+{list DOWNLOAD}
+<item>
+<guid>{DOWNLOAD.LINK}</guid>
+<title><![CDATA[ {DOWNLOAD.TITLE} ]]></title>
+<link>{DOWNLOAD.LINK}</link>
+<description><![CDATA[ {DOWNLOAD.TEXT} ]]></description>
+<pubDate>{DOWNLOAD.TIME}</pubDate>
+{if DOWNLOAD.EMAIL}<author>{DOWNLOAD.EMAIL} ({DOWNLOAD.USERNAME})</author>{/if}
+<category><![CDATA[ {DOWNLOAD.CATTITLE} ]]></category>
+</item>
+
+{/list}
+
+</channel>
+</rss>

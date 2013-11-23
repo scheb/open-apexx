@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="../modules/downloads/images/style.css" type="text/css" />
+
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td>{LANG[FILES]}:</td><td><b>{FILES}</b></td></tr>
+<tr><td>{LANG[AVGDLSDAY]}:</td><td><b>{DLS_PERDAY}</b> {LANG[PERDAY]}</td></tr>
+<tr><td>{LANG[AVGSIZEDAY]}:</td><td><b>{SIZE_PERDAY}</b> {LANG[PERDAY]}</td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+</table>
+
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="18%" />
+<col width="4%" />
+<col width="30%" />
+<col width="18%" />
+</colgroup>
+<tr><td colspan="2"><b><u>{LANG[DOWNLOADS]}</u></b> (&raquo; <a href="action.php?action=downloads.stats&amp;show=downloads">{LANG[GRAPH]}</a>)</td><td>&nbsp;</td><td colspan="2"><b><u>{LANG[TRAFFIC]}</u></b> (&raquo; <a href="action.php?action=downloads.stats&amp;show=size">{LANG[GRAPH]}</a>)</td></tr>
+<tr><td>{LANG[DLSCOMPLETE]}:</td><td><b>{DLS_ALL}</b></td><td>&nbsp;</td><td>{LANG[SIZECOMPLETE]}:</td><td><b>{SIZE_ALL}</b></td></tr>
+<tr><td>{LANG[DLSTHISWEEK]}:</td><td><b>{DLS_WEEK}</b></td><td>&nbsp;</td><td>{LANG[SIZETHISWEEK]}:</td><td><b>{SIZE_WEEK}</b></td></tr>
+<tr><td>{LANG[DLSTODAY]}:</td><td><b>{DLS_TODAY}</b></td><td>&nbsp;</td><td>{LANG[SIZETODAY]}:</td><td><b>{SIZE_TODAY}</b></td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<h2>{GRAPH_HEADLINE} {LANG[LAST50DAYS]}</h2>
+<div class="tablebox" style="margin-bottom: 20px;">
+
+<table width="100%" cellpadding="0">
+<tr>
+<td align="right" class="stats_scale" valign="top" nowrap="nowrap">{SCALE4}</td>
+{list STAT}{++STATSPAN}
+<td rowspan="4" valign="bottom" class="stats_main"><img src="../modules/downloads/images/statbar.gif" width="8" height="{STAT.HEIGHT}" alt="{STAT.DATE|notags} - {STAT.INFO}" title="{STAT.DATE|notags} - {STAT.INFO}" class="stats_main_bar1" /></td>
+{/list}
+<td width="100%" rowspan="4" class="stats_blank"><img src="design/1px.gif" width="1" height="300" alt="" /></td>
+</tr>
+
+<tr><td align="right" class="stats_scale" valign="top" nowrap="nowrap">{SCALE3}</td></tr>
+<tr><td align="right" class="stats_scale" valign="top" nowrap="nowrap">{SCALE2}</td></tr>
+<tr><td align="right" class="stats_scale" valign="top" nowrap="nowrap">{SCALE1}</td></tr>
+
+<tr>
+<td align="right" class="stats_scalezero" valign="top">0</td>
+<td class="small" colspan="{STATSPAN+1}{STATSPAN}">&nbsp;</td>
+</tr>
+</table>
+
+</div>
+
+<h2>{LANG[POPULAR]}</h2>
+<table width="100%" class="tablelist">
+<tbody>
+{list POP}
+<tr>
+<td width="2%" align="center"><small>{POP.COUNT}</small></td>
+<td width="98%"><small><a href="{POP.LINK}" target="_blank">{POP.TITLE}</a></small></td>
+</tr>
+{/list}
+</tbody>
+</table>

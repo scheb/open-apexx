@@ -1,0 +1,24 @@
+<form name="textform" action="action.php" method="post">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_NEWSLETTER_ADDNEWS]}</td></tr>
+<tr>
+<td>{LANG[PERIOD]}:</td>
+<td>
+<input type="radio" name="type" value="day" id="type_day"{if TYPE=='day'} checked="checked"{/if} /> {LANG[LAST]} <input type="text" name="day_count" value="{DAY_COUNT}" size="3" class="input" onchange="getobject('type_day').checked=true;" style="width:20px;" /> {LANG[DAYS]}<br />
+<input type="radio" name="type" value="week" id="type_week"{if TYPE=='week'} checked="checked"{/if} /> {LANG[LAST]} <input type="text" name="week_count" value="{WEEK_COUNT}" size="3" class="input" onchange="getobject('type_week').checked=true;" style="width:20px;" /> {LANG[WEEKS]}<br />
+<input type="radio" name="type" value="month" id="type_month"{if TYPE=='month'} checked="checked"{/if} /> {LANG[LAST]} <input type="text" name="month_count" value="{MONTH_COUNT}" size="3" class="input" onchange="getobject('type_month').checked=true;" style="width:20px;" /> {LANG[MONTHS]}
+</td>
+</tr>
+{if SET_SECTIONS}<tr>
+<td>{LANG[SECTION]}:<br /><small>({LANG[CTRLMULTI]})</small></td>
+<td><select name="secid[]" multiple="multiple">{SECTIONS(SECID)}</select></td>
+</tr>{/if}
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[LISTNEWS]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="newsletter.addnews" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

@@ -1,0 +1,37 @@
+{*
+
+Template-Funktion: Neue Benutzer
+================================
+
+NEW = Liste der Buddies
+NEW.ID = Benutzer-ID
+NEW.USERNAME = Benutzername
+NEW.GROUPID = ID der Benutzergruppe
+NEW.EMAIL = eMail-Adresse des Buddy
+NEW.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+NEW.ONLINE = Ist der Buddy online?
+NEW.REALNAME = Echter Name
+NEW.GENDER = Geschlecht (1=m, 2=w)
+NEW.CITY = Stadt
+NEW.PLZ = Postleitzahl
+NEW.COUNTRY = Land
+NEW.REGTIME = Datum/Zeit der Registrierung (Timestamp)
+NEW.REGDAYS = Tage seit der Registrierung
+NEW.LASTACTIVE = Zuletzt aktiv (Timestamp)
+NEW.AVATAR = Pfad zum Avatar
+NEW.AVATAR_TITLE = Avatar-Titel
+NEW.BIRTHDAY = Geburtstag
+NEW.AGE = Alter
+NEW.ISBUDDY = Ist dieser Benutzer Freund des angemeldeten Benutzers?
+NEW.LINK_SENDEMAIL = Link: eMail an Buddy senden
+NEW.LINK_SENDPM = Link: PN an Buddy senden
+
+
+Benuterdefinierte Felder
+------------------------
+NEW.CUSTOM1_NAME -> NEW.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+NEW.CUSTOM1 -> NEW.CUSTOM10 = Wert des Eingabefelds
+
+*}
+
+<div align="center"><br />{LANG[WELCOMENEW]}: {list NEW}{++COUNT}{if COUNT>1}, {/if}<a href="{PROFILE(NEW.USERID)}">{NEW.USERNAME}</a>{/list}</div>

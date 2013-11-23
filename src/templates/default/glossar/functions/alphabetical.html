@@ -1,0 +1,54 @@
+{*
+
+Template-Funktion: Begriffe alphabetisch auflisten
+==================================================
+
+Begriffe
+--------
+INDEX = Liste der Begriffe
+INDEX.TITLE = Begriff
+INDEX.SPELLING = Schreibweisen/Synonyme
+INDEX.TEXT = Beschreibung
+INDEX.LINK = Link zu diesem Begriff
+INDEX.TIME = Veröffentlichung (Timestamp)
+INDEX.HITS = Klicks
+INDEX.LETTER = Buchstabe, unter dem der Begriff geführt wird
+INDEX.LETTERLINK = Link, um nur Begriffe mit diesem Buchstaben anzuzeigen
+
+INDEX.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+INDEX.TAG = Liste aller Tags
+INDEX.TAG.ID = ID des Tags
+INDEX.TAG.NAME = Darstellbarer Name des Tags
+INDEX.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Themengebiet
+------------
+INDEX.CATID = ID des Themengebiets
+INDEX.CATTITLE = Titel des Themengebiets
+INDEX.CATTEXT = Beschreibung des Themengebiets
+INDEX.CATICON = Themengebiet Symbol
+INDEX.CATLINK = Link zum Index dieses Themengebies
+
+
+Kommentare
+----------
+INDEX.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+INDEX.COMMENT_COUNT = Anzahl der Kommentare
+INDEX.COMMENT_LINK = Link zur Kommentar-Seite
+INDEX.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+INDEX.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+INDEX.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+INDEX.DISPLAY_RATING = Bewerten ist erlaubt?
+INDEX.RATING = durchschnittliche Bewertung
+INDEX.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{list INDEX}
+<a href="{INDEX.LINK}">{INDEX.TITLE}</a> <span class="small">({INDEX.HITS})</span><br />
+{/list}

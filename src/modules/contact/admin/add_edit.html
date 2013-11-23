@@ -1,0 +1,22 @@
+<form action="action.php" method="post" enctype="multipart/form-data" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_CONTACT_ADD]}{else}{LANG[TITLE_CONTACT_EDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" size="50" maxlength="255" style="width:200px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[EMAIL]}:<br /><small>({LANG[SEPBYCOMMA]})</small></td>
+<td><input type="text" name="email" value="{EMAIL}" size="80" maxlength="255" style="width:400px;" class="input" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="contact.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

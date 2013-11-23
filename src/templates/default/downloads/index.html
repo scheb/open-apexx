@@ -1,0 +1,265 @@
+{*
+
+Downloads auflisten
+===================
+
+Ausgewählte Kategorie
+---------------------
+CATID = Kategorie-ID
+CATTITLE = Titel der Kategorie
+CATLINK = Link: Nur Inhalte aus dieser Kategorie
+CATTEXT = Beschreibung der Kategorie
+CATICON = Kategorie-Symbol
+CATCOUNT = Anzahl Downloads in der gewählten Kategorie
+PATH = Liste: Kategorie-Pfad
+PATH.TITLE = Kategorie-Titel
+PATH.LINK = Link zur Kategorie
+
+
+Unterkategorien
+---------------
+CATEGORY = Liste der Unterkategorien
+CATEGORY.ID = Unterkategorie-ID
+CATEGORY.TITLE = Titel der Unterkategorie
+CATEGORY.TEXT = Beschreibung der Unterkategorie
+CATEGORY.ICON = Symbol der Unterkategorie
+CATEGORY.COUNT = Anzahl Downloads in dieser Kategorie
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+
+Downloads
+---------
+DOWNLOAD = Liste der enthaltenen Downloads
+DOWNLOAD.ID = Download-ID
+DOWNLOAD.TITLE = Titel
+DOWNLOAD.TEXT = Beschreibung
+DOWNLOAD.LINK = Link zur Detailansicht
+DOWNLOAD.SIZE = Dateigröße
+DOWNLOAD.HITS = Download-Klicks
+DOWNLOAD.FORMAT = Dateiformat
+DOWNLOAD.TIME = Zeit (Timestamp)
+DOWNLOAD.TOP = Top-Download?
+DOWNLOAD.RESTRICTED = Altersabfrage aktiviert?
+DOWNLOAD.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+DOWNLOAD.NEW = Neuer Download?
+DOWNLOAD.DOWNLOADLINK = Link: Datei herunterladen
+DOWNLOAD.UPLOADER = Name des Uploaders
+DOWNLOAD.UPLOADER_ID = Benutzer-ID des Uploaders
+DOWNLOAD.UPLOADER_EMAIL = eMail-Adresse des Uploaders
+DOWNLOAD.UPLOADER_EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+DOWNLOAD.AUTHOR = Name des Autors
+DOWNLOAD.AUTHOR_LINK = Verlinkung des Autor-Namens (eMail-Adresse, URL, etc.)
+
+DOWNLOAD.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+DOWNLOAD.TAG = Liste aller Tags
+DOWNLOAD.TAG.ID = ID des Tags
+DOWNLOAD.TAG.NAME = Darstellbarer Name des Tags
+DOWNLOAD.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kategorie
+---------
+DOWNLOAD.CATID = Unterkategorie-ID
+DOWNLOAD.CATTITLE = Titel der Unterkategorie
+DOWNLOAD.CATTEXT = Beschreibung der Unterkategorie
+DOWNLOAD.CATICON = Symbol der Unterkategorie
+
+
+Verknüpfte Galerie
+------------------
+DOWNLOAD.GALLERY_ID = ID der Galerie
+DOWNLOAD.GALLERY_TITLE = Titel der Galerie
+DOWNLOAD.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Bilder
+------
+DOWNLOAD.PICTURE = Liste der Bilder
+DOWNLOAD.PICTURE.IMAGE = Pfad zum Vorschaubild
+DOWNLOAD.PICTURE.LINK = Link zur Großansicht
+
+
+Kommentare
+----------
+DOWNLOAD.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+DOWNLOAD.COMMENT_COUNT = Anzahl der Kommentare
+DOWNLOAD.COMMENT_LINK = Link zur Kommentar-Seite
+DOWNLOAD.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+DOWNLOAD.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+DOWNLOAD.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+DOWNLOAD.DISPLAY_RATING = Bewerten ist erlaubt?
+DOWNLOAD.RATING = durchschnittliche Bewertung
+DOWNLOAD.RATING_VOTES = Anzahl der Stimmen
+
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_TITLE = Link: Sortieren nach Titel
+SORTBY_HITS = Link: Sortieren nach Klicks
+SORTBY_DATE = Link: Sortieren nach Datum
+SORTBY_AUTHOR = Link: Sortieren nach Autor (sofern vorhanden)
+SORTBY_UPLOADER = Link: Sortieren nach Uploader
+SORTBY_RATING = Link: Sortieren nach Bewertung
+
+
+Suche
+-----
+SEARCH_POSTTO = URL, an die das Formular gesendet werden soll
+SEARCH_CATEGORY = Liste der Kategorien (für Dropdown)
+SEARCH_CATEGORY.ID = Kategorie-ID
+SEARCH_CATEGORY.TITLE = Kategorie-Titel
+SEARCH_CATEGORY.LEVEL = Level der Untergliederung
+
+*}
+
+<style type="text/css">
+<!--
+
+.downloads_category {
+	border-collapse:separate;
+}
+
+.downloads_category_td {
+	border:1px solid #DEDEDE;
+	background:#FAFAFA;
+	padding:3px;
+	vertical-align:top;
+}
+
+.downloads_best {
+	width:210px;
+	height:100px;
+	border:1px solid #B3B3B3;
+	background:#F0F0F0;
+	float:left;
+	margin:0px 3px;
+}
+
+.downloads_best_head {
+	color:#f2f2f2;
+	font-size:10px;
+	font-weight:bold;
+	background-image:url('design/header_box.gif');
+	background-position:bottom;
+	padding:4px 0px 9px 3px;
+}
+
+.downloads_best_content {
+	padding:3px;
+}
+
+-->
+</style>
+
+<div>
+<div class="downloads_best"><div class="downloads_best_head">{LANG[TOPDOWNLOADS_RATING]}</div><div class="downloads_best_content">{BESTDOWNLOADS_RATING(5)}</div></div>
+<div class="downloads_best"><div class="downloads_best_head">{LANG[TOPDOWNLOADS_HITS]}</div><div class="downloads_best_content">{BESTDOWNLOADS_HITS(5)}</div></div>
+<div class="downloads_best"><div class="downloads_best_head">{LANG[NEWDOWNLOADS]}</div><div class="downloads_best_content">{LASTDOWNLOADS(5)}</div></div>
+</div>
+
+<div style="clear:both;padding-top:10px;">
+
+<p>&raquo; <a href="downloads.php{if SECTION_ID}?sec={SECTION_ID}{/if}">{LANG[HEADLINE]}</a>{list PATH} &raquo; <a href="{PATH.LINK}">{PATH.TITLE}</a>{/list}
+{if CATID}<br /><span class="small"><!-- {CATTITLE} {CATICON} -->{CATTEXT}</span>{/if}</p>
+
+{if CATEGORY}
+<table width="100%" class="downloads_category">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+
+{list CATEGORY}
+{if CCOUNT%3==0}<tr>{/if}
+{++CCOUNT}<td class="downloads_category_td">{if CATEGORY.ICON}<img src="{CATEGORY.ICON}" alt="" style="vertical-align:middle;" />{else}<img src="modules/downloads/images/folder.gif" alt="" style="vertical-align:middle;" />{/if} <a href="{CATEGORY.LINK}">{CATEGORY.TITLE}</a> ({CATEGORY.COUNT}){if CATEGORY.TEXT}<br /><span class="small">{CATEGORY.TEXT}</span>{/if}</td>
+{if CCOUNT%3==0}</tr>{/if}
+{/list}
+
+{if CCOUNT%3==1}<td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if CCOUNT%3==2}<td>&nbsp;</td></tr>{/if}
+</table>
+<br />&nbsp;
+{/if}
+
+{if DOWNLOAD}
+{include ../pages.html}
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="15%" />
+<col width="45%" />
+</colgroup>
+<tr>
+<td class="header2">{LANG[COL_TITLE]}</td>
+<td class="header2">{LANG[COL_SIZE]}</td>
+<td class="header2">{LANG[COL_DATE]}</td>
+<td class="header2">{LANG[COL_TEXT]}</td>
+</tr>
+{list DOWNLOAD}
+<tr>
+<td class="color"><a href="{DOWNLOAD.LINK}">{DOWNLOAD.TITLE}</a>{if DOWNLOAD.NEW} <img src="modules/downloads/images/new.gif" alt="" />{/if}{if DOWNLOAD.TOP} <img src="modules/downloads/images/top.gif" alt="" />{/if}</td>
+<td class="color" align="center">{DOWNLOAD.SIZE}</td>
+<td class="color" align="center">{DATE('d.m.Y',DOWNLOAD.TIME)}</td>
+<td class="color">{SHORTTEXT(DOWNLOAD.TEXT,200)} ({DOWNLOAD.HITS} {LANG[HITS]})</td>
+</tr>
+{/list}
+</table>
+
+<p class="sortby">{LANG[SORTBY]}: 
+<a href="{SORTBY_TITLE}">{LANG[SORT_TITLE]}</a>{if SORTBY=='title.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='title.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+<a href="{SORTBY_HITS}">{LANG[SORT_HITS]}</a>{if SORTBY=='hits.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='hits.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} |
+<a href="{SORTBY_DATE}">{LANG[SORT_DATE]}</a>{if SORTBY=='date.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='date.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+<a href="{SORTBY_AUTHOR}">{LANG[SORT_AUTHOR]}</a>{if SORTBY=='author.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='author.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+<a href="{SORTBY_UPLOADER}">{LANG[SORT_UPLOADER]}</a>{if SORTBY=='uploader.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='uploader.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}
+{if SORTBY_RATING} | <a href="{SORTBY_RATING}">{LANG[SORT_RATING]}</a>{if SORTBY=='rating.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='rating.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}{/if}
+</p>
+{/if}
+
+</div>
+
+{* Downloads suchen *}
+<form action="{SEARCH_POSTTO}" method="post" style="margin-top:20px;">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[SEARCH]}</td></tr>
+<tr class="color">
+<td>{LANG[ITEM]}:</td>
+<td><input type="text" name="item" size="50" class="input" /><br /><input type="radio" name="conn" value="and" checked="checked" /> {LANG[CONNAND]} &nbsp; <input type="radio" name="conn" value="or" /> {LANG[CONNOR]}</td>
+</tr>
+<tr class="color">
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid"><option value="">{LANG[ALL]}</option>{list SEARCH_CATEGORY}<option value="{SEARCH_CATEGORY.ID}">{repeat SEARCH_CATEGORY.LEVEL-1}&nbsp;&nbsp;{/repeat}{SEARCH_CATEGORY.TITLE}</option>{/list}</select></td>
+</tr>
+<tr class="color">
+<td>{LANG[TIMEPERIOD]}:</td>
+<td>
+<select name="start_day"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+<select name="start_month"><option value=""></option><option value="1">{LANG[MONTH_JAN]}</option><option value="2">{LANG[MONTH_FEB]}</option><option value="3">{LANG[MONTH_MAR]}</option><option value="4">{LANG[MONTH_APR]}</option><option value="5">{LANG[MONTH_MAY]}</option><option value="6">{LANG[MONTH_JUN]}</option><option value="7">{LANG[MONTH_JUL]}</option><option value="8">{LANG[MONTH_AUG]}</option><option value="9">{LANG[MONTH_SEP]}</option><option value="10">{LANG[MONTH_OCT]}</option><option value="11">{LANG[MONTH_NOV]}</option><option value="12">{LANG[MONTH_DEC]}</option></select>
+<select name="start_year"><option value=""></option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2009</option><option value="2020">2020</option></select> - 
+<select name="end_day"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+<select name="end_month"><option value=""></option><option value="1">{LANG[MONTH_JAN]}</option><option value="2">{LANG[MONTH_FEB]}</option><option value="3">{LANG[MONTH_MAR]}</option><option value="4">{LANG[MONTH_APR]}</option><option value="5">{LANG[MONTH_MAY]}</option><option value="6">{LANG[MONTH_JUN]}</option><option value="7">{LANG[MONTH_JUL]}</option><option value="8">{LANG[MONTH_AUG]}</option><option value="9">{LANG[MONTH_SEP]}</option><option value="10">{LANG[MONTH_OCT]}</option><option value="11">{LANG[MONTH_NOV]}</option><option value="12">{LANG[MONTH_DEC]}</option></select>
+<select name="end_year"><option value=""></option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2009</option><option value="2020">2020</option></select>
+</td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="submit" value="{LANG[SEARCH]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="search" />
+<input type="hidden" name="send" value="1" />
+</form>
+
+{DOWNLOADS_TAGCLOUD()}

@@ -1,0 +1,19 @@
+<p class="hint">{LANG[INFO]}</p>
+<table width="100%" class="tablelist">
+<thead>
+<tr>
+<th width="25%">{LANG[COUNTRY]}</th>
+<th width="60%">&nbsp;</th>
+<th width="15%">{LANG[PART]}</th>
+</tr>
+</thead>
+<tbody>
+{list COUNTRY}
+<tr>
+<td>{COUNTRY.NAME}</td>
+<td><img src="../modules/stats/images/statbar_h.gif" width="{COUNTRY.WIDTH}" height="12" alt="" class="stats_bar_h" /></td>
+<td>{COUNTRY.PERCENT}% ({COUNTRY.COUNT})</td>
+</tr>
+{/list}
+</tbody>
+</table>

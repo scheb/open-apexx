@@ -1,0 +1,21 @@
+<form action="action.php?action=user.blog&amp;do=edit" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr><td colspan="2" class="tableheader">{LANG[EDITBLOG]}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td><textarea name="text" rows="20" style="width:98%;">{TEXT}</textarea></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="send" value="{LANG[EDITBLOG]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="userid" value="{USERID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

@@ -1,0 +1,27 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[EDITGUESTBOOK]}</td></tr>
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td>{USERNAME}</td>
+</tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="80" maxlength="255" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td><textarea name="text" id="text" cols="100" rows="7" class="input" style="width:98%;">{TEXT}</textarea></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="send" value="{LANG[EDITGUESTBOOK]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="user.guestbook" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="userid" value="{USERID}" />
+<input type="hidden" name="do" value="edit" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

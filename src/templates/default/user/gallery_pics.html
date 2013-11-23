@@ -1,0 +1,149 @@
+{*
+
+Benutzer-Galerie Bilder-Übersicht
+=================================
+
+Benutzer-Informationen
+----------------------
+USERID = Benutzer-ID
+USERNAME = Benutzer-Name
+
+
+Benutzer-Funktionen
+-------------------
+LINK_REPORT = Link: Verstoß melden
+LINK_PROFILE = Link: Zum Profil des Benutzers
+LINK_BLOG = Link: Zum Blog des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GUESTBOOK = Zum Gästebuch des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GALLERY = Zur Galerie des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_COLLECTION = Zur Sammlung des Benutzers (nur verfügbar, wenn aktiviert und Produkt-Modul vorhanden)
+
+
+Galerie
+-------
+ID = Galerie-ID
+TITLE = Galerie-Titel
+COUNT = Anzahl der Bilder in der Galerie
+
+
+Bilder
+------
+PICTURE.ID = ID des Eintrags
+PICTURE.IMAGE = Pfad zum Thumbnail
+PICTURE.FULLSIZE = Pfad zum Bild in voller Größe
+PICTURE.LINK = Link: Großansicht anzeigen
+PICTURE.CAPTION = Bildunterschrift
+
+
+Seitenzahlen (Template includen?)
+---------------------------------
+PAGE_COUNT = Anzahl der Seiten
+PAGE_SELECTED = Ausgewählte Seitenzahl
+PAGE = Liste der Seitenzahlen
+PAGE.NUMBER = Seitenzahl
+PAGE.LINK = Link
+PAGE_PREVIOUS = Link "vorherige Seite"
+PAGE_NEXT = Link "nächste Seite"
+PAGE_FIRST = Link "erste Seite"
+PAGE_LAST = Link "letzte Seite"
+
+
+Besucher der Galerie
+--------------------
+VISITOR = Liste der Besucher
+VISITOR.USERID = Benutzer-ID
+VISITOR.USERNAME = Benutzername
+VISITOR.GROUPID = ID der Benutzergruppe
+VISITOR.ONLINE = Ist der Benutzer online?
+VISITOR.REALNAME = Echter Name
+VISITOR.GENDER = Geschlecht (1=m, 2=w)
+VISITOR.CITY = Stadt
+VISITOR.PLZ = Postleitzahl
+VISITOR.COUNTRY = Land
+VISITOR.LASTACTIVE = Zuletzt aktiv (Timestamp)
+VISITOR.AVATAR = Pfad zum Avatar
+VISITOR.AVATAR_TITLE = Avatar-Titel
+
+Benuterdefinierte Felder
+------------------------
+VISITOR.CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+VISITOR.CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+*}
+
+<style type="text/css">
+<!--
+
+.gallery_title {
+	margin:0px 0px 15px 0px;
+}
+
+.gallery_title b {
+	font-size:14px;
+}
+
+.gallery {
+	border-collapse:separate;
+	border-spacing:10px;
+}
+
+.gallery td {
+	width:25%;
+	background:#F1F1F1;
+	padding:5px;
+}
+
+-->
+</style>
+
+<div class="tabbar clearfix">
+<ul>
+<li><a href="{LINK_PROFILE}">{LANG[USER_PROFILE]}</a></li>
+<li><a href="{LINK_BLOG}">{LANG[USER_BLOG]}</a></li>
+<li class="selected"><a href="{LINK_GALLERY}">{LANG[USER_GALLERY]}</a></li>
+<li><a href="{LINK_COLLECTION}">{LANG[USER_COLLECTION]}</a></li>
+<li><a href="{LINK_GUESTBOOK}">{LANG[USER_GUESTBOOK]}</a></li>
+</ul>
+</div>
+<div class="tabbody">
+
+<p class="gallery_title"><b>{TITLE}</b><br />{COUNT} {LANG[PICTURES]}</p>
+
+{include ../pages.html}
+<table width="639" class="gallery">
+{list PICTURE}{++COUNTER}
+{if COUNTER%4==1}<tr>{/if}
+<td align="center">
+<a href="{PICTURE.LINK}"><img src="{PICTURE.IMAGE}" alt="{PICTURE.CAPTION|notags}" title="{PICTURE.CAPTION|notags}" style="border:2px solid #2B2B2B;" /></a>
+{if PICTURE.CAPTION}<br /><span class="small">{PICTURE.CAPTION}</span>{/if}
+</td>
+{if COUNTER%4==0}</tr>{/if}
+{/list}
+{* Leere Zellen füllen *}
+{if COUNTER%4==1}<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if COUNTER%4==2}<td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if COUNTER%4==3}<td>&nbsp;</td></tr>{/if}
+{if !PICTURE}<tr><td class="color" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>
+
+{if VISITOR}
+<table width="639">
+<tr><td colspan="2" class="header1">{LANG[VISITORS]}</td></tr>
+<tr><td class="color" colspan="2">{list VISITOR}{++VCOUNT}{if VCOUNT>1}, {/if}<a href="{PROFILE(VISITOR.ID)}" target="_blank">{VISITOR.USERNAME}</a>{/list}</td></tr>
+</table>
+{/if}
+
+<p>&raquo; <a href="{LINK_REPORT}">{LANG[REPORTTHIS]}</a></p>
+
+{if DISPLAY_COMMENTS}<br />&nbsp;{include ../comments/comments.html}{/if}
+
+</div>

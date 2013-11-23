@@ -1,0 +1,74 @@
+{*
+
+Template-Funktion: Umfrage anzeigen
+===================================
+
+QUESTION = Frage
+LINK = Link zur Umfrage
+STARTTIME = Beginn der Umfrage (Timestamp)
+ENDTIME = Ende der Umfrage (Timestamp)
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Nur eine der beiden Variablen ist definiert: 
+RESULT = Liste der Ergebnisse
+OPTION = Liste der Antwortmöglichkeiten
+
+
+Ergebnisse anzeigen
+-------------------
+RESULT.ANSWER = Antwort
+RESULT.WIDTH = Breite des Anzeigebalkens
+RESULT.VOTES = Anzahl der Stimmen
+RESULT.COLOR = Zugewiesene Farbe
+RESULT.PERCENT = Prozentualer Anteil
+TOTALVOTES = Gesamtzahl an Stimmen
+SET_VOTED = Besucher hat bereits abgestimmt?
+SET_END = Umfrage ist beenden?
+
+
+Antwortmöglichkeiten auflisten
+------------------------------
+OPTION.BOX = Auswahlbox
+OPTION.ANSWER = Antwort
+OPTION.COLOR = Zugewiesene Farbe
+POSTTO = Ziel des Formulars
+LINK_RESULT = Link: Ergebnis anzeigen
+
+
+Kommentare
+----------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+
+*}
+
+{if RESULT}
+
+<table width="130">
+<tr><td style="font-size:11px;text-align:center;font-weight:bold;">{QUESTION|notags}</td></tr>
+{list RESULT}
+<tr><td class="small" style="padding-bottom:5px;">{RESULT.ANSWER|notags}:<br /><img src="modules/poll/images/bar.gif" width="{RESULT.WIDTH}" height="8" alt="" style="border:1px solid #F9A280;" /><br />{RESULT.PERCENT} ({RESULT.VOTES})</td></tr>
+{/list}
+<tr><td class="small" style="text-align:center;">{LANG[VOTES]}: {TOTALVOTES}{if SET_VOTED}<br /><b>{LANG[VOTED]}</b>{elseif SET_END}<br /><b>{LANG[END]}</b>{/if}{if DISPLAY_COMMENTS}<br /><a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a>{/if}</td></tr>
+</table>
+
+{else}
+
+<form action="{POSTTO}" method="post">
+<table width="130">
+<tr><td colspan="2" style="font-size:11px;text-align:center;font-weight:bold;">{QUESTION|notags}</td></tr>
+{list OPTION}
+<tr><td>{OPTION.BOX}</td><td width="100%" class="small">{OPTION.ANSWER|notags}</td></tr>
+{/list}
+<tr><td colspan="2" class="small" style="text-align:center;"><input type="submit" name="send" value="{LANG[VOTE]}" class="button" /><br />&raquo; <a href="{LINK_RESULT}">{LANG[RESULTS]}</a> &laquo;{if DISPLAY_COMMENTS}<br /><a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a>{/if}</td></tr>
+</table>
+</form>
+
+{/if}

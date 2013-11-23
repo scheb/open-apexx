@@ -1,0 +1,152 @@
+{*
+
+Thema teilen
+============
+
+Neue Thema
+----------
+ID = ID des Themas, das geteilt werden soll
+TITLE = Eingabe: Titel
+TEXT = Eingabe: Text
+ICON = ID des Themenicons
+ANNCOUNCE = Der Benutzer hat das Recht Ankündigungen zu erstellen
+STICKY_TYPE = Art der Ankündigung
+STICKY_TEXT = Benutzerdefiniertes Präfix für Ankündigungen
+
+
+Seiten
+------
+P = Seitenzahl
+PREVIOUS = Vorherige Seite verfügbar?
+NEXT = Nächste Seite verfügbar?
+
+
+Zielforum
+---------
+FORUM = Liste aller verfügbaren Foren
+FORUM.ID = ID des Forums
+FORUM.TITLE = Titel
+FORUM.LEVEL = Untergliederungs-Level
+FORUM.ISCAT = Forum ist eine Kategorie (nicht auswählbar)
+FORUM.SELECTED = Forum ausgewählt
+
+Beiträge
+--------
+POST = Liste der Beiträge
+POST.ID = ID des Beitrags
+POST.USERNAME = Name des Autors
+POST.TEXT = Beitrag-Text
+POST.TIME = Zeitpunkt (Timestamp)
+POST.SELECTED = Ist der Beitrag ausgewählt?
+
+
+Bereits ausgewählte Beitrage
+----------------------------
+Diese IDs müssen durch hidden-Felder übergeben werden, da sie bereits auf
+vorherigen Seiten ausgewählt wurden.
+SELPOST = Liste der restlichen Beiträge
+SELPOST.ID = ID
+
+*}
+
+<form name="message" action="admin.php" method="post">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody>
+<tr><td class="form_header" colspan="2">{LANG[SPLITTHREAD]}</td></tr>
+<tr class="cell1">
+<td>{LANG[SPLITACTION]}:</td>
+<td>
+<input type="radio" name="do" id="ip_do_new" value="new" checked="checked" onclick="updateActionView();" onchange="updateActionView();" /><label for="ip_do_new" onclick="updateActionView();"> {LANG[NEWTHREAD]}</label>
+<input type="radio" name="do" id="ip_do_merge" value="merge" onclick="updateActionView();" onchange="updateActionView();" /><label for="ip_do_merge" onclick="updateActionView();"> {LANG[MERGEWITHTHREAD]}</label>
+</td>
+</tbody>
+<tbody id="action_new">
+</tr>
+<tr class="cell2">
+<td>{LANG[INFORUM]}:</td>
+<td><select name="forum">{list FORUM}<option value="{FORUM.ID}"{if FORUM.ISCAT} style="background:#EAEAEA;"{/if}{if FORUM.SELECTED} selected="selected"{/if}>{repeat FORUM.LEVEL-1}&nbsp;&nbsp;{/repeat}{FORUM.TITLE}</option>{/list}</select></td>
+</tr>
+<tr class="cell1">
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="textbox" maxlength="255" style="width:400px;" /></td>
+</tr>
+<tr class="cell2">
+<td>{LANG[ICON]}:</td>
+<td><label for="icon_none"><input type="radio" name="icon" id="icon_none" value="none"{if ICON=='none' || ICON===''} checked="checked"{/if} style="vertical-align:bottom;" /> {LANG[NOICON]}</label>&nbsp;&nbsp; {list ICONLIST}<label for="icon_id{ICONLIST.ID}" style="white-space:nowrap;"><input type="radio" name="icon" id="icon_id{ICONLIST.ID}" value="{ICONLIST.ID}"{if ICON==ICONLIST.ID} checked="checked"{/if} style="vertical-align:bottom;" /> <img src="{ICONLIST.IMAGE}" alt="" /></label>&nbsp;&nbsp; {/list}</td>
+</tr>
+{if ANNOUNCE}
+<tr class="cell1">
+<td>{LANG[STICKY]}:</td>
+<td>
+<label for="sticky_type1"><input type="radio" name="sticky_type" id="sticky_type1" value="no"{if STICKY_TYPE=='no'} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[NO]}</label> &nbsp;&nbsp;
+<label for="sticky_type2"><input type="radio" name="sticky_type" id="sticky_type2" value="announcement"{if STICKY_TYPE=='announcement'} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[ANNOUNCEMENT]}</label> &nbsp;&nbsp;
+<label for="sticky_type3"><input type="radio" name="sticky_type" id="sticky_type3" value="important"{if STICKY_TYPE=='important'} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[IMPORTANT]}</label> &nbsp;&nbsp;
+<label for="sticky_type4"><input type="radio" name="sticky_type" id="sticky_type4" value="own"{if STICKY_TYPE=='own'} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[OWNTEXT]}</label>: <input type="text" name="sticky_text" value="{STICKY_TEXT}" class="textbox" maxlength="255" style="width:150px;" onchange="getobject('sticky_type4').checked=true;" />
+</td>
+</tr>
+{/if}
+</tbody>
+<tbody id="action_merge" style="display:none;">
+<tr class="cell2">
+<td>{LANG[THREADID]}:</td>
+<td><input type="text" name="targetid" class="textbox" maxlength="10" style="width:50px;" /></td>
+</tr>
+</tbody>
+</table>
+
+<table width="100%" style="margin-top:10px;">
+<tr><td class="form_header"><input type="checkbox" name="post_checkall" value="1" onclick="checkbox_toggle(this.form,this.checked,'post');" style="vertical-align:text-bottom;"> {LANG[SELECTPOSTS]}</td></tr>
+</table>
+<div class="space2">&nbsp;</div>
+
+{list POST}
+<table width="100%" class="post">
+<tr>
+<td class="post_date" rowspan="2" width="10"><input type="checkbox" name="post[]" value="{POST.ID}"{if POST.SELECTED} checked="checked"{/if} /></td>
+<td class="post_date" colspan="2">{DATE('date',POST.TIME)} - {DATE('time',POST.TIME)} {LANG[CORE_OCLOCK]}</td>
+</tr>
+<tr>
+<td width="210" class="post_col1" style="vertical-align:top;text-align:center;">{POST.USERNAME}</td>
+<td class="post_col2" style="vertical-align:top;">{SHORTTEXT(POST.TEXT,300)}</td>
+</tr>
+</table>
+<div class="space2">&nbsp;</div>
+{/list}
+
+<table width="100%">
+<tr><td class="form_footer">
+{if PREVIOUS}<input type="button" name="previous" value="&laquo; {LANG[PREVIOUS]}" onclick="this.form.p.value=parseInt(this.form.p.value)-1;this.form.submit();" class="button" />{/if} 
+<input type="submit" name="send" value="{LANG[SPLITTHREAD]}" class="button" accesskey="s" /> 
+{if NEXT}<input type="button" name="next" value="{LANG[NEXT]} &raquo;" onclick="this.form.p.value=parseInt(this.form.p.value)+1;this.form.submit();" class="button" />{/if}
+</td></tr>
+</table>
+
+{* Beiträge, die bereits ausgewählt sind, sich aber nicht auf dieser Seite befinden *}
+{list SELPOST}<input type="hidden" name="post[]" value="{SELPOST.ID}" />{/list}
+
+<input type="hidden" name="p" value="{P}" />
+<input type="hidden" name="action" value="splitthread" />
+<input type="hidden" name="id" value="{ID}" />
+</form>
+
+<script type="text/javascript">
+
+function updateActionView() {
+	var checkbox = yDom.get('ip_do_new');
+	if ( checkbox.checked ) {
+		yDom.get('action_new').style.display = '';
+		yDom.get('action_merge').style.display = 'none';
+	}
+	else {
+		yDom.get('action_new').style.display = 'none';
+		yDom.get('action_merge').style.display = '';
+	}
+}
+
+updateActionView();
+
+</script>

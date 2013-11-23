@@ -1,0 +1,161 @@
+{*
+
+Download-Details anzeigen
+=========================
+
+Ausgewählte Kategorie
+---------------------
+CATID = Kategorie-ID
+CATTITLE = Titel der Kategorie
+CATLINK = Link: Nur Inhalte aus dieser Kategorie
+CATTEXT = Beschreibung der Kategorie
+CATICON = Kategorie-Symbol
+CATCOUNT = Anzahl Downloads in der gewählten Kategorie
+PATH = Liste: Kategorie-Pfad
+PATH.TITLE = Kategorie-Titel
+PATH.LINK = Link zur Kategorie
+
+
+Download
+--------
+ID = Download-ID
+TITLE = Titel
+TEXT = Beschreibung
+LINK = Link zur Detailansicht
+TIME = Zeit (Timestamp)
+TOP = Top-Download?
+RESTRICTED = Altersabfrage aktiviert?
+NEW = Neuer Download?
+DOWNLOADFILE = Direkte URL zum Download
+UPLOADER = Name des Uploaders
+UPLOADER_ID = Benutzer-ID des Uploaders
+UPLOADER_EMAIL = eMail-Adresse des Uploaders
+UPLOADER_EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+AUTHOR = Name des Autors
+AUTHOR_LINK = Verlinkung des Autor-Namens (eMail-Adresse, URL, etc.)
+SIZE = Dateigröße
+FORMAT = Dateiformat
+HITS = Download-Klicks
+PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+DOWNLOAD = Link um die Datei herunterzuladen
+LOCAL = Liegt die Datei auf dem lokalen Server? Wenn nicht ist das öffnen eines neuen Fensters empfehlenswert.
+LIMIT = Ist das tägliche Downloadlimit erreicht?
+REGONLY = Dürfen nur registrierte Benutzer herunterladen?
+BROKEN = Link: Downloadlink ist defekt
+
+TIME_MODEM = Downloaddauer mit Modem (56k)
+TIME_ISDN = Downloaddauer mit ISDN (64k)
+TIME_ISDN2 = Downloaddauer mit Zweikanal-ISDN (128k)
+TIME_DSL1000 = Downloaddauer mit DSL 1000
+TIME_DSL2000 = Downloaddauer mit DSL 2000
+TIME_DSL6000 = Downloaddauer mit DSL 6000
+TIME_DSL10000 = Downloaddauer mit DSL 10000
+TIME_DSL12000 = Downloaddauer mit DSL 12000
+TIME_DSL16000 = Downloaddauer mit DSL 16000
+
+
+Verknüpfte Galerie
+------------------
+GALLERY_ID = ID der Galerie
+GALLERY_TITLE = Titel der Galerie
+GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Mirrors
+-------
+MIRROR = Liste der Mirrors (alternative Downloadmöglichkeiten)
+MIRROR.TITLE = Bezeichnung des Links
+MIRROR.LINK = Downloadlink
+
+
+Bilder
+------
+PICTURE = Liste der Bilder
+PICTURE.IMAGE = Pfad zum Vorschaubild
+PICTURE.LINK = Link zur Großansicht
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Bewertung (Template includen?)
+------------------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+Alle Platzhalter finden Sie in der Datei templates/default/ratings/rating.html
+
+*}
+
+<p>&raquo; <a href="downloads.php{if SECTION_ID}?sec={SECTION_ID}{/if}">{LANG[HEADLINE]}</a>{list PATH} &raquo; <a href="{PATH.LINK}">{PATH.TITLE}</a>{/list}
+{if CATID}<br /><span class="small"><!-- {CATTITLE} {CATICON} -->{CATTEXT}</span>{/if}</p>
+
+<table width="100%"><tr><td width="75%" valign="top">
+
+<table width="100%">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<tr><td colspan="2" class="header1">{TITLE}</td></tr>
+<tr>
+<td class="color">{LANG[UPLOADER]}:</td>
+<td class="color">{if UPLOADER_LINK}<a href="{if UPLOADER_ID}{PROFILE(UPLOADER_ID)}{else}mailto:{UPLOADER_EMAIL}{/if}">{/if}{UPLOADER}{if UPLOADER_LINK}</a>{/if}</td>
+</tr>
+<tr>
+<td class="color">{LANG[DATE]}:</td>
+<td class="color">{DATE('d.m.Y',TIME)}</td>
+</tr>
+{if AUTHOR}<tr>
+<td class="color">{LANG[AUTHOR]}:</td>
+<td class="color">{if AUTHOR_LINK}<a href="{AUTHOR_LINK}">{/if}{AUTHOR}{if AUTHOR_LINK}</a>{/if}</td>
+</tr>{/if}
+<tr>
+<td class="color">{LANG[SIZE]}:</td>
+<td class="color">{SIZE}</td>
+</tr>
+<tr>
+<td class="color">{LANG[FORMAT]}:</td>
+<td class="color">{if FORMAT}{FORMAT}{else}?{/if}</td>
+</tr>
+<tr>
+<td class="color">{LANG[ESTTIME]}:</td>
+<td class="color">{LANG[MODEM]}: {TIME_MODEM}<br />{LANG[ISDN]}: {TIME_ISDN}<br />{LANG[DSL]} 1000: {TIME_DSL1000}<br />{LANG[DSL]} 2000: {TIME_DSL2000}<br />{LANG[DSL]} 6000: {TIME_DSL6000}<br />{LANG[DSL]} 10000: {TIME_DSL10000}</td>
+</tr>
+<tr><td class="color" colspan="2">{TEXT}</td></tr>
+<tr><td class="color" colspan="2">{if DISPLAY_RATING}{include ../ratings/rating.html}{/if}</td></tr>
+<tr><td class="color" colspan="2" align="center"><a href="{BROKEN}">{LANG[BROKEN]}</a> | <a href="{TELL()}">{LANG[TELL]}</a>{if DISPLAY_COMMENTS} | <a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a>{/if}</td></tr>
+{if !LIMIT}<tr><td class="footer" colspan="2"><a href="{DOWNLOAD}"{if !LOCAL} target="_blank"{/if}><img src="modules/downloads/images/download.gif" alt="{LANG[DOWNLOAD]}" /></a><br /><span class="small">{HITS} {LANG[HITS]}</span>{/if}
+{if MIRROR}<p class="small"><u><b>{LANG[MIRRORS]}</b></u><br />{list MIRROR}&raquo; <a href="{MIRROR.LINK}" target="_blank">{MIRROR.TITLE}</a><br />{/list}</p>{/if}
+</td></tr>
+</table>
+
+</td><td>&nbsp;&nbsp;&nbsp;</td><td width="25%" valign="top">
+<table width="100%">
+<tr><td class="header1">{LANG[PICTURES]}</td></tr>
+{if GALLERY_ID}
+<tr><td class="color" align="center">{GALLERY(5,GALLERY_ID)}</td></tr>
+{else}
+{list PICTURE}
+<tr><td class="color" align="center"><a href="{PICTURE.LINK}"><img src="{PICTURE.IMAGE}" alt="" /></a></td></tr>
+{/list}
+{if !PICTURE}<tr><td class="color" align="center">{LANG[NOPICS]}</td></tr>{/if}
+{/if}
+</table>
+</td></tr></table>
+
+<div class="tags" style="margin-top:10px;">{list TAG} <a href="downloads.php?action=search&amp;tag={TAG.NAME|urlencode}" style="{TAGSIZE=50+50*TAG.WEIGHT}font-size:{TAGSIZE}%;">{TAG.NAME}</a>{/list}</div>
+
+{if DISPLAY_COMMENTS}<br />{include ../comments/comments.html}{/if}

@@ -1,0 +1,26 @@
+<form name="textform" action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='edit'}{LANG[TITLE_NEWSLETTER_EEDIT]}{else}{LANG[TITLE_NEWSLETTER_EADD]}{/if}</td></tr>
+<tr>
+<td>{LANG[EMAIL]}:</td>
+<td>{if ACTION=='add'}<input type="text" name="email" value="{EMAIL}" class="input" maxlength="255" size="60" style="width:300px;" />{else}{EMAIL}{/if}</td>
+</tr>
+<tr>
+<td>{LANG[CATEGORIES]}:</td>
+<td><select name="catid[]" multiple="multiple">{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[HTML]}</td>
+<td><input type="checkbox" name="html" value="1"{if HTML} checked="checked"{/if} /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT]}{else}{LANG[UPDATE]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="newsletter.e{ACTION}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

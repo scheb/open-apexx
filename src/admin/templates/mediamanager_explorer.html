@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>apexx - {LANG[CORE_ADMINISTRATION]} | {LANG[CORE_MM]}</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="design/mm/explorer.css" type="text/css" />
+<script type="text/javascript" src="../lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/global.js"></script>
+<script type="text/javascript" src="../lib/javascript/admin_basic.js"></script>
+</head>
+<body>
+
+<div class="root"><img src="design/mm/folder_closed.gif" alt="" style="vertical-align:middle;" /> <a href="action.php?action=mediamanager.index&amp;module={SERVER_REQUEST_MODULE}" target="frame_content">{LANG[MEDIADIR]}</a></div>
+{include mediamanager_subtree.html}
+
+<script type="text/javascript">
+
+//Explorer-Tree
+var FolderTree = function(ul) {
+	this.loaded = {};
+	this.initUl(ul);
+}
+
+
+
+//Subtree
+FolderTree.prototype.initUl = function(ul) {
+	var lis = ul.getElementsByTagName('li');
+	for ( var i=0; i<lis.length; i++ ) {
+		this.initLi(lis[i]);
+	}
+}
+
+
+//LI initialisieren
+FolderTree.prototype.initLi = function(li) {
+	var icon = yDom.getElementsByClassName('toggleIcon', 'img', li)[0];
+	var dirname = this.getDirname(li);
+	yEvent.addListener(icon, 'click', this.handleSubtreeClick, dirname, this);
+}
+
+
+
+//Dirname für LI auslesen
+FolderTree.prototype.getDirname = function(li) {
+	var dirname = li.id.substr(li.id.indexOf(':')+1);
+	return dirname;
+}
+
+
+
+//Klick auf Toggle-Icon
+FolderTree.prototype.handleSubtreeClick = function(evt, dirname) {
+	if ( YAHOO.lang.isUndefined(this.loaded[dirname]) ) {
+		this.requestSubtree(dirname);
+	}
+	this.toggleSubstree(dirname);
+}
+
+
+
+//Unterordner anfordern
+FolderTree.prototype.requestSubtree = function(dirname) {
+	var callback = {
+		success: this.loadSubtree,
+	  failure: function() { },
+	  scope: this,
+	  argument: dirname
+	}
+	YAHOO.util.Connect.asyncRequest('GET', 'explorer.php?dir='+dirname+'&module={SERVER_REQUEST_MODULE}', callback);
+}
+
+
+//HTML für Unterordner laden
+FolderTree.prototype.loadSubtree = function(o) {
+	var dirname = o.argument;
+	var li = yDom.get('dir:'+o.argument);
+	var icon = yDom.getElementsByClassName('toggleIcon', 'img', li)[0];
+	if ( o.responseText.length ) {
+		var container = yDom.getElementsByClassName('subtree', 'div', li)[0];
+		container.innerHTML = o.responseText;
+		icon.style.display = '';
+		var subUl = li.getElementsByTagName('ul')[0];
+		this.initUl(subUl);
+	}
+	else {
+		icon.style.display = 'none';
+	}
+	this.loaded[dirname] = true;
+}
+
+
+//Unterordner ein-/ausblenden
+FolderTree.prototype.toggleSubstree = function(dirname) {
+	var li = yDom.get('dir:'+dirname);
+	var container = yDom.getElementsByClassName('subtree', 'div', li)[0];
+	if ( container.style.display=='none' ) {
+		this.openSubstree(dirname);
+	}
+	else {
+		this.closeSubstree(dirname);
+	}
+}
+
+
+//Unterordner einblenden
+FolderTree.prototype.openSubstree = function(dirname) {
+	var li = yDom.get('dir:'+dirname);
+	var container = yDom.getElementsByClassName('subtree', 'div', li)[0];
+	var icon = yDom.getElementsByClassName('toggleIcon', 'img', li)[0];
+	container.style.display = '';
+	icon.src = 'design/node_expanded.gif';
+}
+
+
+//Unterordner ausblenden
+FolderTree.prototype.closeSubstree = function(dirname) {
+	var li = yDom.get('dir:'+dirname);
+	var container = yDom.getElementsByClassName('subtree', 'div', li)[0];
+	var icon = yDom.getElementsByClassName('toggleIcon', 'img', li)[0];
+	container.style.display = 'none';
+	icon.src = 'design/node_collapsed.gif';
+}
+
+
+//INIT
+var tree = new FolderTree(document.getElementsByTagName('ul')[0]);
+
+</script>
+
+</body>
+</html>

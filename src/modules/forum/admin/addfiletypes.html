@@ -1,0 +1,42 @@
+<p class="hint">{LANG[FILEINFO]}</p>
+<form name="form" action="action.php" method="post" target="postframe" style="margin-bottom:20px;">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ID}{LANG[EDITFILETYPE]}{else}{LANG[ADDFILETYPE]}{/if}</td></tr>
+<tr>
+<td>{LANG[EXT]}:</td>
+<td><input type="text" name="ext" value="{EXT}" class="input" style="width:50px;" maxlength="10" /></td>
+</tr>
+<tr>
+<td>{LANG[ICON]}:</td>
+<td><input type="text" name="icon" value="{ICON}" class="input" style="width:300px;" maxlength="255" /></td>
+</tr>
+<tr>
+<td>{LANG[MAXSIZE]}:</td>
+<td><input type="text" name="size" value="{SIZE}" class="input" value="500" style="width:50px;" /> kB</td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ID}{LANG[EDITFILETYPE]}{else}{LANG[ADDFILETYPE]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="forum.filetypes" />
+<input type="hidden" name="do" value="{if ID}edit{else}add{/if}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+<script type="text/javascript">
+<!--
+
+function spreview(file,imageid) {
+	if ( file.substr(0,1)=="/" ) {
+		getobject(imageid).src=file;
+	}
+	else {
+		getobject(imageid).src="../"+file;
+	}
+}
+
+//-->
+</script>

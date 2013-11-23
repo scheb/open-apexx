@@ -1,0 +1,111 @@
+{*
+
+Hersteller-Liste
+================
+
+Hersteller
+----------
+MANU = Liste der Hersteller
+MANU.ID = ID
+MANU.TYPE = Type ('company' = Firma, 'person' = Person)
+MANU.TITLE = Spiel-Titel
+MANU.LINK = Link zur Detailseite
+MANU.TYPE = Produkttyp (normal, game, music, movie, book)
+MANU.TEXT = Beschreibung
+MANU.PICTURE = Produkt-Bild
+MANU.PICTURE_POPUP = Link: Popup zur Großansicht des Produktbilds
+MANU.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+MANU.WEBSITE = Website
+MANU.FULLNAME = Vollständiger Name
+MANU.ADDRESS = Anschrift
+MANU.EMAIL = eMail-Adresse
+MANU.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+MANU.PHONE = Telefon
+
+
+Nur bei TYPE = 'company'
+------------------------
+MANU.FOUNDER = Gründer
+MANU.FOUNDER_YEAR = Gründungsjahr
+MANU.FOUNDER_COUNTRY = Gründungsland
+MANU.LEGALFORM = Unternehmensform
+MANU.HEADQUATERS = Unternehmenssitz
+MANU.EXECUTIVE = Unternehmensleitung
+MANU.EMPLOYEES = Mitarbeiter
+MANU.TURNOVER = Jahresumsatz
+MANU.SECTOR = Branche
+MANU.PRODUCTS = Produkte
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+
+Buchstaben-Auswahl
+------------------
+Alle Platzhalter finden Sie in der Datei templates/default/letters.html
+
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_TITLE = Link: Sortieren nach Titel
+
+
+Suchformular
+------------
+SEARCH_POSTTO = URL, an die das Formular gesendet werden soll
+
+
+*}
+
+{include ../letters.html}
+{include ../pages.html}
+<table width="100%">
+<colgroup>
+<col width="75%" />
+<col width="25%" />
+</colgroup>
+<tr>
+<td class="header2">{LANG[TITLE]}</td>
+<td class="header2">{LANG[PRODUCTS]}</td>
+</tr>
+{list MANU}
+<tr class="color">
+<td><a href="{MANU.LINK}">{MANU.TITLE}</a></td>
+<td align="center">{MANU.PRODUCT_COUNT}</td>
+</tr>
+{/list}
+{if !MANU}<tr><td class="color" colspan="2" style="text-align:center;">{LANG[NONE]}</td></tr>{/if}
+</table>
+
+<p class="sortby">{LANG[SORTBY]}:
+<a href="{SORTBY_TITLE}">{LANG[TITLE]}</a>{if SORTBY=='title.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='title.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}
+</p>
+
+<br />&nbsp;
+
+<form action="{SEARCH_POSTTO}" method="post">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[SEARCH]}</td></tr>
+<tr class="color">
+<td>{LANG[ITEM]}:</td>
+<td><input type="text" name="item" size="50" class="input" /><br /><input type="radio" name="conn" value="and" checked="checked" /> {LANG[CONNAND]} &nbsp; <input type="radio" name="conn" value="or" /> {LANG[CONNOR]}</td>
+</tr>
+<tr class="color">
+<td>{LANG[TYPE]}:</td>
+<td>
+<input type="checkbox" name="type[]" value="person" checked="checked" /> {LANG[TYPE_PERSON]} &nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="type[]" value="company" checked="checked" /> {LANG[TYPE_COMPANY]}
+</td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="submit" value="{LANG[SEARCH]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="search" />
+<input type="hidden" name="send" value="1" />
+</form>

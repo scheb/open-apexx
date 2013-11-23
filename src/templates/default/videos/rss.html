@@ -1,0 +1,41 @@
+{*
+
+RSS-Feed für Videos
+======================
+
+WEBSITENAME = Titel der Website (in der Konfiguration eingestellt)
+
+VIDEO = Liste der Videos
+VIDEO.TITLE = Titel
+VIDEO.TEXT = Gekürzte Beschreibung
+VIDEO.TIME = Zeit+Datum im RFC2822-Format
+VIDEO.LINK = Link zum Videos
+VIDEO.USERNAME = Benutzername des Uploaders
+VIDEO.EMAIL = eMail-Adresse des Uploadsers
+VIDEO.CATTITLE = Kategorie-Titel
+VIDEO.TOP = Top-Video?
+
+*}
+<?xml version="1.0" encoding="{CHARSET}" ?>
+<rss version="2.0">
+<channel>
+<title>{WEBSITENAME} Videos</title>
+<link>{SERVER_HTTPHOST}</link>
+<description></description>
+<language>de</language>
+
+{list VIDEO}
+<item>
+<guid>{VIDEO.LINK}</guid>
+<title><![CDATA[ {VIDEO.TITLE} ]]></title>
+<link>{VIDEO.LINK}</link>
+<description><![CDATA[ {VIDEO.TEXT} ]]></description>
+<pubDate>{VIDEO.TIME}</pubDate>
+{if VIDEO.EMAIL}<author>{VIDEO.EMAIL} ({VIDEO.USERNAME})</author>{/if}
+<category><![CDATA[ {VIDEO.CATTITLE} ]]></category>
+</item>
+
+{/list}
+
+</channel>
+</rss>

@@ -1,0 +1,144 @@
+{*
+
+Aktuelle News
+=============
+
+News
+----
+NEWS = Liste der News
+NEWS.ID = News-ID
+NEWS.TITLE = Titel
+NEWS.SUBTITLE = Untertitel
+NEWS.TEASER = Einleitungs-Text
+NEWS.TEXT = Haupttext
+NEWS.LINK = Link zur News
+NEWS.TIME = Zeit (Timestamp)
+NEWS.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen News)
+NEWS.PICTURE = News-Bild
+NEWS.PICTURE_POPUP = Link: "größe Version des News-Bilds anzeigen"
+NEWS.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+NEWS.TOP = Top-News?
+NEWS.RESTRICTED = Altersabfrage aktiviert?
+NEWS.HITS = Klicks
+NEWS.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+NEWS.RELATED = Liste der "Links zu dieser News"
+NEWS.RELATED.TITLE = Vorangestellte Linkbezeichnung
+NEWS.RELATED.TEXT = Verlinkter Text
+NEWS.RELATED.URL = URL
+NEWS.RELATED.POPUP = Neues Fenster öffnen?
+
+NEWS.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+NEWS.TAG = Liste aller Tags
+NEWS.TAG.ID = ID des Tags
+NEWS.TAG.NAME = Darstellbarer Name des Tags
+NEWS.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+NEWS.USERID = Benutzer-ID des Autors
+NEWS.USERNAME = Benutzername des Autors
+NEWS.EMAIL = eMail-Adresse des Autors
+NEWS.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+
+NEWS.CATID = Kategorie-ID
+NEWS.CATTITLE = Kategorie-Titel
+NEWS.CATLINK = Link: Nur Inhalte aus dieser Kategorie
+NEWS.CATICON = Kategorie-Icon
+
+Verknüpfte Galerie
+------------------
+NEWS.GALLERY_ID = ID der Galerie
+NEWS.GALLERY_TITLE = Titel der Galerie
+NEWS.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+NEWS.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+NEWS.COMMENT_COUNT = Anzahl der Kommentare
+NEWS.COMMENT_LINK = Link zur Kommentar-Seite
+NEWS.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+NEWS.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+NEWS.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+NEWS.DISPLAY_RATING = Bewerten ist erlaubt?
+NEWS.RATING = durchschnittliche Bewertung
+NEWS.RATING_VOTES = Anzahl der Stimmen
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+*}
+
+<style type="text/css">
+<!--
+
+.news_datehead {
+	text-align:center;
+	font-size:14px;
+	font-weight:bold;
+	background:#F0F0F0;
+	border-top:1px solid #C2C2C2;
+	border-bottom:1px solid #C2C2C2;
+	margin:10px 0px;
+	padding:2px;
+}
+
+.news_list {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+	margin:10px 0px;
+}
+
+.news_title {
+	font-size:16px;
+	margin:0px;
+}
+
+.news_info {
+	font-size:11px;
+	margin:0px 0px 10px 0px;
+}
+
+.news_footer {
+	text-align:right;
+	font-size:11px;
+	margin:10px 0px 0px 0px;
+}
+
+-->
+</style>
+
+{include ../pages.html}
+
+{list NEWS}
+
+{if NEWS.DATEHEAD}
+<div class="news_datehead">{DATE('d. M Y',NEWS.DATEHEAD)}</div>
+{/if}
+
+<div class="news_list">
+<a name="news{NEWS.ID}"></a>
+
+<p class="news_title"> <a href="{NEWS.LINK}">{NEWS.TITLE}</a>{if NEWS.TOP} <img src="modules/news/images/top.gif" alt="" align="bottom" />{/if}</p>
+<p class="news_info">{if NEWS.SUBTITLE}{NEWS.SUBTITLE} | {/if} <!--{NEWS.CATICON}<a href="news.php?catid={NEWS.CATID}">-->{NEWS.CATTITLE}<!--</a>--> | {DATE('d.m.Y - H:i:s',NEWS.TIME)}</p>
+
+<div style="text-align:justify;">{if NEWS.GALLERY_ID}{GALLERY(1,NEWS.GALLERY_ID)}{else}{if NEWS.PICTURE}{if NEWS.PICTURE_POPUP}<a href="{NEWS.PICTURE_POPUP}">{/if}<img src="{NEWS.PICTURE}" alt="" style="float:left; margin:0px 10px 10px 0px;" />{if NEWS.PICTURE_POPUP}</a>{/if}{/if}{/if}
+{if NEWS.TEASER}{NEWS.TEASER}{else}{SHORTTEXT(NEWS.TEXT,200)}{/if}
+{*NEWS.TEXT*}</div>
+
+<p class="news_footer">{if NEWS.DISPLAY_COMMENTS}<a href="{NEWS.COMMENT_LINK}">{LANG[COMMENTS]} ({NEWS.COMMENT_COUNT})</a> | {/if}{NEWS.HITS} {LANG[HITS]} | {if NEWS.USERID}<a href="{PROFILE(NEWS.USERID)}" target="_blank">{/if}{NEWS.USERNAME}{if NEWS.USERID}</a>{/if} {if NEWS.EMAIL}({NEWS.EMAIL}){/if}</p>
+
+</div>
+{/list}
+
+
+{NEWS_CATEGORIES()}
+
+{NEWS_TAGCLOUD()}

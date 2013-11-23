@@ -1,0 +1,61 @@
+{*
+
+Formular um Newsletter anzumelden
+=================================
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+POSTTO = Adresse an die das Formular gesendet werden soll
+LINK_GETCODE = Link: Bestätigungs-Code neu anfordern
+
+CATEGORY = Liste der Newsletter-Kategorien
+CATEGORY.ID = ID
+CATEGORY.TITLE = Bezeichnung
+
+*}
+
+&raquo; <a href="{LINK_GETCODE}">{LANG[GETCODE]}</a><br />&nbsp;
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td colspan="2" class="header1">{LANG[NEWSLETTER]}</td></tr>
+<tr class="color">
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" size="60" class="input" value="{LOGGED_EMAIL}" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[ACTION]}:</td>
+<td><input type="radio" name="action" value="in" checked="checked" onclick="display_newsletter_options();" /> {LANG[SIGNIN]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="action" value="out" onclick="hide_newsletter_options();" /> {LANG[SIGNOFF]}</td>
+</tr>
+<tr class="color">
+<td>{LANG[CATEGORIES]}:</td>
+<td><select name="catid[]" multiple="multiple"><option value="all" selected="selected">{LANG[ALL]}</option>{list CATEGORY}<option value="{CATEGORY.ID}">{CATEGORY.TITLE}</option>{/list}</select></td>
+</tr>
+<tbody id="newsletter_options">
+<tr class="color">
+<td>{LANG[HTML]}:</td>
+<td><input type="checkbox" name="html" value="1" /></td>
+</tr>
+</tbody>
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>
+
+<script type="text/javascript">
+<!--
+
+// Javascript um die Optionen auszublenden, wenn "Austragen" gewählt wird
+
+function display_newsletter_options() {
+	getobject('newsletter_options').style.display='';
+}
+
+function hide_newsletter_options() {
+	getobject('newsletter_options').style.display='none';
+}
+
+//-->
+</script>

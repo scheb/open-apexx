@@ -1,0 +1,47 @@
+{*
+
+Themengebiete auflisten
+=======================
+
+Themengebiete
+-------------
+CATEGORY = Liste der Themengebiete
+CATEGORY.ID = ID
+CATEGORY.TITLE = Titel
+CATEGORY.ICON = Dateipfad zum Symbol
+CATEGORY.TEXT = Beschreibung
+CATEGORY.LINK = Link zu den enthaltenen Begriffen
+CATEGORY.COUNT = Anzahl der enthaltenen Begriffe
+
+*}
+
+<style type="text/css">
+<!--
+
+.glossar_category td {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+}
+
+.glossar_title {
+	font-size:16px;
+}
+
+-->
+</style>
+
+<table width="100%">
+{list CATEGORY}
+<tr class="glossar_category">
+<td>{if CATEGORY.ICON}<img src="{CATEGORY.ICON}" alt="" />{else}&nbsp;{/if}</td>
+<td width="100%"><a href="{CATEGORY.LINK}" class="glossar_title">{CATEGORY.TITLE}</a>{if CATEGORY.TEXT}<br />{CATEGORY.TEXT}{/if}<br /><span class="small">{CATEGORY.COUNT} {LANG[ENTRIES]}</span></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+{/list}
+</table>
+
+<br />&nbsp;
+
+{SEARCH('glossar')}

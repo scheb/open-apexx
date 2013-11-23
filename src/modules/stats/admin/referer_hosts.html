@@ -1,0 +1,20 @@
+<p class="slink"><a href="action.php?action=stats.referer">{LANG[GOBACK]}</a></p>
+
+<p class="hint">{LANG[REFERER_INFO]}</p>
+<h2>{LANG[FROMHOST]} <a href="{HOST}" target="_blank">{HOST}</a></h2>
+<table width="100%" class="tablelist">
+<thead>
+<tr>
+<th width="5%">{LANG[HITS]}</th>
+<th width="95%">{LANG[URL]}</th>
+</tr>
+</thead>
+<tbody>
+{list MOST}
+<tr>
+<td style="text-align:center;font-size:10px;">{MOST.HITS}</td>
+<td><a href="{MOST.LINK}" target="_blank">{MOST.URL}</a></td>
+</tr>
+{/list}
+</tbody>
+</table>

@@ -1,0 +1,50 @@
+{*
+
+Seite empfehlen
+===============
+
+POSTTO = Formular senden an...
+TITLE = Vorgabe: Titel
+TEXT = Vorgabe: Text
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+
+<tr><td class="header1" colspan="2">{LANG[HEADLINE]}</td></tr>
+<tr class="color">
+<td>{LANG[USERNAME]}:</td>
+<td><input type="text" name="username" value="{LOGGED_USERNAME}" size="40" maxlength="30" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" value="{LOGGED_EMAIL}" size="40" maxlength="255" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[TOEMAIL]}:</td>
+<td><input type="text" name="toemail" size="40" maxlength="255" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[SUBJECT]}:</td>
+<td><input type="text" name="subject" value="{TITLE}" size="60" maxlength="100" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[TEXT]}:</td>
+<td><textarea name="text" cols="65" rows="10" class="input">{TEXT}</textarea></td>
+</tr>
+{if CAPTCHA}<tr>
+<td class="color">{LANG[CAPTCHA]}:</td>
+<td class="color">{CAPTCHA} =&gt; <input type="text" name="captcha" size="15" class="input" /></td>
+</tr>{/if}
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>

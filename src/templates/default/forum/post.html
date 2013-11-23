@@ -1,0 +1,178 @@
+{*
+
+Beitrag Einzelansicht
+=====================
+
+Thema
+-----
+THREADID = Themen-ID
+THREAD_TITLE = Themen-Titel
+THREAD_PREFIX = Themen-Präfix
+THREAD_LINK = Link zum Thema
+THREAD_DELETED = Ist das Thema gelöscht?
+FORUMID = ID des Forums
+FORUM_TITLE = Titel des Forums
+FORUM_LINK = Link zum Forum
+RIGHT_POST = Hat der Benutzer das Recht einen neuen Beitrag zu schreiben?
+
+
+Beitrag
+-------
+POSTID = ID des Beitrags
+TITLE = Titel des Beitrags
+TEXT = Text des Beitrags
+TIME = Datum/Zeit (Timestamp)
+RANK = Benutzer-Rang des Autors
+RANK_IMAGE = Symbol für den Benutzer-Rang des Autors (Dateipfad)
+RANK_COLOR = Farbe für den Benutzer-Rang des Autors
+USERID = Benutzer-ID des Autors
+USERNAME = Benutzername des Autors
+USER_POSTS = Foren-Beiträge des Autors
+USER_REGTIME = Zeitpunkt der Registrierung des Autors
+ONLINE = Ist der Autor online?
+IP = IP, mit der dieser Beitrag verfasst wurde
+HOMEPAGE = Homepage des Autors
+AVATAR = Avatar (Pfad zum Bild)
+AVATAR_TITLE = Avatar-Titel
+SIGNATURE = Signatur des Autors
+CITY = Wohnort des Autors
+NEW = Neuer Beitrag?
+STARTER = Ist der Autor des Beitrags Themenstarter?
+NUMBER = Nummer des Beirags
+FIRST = Ist dies der erste Beitrag in diesem Thema?
+DELETED = Beitrag gelöscht?
+LASTEDIT_TIME = Zeitpunkt der letzten Bearbeitung
+LASTEDIT_USERNAME = Benutzer, der den Beitrag zuletzt bearbeitet hat
+
+Benuterdefinierte Profil-Felder des Autors
+------------------------------------------
+CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Kontakt
+-------
+LINK_SENDMAIL = Link: eMail senden
+LINK_SENDPM = Link: Nachricht senden
+CONTACT_ICQ = ICQ-Nummer
+CONTACT_MSN = MSN-ID
+CONTACT_AIM = AIM-ID
+CONTACT_YIM = YIM-ID
+CONTACT_SKYPE = Skype-Name
+
+
+Benutzer-Typen
+--------------
+IS_GUEST = Ist der Autor ein Gast?
+IS_ADMIN = Ist der Autor ein Administrator?
+IS_TEAM = Ist der Autor ein Teammitglied?
+IS_MODERATOR = Ist der Autor Moderator?
+
+
+Anhänge
+-------
+ATTACHMENT = Liste der Anhänge zu diesem Beitrag
+ATTACHMENT.ICON = Dateisymbol
+ATTACHMENT.NAME = Name der Datei
+ATTACHMENT.LINK = Link zur Datei
+ATTACHMENT.SIZE = Dateigröße
+
+
+Angehängte Bilder
+-----------------
+IMAGEATTACHMENT = Liste der Anhänge zu diesem Beitrag
+IMAGEATTACHMENT.THUMBNAIL = Pfad zum Thumbnail
+IMAGEATTACHMENT.ICON = Dateisymbol
+IMAGEATTACHMENT.NAME = Name der Datei
+IMAGEATTACHMENT.LINK = Link zur Datei
+IMAGEATTACHMENT.SIZE = Dateigröße
+
+*}
+{if POST_DELETED}
+<p class="deleted_info">{LANG[INFO_POSTDELETED]}</p>
+{elseif THREAD_DELETED}
+<p class="deleted_info">{LANG[INFO_THREADDELETED]}</p>
+{/if}
+
+{LANG[THREAD]}: {if THREAD_PREFIX}<span class="thread_prefix">{THREAD_PREFIX}</span> {/if}<a href="{THREAD_LINK}">{THREAD_TITLE}</a>
+<div style="height:20px;">&nbsp;</div>
+
+<div id="forum_posts">
+
+<!-- POST START -->
+<table width="100%">
+<tr>
+<td width="210" class="tableheader">{LANG[AUTHOR]}</td>
+<td class="tableheader" id="refWidth">{LANG[POST]}</td>
+</tr>
+</table>
+
+<div class="space2">&nbsp;</div>
+
+<a name="p{ID}" id="p{ID}"></a>
+<table width="100%" class="post">
+<tr><td class="post_date" colspan="2"><div>{if NEW}<img src="design/post_new.gif" alt="{LANG[NEW]}" title="{LANG[NEW]}" style="vertical-align:bottom;" />{else}<img src="design/post_old.gif" alt="{LANG[OLD]}" title="{LANG[OLD]}" style="vertical-align:bottom;" />{/if} {DATE('date',TIME)} - {DATE('time',TIME)} {LANG[CORE_OCLOCK]}</td></tr>
+<tr>
+<td width="210" class="post_col1" style="vertical-align:top;">
+<div class="post_name">{if USERID}<a href="{PROFILE(USERID)}" target="_blank"{if IS_ADMIN} class="user_admin"{elseif IS_TEAM} class="user_team"{elseif IS_MODERATOR} class="user_moderator"{elseif RANK_COLOR} style="color:{RANK_COLOR};"{/if}>{USERNAME}</a>{else}<span class="user_guest">{USERNAME}</span>{/if}</div>
+{if RANK}<div class="post_rank">{RANK}{if RANK_IMAGE}<br /><img src="{RANK_IMAGE}" alt="" />{/if}</div>{/if}
+{if AVATAR}<div class="post_avatar"><img src="{AVATAR}" alt="" />{if AVATAR_TITLE}<br />{AVATAR_TITLE}{/if}</div>{/if}
+{if STARTER}<div class="post_infos"><img src="design/starter.gif" alt="{LANG[STARTER]}" title="{LANG[STARTER]}" style="vertical-align:middle;" /> {LANG[STARTER]}</div>{/if}
+{if USERID}<div class="post_infos">{LANG[REGSINCE]}: {DATE('F Y',USER_REGTIME)}<br />{if CITY}{LANG[CITY]}: {CITY}<br />{/if}{if HOMEPAGE}<a href="{HOMEPAGE}">{LANG[HOMEPAGE]}</a><br />{/if}{LANG[POSTS]}: {USER_POSTS}</div>{/if}
+</td>
+<td class="post_col2" style="vertical-align:top;">
+{if TITLE}<div class="post_title">{TITLE}</div>{/if}
+<div class="post_text">{TEXT}
+{if IMAGEATTACHMENT}<fieldset class="post_imgattachments"><legend>{LANG[IMAGEATTACHMENTS]}</legend>{list IMAGEATTACHMENT}<a href="{POST.IMAGEATTACHMENT.LINK}" target="_blank"><img src="{POST.IMAGEATTACHMENT.THUMBNAIL}" alt="{IMAGEATTACHMENT.NAME}" /></a>{/list}</fieldset>{/if}
+{if ATTACHMENT}<fieldset class="post_attachments"><legend>{LANG[ATTACHMENTS]}</legend>{list ATTACHMENT}<div><img src="{ATTACHMENT.ICON}" alt="" style="vertical-align:middle;" /> <a href="{ATTACHMENT.LINK}" target="_blank">{ATTACHMENT.NAME}</a> ({ATTACHMENT.SIZE})</div>{/list}</fieldset>{/if}
+{if SIGNATURE}<br />_________________________<br />{SIGNATURE}{/if}</div>
+{if LASTEDIT_TIME}<div class="post_lastedit">{LANG[LASTEDIT]} {DATE('date',LASTEDIT_TIME)} - {DATE('time',LASTEDIT_TIME)} {LANG[CORE_OCLOCK]} {LANG[BY]} {LASTEDIT_USERNAME}</div>{/if}
+</td>
+</tr>
+<tr>
+<td class="post_col1">
+{if USERID}{if ONLINE}<img src="design/online.gif" alt="{USERNAME} {LANG[ISONLINE]}" title="{USERNAME} {LANG[ISONLINE]}" />{else}<img src="design/offline.gif" alt="{USERNAME} {LANG[ISOFFLINE]}" title="{USERNAME} {LANG[ISOFFLINE]}" />{/if}&nbsp;&nbsp;{/if}
+{if LINK_SENDMAIL} <a href="{LINK_SENDMAIL}"><img src="design/email.gif" alt="{LANG[SENDEMAIL]}" title="{LANG[SENDEMAIL]}" /></a>{/if}
+{if LINK_SENDMAIL} <a href="{LINK_SENDPM}"><img src="design/pm.gif" alt="{LANG[SENDPM]}" title="{LANG[SENDPM]}" /></a>{/if}
+{if LINK_USERPOSTS} <a href="{LINK_USERPOSTS}"><img src="design/search.gif" alt="{LANG[FINDPOSTS]}" title="{LANG[FINDPOSTS]}" /></a>{/if}
+{if LINK_ADDBUDDY} <a href="{LINK_ADDBUDDY}"><img src="design/buddy.gif" alt="{LANG[ADDBUDDY]}" title="{LANG[ADDBUDDY]}" /></a>{/if}
+{if CONTACT_ICQ} <a href="http://www.icq.com/whitepages/about_me.php?uin={CONTACT_ICQ}"><img src="design/icq.gif" alt="ICQ" title="ICQ" /></a>{/if}
+{if CONTACT_MSN} <a href="{PROFILE(USERID)}"><img src="design/msn.gif" alt="MSN Messenger" title="MSN Messenger" /></a>{/if}
+{if CONTACT_AIM} <a href="aim:goim?screenname={CONTACT_AIM}&message=Hallo.+Sind+Sie+da?"><img src="design/aim.gif" alt="AOL Instant Messenger" title="AOL Instant Messenger" /></a>{/if}
+{if CONTACT_YIM} <a href="http://edit.yahoo.com/config/send_webmesg?.target={CONTACT_YIM}&.amp;src=pg"><img src="design/yim.gif" alt="Yahoo Instant Messenger" title="Yahoo Instant Messenger" /></a>{/if}
+{if CONTACT_SKYPE} <a href="skype:{CONTACT_SKYPE}?call"><img src="design/skype.gif" alt="Skype" title="Skype" /></a>{/if}
+</td>
+<td class="post_col2"><div class="post_panel">
+{if !THREAD_DELETED && !POST_DELETED}
+{if LOGGED_ID} <a href="report.php?id={ID}"><img src="design/button_report.gif" alt="{LANG[REPORT]}" title="{LANG[REPORT]}" /></a>{/if}
+{if RIGHT_POST} <a href="newpost.php?id={THREADID}&amp;quote={ID}"><img src="design/button_quote.gif" alt="{LANG[QUOTEIT]}" title="{LANG[QUOTEIT]}" /></a>{/if}
+{/if}
+</div></td>
+</tr>
+</table>
+<!-- POST ENDE -->
+
+</div>
+
+<script type="text/javascript">
+
+//Bilder an Breite anpassen
+function resizeImages(evt) {
+	var maxWidth = yDom.getRegion(yDom.get('refWidth')).width-20;
+	var posts = yDom.getElementsByClassName('post', 'table');
+	for ( var i=0; i<posts.length; i++ ) {
+		var post = posts[i];
+		var content = yDom.getElementsByClassName('post_col2', 'td', post)[0];
+		var images = content.getElementsByTagName('img');
+		for ( var j=0; j<images.length; j++ ) {
+			var image = images[j];
+			if ( image.width>maxWidth ) {
+				image.width = maxWidth;
+			}
+		}
+	}
+}
+
+yEvent.addListener(window, 'load', resizeImages);
+
+</script>

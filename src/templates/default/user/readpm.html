@@ -1,0 +1,22 @@
+{*
+
+Nachricht lesen
+===============
+
+SUBJECT = Betreff
+TEXT = Text
+SIGNATURE = Signatur
+USERID = Benutzer-ID des Absenders
+USERNAME = Benutzername des Absenders
+TIME = Zeit (Timestamp)
+LINK_DELETE Link: Nachricht löschen
+LINK_ANSWER = Link: Antworten
+LINK_IGNORE = Link: Diesen Benutzer auf die Ignorier-Liste setzen
+
+*}
+
+<table width="100%">
+<tr><td class="header1">{SUBJECT}</td></tr>
+<tr><td class="color">{TEXT}{if SIGNATURE}<br />_________________<br />{SIGNATURE}{/if}<p class="small" style="margin-bottom:0px;text-align:right;"><a href="{PROFILE(USERID)}" target="_blank">{USERNAME}</a>, {DATE('d.m.Y - H:i:s',TIME)}</p></td></tr>
+<tr><td class="footer_right"><a href="{LINK_IGNORE}">{LANG[IGNORE]}</a> | <a href="{LINK_DELETE}">{LANG[DELETE]}</a> | <a href="{LINK_ANSWER}">{LANG[ANSWER]}</a></td></tr>
+</table>

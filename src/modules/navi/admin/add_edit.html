@@ -1,0 +1,65 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_NAVI_ADD]}{else}{LANG[TITLE_NAVI_EDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[CREATEIN]}:</td>
+<td><select name="parent">{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td><input type="text" name="text" value="{TEXT}" class="input" maxlength="255" size="80" style="width:400px;" /></td>
+</tr>
+<tr>
+<td valign="top">
+<input type="radio" name="display" id="ip_display_nothing" value="nothing" {if DISPLAY!='code' && DISPLAY!='link'} checked="checked"{/if} onchange="update_display(this)" onclick="update_display(this)" style="vertical-align:middle;" /><label for="ip_display_nothing" onclick="update_display(yDom.get('ip_display_nothing'))"> {LANG[NOTHING]}</label><br />
+<input type="radio" name="display" id="ip_display_link" value="link" {if DISPLAY=='link'} checked="checked"{/if} onclick="update_display(this)" onchange="update_display(this)" style="vertical-align:middle;" /><label for="ip_display_link" onclick="update_display(yDom.get('ip_display_link'))"> {LANG[LINK]}</label><br />
+<input type="radio" name="display" id="ip_display_code" value="code" {if DISPLAY=='code'} checked="checked"{/if} onclick="update_display(this)" onchange="update_display(this)" style="vertical-align:middle;" /><label for="ip_display_code" onclick="update_display(yDom.get('ip_display_code'))"> {LANG[CODE]}</label>
+</td>
+<td>
+<div id="navi_nothing" style="{if DISPLAY!='nothing'}display:none;{/if}">&nbsp;</div>
+<div id="navi_link" style="{if DISPLAY!='link'}display:none;{/if}"><input type="text" name="link" value="{LINK}" class="input" maxlength="255" size="80" style="width:300px;" />&nbsp;&nbsp;&nbsp;<input type="checkbox" name="link_popup" id="ip_link_popup" value="1"{if LINK_POPUP} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_link_popup"> {LANG[NEWWINDOW]}</label></div>
+<div id="navi_code" style="{if DISPLAY!='code'}display:none;{/if}"><textarea name="code" cols="80" rows="10" style="width:98%;" class="code">{CODE}</textarea></div>
+</td>
+</tr>
+<tr>
+<td>{LANG[STATICSUB]}</td>
+<td><input type="checkbox" name="staticsub" value="1"{if STATICSUB} checked="checked"{/if} /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" />{if ACTION=='add'} <input type="submit" name="submit_next" value="{LANG[SUBMIT_ADDNEXT]}" class="button" />{/if}</td></tr>
+</table>
+<input type="hidden" name="action" value="navi.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="nid" value="{NID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript">
+<!--
+
+function update_display(obj) {
+	if ( obj.checked==false ) return;
+	
+	if ( obj.value=='link' ) {
+		getobject('navi_link').style.display='';
+		getobject('navi_code').style.display='none';
+		getobject('navi_nothing').style.display='none';
+	}
+	else if ( obj.value=='code' ) {
+		getobject('navi_link').style.display='none';
+		getobject('navi_code').style.display='';
+		getobject('navi_nothing').style.display='none';
+	}
+	else {
+		getobject('navi_link').style.display='none';
+		getobject('navi_code').style.display='none';
+		getobject('navi_nothing').style.display='';
+	}
+}
+
+//-->
+</script>

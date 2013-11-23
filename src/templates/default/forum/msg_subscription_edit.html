@@ -1,0 +1,24 @@
+{*
+
+Sicherheitsabfrage: Abonnements bearbeiten
+==========================================
+
+ID = ID des Themas/Forums
+ISTHREAD = Handelt es sich um ein abonniertes Thema? Dann steht auch die "instant"-Benachrichtigung zur Verfügung
+SUBSCRIPTION = Art der Benachrichtigung
+
+*}
+<p>
+{LANG[NOTIFICATION]}: <select name="subscription">
+<option value="none"{if SUBSCRIPTION=='none'} selected="selected"{/if}>{LANG[SUBSCRIPTION_NONE]}</option>
+{if ISTHREAD}<option value="instant"{if SUBSCRIPTION=='instant'} selected="selected"{/if}>{LANG[SUBSCRIPTION_INSTANT]}</option>{/if}
+<option value="daily"{if SUBSCRIPTION=='daily'} selected="selected"{/if}>{LANG[SUBSCRIPTION_DAILY]}</option>
+<option value="weekly"{if SUBSCRIPTION=='weekly'} selected="selected"{/if}>{LANG[SUBSCRIPTION_WEEKLY]}</option>
+</select><br />
+<input type="submit" name="send" value="{LANG[UPDATE]}" accesskey="s" id="count" class="button" />
+<input type="button" name="backbutton" value="{LANG[GOBACK]}" onclick="javascript:history.back()" class="button" />
+</p>
+
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="option" value="edit" />
+<input type="hidden" name="action" value="subscribe" />

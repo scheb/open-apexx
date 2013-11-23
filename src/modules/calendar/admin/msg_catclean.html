@@ -1,0 +1,24 @@
+<table width="100%" style="text-align:left;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td>{TITLE}</td>
+</tr>
+<tr>
+<td>{LANG[MOVETO]}:</td>
+<td><select name="moveto"><option value=""></option>{CATLIST}</select></td>
+</tr>
+{if DELETEABLE}
+<tr>
+<td>{LANG[DELCAT]}:</td>
+<td><input type="checkbox" name="delcat" value="1"{if DELCAT} checked="checked"{/if} /></td>
+</tr>
+{/if}
+</table>
+<p class="buttons"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="parent.MessageOverlayManager.closeLayer();" class="button" /></p>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />

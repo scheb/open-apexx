@@ -1,0 +1,41 @@
+{*
+
+Verstoﬂ melden
+==============
+
+POSTTO = Formular senden an...
+ID = ID des Kommentars
+URL = URL zum Kommentar
+
+*}
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>{LANG[HEADLINE_REPORT]}</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="{BASEREL}design/import.css" type="text/css" />
+</head>
+<body style="padding:10px;">
+<div style="margin:auto;text-align:left;">
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[HEADLINE_REPORT]}</td></tr>
+<tr class="color">
+<td>{LANG[REASON]}:</td>
+<td><textarea name="text" id="text" rows="10" cols="80" style="width:98%"></textarea></td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" accesskey="s" /></td></tr>
+</table>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="url" value="{URL}" />
+</form>
+
+</div>
+</body>
+</html>

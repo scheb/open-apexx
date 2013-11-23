@@ -1,0 +1,21 @@
+{*
+
+Sicherheitsabfrage: Beitrag löschen
+===================================
+
+ID = ID des Beitrags
+REAL = Abfrage anzeigen für "Beitrag unwiderruflich löschen"
+REALDEL_ALLOWED = Darf der Nutzer den Beitrag unwiderruflich löschen?
+
+*}
+
+{if REAL}
+<p>{LANG[MSG_REALDELPOST]}</p>
+<input type="hidden" name="realdel" value="1" />
+{else}
+<p>{LANG[MSG_DELPOST]}</p>
+{if REALDEL_ALLOWED}<p><input type="checkbox" name="realdel" id="ip_realdel" value="1" /><label for="ip_realdel"> {LANG[REALDEL]}</label></p>{/if}
+{/if}
+<p><input type="submit" name="send" value="{LANG[DELETE]}" accesskey="s" id="count" class="button" /> <input type="button" name="backbutton" value="{LANG[GOBACK]}" onclick="javascript:history.back()" class="button" /></p>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="delpost" />

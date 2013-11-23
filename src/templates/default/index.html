@@ -1,0 +1,93 @@
+{*
+
+Inhalt der Startseite
+=====================
+
+Sie können statt diese Seite zu verwenden auch im Adminbereich eine
+Weiterleitung definiert (z.B. zur News-Seite).
+
+*}
+
+<style type="text/css">
+<!--
+
+.index_box {
+	width:170px;
+	border:1px solid #B3B3B3;
+	background:#F0F0F0;
+	margin:0px 3px 5px 3px;
+}
+
+.index_box_head {
+	color:#f2f2f2;
+	font-size:10px;
+	font-weight:bold;
+	background-image:url('design/header_box.gif');
+	background-position:bottom;
+	padding:4px 0px 9px 3px;
+}
+
+.index_news a {
+	font-size:14px;
+}
+
+.index_news div {
+	margin:5px 0px;
+}
+
+.index_box_content {
+	padding:3px;
+}
+
+.index_box_content img {
+	border:2px solid #2B2B2B;
+}
+
+.index_box_content ul {
+	margin:0px;
+	padding:0px;
+}
+
+.index_box_content li {
+	margin:0px;
+	padding:0px;
+	margin-left:15px;
+}
+
+
+-->
+</style>
+
+<table width="100%"><tr><td width="100%" valign="top">
+
+{TEASER()}
+
+<table width="100%">
+<tr><td class="header1">{LANG[LASTNEWS]}</td></tr>
+<tr><td class="color"><div class="index_news">{LASTNEWS()}</div></td></tr>
+<tr><td class="space1">&nbsp;</td></tr>
+<tr><td class="header1">{LANG[LASTARTICLES]}</td></tr>
+<tr><td class="color">{LASTARTICLES(5)}</td></tr>
+<tr><td class="space1">&nbsp;</td></tr>
+<tr><td class="header1">{LANG[LASTDOWNLOADS]}</td></tr>
+<tr><td class="color">{LASTDOWNLOADS(5)}</td></tr>
+</table>
+
+</td><td valign="top">
+
+<div class="index_box">
+<div class="index_box_head">{LANG[LASTGALLERY]}</div>
+<div class="index_box_content">{GALLERY_LAST(3)}</div>
+</div>
+
+<div class="index_box">
+<div class="index_box_head">POTM</div>
+<div class="index_box_content" align="center">{GALLERY_POTM()}</div>
+</div>
+
+<div class="index_box">
+<div class="index_box_head">POTW</div>
+<div class="index_box_content" align="center">{GALLERY_POTW()}</div>
+</div>
+
+</td></tr></table>

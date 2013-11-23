@@ -1,0 +1,89 @@
+{*
+
+Standard-Design
+===============
+
+CHARSET = In der Konfiguration festgelegtes Charset
+CONTENT = Inhalt der Seite
+STYLESHEET = Benutzerdefiniertes Stylesheet
+
+*}
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>{FORUMTITLE}{if TITLEBAR} | {TITLEBAR}{/if}</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+{if META_DESCRIPTION}<meta name="description" content="{META_DESCRIPTION}" />{/if}
+<link rel="stylesheet" href="design/design.css" type="text/css" />
+{if STYLESHEET}<link rel="stylesheet" href="design/{STYLESHEET}" type="text/css" />{else}<link rel="stylesheet" href="design/content.css" type="text/css" />{/if}
+<script type="text/javascript" src="lib/script.js"></script>
+</head>
+<body>
+
+<div class="base">
+
+<!-- HEADER START -->
+<div class="header">
+<div class="header_line1"><img src="design/1px.gif" alt="" /></div>
+<div class="header_line2"><img src="design/1px.gif" alt="" /></div>
+<div class="header_line3"><img src="design/1px.gif" alt="" /></div>
+
+<div class="header_menu">
+<a href="index.php">{LANG[START]}</a> 
+<a href="search.php">{LANG[SEARCH]}</a>
+{if !LOGGED_ID}
+<a href="../user.php?action=register">{LANG[REGISTER]}</a> 
+{/if}
+<a href="../user.php?action=list">{LANG[USERLIST]}</a> 
+<a href="../user.php">{LANG[USERCENTER]}</a> 
+{if LOGGED_ID}
+<a href="../user.php?action=pms">{LANG[PMS]}</a>
+<a href="../user.php?action=logout">{LANG[LOGOUT]}</a> 
+{/if}
+</div>
+<div class="logo"><a href="../"><img src="design/logo.gif" alt="apexx Logo" title="{LANG[START]}" /></a></div>
+
+{if LOGGED_ID}
+<div class="welcome">
+<b>{LANG[WELCOME]}, {LOGGED_USERNAME}</b><br />
+{LANG[LASTVISIT]} {DATE('d.m.Y - H:i',LASTVISIT)} {LANG[CORE_OCLOCK]}<br />
+<a href="../user.php?action=pms">{LANG[PMS]}</a>: {PMCOUNT} {LANG[READPMS]}{if PMNEW}, <img src="design/pms.gif" alt="" /> <a href="../user.php?action=pms">{PMNEW} {LANG[NEWPMS]}</a>{/if}
+</div>
+{else}
+<div class="login"><b>{LANG[LOGIN]}</b><br />{LOGINBOX()}</div>
+{/if}
+<div class="path"><img src="design/folder.gif" alt="" style="vertical-align:middle;" /> <a href="index.php">{FORUMTITLE}</a>{list PATH} &raquo; <a href="{PATH.LINK}">{PATH.TITLE}</a>{/list}{if PATHEND}<br /><img src="design/pathend.gif" alt="" style="vertical-align:bottom;" /> {PATHEND}{/if}</div>
+
+</div>
+<!-- HEADER ENDE -->
+
+<!-- MAIN START -->
+<div class="main">
+
+<div class="content">
+<div class="content_position">
+<!-- INHALT START -->
+
+{CONTENT}
+
+<!-- INHALT ENDE -->
+</div>
+</div>
+
+</div>
+<!-- MAIN ENDE -->
+
+<!-- FOOTER START -->
+<div class="foot">
+<div class="foot_line1"><img src="design/1px.gif" alt="" /></div>
+<div class="foot_line2"><img src="design/1px.gif" alt="" /></div>
+<div class="foot_line3"><img src="design/1px.gif" alt="" /></div>
+<div class="copyright">apexx CMS &amp; Portalsystem - &copy; by <a href="http://www.stylemotion.de" target="_blank">Stylemotion.de</a></div>
+</div>
+<!-- FOOTER ENDE -->
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+body {
+	padding:15px 25px 10px 15px;
+	margin:0px;
+	background:#f7f7f7;
+	font-size:12px;
+	font-family:tahoma, verdana, arial, sans-serif;
+	color:#2b2b2b;
+}
+
+img {
+	border:0px;
+}
+
+td {
+	font-size:12px;
+}
+
+h1 {
+	padding:0 0 0 12px;
+	margin:0 0 5px 0;
+	font-size:18px;
+	font-weight:bold;
+	background:url('arrow.gif') left center no-repeat;
+}
+
+a {
+	color:#d6511d;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+a:hover {
+	text-decoration:underline;
+}
+
+p {
+	margin:10px 0;
+}
+
+noscript.jsrequired div {
+	display:block;
+	padding:3px;
+	color:#d50f0f;
+	font-weight:bold;
+	text-align:center;
+	border:1px solid #ebacac;
+	background:#ffe2e2;
+}
+
+.position {
+	position:absolute;
+	width:400px;
+	top:20%;
+	left:50%;
+	right:50%;
+	margin-left:-200px;
+	text-align:left;
+}
+
+
+.login {
+	padding:30px;
+	color:#fff;
+	background:#383838 url('login_bg.gif') left bottom no-repeat;
+	border:1px solid #000;
+}
+
+
+.login table {
+	width:340px;
+	border-spacing:0px;
+}
+
+
+.login td {
+	padding:5px 0px;
+}
+
+
+#infobox {
+	margin:0px 10px 15px 10px;
+	padding:3px 5px;
+	color:#763117;
+	text-align:center;
+	border:1px solid #f1c2b0;
+	background:#f9e5dd;
+}
+
+
+
+/* FORMULAR */
+
+form {
+	margin:0px;
+}
+
+input, select, textarea {
+	font-family:tahoma, verdana, arial, sans-serif;
+	font-size:12px;
+	color:#3E3631;
+}
+
+textarea,
+.input {
+	border:1px solid #B3B3B3;
+	padding:2px;
+}
+
+.button { 
+	color:#2B2B2B;
+	border-width:1px;
+	background-color:#B3B3B3;
+	background-image:url('bg_buttons.gif');
+}
+
+.code {
+	border:1px solid #B3B3B3;
+	padding:2px;
+	font-family:courier new, courier, monospace;
+}

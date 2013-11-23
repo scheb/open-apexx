@@ -1,0 +1,17 @@
+<p>Wählen Sie alle Module aus, die Sie verwenden möchten:</p>
+<form action="index.php" method="post">
+<table width="100%">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+{list MODULE}
+<tr>
+<td align="center"><input type="checkbox" name="modules[]" value="{MODULE.ID}" checked="checked" /></td>
+<td>{MODULE.ID}</td>
+</tr>
+{/list}
+</table>
+<p align="right"><input type="submit" name="next" value="Weiter &raquo;" class="button" /></p>
+<input type="hidden" name="step" value="4" />
+</form>

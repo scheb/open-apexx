@@ -1,0 +1,29 @@
+{*
+
+Ignorier-Liste verwalten
+========================
+
+LINK_ADD = Benutzer hinzufügen
+
+USER = Liste der ignorierten User
+USER.ID = Benutzer-ID
+USER.NAME = Benutzer-Name
+
+*}
+<p>&raquo; <a href="{LINK_ADD}">{LANG[ADDUSER]}</a></p>
+
+<table width="100%">
+<tr>
+<td width="30%" class="header2">{LANG[USERNAME]}</td>
+<td width="60%" class="header2">{LANG[REASON]}</td>
+<td width="10%" class="header2">&nbsp;</td>
+</tr>
+{list USER}
+<tr class="color">
+<td><a href="{PROFILE(USER.ID)}">{USER.NAME}</a></td>
+<td>{USER.REASON}</td>
+<td align="center"><a href="{USER.LINK_DEL}"><img src="design/delete.gif" alt="{LANG[DELETE]}" /></a></td>
+</tr>
+{/list}
+{if !USER}<tr><td class="color" colspan="3" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>

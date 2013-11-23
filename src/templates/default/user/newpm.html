@@ -1,0 +1,48 @@
+{*
+
+Neue Nachricht schreiben
+========================
+
+POSTTO = Formular senden an...
+
+PREVIEW = Vorschau des Textes
+USERNAME = Ausgewählter Benutzer
+SUBJECT = Vordefinierter Betreff
+TEXT = Vordefinierter Text
+ADDSIG = Signatur anfügen (vordefiniert)
+
+*}
+
+{if PREVIEW}
+<table width="100%">
+<tr><td colspan="2" class="header1">{LANG[PREVIEW]}</td></tr>
+<tr><td class="color">{PREVIEW}</td></tr>
+</table>
+&nbsp;
+{/if}
+
+<form name="textform" action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td class="header1" colspan="2">{LANG[HEADLINE_NEWPM]}</td></tr>
+<tr>
+<td class="color">{LANG[RECIEVER]}:</td>
+<td class="color"><input type="text" name="touser" value="{USERNAME}" class="input" size="30" /><span class="small"> &raquo; <a href="user.php?action=list{if SECTION_ID}&amp;sec={SECTION_ID}{/if}" target="_blank">{LANG[SEARCH]}</a></span></td>
+</tr>
+<tr>
+<td class="color">{LANG[SUBJECT]}:</td>
+<td class="color"><input type="text" name="subject" value="{SUBJECT}" class="input" size="80" maxlength="80" /></td>
+</tr>
+<tr>
+<td class="color">{LANG[TEXT]}:<br /><br /><span class="small">&raquo; <a href="javascript:showcodes()">Codes</a><br />&raquo; <a href="javascript:showsmilies()">Smilies</a></span></td>
+<td class="color"><textarea name="text" cols="80" rows="7">{TEXT}</textarea></td>
+</tr>
+<tr>
+<td class="color">{LANG[ADDSIG]}:</td>
+<td class="color"><input type="checkbox" name="addsig" value="1"{if ADDSIG} checked="checked"{/if} /></td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /> <input type="submit" name="preview" value="{LANG[PREVIEW]}" class="button" /></td></tr>
+</table>
+</form>
+
+<script type="text/javascript" src="lib/javascript/public_popups.js"></script>

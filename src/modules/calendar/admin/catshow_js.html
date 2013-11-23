@@ -1,0 +1,52 @@
+<script type="text/javascript" src="../lib/yui/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/yui/element/element-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/treeview.js"></script>
+<script type="text/javascript">
+
+var tree = new TreeView(yDom.get('tree'), {if EDIT_ALLOWED}true{else}false{/if});
+
+
+var ajaxFailed = false;
+
+
+//Knoten verschoben
+tree.onNodeMoved.subscribe(function(type, args) {
+	//console.log('moved:', args[0]);
+	if ( ajaxFailed ) {
+		alert('ajax has failed, please reload page!');
+	}
+	else {
+		var info = args[0];
+		var callback = {
+			success: function() {},
+			failure: function() {
+				ajaxFailed = true;
+				alert('ajax has failed, please reload page!');
+			}
+		};
+		var data = 'action=calendar.nodemoved&id='+info.nodeId+'&parentid='+info.newParentId+'&before='+info.beforeId+'&after='+info.afterId+'&sectoken={SECTOKEN}';
+		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', callback, data); 
+	}
+});
+
+
+//Knoten getoggled
+tree.onNodeToggle.subscribe(function(type, args) {
+	//console.log('toggle:', args[0], args[1]);
+	var info = args[0];
+	var callback = {
+		success: function() {},
+		failure: function() {}
+	};
+	var data = 'action=calendar.togglestate&id='+args[0]+'&status='+(args[1] ? 1 : 0);
+	YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', callback, data); 
+});
+
+
+//Toggle Knoten
+{list OPEN}
+tree.openNode({OPEN.ID});
+{/list}
+
+</script>

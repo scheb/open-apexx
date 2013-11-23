@@ -1,0 +1,10 @@
+<p class="hint">{LANG[USEDND]}</p>
+
+{if RIGHT_FORUM_ADD}
+<form action="action.php" method="post" class="searchform">
+{LANG[ADDFORUM]}: <select name="parentid"><option value="0" style="font-weight:bold;">{LANG[NEW]}</option>{if FORUMLIST}<option value=""></option>{/if}{FORUMLIST}</select>
+<input type="submit" name="create[forum]" value="{LANG[CREATEFORUM]}" class="button" />
+<input type="submit" name="create[cat]" value="{LANG[CREATECAT]}" class="button" />
+<input type="hidden" name="action" value="forum.add" />
+</form>
+{/if}

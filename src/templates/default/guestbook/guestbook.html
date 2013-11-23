@@ -1,0 +1,129 @@
+{*
+
+Gästebuch
+=========
+
+{PAGES} = Seitenzahlen
+{ADDFORM} = Formular: Eintrag erstellen
+
+COMMENT = Liste der Gästebucheinträge
+ENTRY.NAME = Name
+ENTRY.EMAIL = eMail-Adresse
+ENTRY.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+ENTRY.USERID = Benutzer-ID
+ENTRY.HOMEPAGE = Homepage
+ENTRY.AVATAR = Avatar
+ENTRY.AVATAR_TITLE = Avatar-Titel
+ENTRY.SIGNATURE = Signatur
+ENTRY.TITLE = Titel
+ENTRY.TEXT = Text
+ENTRY.TIME = Zeit (Timestamp)
+ENTRY.ONLINE = Online-Status des Benutzers
+ENTRY.NUMBER = Nummer des Gästebuch-Eintrags
+
+
+Admin-Quicklinks
+----------------
+Diese Platzhalter stehen nur zur Verfügung, wenn der Betrachter
+mit Cookie im Adminbereich angemeldet ist.
+ENTRY.EDITLINK = Link: Eintrag bearbeiten
+ENTRY.DELETELINK = Link: Eintrag löschen
+
+
+Kommentar zum Gästebucheintrag
+------------------------------
+ENTRY.COMMENT_USERID = Benutzer-ID
+ENTRY.COMMENT_USERNAME = Benutzername
+ENTRY.COMMENT_EMAIL = eMail-Adresse
+ENTRY.COMMENT_EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+ENTRY.COMMENT_TEXT = Text
+ENTRY.COMMENT_TIME = Zeit (Timestamp)
+
+
+Seitenzahlen (Template includen?)
+---------------------------------
+PAGE_COUNT = Anzahl der Seiten
+PAGE_SELECTED = Ausgewählte Seitenzahl
+PAGE = Liste der Seitenzahlen
+PAGE.NUMBER = Seitenzahl
+PAGE.LINK = Link
+PAGE_PREVIOUS = Link "vorherige Seite"
+PAGE_NEXT = Link "nächste Seite"
+PAGE_FIRST = Link "erste Seite"
+PAGE_LAST = Link "letzte Seite"
+
+
+Eingabeformular (Template includen?)
+------------------------------------
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+CUSTOM1 = Wert des 1. benutzerdefinierten Felds
+CUSTOM2 = Wert des 2. benutzerdefinierten Felds
+CUSTOM3 = Wert des 3. benutzerdefinierten Felds
+CUSTOM4 = Wert des 4. benutzerdefinierten Felds
+CUSTOM5 = Wert des 5. benutzerdefinierten Felds
+
+*}
+
+<style type="text/css">
+<!--
+
+.gb_title {
+	margin:0px 0px 10px 0px;
+	font-size:10px;
+	font-weight:bold;
+}
+
+.gb_comment {
+	font-size:11px;
+	padding:3px;
+	margin-left:20px;
+	margin-right:20px;
+	border:1px solid #B5B5B5;
+	background:#EAEAEA;
+}
+
+.gb_date {
+	font-size:10px;
+	text-align:right;
+	border-top:1px solid #B5B5B5;
+	padding-top:3px;
+}
+
+-->
+</style>
+
+<p>&raquo; <a href="{LINK_SIGN}">{LANG[SIGNGB]}</a></p>
+
+{include ../pages.html}
+
+<table width="100%">
+<tr>
+<td width="30%" class="header2">{LANG[COL_NAME]}</td>
+<td width="70%" class="header2">{LANG[COL_TEXT]}</td>
+</tr>
+{list ENTRY}
+<tr class="color">
+<td valign="top" align="center">
+{if ENTRY.USERID}<a href="{PROFILE(ENTRY.USERID)}" target="_blank">{ENTRY.NAME}</a>{else}<b>{ENTRY.NAME}</b>{/if}
+{if ENTRY.EMAIL} <a href="mailto:{ENTRY.EMAIL}"><img src="modules/guestbook/images/email.gif" alt="{LANG[ICON_EMAIL]}" title="{LANG[ICON_EMAIL]}" style="vertical-align:middle;" /></a>{/if}
+{if ENTRY.HOMEPAGE} <a href="{ENTRY.HOMEPAGE}" target="_blank"><img src="modules/guestbook/images/homepage.gif" alt="{LANG[ICON_HOMEPAGE]}" title="{LANG[ICON_HOMEPAGE]}" style="vertical-align:middle;" /></a>{/if}
+{if ENTRY.AVATAR}<p class="small"><img src="{ENTRY.AVATAR}" alt="" />
+{if ENTRY.AVATAR_TITLE}<br />{ENTRY.AVATAR_TITLE}</p>{/if}{/if}
+{if ENTRY.EDITLINK && ENTRY.DELETELINK}<div><a href="{ENTRY.EDITLINK}" target="_blank"><img src="design/edit.gif" alt="" /></a> <a href="{ENTRY.DELETELINK}" target="_blank"><img src="design/delete.gif" alt="" /></a></div>{/if}
+</td>
+<td valign="top">
+<p class="gb_title">{ENTRY.TITLE}</p>
+<p>{ENTRY.TEXT}{if ENTRY.SIGNATURE}<br />_________________<br />{ENTRY.SIGNATURE}{/if}</p>
+{if ENTRY.COMMENT_TEXT}<div class="gb_comment"><a href="{PROFILE(ENTRY.COMMENT_USERID)}" target="_blank">{ENTRY.COMMENT_USERNAME}</a> ({DATE('d.m.Y - H:i:s',ENTRY.COMMENT_TIME)})<br />{ENTRY.COMMENT_TEXT}</div>{/if}
+<p class="gb_date">{DATE('d.m.Y - H:i:s',ENTRY.TIME)}</p>
+</td>
+</tr>
+{/list}
+{if !ENTRY}<tr><td colspan="2" class="color" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>
+
+<br />&nbsp;
+
+{include form.html}

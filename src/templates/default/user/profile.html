@@ -1,0 +1,355 @@
+{*
+
+Benutzerprofil ansehen
+======================
+
+Benutzer-Funktionen
+-------------------
+LINK_REPORT = Link: Verstoß melden
+LINK_PROFILE = Link: Zum Profil des Benutzers
+LINK_BLOG = Link: Zum Blog des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GUESTBOOK = Zum Gästebuch des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GALLERY = Zur Galerie des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_COLLECTION = Zur Sammlung des Benutzers (nur verfügbar, wenn aktiviert und Produkt-Modul vorhanden)
+
+
+Profil
+------
+USERID = Benutzer-ID
+USERNAME = Benutzername
+GROUP = Benutzergruppe
+EMAIL = eMail-Adresse
+EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+REGDATE = Tag/Zeit der Registrierung (Timestamp)
+REGDAYS = Tage seit der Registrierung
+LASTACTIVE = Letzte Aktivität (Timestamp)
+HOMEPAGE = Homepage
+ICQ = MSN-Uin
+AIM = AIM-Uin
+YIM = YIM-Uin
+MSN = MSN-Uin
+SKYPE = Skype-Name
+REALNAME = Echter Name
+GENDER = Geschlecht (1=m, 2=w)
+BIRTHDAY = Geburtstag
+CITY = Wohnort
+INTERESTS = Interessen
+WORK = Beruf
+SIGNATURE = Signatur
+AVATAR = Avatar
+AVATAR_TITLE = Avatar-Titel
+STATUS = Status des Benutzers
+STATUS_SMILEY = Pfad zum Smiley-Bild
+COMMENTS = Anzahl der Kommentare (nur vorhanden, wenn Kommentar-Modul aktiv)
+
+
+Buddyliste
+----------
+BUDDY = Liste der Buddies
+BUDDY.ID = Benutzer-ID
+BUDDY.USERNAME = Benutzername
+BUDDY.GROUPID = ID der Benutzergruppe
+BUDDY.EMAIL = eMail-Adresse des Buddy
+BUDDY.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+BUDDY.ONLINE = Ist der Buddy online?
+BUDDY.REALNAME = Echter Name
+BUDDY.GENDER = Geschlecht (1=m, 2=w)
+BUDDY.CITY = Stadt
+BUDDY.PLZ = Postleitzahl
+BUDDY.COUNTRY = Land
+BUDDY.REGTIME = Datum/Zeit der Registrierung (Timestamp)
+BUDDY.REGDAYS = Tage seit der Registrierung
+BUDDY.LASTACTIVE = Zuletzt aktiv (Timestamp)
+BUDDY.AVATAR = Pfad zum Avatar
+BUDDY.AVATAR_TITLE = Avatar-Titel
+BUDDY.BIRTHDAY = Geburtstag
+BUDDY.AGE = Alter
+BUDDY.ISBUDDY = Ist dieser Benutzer Freund des angemeldeten Benutzers?
+BUDDY.LINK_SENDEMAIL = Link: eMail an Buddy senden
+BUDDY.LINK_SENDPM = Link: PN an Buddy senden
+
+
+Benuterdefinierte Felder
+------------------------
+CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Interaktionen
+-------------
+Diese Variablen stehen nur zur Verfügung, wenn man angemeldet ist.
+LINK_BUDDY = Link: In die eigene Buddyliste aufnehmen
+LINK_SENDEMAIL = Link: eMail schreiben
+LINK_SENDPM = Link: Persönliche Nachricht schreiben
+LINK_IGNORE = Link: Benutzer der Ignorier-Liste hinzufügen
+
+
+Forum
+-----
+Diese Variablen stehen nur zur Verfügung, wenn das Forum-Modul von apexx verwendet wird.
+FORUM_POSTS = Anzahl der Beiträge im Forum
+FORUM_LASTACTIVE = Letzte Aktivität um Forum (Timestamp)
+FORUM_FINDPOSTS = Link: Beiträge des Benuters finden
+
+
+Besucher des Profils
+--------------------
+VISITOR = Liste der Besucher
+VISITOR.USERID = Benutzer-ID
+VISITOR.USERNAME = Benutzername
+VISITOR.GROUPID = ID der Benutzergruppe
+VISITOR.ONLINE = Ist der Benutzer online?
+VISITOR.REALNAME = Echter Name
+VISITOR.GENDER = Geschlecht (1=m, 2=w)
+VISITOR.CITY = Stadt
+VISITOR.PLZ = Postleitzahl
+VISITOR.COUNTRY = Land
+VISITOR.LASTACTIVE = Zuletzt aktiv (Timestamp)
+VISITOR.AVATAR = Pfad zum Avatar
+VISITOR.AVATAR_TITLE = Avatar-Titel
+
+Benuterdefinierte Felder
+------------------------
+VISITOR.CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+VISITOR.CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+*}
+
+<div class="tabbar clearfix">
+<ul>
+<li class="selected"><a href="{LINK_PROFILE}">{LANG[USER_PROFILE]}</a></li>
+<li><a href="{LINK_BLOG}">{LANG[USER_BLOG]}</a></li>
+<li><a href="{LINK_GALLERY}">{LANG[USER_GALLERY]}</a></li>
+<li><a href="{LINK_COLLECTION}">{LANG[USER_COLLECTION]}</a></li>
+<li><a href="{LINK_GUESTBOOK}">{LANG[USER_GUESTBOOK]}</a></li>
+</ul>
+</div>
+<div class="tabbody">
+
+<table width="639">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td colspan="2" class="header1">{LANG[ACCOUNT]}</td></tr>
+<tr>
+<td class="color">{LANG[USERID]}:</td>
+<td class="color">#{USERID}</td>
+</tr>
+<tr>
+<td class="color">{LANG[USERNAME]}:</td>
+<td class="color">{USERNAME}</td>
+</tr>
+<tr>
+<td class="color">{LANG[GROUP]}:</td>
+<td class="color">{GROUP}</td>
+</tr>
+<tr>
+<td class="color">{LANG[REGSINCE]}:</td>
+<td class="color">{DATE('d.m.Y',REGDATE)} ({REGDAYS} {LANG[DAYS]})</td>
+</tr>
+<tr>
+<td class="color">{LANG[LASTACTIVE]}:</td>
+<td class="color">{DATE('d.m.Y - H:i:s',LASTACTIVE)} {LANG[CORE_OCLOCK]} <img src="modules/user/images/{if IS_ONLINE}online{else}offline{/if}.gif" alt="" style="vertical-align:middle;" /></td>
+</tr>
+{if MODULE_COMMENTS}<tr>
+<td class="color">{LANG[COMMENTS]}:</td>
+<td class="color">{COMMENTS}</td>
+</tr>{/if}
+
+{if STATUS}
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="header1">{LANG[STATUS]}</td></tr>
+<tr><td colspan="2" class="color">
+<img src="{STATUS_SMILEY}" alt="{STATUS_SMILEY_CODE}" /> {STATUS}
+</td></tr>
+{/if}
+
+{if MODULE_FORUM}
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="header1">{LANG[FORUM]}</td></tr>
+<tr>
+<td class="color">{LANG[POSTINGS]}:</td>
+<td class="color">{FORUM_POSTS} (<a href="{FORUM_FINDPOSTS}">{LANG[FINDPOSTS]}</a>)</td>
+</tr>
+<tr>
+<td class="color">{LANG[LASTACTIVE]}:</td>
+<td class="color">{DATE('d.m.Y - H:i:s',FORUM_LASTACTIVE)} {LANG[CORE_OCLOCK]}</td>
+</tr>
+{/if}
+
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="header1">{LANG[CONTACT]}</td></tr>
+{if LINK_BUDDY || LINK_IGNORE || LINK_SENDEMAIL || LINK_SENDPM}<tr>
+<td class="color" colspan="2">
+{if LINK_BUDDY}<a href="{LINK_BUDDY}">{LANG[ADDBUDDY]}</a> {/if}
+{if LINK_IGNORE}<a href="{LINK_IGNORE}">{LANG[ADDIGNORE]}</a> {/if}
+{if LINK_SENDEMAIL}<a href="{LINK_SENDEMAIL}">{LANG[SENDEMAIL]}</a> {/if}
+{if LINK_SENDPM}<a href="{LINK_SENDPM}">{LANG[SENDPM]}</a> {/if}
+</td>
+</tr>{/if}
+{if !HIDEMAIL}<tr>
+<td class="color">{LANG[EMAIL]}:</td>
+<td class="color"><a href="{EMAIL_ENCRYPTED}">{EMAIL}</a></td>
+</tr>{/if}
+{if HOMEPAGE}<tr>
+<td class="color">{LANG[HOMEPAGE]}:</td>
+<td class="color"><a href="{HOMEPAGE}" target="_blank">{HOMEPAGE}</a></td>
+</tr>{/if}
+{if ICQ}<tr>
+<td class="color">ICQ:</td>
+<td class="color">{ICQ}</td>
+</tr>{/if}
+{if AIM}<tr>
+<td class="color">AIM:</td>
+<td class="color">{AIM}</td>
+</tr>{/if}
+{if YIM}<tr>
+<td class="color">YIM:</td>
+<td class="color">{YIM}</td>
+</tr>{/if}
+{if MSN}<tr>
+<td class="color">MSN:</td>
+<td class="color">{MSN}</td>
+</tr>{/if}
+{if SKYPE}<tr>
+<td class="color">Skype:</td>
+<td class="color">{SKYPE}</td>
+</tr>{/if}
+
+{if BUDDY}
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="header1">{LANG[BUDDIES]}</td></tr>
+<tr><td class="color" colspan="2">{list BUDDY}{++BCOUNT}{if BCOUNT>1}, {/if}<a href="{PROFILE(BUDDY.USERID)}" target="_blank">{BUDDY.USERNAME}</a>{/list}</td></tr>
+{/if}
+
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="header1">{LANG[PERSONAL]}</td></tr>
+{if REALNAME}<tr>
+<td class="color">{LANG[REALNAME]}:</td>
+<td class="color">{REALNAME}</td>
+</tr>{/if}
+{if GENDER}<tr>
+<td class="color">{LANG[GENDER]}:</td>
+<td class="color">{if !GENDER}{LANG[SECRET]}{elseif GENDER==1}{LANG[MALE]}{elseif GENDER==2}{LANG[FEMALE]}{/if}</td>
+</tr>{/if}
+{if BIRTHDAY}<tr>
+<td class="color">{LANG[BDAY]}:</td>
+<td class="color">{BIRTHDAY}</td>
+</tr>{/if}
+{if CITY}<tr>
+<td class="color">{LANG[CITY]}:</td>
+<td class="color">{if PLZ}{PLZ} {/if}{CITY}</td>
+</tr>{/if}
+{if COUNTRY}<tr>
+<td class="color">{LANG[COUNTRY]}:</td>
+<td class="color">
+{if COUNTRY=="AL"}Albanien{/if}
+{if COUNTRY=="AD"}Andorra{/if}
+{if COUNTRY=="BE"}Belgien{/if}
+{if COUNTRY=="BA"}Bosnien-Herzegowina{/if}
+{if COUNTRY=="BG"}Bulgarien{/if}
+{if COUNTRY=="DK"}Dänemark{/if}
+{if COUNTRY=="DE"}Deutschland{/if}
+{if COUNTRY=="EE"}Estland{/if}
+{if COUNTRY=="FI"}Finnland{/if}
+{if COUNTRY=="FR"}Frankreich{/if}
+{if COUNTRY=="GR"}Griechenland{/if}
+{if COUNTRY=="IE"}Irland{/if}
+{if COUNTRY=="IS"}Island{/if}
+{if COUNTRY=="IT"}Italien{/if}
+{if COUNTRY=="HR"}Kroatien{/if}
+{if COUNTRY=="LV"}Lettland{/if}
+{if COUNTRY=="LI"}Liechtenstein{/if}
+{if COUNTRY=="LT"}Litauen{/if}
+{if COUNTRY=="LU"}Luxemburg{/if}
+{if COUNTRY=="MK"}Makedonien{/if}
+{if COUNTRY=="MT"}Malta{/if}
+{if COUNTRY=="MD"}Moldavien{/if}
+{if COUNTRY=="MC"}Monaco{/if}
+{if COUNTRY=="NL"}Niederlande{/if}
+{if COUNTRY=="NO"}Norwegen{/if}
+{if COUNTRY=="AT"}Österreich{/if}
+{if COUNTRY=="PL"}Polen{/if}
+{if COUNTRY=="PT"}Portugal{/if}
+{if COUNTRY=="RO"}Rumänien{/if}
+{if COUNTRY=="SM"}San Marino{/if}
+{if COUNTRY=="SE"}Schweden{/if}
+{if COUNTRY=="CH"}Schweiz{/if}
+{if COUNTRY=="SK"}Slowakei{/if}
+{if COUNTRY=="SI"}Slowenien{/if}
+{if COUNTRY=="ES"}Spanien{/if}
+{if COUNTRY=="CZ"}Tschechien{/if}
+{if COUNTRY=="UA"}Ukraine{/if}
+{if COUNTRY=="HU"}Ungarn{/if}
+{if COUNTRY=="GB"}Vereintes Königreich{/if}
+{if COUNTRY=="BY"}Weißrussland{/if}
+</td>
+</tr>{/if}
+{if INTERESTS}<tr>
+<td class="color">{LANG[INTERESTS]}:</td>
+<td class="color">{INTERESTS}</td>
+</tr>{/if}
+{if WORK}<tr>
+<td class="color">{LANG[WORK]}:</td>
+<td class="color">{WORK}</td>
+</tr>{/if}
+{if CUSTOM1}<tr class="color">
+<td>{CUSTOM1_NAME}:</td>
+<td>{CUSTOM1}</td>
+</tr>{/if}
+{if CUSTOM2}<tr class="color">
+<td>{CUSTOM2_NAME}:</td>
+<td>{CUSTOM2}</td>
+</tr>{/if}
+{if CUSTOM3}<tr class="color">
+<td>{CUSTOM3_NAME}:</td>
+<td>{CUSTOM3}</td>
+</tr>{/if}
+{if CUSTOM4}<tr class="color">
+<td>{CUSTOM4_NAME}:</td>
+<td>{CUSTOM4}</td>
+</tr>{/if}
+{if CUSTOM5}<tr class="color">
+<td>{CUSTOM5_NAME}:</td>
+<td>{CUSTOM5}</td>
+</tr>{/if}
+{if CUSTOM6}<tr class="color">
+<td>{CUSTOM6_NAME}:</td>
+<td>{CUSTOM6}</td>
+</tr>{/if}
+{if CUSTOM7}<tr class="color">
+<td>{CUSTOM7_NAME}:</td>
+<td>{CUSTOM7}</td>
+</tr>{/if}
+{if CUSTOM8}<tr class="color">
+<td>{CUSTOM8_NAME}:</td>
+<td>{CUSTOM8}</td>
+</tr>{/if}
+{if CUSTOM9}<tr class="color">
+<td>{CUSTOM9_NAME}:</td>
+<td>{CUSTOM9}</td>
+</tr>{/if}
+{if CUSTOM10}<tr class="color">
+<td>{CUSTOM10_NAME}:</td>
+<td>{CUSTOM10}</td>
+</tr>{/if}
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="header1">{LANG[IDENT]}</td></tr>
+{if SIGNATURE}<tr>
+<td class="color">{LANG[SIGNATURE]}:</td>
+<td class="color">{SIGNATURE}</td>
+</tr>{/if}
+{if AVATAR}<tr>
+<td class="color">{LANG[AVATAR]}:</td>
+<td class="color"><img src="{AVATAR}" alt="" /><br /><span class="small">{AVATAR_TITLE}</span></td>
+</tr>{/if}
+
+{if VISITOR}
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="header1">{LANG[VISITORS]}</td></tr>
+<tr><td class="color" colspan="2">{list VISITOR}{++VCOUNT}{if VCOUNT>1}, {/if}<a href="{PROFILE(VISITOR.USERID)}" target="_blank">{VISITOR.USERNAME}</a>{/list}</td></tr>
+{/if}
+
+</table>
+
+<p>&raquo; <a href="{LINK_REPORT}">{LANG[REPORTTHIS]}</a></p>
+
+</div>

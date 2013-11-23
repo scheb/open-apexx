@@ -1,0 +1,111 @@
+{*
+
+Kommentare auflisten
+====================
+
+ACHTUNG: Der komplette HTML-Code einer Website ist dann nötig, wenn die
+Kommentare in einem Popup-Fenster gezeigt werden. Ansonsten wird dieses
+Template in das Design-Template eingebunden - HTML-Header und HTML-Footer
+sollten dann nicht enthalten sein.
+
+Kommentare
+----------
+COMMENT = Liste der Kommentare
+COMMENT.NAME = Name
+COMMENT.EMAIL = eMail-Adresse
+COMMENT.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+COMMENT.USERID = Benutzer-ID
+COMMENT.HOMEPAGE = Homepage
+COMMENT.AVATAR = Avatar
+COMMENT.AVATAR_TITLE = Avatar-Titel
+COMMENT.SIGNATURE = Signatur
+COMMENT.TITLE = Titel
+COMMENT.TEXT = Text
+COMMENT.TIME = Zeit (Timestamp)
+COMMENT.ONLINE = Online-Status des Benutzers
+COMMENT.NUMBER = Nummer des Kommentars
+
+Benuterdefinierte Felder (nur bei registrierten Benutzern)
+----------------------------------------------------------
+COMMENT.CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+COMMENT.CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Admin-Quicklinks
+----------------
+Diese Platzhalter stehen nur zur Verfügung, wenn der Betrachter
+mit Cookie im Adminbereich angemeldet ist.
+COMMENT.EDITLINK = Link: Kommentar bearbeiten
+COMMENT.DELETELINK = Link: Kommentar löschen
+
+
+Seitenzahlen (Template includen?)
+---------------------------------
+COMMENT_PAGE_COUNT = Anzahl der Seiten
+COMMENT_PAGE_SELECTED = Ausgewählte Seitenzahl
+COMMENT_PAGE = Liste der Seitenzahlen
+COMMENT_PAGE.NUMBER = Seitenzahl
+COMMENT_PAGE.LINK = Link
+COMMENT_PAGE_PREVIOUS = Link "vorherige Seite"
+COMMENT_PAGE_NEXT = Link "nächste Seite"
+COMMENT_PAGE_FIRST = Link "erste Seite"
+COMMENT_PAGE_LAST = Link "letzte Seite"
+
+
+Formularfeld (Template includen?)
+---------------------------------
+COMMENT_NOFORM = Formular nicht anzeigen?
+COMMENT_POSTTO = URL, an die das Formular gesendet werden soll
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+MODULE = Modul (für "hidden"-Feld)
+MID = ID (für "hidden"-Feld)
+
+*}
+<style type="text/css">
+<!--
+
+.com_title {
+	margin:0px 0px 10px 0px;
+	font-size:10px;
+	font-weight:bold;
+}
+
+.com_date {
+	font-size:10px;
+	text-align:right;
+	border-top:1px solid #B5B5B5;
+	padding-top:3px;
+}
+
+-->
+</style>
+
+{include pages.html}
+
+<table width="100%">
+<tr>
+<td width="30%" class="header2">{LANG[NAME]}</td>
+<td width="70%" class="header2">{LANG[TEXT]}</td>
+</tr>
+{list COMMENT}
+<tr class="color">
+<td valign="top" align="center">
+{if COMMENT.USERID}<a href="{PROFILE(COMMENT.USERID)}" target="_blank">{COMMENT.NAME}</a>{else}<b>{COMMENT.NAME}</b>{/if}
+{if COMMENT.EMAIL} <a href="mailto:{COMMENT.EMAIL}"><img src="modules/guestbook/images/email.gif" alt="{LANG[ICON_EMAIL]}" title="{LANG[ICON_EMAIL]}" style="vertical-align:middle;" /></a>{/if}
+{if COMMENT.HOMEPAGE} <a href="{COMMENT.HOMEPAGE}" target="_blank"><img src="modules/guestbook/images/homepage.gif" alt="{LANG[ICON_HOMEPAGE]}" title="{LANG[ICON_HOMEPAGE]}" style="vertical-align:middle;" /></a>{/if}
+{if COMMENT.AVATAR}<p class="small"><img src="{COMMENT.AVATAR}" alt="" />{if COMMENT.AVATAR_TITLE}<br />{COMMENT.AVATAR_TITLE}</p>{/if}{/if}
+{if COMMENT.EDITLINK && COMMENT.DELETELINK}<div><a href="{COMMENT.EDITLINK}" target="_blank"><img src="design/edit.gif" alt="" /></a> <a href="{COMMENT.DELETELINK}" target="_blank"><img src="design/delete.gif" alt="" /></a></div>{/if}
+</td>
+<td valign="top">
+<p class="com_title">{COMMENT.TITLE}</p>
+<p>{COMMENT.TEXT}{if COMMENT.SIGNATURE}<br />_________________<br />{COMMENT.SIGNATURE}{/if}</p>
+<p class="com_date"><a href="{COMMENT.REPORTLINK}">{LANG[COMMENT_REPORT]}</a> | {DATE('d.m.Y - H:i:s',COMMENT.TIME)}</p>
+</td>
+</tr>
+{/list}
+{if !COMMENT}<tr><td colspan="2" class="color" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>
+
+{include form.html}

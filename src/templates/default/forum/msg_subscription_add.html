@@ -1,0 +1,25 @@
+{*
+
+Sicherheitsabfrage: Abonnement erstellen
+========================================
+
+ID = ID des Themas/Forums
+TITLE = Titel des Themas/Forums
+OPTION = Option (forumadd/threadadd)
+
+*}
+<p>
+<b>{LANG[MSG_ADDSUBSCRIPTION]}:</b> {TITLE}<br /><br />
+{LANG[NOTIFICATION]}: <select name="subscription">
+<option value="none">{LANG[SUBSCRIPTION_NONE]}</option>
+{if OPTION=='addthread'}<option value="instant">{LANG[SUBSCRIPTION_INSTANT]}</option>{/if}
+<option value="daily">{LANG[SUBSCRIPTION_DAILY]}</option>
+<option value="weekly">{LANG[SUBSCRIPTION_WEEKLY]}</option>
+</select><br />
+<input type="submit" name="send" value="{LANG[ADD]}" accesskey="s" id="count" class="button" />
+<input type="button" name="backbutton" value="{LANG[GOBACK]}" onclick="javascript:history.back()" class="button" />
+</p>
+
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="option" value="{OPTION}" />
+<input type="hidden" name="action" value="subscribe" />

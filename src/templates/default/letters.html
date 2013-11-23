@@ -1,0 +1,19 @@
+{*
+
+Buchstaben-Auswahl
+==================
+Dieses Template wird von mehreren Modul-Template verwendet!
+Der Code wurde wegen seiner häufigen verwendung zentral abgespeichert.
+
+LETTER_SELECTED = Ausgewählter Buchstabe
+LETTER = Liste der Buchstaben
+LETTER.LINK = Link
+LETTER.TEXT = Buchstabe/Text
+
+*}
+
+<p class="letters">|
+{list LETTER}
+{if LETTER.SELECTED} <u><a href="{LETTER.LINK}">{LETTER.TEXT}</a></u> |{else} <a href="{LETTER.LINK}">{LETTER.TEXT}</a> |{/if}
+{/list}
+</p>

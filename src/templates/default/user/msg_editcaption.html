@@ -1,0 +1,16 @@
+{*
+
+Nachricht: Bildunterschrift bearbeiten
+======================================
+
+ID = ID des Bilds
+CAPTION = Aktuelle Bildunterschrift
+
+*}
+
+<p>{LANG[EDITCAPTION]}: <input type="text" name="caption" value="{CAPTION}" class="input" style="width:200px;" /></p>
+<p><input type="submit" name="apxsubmit" value="{LANG[UPDATE]}" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="javascript:history.back()" class="button" /></p>
+<input type="hidden" name="action" value="mygallery" />
+<input type="hidden" name="do" value="edit" />
+<input type="hidden" name="id" value="{ID}" />
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}

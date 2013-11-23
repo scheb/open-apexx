@@ -1,0 +1,62 @@
+<form name="form" action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[ADDRANK]}{else}{LANG[EDITRANK]}{/if}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="90" maxlength="255" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[COLOR]}: <small>({LANG[OPTIONAL]})</small></td>
+<td>#<input type="text" name="color" value="{COLOR}" class="input" size="6" maxlength="6" style="width:50px;" onchange="getobject('colorimage').style.background='#'+this.value;" /> <img src="design/1px.gif" alt="" id="colorimage" style="width:17px;height:17px;vertical-align:middle;background:#{COLOR};" /></td>
+</tr>
+<tr>
+<td>{LANG[IMAGE]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="image" value="{IMAGE}" class="input" size="90" maxlength="255" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[CRITERIA]}:</td>
+<td>
+<table width="100%" class="clear">
+<colgroup><col width="1" /><col width="100%" /></colgroup>
+<tr>
+<td style="white-space:nowrap;"><input type="radio" name="criteria" id="criteria_posts" value="posts" style="vertical-align:middle;"{if CRITERIA=='posts'} checked="checked"{/if} /><label for="criteria_posts"> {LANG[COL_POSTS]}:</label>&nbsp;</td>
+<td><input type="text" name="minposts" value="{if MINPOSTS>=0}{MINPOSTS}{/if}" style="width:100px;" class="input" onchange="getobject('criteria_posts').checked=true;" /></td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><input type="radio" name="criteria" id="criteria_user" value="user" style="vertical-align:middle;"{if CRITERIA=='user'} checked="checked"{/if} /><label for="criteria_user"> {LANG[COL_USER]}:</label>&nbsp;</td>
+<td><input type="text" name="username" value="{USERNAME}" id="username" style="width:200px;" class="input" onchange="getobject('criteria_user').checked=true;" /> &raquo; <a href="javascript:searchuser('username')">{LANG[SEARCHUSER]}</a></td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><input type="radio" name="criteria" id="criteria_groups" value="groups" style="vertical-align:middle;"{if CRITERIA=='groups'} checked="checked"{/if} /><label for="criteria_groups"> {LANG[COL_USERGROUP]}:</label>&nbsp;</td>
+<td><select name="groupid" onchange="getobject('criteria_groups').checked=true;"><option value=""></option>{GROUPLIST}</select></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[ADDRANK]}{else}{LANG[UPDATE]}{/if}" accesskey="s" class="button"  /></td></tr>
+</table>
+<input type="hidden" name="action" value="forum.ranks" />
+<input type="hidden" name="do" value="{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript">
+<!--
+
+function searchuser() {
+	window.open('action.php?action=forum.searchuser&insertfunc=insert_username','searchuser','toolbar=no,resizable=yes,scrollbars=yes,width=400,height=250');
+}
+
+function insert_username(id,name) {
+	getobject('username').value=name;
+	getobject('criteria_user').checked=true;
+}
+
+//-->
+</script>

@@ -1,0 +1,74 @@
+{*
+
+Detailansicht eines Begriffs
+============================
+
+Begriff
+-------
+ID = ID
+TITLE = Begriff
+SPELLING = Schreibweisen/Synonyme
+TEXT = Beschreibung
+LINK = Link zu diesem Begriff
+TIME = Veröffentlichung (Timestamp)
+HITS = Klicks
+LETTER = Buchstabe, unter dem der Begriff geführt wird
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Themengebiet
+------------
+CATID = ID des Themengebiets
+CATTITLE = Titel des Themengebiets
+CATTEXT = Beschreibung des Themengebiets
+CATICON = Themengebiet Symbol
+CATLINK = Link zum Index dieses Themengebies
+
+*}
+
+<style type="text/css">
+<!--
+
+.glossar {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+}
+
+.glossar_title {
+	font-size:16px;
+}
+
+.glossar_text {
+	padding-bottom:20px;
+}
+
+.glossar_footer td {
+	font-size:11px;
+	padding:10px 0px 0px 0px;
+}
+
+-->
+</style>
+
+<div class="glossar">
+<div class="glossar_title"><a href="{LINK}">{TITLE}</a></div>
+<div class="glossar_text">{TEXT}</div>
+
+<table width="100%" class="glossar_footer">
+<tr>
+<td nowrap="nowrap">{if DISPLAY_RATING}{include ../ratings/rating.html}{/if}</td>
+<td width="100%" align="right">{if DISPLAY_COMMENTS}<a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a> | {/if}{HITS} {LANG[HITS]} | {DATE('d.m.Y - H:i',TIME)} | {LANG[TOPIC]}: <a href="{CATLINK}">{CATTITLE}</a> | {LANG[LETTER]}: {LETTER}</td>
+</tr>
+</table>
+
+</div>
+
+{if DISPLAY_COMMENTS}<br />&nbsp;{include ../comments/comments.html}{/if}

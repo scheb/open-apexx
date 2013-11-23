@@ -1,0 +1,56 @@
+{*
+
+Smilies auflisten
+=================
+
+CHARSET = In der Konfiguration festgelegtes Charset
+SMILEY = Liste der verfügbaren Smilies
+SMILEY.CODE = Code
+SMILEY.INSERTCODE = Code mit maskierten Anführungszeichen (für Javascript)
+SMILEY.IMAGE = Pfad zum Smilie-Bild
+SMILEY.DESCRIPTION = Beschreibung des Smilies
+
+*}
+
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Smiley-Liste</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="{BASEREL}design/import.css" type="text/css" />
+</head>
+<body style="padding:10px;">
+<div style="margin:auto;text-align:left;">
+
+<table width="100%">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="60%" />
+</colgroup>
+<tr><td class="header1" colspan="3">{LANG[SMILIES]}</td></tr>
+{list SMILEY}
+<tr class="color">
+<td align="center">{SMILEY.CODE}</td>
+<td align="center"><a href="javascript:addsmilie('{SMILEY.INSERTCODE}')"><img src="{SMILEY.IMAGE}" alt="{SMILEY.CODE}" /></a></td>
+<td>{if SMILEY.DESCRIPTION}{SMILEY.DESCRIPTION}{else}&nbsp;{/if}</td>
+</tr>
+{/list}
+<tr><td class="footer" colspan="3">&raquo; <a href="javascript:window.close()">{LANG[CLOSE]}</a> &laquo;</td></tr>
+</table>
+
+<script type="text/javascript">
+<!--
+
+function addsmilie(smilie) {
+	opener.document.{if SERVER_REQUEST_FORM}{SERVER_REQUEST_FORM}{else}textform{/if}.{if SERVER_REQUEST_FIELD}{SERVER_REQUEST_FIELD}{else}text{/if}.value+=" "+smilie;
+	opener.document.{if SERVER_REQUEST_FORM}{SERVER_REQUEST_FORM}{else}textform{/if}.{if SERVER_REQUEST_FIELD}{SERVER_REQUEST_FIELD}{else}text{/if}.focus();
+}
+
+//-->
+</script>
+
+</div>
+</body>
+</html>

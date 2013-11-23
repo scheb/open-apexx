@@ -1,0 +1,30 @@
+{*
+
+Avatar aktualisieren
+====================
+
+CURRENT_AVATAR = Aktueller Avatar
+CURRENT_TITLE = Aktueller Avatar-Titel
+
+POSTTO = Formular senden an...
+AVATAR_TITLE = Avatar-Titel
+
+MAX_DIMENSIONS = Maximale Höhe/Breite
+MAX_FILESIZE = Maximale Dateigröße
+
+*}
+
+<form action="{POSTTO}" method="post" enctype="multipart/form-data">
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+{if CURRENT_AVATAR}<tr><td colspan="2" class="header1">{LANG[CURRENT]}</td></tr>
+<tr><td class="color">{LANG[AVATAR]}:</td><td class="color"><img src="{CURRENT_AVATAR}" alt="" />{if CURRENT_TITLE}<br /><span class="small">{CURRENT_TITLE}</span>{/if}</td></tr>
+<tr><td class="color">{LANG[DELAVATAR]}:</td><td class="color"><input type="checkbox" name="delav" value="1" /></td></tr>
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>{/if}
+<tr><td colspan="2" class="header1">{LANG[EDITAVATAR]}</td></tr>
+<tr><td class="color">{LANG[CHOOSEFILE]}:<br /><small>{LANG[MAX_DIMENSIONS]}: {MAX_DIMENSIONS}px<br />{LANG[MAX_FILESIZE]}: {MAX_FILESIZE}</small></td><td class="color"><input type="file" name="avatar" class="input" size="50" /></td></tr>
+<tr><td class="color">{LANG[AVTITLE]}:</td><td class="color"><input type="text" name="avatar_title" value="{AVATAR_TITLE}" class="input" size="50" maxlength="30" /></td></tr>
+<tr><td colspan="2" class="space2">&nbsp;</td></tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>

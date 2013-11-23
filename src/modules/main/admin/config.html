@@ -1,0 +1,109 @@
+<script type="text/javascript">
+<!--
+var maxlines = new Array();
+var displayed = new Array();
+//-->
+</script>
+<script type="text/javascript" src="../lib/yui/element/element-min.js"></script>
+<script type="text/javascript" src="../lib/yui/tabview/tabview-min.js"></script>
+
+<form action="action.php" method="post" target="postframe" class="yui-navset" id="configset">
+
+{if TAB_COUNT>1}
+<div class="tabbar clearfix">
+<ul class="yui-nav">
+{TCOUNT=0}{list TAB}{++TCOUNT}
+<li{if TCOUNT==1} class="selected"{/if}><a href="#{TAB.ID}">{TAB.NAME}</a></li>
+{/list}
+</ul>
+</div>
+<div class="tabbody yui-content">
+{/if}
+
+{TCOUNT=0}{list TAB}{++TCOUNT}
+<table width="100%" class="table{if TCOUNT>1} yui-hidden{/if}" id="{TAB.ID}">
+<colgroup>
+<col width="70%" />
+<col width="30%" />
+</colgroup>
+
+{list TAB.VAR}
+<tr>
+<td>{VAR.DESCRIPTION}</td>
+<td>
+{if VAR.TYPE=='switch'}
+<input type="checkbox" name="{VAR.NAME}" value="1"{if VAR.VALUE} checked="checked"{/if} />
+{/if}
+{if VAR.TYPE=='string' && VAR.MULTILINE}
+<textarea name="{VAR.NAME}" class="code" style="width:350px;" cols="40" rows="10">{VAR.VALUE}</textarea>
+{elseif VAR.TYPE=='string'}
+<input type="{if VAR.PASSWORD}password{else}text{/if}" name="{VAR.NAME}" value="{VAR.VALUE}" class="input" size="70" style="width:350px;" />
+{/if}
+{if VAR.TYPE=='array'}{COUNTER=0}{DISPLAYED=0}
+{list VAR.ELEMENT}{++COUNTER}
+<span id="{VAR.NAME}_{COUNTER}"{if !VAR.ELEMENT.DISPLAY} style="display:none;"{else}{++DISPLAYED}{/if}><input type="text" name="{VAR.NAME}[{COUNTER}]" value="{VAR.ELEMENT.VALUE}" size="70" class="input" style="margin:1px 0px;width:350px;" /></span>
+{/list}
+<a href="javascript:add_line('{VAR.NAME}');"><img src="design/add.gif" alt="{LANG[NEWLINE]}" title="{LANG[NEWLINE]}" style="vertical-align:middle;" /></a>
+<script type="text/javascript">
+<!--
+maxlines['{VAR.NAME}']={COUNTER};
+displayed['{VAR.NAME}']={DISPLAYED};
+//-->
+</script>
+{/if}
+{if VAR.TYPE=='array_keys'}{COUNTER=0}{DISPLAYED=0}
+{list VAR.ELEMENT}{++COUNTER}
+<span id="{VAR.NAME}_{COUNTER}" style="white-space:nowrap;{if !VAR.ELEMENT.DISPLAY}display:none;{else}{++DISPLAYED}{/if}"><input type="text" name="{VAR.NAME}[{COUNTER}][key]" value="{VAR.ELEMENT.KEY}" size="10" class="input" style="margin:1px 0px;width:100px;" /> =&gt; <input type="text" name="{VAR.NAME}[{COUNTER}][value]" value="{VAR.ELEMENT.VALUE}" size="50" class="input" style="margin:1px 0px;width:230px;" /></span>
+{/list}
+<a href="javascript:add_line('{VAR.NAME}');"><img src="design/add.gif" alt="{LANG[NEWLINE]}" title="{LANG[NEWLINE]}" style="vertical-align:middle;" /></a>
+<script type="text/javascript">
+<!--
+maxlines['{VAR.NAME}']={COUNTER};
+displayed['{VAR.NAME}']={DISPLAYED};
+//-->
+</script>
+{/if}
+{if VAR.TYPE=='int'}
+<input type="text" name="{VAR.NAME}" value="{VAR.VALUE}" class="input" size="20" style="width:100px;" />
+{/if}
+{if VAR.TYPE=='float'}
+<input type="text" name="{VAR.NAME}" value="{VAR.VALUE}" class="input" size="40" style="width:200px;" />
+{/if}
+{if VAR.TYPE=='select'}
+<select name="{VAR.NAME}">{list VAR.OPTIONS}<option value="{VAR.OPTIONS.VALUE}"{if VAR.OPTIONS.SELECTED} selected="selected"{/if}>{VAR.OPTIONS.NAME}</option>{/list}</select>
+{/if}
+</td>
+</tr>
+{/list}
+</table>
+
+{/list}
+{if TAB_COUNT>1}
+</div>
+{/if}
+
+<table width="100%" class="table" style="margin-top:10px;">
+<tr><td class="submit"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="action" value="main.mconfig" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="apx_notrim" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript">
+
+{if TAB_COUNT>1}
+var tabView = new YAHOO.widget.TabView('configset');
+{/if}
+
+function add_line(varname,line) {
+	if ( displayed[varname]==maxlines[varname] ) return;
+	obj=getobject(varname+'_'+(displayed[varname]+1));
+	obj.style.display='';
+	++displayed[varname];
+}
+
+</script>

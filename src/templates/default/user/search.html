@@ -1,0 +1,148 @@
+{*
+
+Benutzerliste
+=============
+
+Suchformular
+------------
+POSTTO = Formular senden an...
+ITEM = Auswahl: Suchbegriff
+AGE_MIN = Auswahl: minimales Alter
+AGE_MAX = Auswahl: maximales Alter
+GENDER = Auswahl: Geschlecht (1 = männlich, 2 = weiblich)
+CITY = Auswahl: Stadtname
+PLZ = Auswahl: PLZ
+DISTANCE = Auswahl: Entfernung
+ONLINE = Nur Online-User
+
+
+Suchergebnisse
+--------------
+USER = Liste der Benutzer
+USER.ID = Benutzer-ID
+USER.NAME = Benutzername
+USER.REGTIME = Datum/Zeit der Registrierung (Timestamp)
+USER.REGDAYS = Tage seit der Registrierung
+USER.LASTACTIVE = Zeitpunkt der letzten Aktivität (Timestamp)
+USER.EMAIL = eMail-Adresse
+USER.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+USER.FORUMPOSTS = Forenbeiträge (nur vorhanden, wenn das Forum-Modul verwendet wird)
+USER.ISBUDDY = Benutzer ist ein Buddy
+USER.GROUPID = ID der Benutzergruppe
+USER.REALNAME = Echter Name
+USER.GENDER = Geschlecht (1=m, 2=w)
+USER.CITY = Stadt
+USER.PLZ = Postleitzahl
+USER.COUNTRY = Land
+USER.AVATAR = Pfad zum Avatar
+USER.AVATAR_TITLE = Avatar-Titel
+USER.LINK_BUDDY = Link: In die Buddyliste aufnehmen
+USER.LINK_SENDPM = Link: Nachricht senden
+USER.LINK_SENDEMAIL = Link: eMail senden
+
+
+Benuterdefinierte Felder
+------------------------
+USER.CUSTOM1_NAME -> USER.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+USER.CUSTOM1 -> USER.CUSTOM10 = Wert des Eingabefelds
+
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_USERNAME = Link: Sortieren nach Benutzername
+SORTBY_REGDATE = Link: Sortieren nach Registrierung
+SORTBY_FORUMPOSTS = Link: Sortieren nach Forenbeiträgen
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup><col width="25%" /><col width="75%" /></colgroup>
+<tr><td colspan="2" class="header1">{LANG[HEADLINE_SEARCH]}</td></tr>
+<tr class="color">
+<td>{LANG[ITEM]}:</td>
+<td><input type="text" name="item" value="{ITEM}" class="input" style="width:300px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[AGE]}:</td>
+<td><input type="text" name="age_min" value="{if AGE_MIN}{AGE_MIN}{/if}" class="input" style="width:30px;" maxlength="2" /> - <input type="text" name="age_max" value="{if AGE_MAX}{AGE_MAX}{/if}" class="input" style="width:30px;" maxlength="2" /> {LANG[YEARS]}</td>
+</tr>
+<tr class="color">
+<td>{LANG[GENDER]}:</td>
+<td>
+<input type="radio" name="gender" value="0"{if GENDER==0} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[NOGENDER]} &nbsp; 
+<input type="radio" name="gender" value="1"{if GENDER==1} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[MALE]} &nbsp; 
+<input type="radio" name="gender" value="2"{if GENDER==2} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[FEMALE]} &nbsp; 
+</td>
+</tr>
+<tr class="color">
+<td>{LANG[ONLINE]}:</td>
+<td><input type="checkbox" name="online" value="1"{if ONLINE} checked="checked"{/if} /></td>
+</tr>
+<tr class="color">
+<td>{LANG[CITY]}:</td>
+<td>
+<input type="text" name="city" value="{CITY}" class="input" style="width:200px;" /> &nbsp; PLZ: <input type="text" name="plz" value="{PLZ}" class="input" style="width:50px;" /><br />
+{LANG[DISTANCE]} <select name="distance">
+<option value="10"{if DISTANCE==10} selected="selected"{/if}>10km</option>
+<option value="25"{if DISTANCE==25} selected="selected"{/if}>25km</option>
+<option value="50"{if DISTANCE==50} selected="selected"{/if}>50km</option>
+<option value="75"{if DISTANCE==75} selected="selected"{/if}>75km</option>
+<option value="100"{if DISTANCE==100} selected="selected"{/if}>100km</option>
+</select>
+</td>
+</tr>
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[STARTSEARCH]}" class="button" /></td></tr>
+</table>
+</form>
+<br />&nbsp;
+
+{if USER}
+{include ../pages.html}
+<table width="100%">
+<tr>
+<td width="*" class="header2">{LANG[USERNAME]}</td>
+<td width="15%" class="header2">{LANG[FORUMPOSTS]}</td>
+<td width="20%" class="header2">{LANG[REGSINCE]}</td>
+<td width="15%" class="header2">{LANG[OPTIONS]}</td>
+</tr>
+{list USER}
+<tr>
+<td class="color">{USER.NAME}</td>
+<td class="color" align="center">{USER.FORUMPOSTS}</td>
+<td class="color" align="center"><span class="small">{DATE('d.m.Y',USER.REGTIME)} ({USER.REGDAYS} {LANG[DAYS]})</span></td>
+<td class="color" align="center">
+{if USER.ID}<a href="{PROFILE(USER.ID)}" target="_blank"><img src="modules/user/images/profile.gif" title="{LANG[ICON_PROFILE]}" alt="{LANG[ICON_PROFILE]}" /></a>{/if}
+{if USER.ID!=LOGGED_ID}
+
+{if USER.LINK_SENDEMAIL}
+<a href="{USER.LINK_SENDEMAIL}"><img src="modules/user/images/sendmail.gif" title="{LANG[ICON_SENDMAIL]}" alt="{LANG[ICON_SENDMAIL]}" /></a>
+{elseif USER.EMAIL}
+<a href="mailto:{USER.EMAIL}"><img src="modules/user/images/sendmail.gif" title="{LANG[ICON_SENDMAIL]}" alt="{LANG[ICON_SENDMAIL]}" /></a>
+{/if}
+{if USER.LINK_SENDPM}<a href="{USER.LINK_SENDPM}"><img src="modules/user/images/sendpm.gif" title="{LANG[ICON_SENDPM]}" alt="{LANG[ICON_SENDPM]}" /></a>{/if}
+
+{/if}
+
+{if USER.LINK_BUDDY} <a href="{USER.LINK_BUDDY}"><img src="modules/user/images/buddy.gif" title="{LANG[ICON_ADDBUDDY]}" alt="{LANG[ICON_ADDBUDDY]}" /></a>{/if}
+</td>
+</tr>
+{/list}
+</table>
+<p class="sortby">{LANG[SORTBY]}: 
+<a href="{SORTBY_USERNAME}">{LANG[SORT_USERNAME]}</a>{if SORTBY=='username.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='username.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+{if MODULE_FORUM}<a href="{SORTBY_FORUMPOSTS}">{LANG[FORUMPOSTS]}</a>{if SORTBY=='forumposts.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='forumposts.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | {/if}
+<a href="{SORTBY_REGDATE}">{LANG[SORT_REGDATE]}</a>{if SORTBY=='regdate.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='regdate.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}
+</p>
+{/if}

@@ -1,0 +1,22 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='sadd'}{LANG[TITLE_NEWS_SADD]}{else}{LANG[TITLE_NEWS_SEDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" maxlength="255" size="80" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[LINK]}:</td>
+<td><input type="text" name="link" value="{LINK}" class="input" maxlength="255" size="80" style="width:300px;" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='sadd'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="news.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

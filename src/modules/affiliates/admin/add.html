@@ -1,0 +1,31 @@
+<form action="action.php" method="post" enctype="multipart/form-data" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_AFFILIATES_ADD]}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" maxlength="255" style="width:400px" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[LINK]}:</td>
+<td><input type="text" name="link" value="{LINK}" maxlength="255" style="width:400px" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[IMAGE]}: <small>({LANG[OPTIONAL]})<br />({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</small></td>
+<td><input type="file" name="image" class="input" size="60" /></td>
+</tr>
+{if PUBNOW!=='off'}
+<tr>
+<td>{LANG[PUBNOW]}</td>
+<td><input type="checkbox" name="pubnow" value="1"{if PUBNOW} checked="checked"{/if} /></td>
+</tr>
+{/if}
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_ADD]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="affiliates.add" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

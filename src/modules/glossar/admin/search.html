@@ -1,0 +1,16 @@
+<form action="action.php" method="post" class="searchform">
+<table width="100%">
+<colgroup>
+<col width="100" />
+<col />
+</colgroup>
+<tr><td>{LANG[SEARCHTEXT]}:</td><td>
+<input type="text" name="item" class="input" value="{ITEM}" size="70" style="width:300px;" /><br />
+<input type="checkbox" name="title" id="ip_title" value="1"{if STITLE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_title"> {LANG[STITLE]}</label> &nbsp;
+<input type="checkbox" name="text" id="ip_text" value="1"{if STEXT} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_text"> {LANG[STEXT]}</label>
+</td>
+</tr>
+</table>
+<input type="hidden" name="action" value="glossar.show" />
+<input type="hidden" name="what" value="{WHAT}" />
+</form>

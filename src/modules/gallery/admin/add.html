@@ -1,0 +1,99 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_GALLERY_ADD]}</td></tr>
+{if SET_GALLERY_SUBGALS}<tr>
+<td>{LANG[CREATEIN]}:</td>
+<td><select name="parent" onchange="refresh_parent(this);" id="selectbox"><option value="root" style="font-weight:bold;">{LANG[ROOT]}</option>{if PARENT}<option value=""></option>{/if}{PARENT}</select></td>
+</tr>{/if}
+{if SET_SECTIONS}<tr id="row_section">
+<td>{LANG[SECTION]}:<br /><small>({LANG[CTRLMULTI]})</small></td>
+<td><select name="secid[]" id="seclist" multiple="multiple">{SECTIONS(SECID)}</select></td>
+</tr>{/if}
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" maxlength="255" size="100" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="description" cols="100" rows="8" style="width:98%;">{DESCRIPTION}</textarea></td>
+</tr>
+<tr id="row_password">
+<td>{LANG[PASSWORD]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="password" value="{PASSWORD}" class="input" size="30" style="width:150px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TAGS]}:<br /><small>({LANG[OPTIONAL]}, {LANG[TAGSINFO]})</small></td>
+<td><input type="text" name="tags" value="{TAGS}" size="30" class="input" style="width:400px;" /><div id="taglist" class="taglist"></div></td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+{if MODULE_PRODUCTS}<tr>
+<td>{LANG[LINKPRODUCT]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><select name="prodid">{PRODUCTS(PRODID)}</select></td>
+</tr>{/if}
+</table>
+
+<table width="100%" class="table" style="margin:10px 0;">
+<tr class="tableheader"><td colspan="2">{LANG[OPTIONS]}</td></tr>
+<tr>
+<td>
+{if SET_GALLERY_SEARCHABLE}<input type="checkbox" name="searchable" id="ip_searchable" value="1"{if SEARCHABLE} checked="checked"{/if} /><label for="ip_searchable"> {LANG[SEARCHABLE]}</label><br />{/if}
+{if SET_GALLERY_GALCOMS}<input type="checkbox" name="allowcoms" id="ip_allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} /><label for="ip_allowcoms"> {LANG[ALLOWCOMS]}</label><br />{/if}
+<span id="row_restricted"><input type="checkbox" name="restricted" id="ip_restricted" value="1"{if RESTRICTED} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_restricted"> {LANG[RESTRICTED]}</label><br /></span>
+{if RIGHT_GALLERY_ENABLE}<input type="checkbox" name="pubnow" id="ip_pubnow" value="1"{if PUBNOW} checked="checked"{/if} /><label for="ip_pubnow"> {LANG[PUBNOW]}</label>{/if}
+</td>
+</tr>
+</table>
+
+<table width="100%" class="table">
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_ADD]}" accesskey="s" class="button" />{if RIGHT_GALLERY_PADD} <input type="submit" name="submit2" value='{LANG[SUBMIT_ADDPICS]}' class="button" />{/if}</td></tr>
+</table>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="gallery.add" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="updateparent" value="{UPDATEPARENT}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+{if !SET_GALLERY_SUBGALS}<input type="hidden" name="parent" value="root" />{/if}
+</form>
+
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/yui/datasource/datasource-min.js"></script>
+<script type="text/javascript" src="../lib/yui/autocomplete/autocomplete-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/tagsuggest.js"></script>
+
+<script type="text/javascript" src="../lib/javascript/objecttoolbox.js"></script>
+
+<script type="text/javascript">
+
+function refresh_parent(obj) {
+	sec=getobject('row_section');
+	pwd=getobject('row_password');
+	restr=getobject('row_restricted');
+	
+	if ( obj.selectedIndex<=1 ) {
+		if ( sec!=null ) sec.style.display='';
+		if ( pwd!=null ) pwd.style.display='';
+		if ( restr!=null ) restr.style.display='';
+	}
+	else {
+		if ( sec!=null ) sec.style.display='none';
+		if ( pwd!=null ) pwd.style.display='none';
+		if ( restr!=null ) restr.style.display='none';
+	}
+}
+
+sel=getobject('selectbox');
+if ( sel!=null ) refresh_parent(sel);
+
+yEvent.onDOMReady(function() {
+	new TagSuggest(document.forms[0].tags, yDom.get('taglist'), 200);
+	{if RIGHT_PRODUCTS_ADD}new ObjectToolbox(document.forms[0].prodid, 'products.add');{/if}
+});
+
+</script>

@@ -1,0 +1,51 @@
+{*
+
+Template-Funktion: Buddyliste
+=============================
+
+FRIEND = Liste der Buddies
+FRIEND.USERID = Benutzer-ID
+FRIEND.USERNAME = Benutzername
+FRIEND.GROUPID = ID der Benutzergruppe
+FRIEND.EMAIL = eMail-Adresse des Buddy
+FRIEND.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+FRIEND.ONLINE = Ist der Buddy online?
+FRIEND.REALNAME = Echter Name
+FRIEND.GENDER = Geschlecht (1=m, 2=w)
+FRIEND.CITY = Stadt
+FRIEND.PLZ = Postleitzahl
+FRIEND.COUNTRY = Land
+FRIEND.LASTACTIVE = Zuletzt aktiv (Timestamp)
+FRIEND.AVATAR = Pfad zum Avatar
+FRIEND.AVATAR_TITLE = Avatar-Titel
+FRIEND.LINK_SENDEMAIL = Link: eMail an Buddy senden
+FRIEND.LINK_SENDPM = Link: PN an Buddy senden
+FRIEND.LINK_DELBUDDY = Link: Buddy löschen
+
+Benuterdefinierte Felder
+------------------------
+FRIEND.CUSTOM1_NAME -> NEW.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+FRIEND.CUSTOM1 -> NEW.CUSTOM10 = Wert des Eingabefelds
+
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+*}
+
+<table width="100%">
+<tr><td class="header1" colspan="3">{LANG[HEADLINE_FRIENDS]}</td></tr>
+{list FRIEND}
+<tr class="color">
+<td width="5%" align="center">{if FRIEND.ONLINE}<img src="modules/user/images/online.gif" alt="" />{else}<img src="modules/user/images/offline.gif" alt="" />{/if}</td>
+<td width="90%"><a href="{PROFILE(FRIEND.USERID)}" target="_blank">{FRIEND.USERNAME}</a></td>
+<td width="5%" align="center" nowrap="nowrap">
+<a href="{FRIEND.LINK_SENDEMAIL}"><img src="modules/user/images/sendmail.gif" title="{LANG[ICON_SENDMAIL]}" alt="{LANG[ICON_SENDMAIL]}" /></a>
+<a href="{FRIEND.LINK_SENDPM}"><img src="modules/user/images/sendpm.gif" title="{LANG[ICON_SENDPM]}" alt="{LANG[ICON_SENDPM]}" /></a>
+<a href="{FRIEND.LINK_DELBUDDY}"><img src="modules/user/images/del.gif" title="{LANG[ICON_DELBUDDY]}" alt="{LANG[LINK_DELBUDDY]}" /></a>
+</td>
+</tr>
+{/list}
+{if !FRIEND}<tr><td class="color" colspan="3" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>

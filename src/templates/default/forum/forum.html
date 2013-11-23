@@ -1,0 +1,344 @@
+{*
+
+Unter-Foren und Themen-Übersicht
+================================
+
+FORUMID = ID des Forums
+FORUM_TITLE = Titel des Forums
+FORUM_LINK = Link zum Forum
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+NOTHREADS = SOllen keine Themen angezeigt werden?
+RIGHT_OPEN = Darf der Benutzer ein neues Thema erstellen?
+THREADSPERPAGE = Themen pro Seite
+LINK_SUBSCRIBE = Link: Dieses Forum Abbonieren
+LINK_MARKASREAD = Link: Dieses Forum als gelesen markieren
+HOT_POSTS = Anzahl der Antworten, ab denen ein Thema "hot" ist
+HOT_VIEWS = Anzahl der Klicks, ab denen ein Thema "hot" ist
+
+Betreuer des aktuellen Forums
+-----------------------------
+MODERATOR = Liste der Betreuer
+MODERATOR.USERID = ID des Betreuers
+MODERATOR.USERNAME = Benutzername des Betreuers
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_TITLE = Nach Titel sortieren
+SORTBY_OPENER = Nach Themenstarter sortieren
+SORTBY_POSTS = Nach der Beitragszahl sortieren
+SORTBY_VIEWS = Nach Klickzahl sortieren
+SORTBY_LASTPOST = Nach den neusten Beiträgen sortieren
+
+
+Foren auf oberster Ebene
+------------------------
+FORUM = Liste der Foren
+FORUM.ID = ID
+FORUM.LEVEL = Untergliederungs-Level des Forums (1)
+FORUM.TITLE = Titel
+FORUM.DESCRIPTION = Beschreibung
+FORUM.ISCAT = Ist das Forum eine Kategorie?
+FORUM.COLLAPSE = Alle Foren verstecken, die sich in dieser Kategorie befinden
+FORUM.CLOSED = Ist das Forum geschlossen?
+FORUM.LINKTO = Forum ist nur ein Link zu dieser URL
+FORUM.LINK = Link zur Themenübersicht
+FORUM.THREADS = enthaltene Themen
+FORUM.POSTS = enthaltene Beiträge
+FORUM.LINK_NEWTHREAD = Link: neues Thema erstellen (nur wenn Schreibrechte)
+FORUM.NEWPOSTS = Sind neue Beiträge im Forum?
+FORUM.LASTPOST_THREADID = ID des Themas mit den neustem Beitrag
+FORUM.LASTPOST_THREADTITLE = Titel des Themas mit den neustem Beitrag
+FORUM.LASTPOST_THREADPREFIX = Themen-Präfix
+FORUM.LASTPOST_ICON = Pfad zum Themen-Symbol
+FORUM.LASTPOST_USERNAME = Benutzer, der den letzten Beitrag verfasst hat
+FORUM.LASTPOST_USERID = Benutzer-ID dieses Benutzers
+FORUM.LASTPOST_TIME = Zeitpunkt (Timestamp) zu dem der Beitrag verfasst wurde
+FORUM.LASTPOST_LINK = Link zum letzten Beitrag
+FORUM.MODERATOR = Liste der Betreuer
+FORUM.MODERATOR.USERID = ID des Betreuers
+FORUM.MODERATOR.USERNAME = Benutzername des Betreuers
+
+
+Unter-Foren
+-----------
+FORUM.SUB = Liste der Unterforen es Forums
+FORUM.SUB.ID = ID
+FORUM.SUB.LEVEL = Untergliederungs-Level des Forums (2)
+FORUM.SUB.TITLE = Titel
+FORUM.SUB.DESCRIPTION = Beschreibung
+FORUM.SUB.ISCAT = Ist das Forum eine Kategorie?
+FORUM.SUB.CLOSED = Ist das Forum geschlossen?
+FORUM.SUB.LINKTO = Forum ist nur ein Link zu dieser URL
+FORUM.SUB.LINK = Link zur Themenübersicht
+FORUM.SUB.THREADS = enthaltene Themen
+FORUM.SUB.POSTS = enthaltene Beiträge
+FORUM.SUB.LINK_NEWTHREAD = Link: neues Thema erstellen (nur wenn Schreibrechte)
+FORUM.SUB.NEWPOSTS = Sind neue Beiträge im Forum?
+FORUM.SUB.LASTPOST_THREADID = ID des Themas mit den neustem Beitrag
+FORUM.SUB.LASTPOST_THREADTITLE = Titel des Themas mit den neustem Beitrag
+FORUM.SUB.LASTPOST_THREADPREFIX = Themen-Präfix
+FORUM.SUB.LASTPOST_ICON = Pfad zum Themen-Symbol
+FORUM.SUB.LASTPOST_USERNAME = Benutzer, der den letzten Beitrag verfasst hat
+FORUM.SUB.LASTPOST_USERID = Benutzer-ID dieses Benutzers
+FORUM.SUB.LASTPOST_TIME = Zeitpunkt (Timestamp) zu dem der Beitrag verfasst wurde
+FORUM.SUB.LASTPOST_LINK = Link zum letzten Beitrag
+FORUM.SUB.MODERATOR = Liste der Betreuer
+FORUM.SUB.MODERATOR.USERID = ID des Betreuers
+FORUM.SUB.MODERATOR.USERNAME = Benutzername des Betreuers
+
+
+Unter-Unter-Foren
+-----------------
+FORUM.SUB.SUB2 = Liste der Unterforen eines Unterforums (Unter-Unter-Foren)
+FORUM.SUB.SUB2.ID = ID
+FORUM.SUB.SUB2.LEVEL = Untergliederungs-Level des Forums (2)
+FORUM.SUB.SUB2.TITLE = Titel
+FORUM.SUB.SUB2.DESCRIPTION = Beschreibung
+FORUM.SUB.SUB2.ISCAT = Ist das Forum eine Kategorie?
+FORUM.SUB.SUB2.CLOSED = Ist das Forum geschlossen?
+FORUM.SUB.SUB2.LINKTO = Forum ist nur ein Link zu dieser URL
+FORUM.SUB.SUB2.LINK = Link zur Themenübersicht
+FORUM.SUB.SUB2.THREADS = enthaltene Themen
+FORUM.SUB.SUB2.POSTS = enthaltene Beiträge
+FORUM.SUB.SUB2.LINK_NEWTHREAD = Link: neues Thema erstellen (nur wenn Schreibrechte)
+FORUM.SUB.SUB2.NEWPOSTS = Sind neue Beiträge im Forum?
+
+
+Ankündigungen
+-------------
+ANNOUNCEMENT = Liste der Ankündigungen
+ANNOUNCEMENT.ID = ID
+ANNOUNCEMENT.TITLE = Titel
+ANNOUNCEMENT.LINK = Link
+ANNOUNCEMENT.USERID = Benutzer-ID des Autors
+ANNOUNCEMENT.USERNAME = Autor
+ANNOUNCEMENT.TIME = Veröffentlichungs-Zeitpunkt (Timestamp)
+ANNOUNCEMENT.VIEWS = Klicks
+ANNOUNCEMENT.ISNEW = Ist die Ankündigung noch ungelesen?
+
+
+Themen
+------
+THREAD = Liste der Themen
+THREAD.ID = ID
+THREAD.TITLE = Themen-Titel
+THREAD.PREFIX = Themen-Präfix
+THREAD.LINK = Link zum Thema
+THREAD.ICON = Symbol (Pfad)
+THREAD.OPENER_USERID = Benutzer-ID des Themenstarters
+THREAD.OPENER_USERNAME = Benutzername des Themenstarters
+THREAD.OPENTIME = Zeitpunkt, zu dem das Thema eröffnet wurde (Timestamp)
+THREAD.LASTPOST_USERID = Benutzer-ID des Benutzers, der den letzten Beitrag verfasst hat
+THREAD.LASTPOST_USERNAME = Benutzername des Benutzers, der den letzten Beitrag verfasst hat
+THREAD.LASTPOST_TIME = Zeitpunkt des letzten Beitrags (Timestamp)
+THREAD.LASTPOST_LINK = Link zum letzten Beitrag
+THREAD.LINK_UNREAD = Link zum ersten ungelesenen Beitrag
+THREAD.STICKY = Ist das Thema gepinnt?
+THREAD.POSTS = Beiträge
+THREAD.VIEWS = Klicks
+THREAD.MOVED = Wurde das Thema verschoben?
+THREAD.NEWPOSTS = Gibt es neue Beiträge in diesem Thema?
+THREAD.CLOSED = Ist das Thema geschlossen?
+THREAD.DELETED = Thema gelöscht?
+
+
+Aktive Benutzer
+---------------
+ACTIVITY_USERS = Anzahl aktive Benutzer
+ACTIVITY_GUESTS = Anzahl aktive Gäste
+ACTIVITY = Liste aller aktiven Benutzer
+ACTIVITY.USERID = Benutzer-ID
+ACTIVITY.USERNAME = Benutzername
+ACTIVITY.RANK_COLOR = Farbe für den Rang des Benutzers
+ACTIVITY.INVISIBLE = Ist der Benutzer unsichtbar?
+ACTIVITY.IS_ADMIN = Ist der Benutzer ein Administrator?
+ACTIVITY.IS_TEAM = Ist der Benutzer ein Teammitglied?
+ACTIVITY.IS_MODERATOR = Ist der Benutzer Moderator?
+
+
+Themen-Wertung
+--------------
+THREAD.DISPLAY_RATING = Soll die Wertung angezeigt werden?
+THREAD.RATING = Bewertung (1-5)
+THREAD.RATING_VOTES = Stimmen
+
+
+Gepinnte Themen
+---------------
+PINNED = Liste der gepinnten Themen
+PINNED.* => Es existieren die selben Variablen wie bei THREAD
+
+
+*}
+
+{if FORUM}
+<!-- FOREN START -->
+{include forumlist.html}
+<!-- FOREN ENDE -->
+{/if}
+
+{if !NOTHREADS}
+
+{if FORUM}<div style="height:30px;">&nbsp;</div>{/if}
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-bottom:5px;">
+<tr>
+<td width="100%" class="forumpages">{include pages.html}</td>
+<td style="white-space:nowrap;">{if RIGHT_OPEN}<a href="newthread.php?id={FORUMID}"><img src="design/newthread.gif" alt="{LANG[NEWTHREAD]}" title="{LANG[NEWTHREAD]}" /></a>{else}&nbsp;{/if}</td>
+</tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+<!-- THEMEN START -->
+<table width="100%">
+<colgroup>
+<col width="25" />
+<col width="25" />
+<col />
+<col width="60" />
+<col width="60" />
+<col width="150" />
+</colgroup>
+<thead>
+<tr>
+<td class="tableheader">&nbsp;</td>
+<td class="tableheader">&nbsp;</td>
+<td class="tableheader"><a href="{SORTBY_TITLE}">{LANG[THREAD]}</a>{if SORTBY=='title.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='title.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} / <a href="{SORTBY_OPENER}">{LANG[CREATOR]}</a>{if SORTBY=='opener.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='opener.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}</td>
+<td class="tableheader"><a href="{SORTBY_POSTS}">{LANG[ANSWERS]}</a>{if SORTBY=='posts.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='posts.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}</td>
+<td class="tableheader"><a href="{SORTBY_VIEWS}">{LANG[VIEWS]}</a>{if SORTBY=='views.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='views.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}</td>
+<td class="tableheader"><a href="{SORTBY_LASTPOST}">{LANG[LASTPOST]}</a>{if SORTBY=='lastpost.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='lastpost.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}</td>
+</tr>
+</thead>
+<tbody>
+{if ANNOUNCEMENT}
+{list ANNOUNCEMENT}
+<tr>
+<td class="col1" style="text-align:center;"><img src="design/announcement_{if ANNOUNCEMENT.ISNEW}new{else}old{/if}.gif" alt="{LANG[ANNOUNCEMENT]}" title="{LANG[ANNOUNCEMENT]}" /></td>
+<td class="col2" colspan="5">
+<div class="lastpost" style="float:right;">{LANG[VIEWS]}: {ANNOUNCEMENT.VIEWS}<br />{DATE('date',ANNOUNCEMENT.TIME)} <a href="{ANNOUNCEMENT.LINK}"><img src="design/lastpost.gif" alt="{LANG[SHOWANNOUNCEMENT]}" title="{LANG[SHOWANNOUNCEMENT]}" style="vertical-align:bottom;" /></a></div>
+<div class="thread_title"><span class="thread_stickytext">{LANG[ANNOUNCEMENT]}:</span> {if ANNOUNCEMENT.ISNEW}<a href="{ANNOUNCEMENT.LINK}"><img src="design/lastpost2.gif" alt="" style="vertical-align:bottom;" /></a> <a href="{ANNOUNCEMENT.LINK}" class="thread_newposts">{ANNOUNCEMENT.TITLE}</a>{else}<a href="{ANNOUNCEMENT.LINK}" class="thread_nonewposts">{ANNOUNCEMENT.TITLE}</a>{/if}</div><div class="thread_creator">{LANG[BY]} <a href="{PROFILE(ANNOUNCEMENT.USERID)}" target="_blank">{ANNOUNCEMENT.USERNAME}</a></div>
+</td>
+</tr>
+{/list}
+<tr><td colspan="7" class="thread_spacer">&nbsp;</td></tr>
+{/if}
+{if PINNED}
+{list PINNED}
+{if PINNED.DELETED}
+<tr>
+<td class="col1 thread_deleted" colspan="6">{LANG[DELETEDTHREAD]}: {if PINNED.PREFIX}<span class="thread_prefix">{PINNED.PREFIX|notags}</span> {/if}{PINNED.TITLE}
+{if LOGGED_IS_ADMIN || LOGGED_IS_MODERATOR}<span class="options"><a href="thread.php?id={PINNED.ID}">{LANG[SHOWTHREAD]}</a>, <a href="admin.php?action=recoverthread&amp;id={PINNED.ID}">{LANG[RECOVERTHREAD]}</a>, <a href="admin.php?action=delthread&amp;id={PINNED.ID}">{LANG[REALDEL]}</a></span>{/if}
+</td>
+</tr>
+{else}
+<tr>
+<td class="col1" style="text-align:center;"><img src="design/thread_pinned.gif" alt="{LANG[PINNED]}" title="{LANG[PINNED]}" /></td>
+<td class="col2" style="text-align:center;">{if PINNED.CLOSED}<img src="design/thread_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif PINNED.NEWPOSTS}<img src="design/thread_new{if PINNED.HOT}_hot{/if}.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="design/thread_nonew{if PINNED.HOT}_hot{/if}.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if}</td>
+<td class="col1"><div class="thread_title">{if PINNED.DISPLAY_RATING && PINNED.RATING}<img src="design/{PINNED.RATING}star.gif" alt="{PINNED.RATING}" style="float:right;" />{/if}<span class="thread_stickytext">{PINNED.STICKY}:</span> {if PINNED.PREFIX}<span class="thread_prefix">{PINNED.PREFIX}</span> {/if}{if PINNED.NEWPOSTS}<a href="{PINNED.LINK_UNREAD}"><img src="design/lastpost2.gif" alt="{LANG[FIRSTUNREAD]}" title="{LANG[FIRSTUNREAD]}" style="vertical-align:bottom;" /></a> <a href="{PINNED.LINK}" class="thread_newposts">{PINNED.TITLE}</a>{else}<a href="{PINNED.LINK}" class="thread_nonewposts">{PINNED.TITLE}</a>{/if}</div><div class="thread_creator">{LANG[BY]} {if PINNED.OPENER_USERID}<a href="{PROFILE(PINNED.OPENER_USERID)}" target="_blank">{PINNED.OPENER_USERNAME}</a>{else}{PINNED.OPENER_USERNAME}{/if}</div></td>
+<td class="col2" style="text-align:center;">{PINNED.POSTS}</td>
+<td class="col1" style="text-align:center;">{PINNED.VIEWS}</td>
+<td class="col2"><div class="lastpost">{DATE('date',PINNED.LASTPOST_TIME)} - {DATE('time',PINNED.LASTPOST_TIME)} {LANG[CORE_OCLOCK]}<br />{LANG[BY]} {if PINNED.LASTPOST_USERID}<a href="{PROFILE(PINNED.LASTPOST_USERID)}" target="_blank">{PINNED.LASTPOST_USERNAME}</a>{else}{PINNED.LASTPOST_USERNAME}{/if} <a href="{PINNED.LASTPOST_LINK}"><img src="design/lastpost.gif" alt="{LANG[LASTPOST]}" title="{LANG[LASTPOST]}" style="vertical-align:bottom;" /></a></div></td>
+</tr>
+{/if}
+{/list}
+{if THREAD}
+<tr><td colspan="7" class="thread_spacer">&nbsp;</td></tr>
+{/if}
+{/if}
+{list THREAD}
+{if THREAD.DELETED}
+<tr>
+<td class="col1 thread_deleted" colspan="6">{LANG[DELETEDTHREAD]}: {if THREAD.PREFIX}<span class="thread_prefix">{THREAD.PREFIX|notags}</span> {/if}{THREAD.TITLE}
+{if LOGGED_IS_ADMIN || LOGGED_IS_MODERATOR}<span class="options"><a href="thread.php?id={THREAD.ID}">{LANG[SHOWTHREAD]}</a>, <a href="admin.php?action=recoverthread&amp;id={THREAD.ID}">{LANG[RECOVERTHREAD]}</a>, <a href="admin.php?action=delthread&amp;id={THREAD.ID}">{LANG[REALDEL]}</a></span>{/if}
+</td>
+</tr>
+{elseif THREAD.MOVED}
+<tr>
+<td class="col1" style="text-align:center;"><img src="{if THREAD.ICON}{THREAD.ICON}{else}design/threadicon.gif{/if}" alt=""></td>
+<td class="col2" style="text-align:center;"><img src="design/thread_moved.gif" alt="{LANG[MOVED]}" title="{LANG[MOVED]}" /></td>
+<td class="col1"><div class="thread_title">{LANG[MOVED]}: {if THREAD.PREFIX}<span class="thread_prefix">{THREAD.PREFIX}</span> {/if}<a href="{THREAD.LINK}" class="thread_nonewposts">{THREAD.TITLE}</a></div><div class="thread_creator">{LANG[BY]} {if THREAD.OPENER_USERID}<a href="{PROFILE(THREAD.OPENER_USERID)}" target="_blank">{THREAD.OPENER_USERNAME}</a>{else}{THREAD.OPENER_USERNAME}{/if}</div></td>
+<td class="col2" style="text-align:center;">-</td>
+<td class="col1" style="text-align:center;">-</td>
+<td class="col2" style="text-align:center;">-</td>
+</tr>
+{else}
+<tr>
+<td class="col1" style="text-align:center;">{if THREAD.ICON}<img src="{THREAD.ICON}" alt="">{else}<img src="design/threadicon.gif" alt="" />{/if}</td>
+<td class="col2" style="text-align:center;">{if THREAD.CLOSED}<img src="design/thread_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif THREAD.NEWPOSTS}<img src="design/thread_new{if THREAD.HOT}_hot{/if}.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="design/thread_nonew{if THREAD.HOT}_hot{/if}.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if}</td>
+<td class="col1"><div class="thread_title">{if THREAD.DISPLAY_RATING && THREAD.RATING}<img src="design/{THREAD.RATING}star.gif" alt="{THREAD.RATING}" style="float:right;" />{/if}{if THREAD.PREFIX}<span class="thread_prefix">{THREAD.PREFIX}</span> {/if}{if THREAD.NEWPOSTS}<a href="{THREAD.LINK_UNREAD}"><img src="design/lastpost2.gif" alt="{LANG[FIRSTUNREAD]}" title="{LANG[FIRSTUNREAD]}" style="vertical-align:bottom;" /></a> <a href="{THREAD.LINK}" class="thread_newposts">{THREAD.TITLE}</a>{else}<a href="{THREAD.LINK}" class="thread_nonewposts">{THREAD.TITLE}</a>{/if}</div><div class="thread_creator">{LANG[BY]} {if THREAD.OPENER_USERID}<a href="{PROFILE(THREAD.OPENER_USERID)}" target="_blank">{THREAD.OPENER_USERNAME}</a>{else}{THREAD.OPENER_USERNAME}{/if}</div></td>
+<td class="col2" style="text-align:center;">{THREAD.POSTS}</td>
+<td class="col1" style="text-align:center;">{THREAD.VIEWS}</td>
+<td class="col2"><div class="lastpost">{DATE('date',THREAD.LASTPOST_TIME)} - {DATE('time',THREAD.LASTPOST_TIME)} {LANG[CORE_OCLOCK]}<br />{LANG[BY]} {if THREAD.LASTPOST_USERID}<a href="{PROFILE(THREAD.LASTPOST_USERID)}" target="_blank">{THREAD.LASTPOST_USERNAME}</a>{else}{THREAD.LASTPOST_USERNAME}{/if} <a href="{THREAD.LASTPOST_LINK}"><img src="design/lastpost.gif" alt="{LANG[LASTPOST]}" title="{LANG[LASTPOST]}" style="vertical-align:bottom;" /></a></div></td>
+</tr>
+{/if}
+{/list}
+{if !PINNED && !THREAD}<tr><td colspan="6" class="col1" style="text-align:center;">{LANG[NONE]}</td></tr>{/if}
+</tbody>
+{if LOGGED_ID}<tfoot>
+<tr><td colspan="7" class="space2">&nbsp;</td></tr>
+<tr><td colspan="7" class="tablefooter" style="text-align:right;"><form action="{PAGE_FIRST}" method="post"><select name="tpp" onchange="this.form.submit();">
+<option value="5"{if THREADSPERPAGE==5} selected="selected"{/if}>5 {LANG[THREADSPERPAGE]}</option>
+<option value="10"{if THREADSPERPAGE==10} selected="selected"{/if}>10 {LANG[THREADSPERPAGE]}</option>
+<option value="15"{if THREADSPERPAGE==15} selected="selected"{/if}>15 {LANG[THREADSPERPAGE]}</option>
+<option value="20"{if THREADSPERPAGE==20} selected="selected"{/if}>20 {LANG[THREADSPERPAGE]}</option>
+<option value="30"{if THREADSPERPAGE==30} selected="selected"{/if}>30 {LANG[THREADSPERPAGE]}</option>
+<option value="40"{if THREADSPERPAGE==40} selected="selected"{/if}>40 {LANG[THREADSPERPAGE]}</option>
+<option value="50"{if THREADSPERPAGE==50} selected="selected"{/if}>50 {LANG[THREADSPERPAGE]}</option>
+</select> <input type="submit" name="send" value="{LANG[GO]}" class="button" /></form></td></tr>
+</tfoot>{/if}
+</table>
+<!-- THEMEN ENDE -->
+
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-top:5px;">
+<tr>
+<td width="100%" class="forumpages">{include pages.html}</td>
+<td style="white-space:nowrap;">{if RIGHT_OPEN}<a href="newthread.php?id={FORUMID}"><img src="design/newthread.gif" alt="{LANG[NEWTHREAD]}" title="{LANG[NEWTHREAD]}" /></a>{else}&nbsp;{/if}</td>
+</tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+
+<!-- AKTIVE USER START -->
+<table width="100%" style="margin-top:20px;">
+<tr><td class="infobox_header">{LANG[CURRENTACTIVITY]} ({ACTIVITY_USERS} {LANG[USERS]}, {ACTIVITY_GUESTS} {LANG[GUESTS]})</td></tr>
+<tr>
+<td class="infobox">{list ACTIVITY}{++AI}{if AI>1}, {/if}<a href="{PROFILE(ACTIVITY.USERID)}" style="{if ACTIVITY.INVISIBLE}font-style:italic;{/if}{if ACTIVITY.RANK_COLOR && !ACTIVITY.IS_ADMIN && !ACTIVITY.IS_TEAM && !ACTIVITY.IS_MODERATOR}color:{ACTIVITY.RANK_COLOR};{/if}"{if ACTIVITY.IS_ADMIN} class="user_admin"{elseif ACTIVITY.IS_TEAM} class="user_team"{elseif ACTIVITY.IS_MODERATOR} class="user_moderator"{/if}>{ACTIVITY.USERNAME}</a>{/list}</td>
+</tr>
+</table>
+<!-- AKTIVE USER ENDE -->
+
+
+<!-- OPTIONEN START -->
+<table width="100%" style="margin-top:20px;">
+<tr>
+<td width="33%" class="infobox_header">{LANG[SEARCH]}</td>
+<td width="33%" class="infobox_header">{LANG[MODERATORS]}</td>
+{if LINK_SUBSCRIBE || LINK_MARKASREAD}<td width="33%" class="infobox_header">{LANG[OPTIONS]}</td>{/if}
+</tr>
+<tr>
+<td class="infobox"><form action="search.php" method="post"><input type="text" name="keywords_req" class="textbox" style="width:200px;" /> <input type="submit" name="send" value="{LANG[GO]}" class="button" /><input type="hidden" name="forumid[]" value="{FORUMID}" /></form>&raquo; <a href="search.php">{LANG[EXTENDEDSEARCH]}</a></td>
+<td class="infobox">{list MODERATOR}{++MC}{if MC>1}, {/if}<a href="{PROFILE(MODERATOR.USERID)}">{MODERATOR.USERNAME}</a>{/list}{if !MODERATOR}-{/if}</td>
+{if LINK_SUBSCRIBE || LINK_MARKASREAD}
+<td class="infobox">
+{if LINK_SUBSCRIBE}<img src="design/subscribe.gif" alt="{LANG[SUBSCRIBE]}" style="vertical-align:middle;" /> <a href="{LINK_SUBSCRIBE}">{LANG[SUBSCRIBE]}</a><br />{/if}
+<img src="design/markread.gif" alt="{LANG[SUBSCRIBE]}" style="vertical-align:middle;" /> <a href="{LINK_MARKASREAD}">{LANG[MARKASREAD]}</a>
+</td>
+{/if}
+</tr>
+</table>
+<!-- OPTIONEN ENDE -->
+
+
+<div class="legend">
+<img src="design/thread_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[NEWPOSTS]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[NONEWPOSTS]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_nonew_hot.gif" alt="{LANG[HOTTHREAD]}" title="{LANG[HOTTHREAD]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[HOTTHREAD]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[CLOSED]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_moved.gif" alt="{LANG[MOVED]}" title="{LANG[MOVED]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[MOVED]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_pinned.gif" alt="{LANG[PINNED]}" title="{LANG[PINNED]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[PINNED]}
+</div>
+{/if}

@@ -1,0 +1,45 @@
+{*
+
+RSS-Feed für Produkte
+=====================
+
+WEBSITENAME = Titel der Website (in der Konfiguration eingestellt)
+
+PRODUCT = Liste der News
+PRODUCT.ID = ID
+PRODUCT.TITLE = Spiel-Titel
+PRODUCT.TEXT = Text
+PRODUCT.LINK = Link zur Detailseite
+PRODUCT.TYPE = Produkttyp (normal, game, music, movie, book, software, hardware)
+PRODUCT.TIME = Zeit+Datum im RFC2822-Format
+PRODUCT.LINK = Link zum Produkt
+
+*}
+<?xml version="1.0" encoding="{CHARSET}" ?>
+<rss version="2.0">
+<channel>
+<title>{WEBSITENAME} News</title>
+<link>{SERVER_HTTPHOST}</link>
+<description></description>
+<language>de</language>
+
+{list PRODUCT}
+<item>
+<guid>{PRODUCT.LINK}</guid>
+<title><![CDATA[ {PRODUCT.TITLE} ]]></title>
+<link>{PRODUCT.LINK}</link>
+<description><![CDATA[ {SHORTTEXT(PRODUCT.TEXT,300)} ]]></description>
+<pubDate>{PRODUCT.TIME}</pubDate>
+<category><![CDATA[{if PRODUCT.TYPE=='normal'}{LANG[TYPE_NORMAL]}
+{elseif PRODUCT.TYPE=='software'}{LANG[TYPE_SOFTWARE]}
+{elseif PRODUCT.TYPE=='game'}{LANG[TYPE_GAME]}
+{elseif PRODUCT.TYPE=='hardware'}{LANG[TYPE_HARDWARE]}
+{elseif PRODUCT.TYPE=='music'}{LANG[TYPE_MUSIC]}
+{elseif PRODUCT.TYPE=='movie'}{LANG[TYPE_MOVIE]}
+{elseif PRODUCT.TYPE=='book'}{LANG[TYPE_BOOK]}{/if}]]></category>
+</item>
+
+{/list}
+
+</channel>
+</rss>

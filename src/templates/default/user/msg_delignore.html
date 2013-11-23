@@ -1,0 +1,14 @@
+{*
+
+Nachricht: Ignorierten Benutzer von der Liste entfernen?
+========================================================
+
+ID = ID der Benutzers
+
+*}
+
+<p>{LANG[MSG_TEXT]}</p>
+<p><input type="submit" name="apxsubmit" value="{LANG[DELETE]}" id="count" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="javascript:history.back()" class="button" /></p>
+<input type="hidden" name="action" value="ignorelist" />
+<input type="hidden" name="del" value="{ID}" />
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}

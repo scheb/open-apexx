@@ -1,0 +1,107 @@
+{*
+
+Unter-Template: Foren auflisten
+===============================
+
+Dieses Template wird von index.html und forum.html zur Ausgabe der Foren verwendet (include).
+
+*}
+<table width="100%">
+<colgroup>
+<col width="50" />
+<col />
+<col width="170" />
+<col width="60" />
+<col width="60" />
+<col width="160" />
+</colgroup>
+<thead>
+<tr>
+<td class="tableheader">&nbsp;</td>
+<td class="tableheader">{LANG[FORUM]}</td>
+<td class="tableheader">{LANG[LASTPOST]}</td>
+<td class="tableheader">{LANG[THREADS]}</td>
+<td class="tableheader">{LANG[POSTS]}</td>
+<td class="tableheader">{LANG[MODERATORS]}</td>
+</tr>
+</thead>
+
+{* Nur auf der Startseite anzeigen *}
+{if !FORUMID}
+<tfoot>
+<tr><td class="space2" colspan="6">&nbsp;</td></tr>
+<tr><td class="tablefooter" colspan="6" style="text-align:center;"><a href="{LINK_NEWPOSTS}">{LANG[NEWPOSTS]}</a> | <a href="{LINK_ALLREAD}">{LANG[ALLREAD]}</a></td></tr>
+</tfoot>
+{/if}
+
+{list FORUM}
+<tbody>
+<tr class="forum_spacer"><td colspan="6"></td></tr>
+
+{* Foren der Ebene 1 ausgeben *}
+{if FORUM.ISCAT}
+<tr class="forum_category level1">
+<td colspan="6">
+{if FORUM.SUB}<a href="javascript:toggle_forum({FORUM.ID});"><img src="design/{if FORUM.COLLAPSE}extend{else}collapse{/if}.gif" alt="" id="forum_toggle_{FORUM.ID}" class="forum_toggle" /></a>{/if}
+<div><span class="forum_category_title"><a href="{FORUM.LINK}">{FORUM.TITLE}</a></span>{if FORUM.DESCRIPTION}<br /><span class="forum_category_description">{FORUM.DESCRIPTION}</span>{/if}</div>
+</td>
+</tr>
+{elseif FORUM.LINKTO}
+<tr class="forum_entry level1">
+<td class="col1"><div class="forum_icon"><img src="design/forum_link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /></div></td>
+<td class="col2" colspan="5"><span class="forum_title"><a href="{FORUM.LINKTO}" target="_blank">{FORUM.TITLE}</a></span>{if FORUM.DESCRIPTION}<br /><span class="forum_description">{FORUM.DESCRIPTION}</span>{/if}</td>
+</tr>
+{else}
+<tr class="forum_entry level1">
+<td class="col2 first"><div class="forum_icon">{if FORUM.CLOSED}<img src="design/forum_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif FORUM.NEWPOSTS}<img src="design/forum_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="design/forum_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if}</div></td>
+<td class="col2 second">{if FORUM.LINK_NEWTHREAD}<a href="{FORUM.LINK_NEWTHREAD}"><img src="design/newthread_quick.gif" alt="{LANG[NEWTHREAD]}" title="{LANG[NEWTHREAD]}" style="float:right;" /></a>{/if}<span class="forum_title"><a href="{FORUM.LINK}">{FORUM.TITLE}</a></span>{if FORUM.DESCRIPTION}<br /><span class="forum_description">{FORUM.DESCRIPTION}</span>{/if}</td>
+<td class="col1" style="text-align:center;">{if FORUM.LASTPOST_TIME}<div class="lastpost"><div><img src="{if FORUM.LASTPOST_ICON}{FORUM.LASTPOST_ICON}{else}design/threadicon.gif{/if}" alt="" style="vertical-align:middle;" /> {if FORUM.LASTPOST_THREADPREFIX}<span class="thread_prefix">{FORUM.LASTPOST_THREADPREFIX}</span> {/if}<a href="{FORUM.LASTPOST_LINK}" style="font-weight:bold !important;" title="{FORUM.LASTPOST_THREADTITLE}">{SHORTTEXT(FORUM.LASTPOST_THREADTITLE,20)}</a><br />{LANG[BY]} {if FORUM.LASTPOST_USERID}<a href="{PROFILE(FORUM.LASTPOST_USERID)}" target="_blank">{FORUM.LASTPOST_USERNAME}</a>{else}{FORUM.LASTPOST_USERNAME}{/if}</div>{DATE('date',FORUM.LASTPOST_TIME)} - {DATE('time',FORUM.LASTPOST_TIME)} {LANG[CORE_OCLOCK]} <a href="{FORUM.LASTPOST_LINK}"><img src="design/lastpost.gif" alt="{LANG[LASTPOST]}" title="{LANG[LASTPOST]}" style="vertical-align:bottom;" /></a></div>{else}-{/if}</td>
+<td class="col2" style="text-align:center;">{FORUM.THREADS}</td>
+<td class="col1" style="text-align:center;">{FORUM.POSTS}</td>
+<td class="col2"><div class="forum_moderators">{if FORUM.MODERATOR}{MODCOUNT=0}{list FORUM.MODERATOR}{++MODCOUNT}{if MODCOUNT!=1}, {/if}<a href="{PROFILE(FORUM.MODERATOR.USERID)}" target="_blank">{FORUM.MODERATOR.USERNAME}</a>{/list}{else}&nbsp;{/if}</div></td>
+</tr>
+{/if}
+</tbody>
+
+{* Foren der Ebene 2 ausgeben *}
+{if FORUM.SUB}
+<tbody id="forum_list_{FORUM.ID}" style="{if FORUM.COLLAPSE}display:none;{/if}">
+{list FORUM.SUB}
+{if FORUM.SUB.ISCAT}
+<tr class="forum_entry level2">
+<td class="col1"><div class="forum_icon">{if FORUM.SUB.CLOSED}<img src="design/forum_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif FORUM.SUB.NEWPOSTS}<img src="design/forum_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="design/forum_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if}</div></td>
+<td class="col2">
+{if FORUM.SUB.LINK_NEWTHREAD}<a href="{FORUM.SUB.LINK_NEWTHREAD}"><img src="design/newthread_quick.gif" alt="{LANG[NEWTHREAD]}" title="{LANG[NEWTHREAD]}" style="float:right;" /></a>{/if}
+<span class="forum_title"><a href="{FORUM.SUB.LINK}">{FORUM.SUB.TITLE}</a></span>{if FORUM.SUB.DESCRIPTION}<br /><span class="forum_description">{FORUM.SUB.DESCRIPTION}</span>{/if}
+{if FORUM.SUB.SUB2}<div class="forum_subforum">{list FORUM.SUB.SUB2}{if FORUM.SUB.SUB2.LINKTO}<a href="{FORUM.SUB.SUB2.LINKTO}" target="_blank"><img src="design/subforum_link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /> {FORUM.SUB.SUB2.TITLE}</a><br />{else}<a href="{FORMUM.SUB.SUB2.LINK}">{if FORUM.SUB.SUB2.CLOSED}<img src="design/subforum_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif FORUM.SUB.SUB2.NEWPOSTS}<img src="design/subforum_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="design/subforum_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if} {FORMUM.SUB.SUB2.TITLE}</a><br />{/if}{/list}</div>{/if}
+</td>
+<td class="col1" style="text-align:center;">{if FORUM.SUB.LASTPOST_TIME}<div class="lastpost"><div><img src="{if FORUM.SUB.LASTPOST_ICON}{FORUM.SUB.LASTPOST_ICON}{else}design/threadicon.gif{/if}" alt="" style="vertical-align:middle;" /> {if FORUM.LASTPOST_THREADPREFIX}<span class="thread_prefix">{FORUM.LASTPOST_THREADPREFIX}</span> {/if}<a href="{FORUM.SUB.LASTPOST_LINK}" style="font-weight:bold !important;" title="{FORUM.SUB.LASTPOST_THREADTITLE}">{SHORTTEXT(FORUM.SUB.LASTPOST_THREADTITLE,20)}</a><br />{LANG[BY]} {if FORUM.SUB.LASTPOST_USERID}<a href="{PROFILE(FORUM.SUB.LASTPOST_USERID)}" target="_blank">{FORUM.SUB.LASTPOST_USERNAME}</a>{else}{FORUM.SUB.LASTPOST_USERNAME}{/if}</div>{DATE('date',FORUM.SUB.LASTPOST_TIME)} - {DATE('time',FORUM.SUB.LASTPOST_TIME)} {LANG[CORE_OCLOCK]} <a href="{FORUM.SUB.LASTPOST_LINK}"><img src="design/lastpost.gif" alt="{LANG[LASTPOST]}" title="{LANG[LASTPOST]}" style="vertical-align:bottom;" /></a></div>{else}-{/if}</td>
+<td class="col2" style="text-align:center;">{FORUM.SUB.THREADS}</td>
+<td class="col1" style="text-align:center;">{FORUM.SUB.POSTS}</td>
+<td class="col2"><div class="forum_moderators">{if FORUM.SUB.MODERATOR}{MODCOUNT=0}{list FORUM.SUB.MODERATOR}{++MODCOUNT}{if MODCOUNT!=1}, {/if}<a href="{PROFILE(FORUM.SUB.MODERATOR.USERID)}" target="_blank">{FORUM.SUB.MODERATOR.USERNAME}</a>{/list}{else}&nbsp;{/if}</div></td>
+</tr>
+{elseif FORUM.SUB.LINKTO}
+<tr class="forum_entry level2">
+<td class="col1"><div class="forum_icon"><img src="design/forum_link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /></div></td>
+<td class="col2" colspan="5"><span class="forum_title"><a href="{FORUM.SUB.LINKTO}" target="_blank">{FORUM.SUB.TITLE}</a></span>{if FORUM.SUB.DESCRIPTION}<br /><span class="forum_description">{FORUM.SUB.DESCRIPTION}</span>{/if}</td>
+</tr>
+{else}
+<tr class="forum_entry level2">
+<td class="col1"><div class="forum_icon">{if FORUM.SUB.CLOSED}<img src="design/forum_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif FORUM.SUB.NEWPOSTS}<img src="design/forum_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="design/forum_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if}</div></td>
+<td class="col2">
+{if FORUM.SUB.LINK_NEWTHREAD}<a href="{FORUM.SUB.LINK_NEWTHREAD}"><img src="design/newthread_quick.gif" alt="{LANG[NEWTHREAD]}" title="{LANG[NEWTHREAD]}" style="float:right;" /></a>{/if}
+<span class="forum_title"><a href="{FORUM.SUB.LINK}">{FORUM.SUB.TITLE}</a></span>{if FORUM.SUB.DESCRIPTION}<br /><span class="forum_description">{FORUM.SUB.DESCRIPTION}</span>{/if}
+{if FORUM.SUB.SUB2}<div class="forum_subforum">{list FORUM.SUB.SUB2}{if FORUM.SUB.SUB2.LINKTO}<a href="{FORUM.SUB.SUB2.LINKTO}" target="_blank"><img src="design/subforum_link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /> {FORUM.SUB.SUB2.TITLE}</a><br />{else}<a href="{FORMUM.SUB.SUB2.LINK}">{if FORUM.SUB.SUB2.CLOSED}<img src="design/subforum_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif FORUM.SUB.SUB2.NEWPOSTS}<img src="design/subforum_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="design/subforum_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if} {FORMUM.SUB.SUB2.TITLE}</a><br />{/if}{/list}</div>{/if}
+</td>
+<td class="col1" style="text-align:center;">{if FORUM.SUB.LASTPOST_TIME}<div class="lastpost"><div><img src="{if FORUM.SUB.LASTPOST_ICON}{FORUM.SUB.LASTPOST_ICON}{else}design/threadicon.gif{/if}" alt="" style="vertical-align:middle;" /> {if FORUM.SUB.LASTPOST_THREADPREFIX}<span class="thread_prefix">{FORUM.SUB.LASTPOST_THREADPREFIX}</span> {/if}<a href="{FORUM.SUB.LASTPOST_LINK}" style="font-weight:bold !important;" title="{FORUM.SUB.LASTPOST_THREADTITLE}">{SHORTTEXT(FORUM.SUB.LASTPOST_THREADTITLE,20)}</a><br />{LANG[BY]} {if FORUM.SUB.LASTPOST_USERID}<a href="{PROFILE(FORUM.SUB.LASTPOST_USERID)}" target="_blank">{FORUM.SUB.LASTPOST_USERNAME}</a>{else}{FORUM.SUB.LASTPOST_USERNAME}{/if}</div>{DATE('date',FORUM.SUB.LASTPOST_TIME)} - {DATE('time',FORUM.SUB.LASTPOST_TIME)} {LANG[CORE_OCLOCK]} <a href="{FORUM.SUB.LASTPOST_LINK}"><img src="design/lastpost.gif" alt="{LANG[LASTPOST]}" title="{LANG[LASTPOST]}" style="vertical-align:bottom;" /></a></div>{else}-{/if}</td>
+<td class="col2" style="text-align:center;">{FORUM.SUB.THREADS}</td>
+<td class="col1" style="text-align:center;">{FORUM.SUB.POSTS}</td>
+<td class="col2"><div class="forum_moderators">{if FORUM.SUB.MODERATOR}{MODCOUNT=0}{list FORUM.SUB.MODERATOR}{++MODCOUNT}{if MODCOUNT!=1}, {/if}<a href="{PROFILE(FORUM.SUB.MODERATOR.USERID)}" target="_blank">{FORUM.SUB.MODERATOR.USERNAME}</a>{/list}{else}&nbsp;{/if}</div></td>
+</tr>
+{/if}
+{/list}
+</tbody>
+{/if}
+
+{/list}
+</table>

@@ -1,0 +1,85 @@
+<style type="text/css">
+<!--
+
+.optionbox div {
+	width:200px;
+	float:left;
+}
+
+-->
+</style>
+
+<table width="100%" class="table">
+<tr class="tableheader"><td colspan="3">{LANG[PICTURES]}</td></tr>
+{list PIC}{++COUNTER}
+{if COUNTER%3==1}<tr>{/if}
+<td width="33%" align="center"><a href="{PIC.LINK}" target="_blank"><img src="{PIC.IMAGE}" alt="" /></a><div style="padding-top:3px;">{PIC.OPTIONS}</div></td>
+{if COUNTER%3==0}</tr>{/if}
+{/list}
+{if COUNTER%3!=0}{repeat 3-COUNTER%3}<td width="33%">&nbsp;</td>{/repeat}</tr>{/if}
+{if !PIC}<tr><td colspan="3" align="center">{LANG[NOPICS]}</td></tr>{/if}
+</table>
+
+<form action="action.php" method="post" target="postframe" enctype="multipart/form-data" style="margin-top:10px;">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[UPLOAD]} ({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</td></tr>
+<tr>
+<td>{LANG[GLOBALOPTIONS]}:</td>
+<td class="optionbox">
+{if SET_WATERMARK}<div><input type="checkbox" name="checkall_watermark" value="1" id="checkall_watermark" onclick="checkbox_toggle_name(this.form,this.checked,'watermark')" checked="checked" style="vertical-align:middle;" /> {LANG[WATERMARK]}</div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="checkall_noresize" value="1" id="checkall_noresize" onclick="checkbox_toggle_name(this.form,this.checked,'noresize')" style="vertical-align:middle;" /> {LANG[NORESIZE]}</div>{/if}
+</td>
+</tr>
+<tr>
+<td>{LANG[PIC]} 1:</td>
+<td class="optionbox">
+<input type="file" name="upload1" size="65" class="input" /><br />
+{if SET_WATERMARK}<div><input type="checkbox" name="watermark1" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[WATERMARK]}</div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="noresize1" value="1" style="vertical-align:middle;" /> {LANG[NORESIZE]}</div>{/if}
+</td>
+</tr>
+<tr>
+<td>{LANG[PIC]} 2:</td>
+<td class="optionbox">
+<input type="file" name="upload2" size="65" class="input" /><br />
+{if SET_WATERMARK}<div><input type="checkbox" name="watermark2" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[WATERMARK]}</div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="noresize2" value="1" style="vertical-align:middle;" /> {LANG[NORESIZE]}</div>{/if}
+</td>
+</tr>
+<tr>
+<td>{LANG[PIC]} 3:</td>
+<td class="optionbox">
+<input type="file" name="upload3" size="65" class="input" /><br />
+{if SET_WATERMARK}<div><input type="checkbox" name="watermark3" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[WATERMARK]}</div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="noresize3" value="1" style="vertical-align:middle;" /> {LANG[NORESIZE]}</div>{/if}
+</td>
+</tr>
+<tr>
+<td>{LANG[PIC]} 4:</td>
+<td class="optionbox">
+<input type="file" name="upload4" size="65" class="input" /><br />
+{if SET_WATERMARK}<div><input type="checkbox" name="watermark4" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[WATERMARK]}</div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="noresize4" value="1" style="vertical-align:middle;" /> {LANG[NORESIZE]}</div>{/if}
+</td>
+</tr>
+<tr>
+<td>{LANG[PIC]} 5:</td>
+<td class="optionbox">
+<input type="file" name="upload5" size="65" class="input" /><br />
+{if SET_WATERMARK}<div><input type="checkbox" name="watermark5" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[WATERMARK]}</div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="noresize5" value="1" style="vertical-align:middle;" /> {LANG[NORESIZE]}</div>{/if}
+</td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="uploadnext" value="{LANG[UPLOADNEXT]}" class="button" /> <input type="submit" name="submit_finish" value="{LANG[SUBMIT_FINISH]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="pubnow" value="{PUBNOW}" />
+<input type="hidden" name="action" value="articles.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="pageid" value="pics" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

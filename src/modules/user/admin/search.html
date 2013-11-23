@@ -1,0 +1,22 @@
+<form action="action.php" method="post" class="searchform">
+<table width="100%">
+<colgroup>
+<col width="100" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[SEARCHTEXT]}:</td>
+<td>
+<input type="text" name="item" class="input" value="{ITEM}" size="70" style="width:300px;" /><br />
+<input type="checkbox" name="name" id="ip_name" value="1"{if SNAME} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_name"> {LANG[SNAME]}</label> &nbsp;
+<input type="checkbox" name="profile" id="ip_profile" value="1"{if SPROFILE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_profile"> {LANG[SPROFILE]}</label>
+</td>
+</tr>
+<tr>
+<td>{LANG[SEARCHGROUP]}:</td>
+<td><select name="sgroupid"><option value=""></option>{GROUPS}</select> <input type="submit" name="apxsubmit" value="{LANG[SEARCH]}" accesskey="s" class="button" /></td>
+</tr>
+</table>
+<input type="hidden" name="action" value="user.show" />
+<input type="hidden" name="who" value="{WHO}" />
+</form>

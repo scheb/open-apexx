@@ -1,0 +1,18 @@
+<table width="100%" style="text-align:left;">
+<colgroup>
+<col width="150" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[HEADLINE]}</td></tr>
+<tr>
+<td>{LANG[USERNAMES]}:</td>
+<td>{USERS}</td>
+</tr>
+<tr>
+<td>{LANG[GROUP]}:</td>
+<td><select name="groupid">{GROUP}</select></td>
+</tr>
+</table>
+<p class="buttons"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_MULTI]}" accesskey="s" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="parent.MessageOverlayManager.closeLayer();" class="button" /></p>
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />

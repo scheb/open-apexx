@@ -1,0 +1,29 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[ADDMEDIUM]}{else}{LANG[EDITMEDIUM]}{/if}</td></tr>
+{if ACTION=='add' && !UPDATEPARENT}<tr>
+<td>{LANG[TYPE]}:</td>
+<td><select name="type">{TYPELIST}</select></td>
+</tr>{/if}
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tr>
+<td>{LANG[ICON]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="icon" value="{ICON}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="products.media" />
+<input type="hidden" name="do" value="{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+{if UPDATEPARENT}<input type="hidden" name="type" value="{TYPE}" />{/if}
+<input type="hidden" name="updateparent" value="{UPDATEPARENT}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

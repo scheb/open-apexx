@@ -1,0 +1,28 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_GUESTBOOK_COM]}</td></tr>
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td>{USERNAME}</td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td><textarea name="text" cols="100" rows="12" class="input" style="width:98%;">{TEXT}</textarea></td>
+</tr>
+{if TEXT}
+<tr>
+<td>{LANG[DELCOM]}:</td>
+<td><input type="checkbox" name="delcom" value="1" id="delcom" /></td>
+</tr>
+{/if}
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="guestbook.com" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

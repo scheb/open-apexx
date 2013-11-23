@@ -1,0 +1,33 @@
+# Rewrite-Engine aktivieren
+# -------------------------
+# Diese Option funktioniert natürlich nur, wenn der Server "mod_rewrite" unterstützt.
+RewriteEngine On
+
+
+# Symbolische Links
+# -----------------
+# Auf machen Webservern ist es notwendig diese Option zu aktivieren.
+# Entfernen Sie hierzu einfach die Raute am Anfang der folgenden Zeile:
+# Options FollowSymLinks
+
+
+# RewriteBase
+# -----------
+# Aktivieren Sie die nachfolgende Zeile nur, wenn Ihr Server die Rewrite-Regeln nicht
+# umsetzt oder einen Fehler 500 anzeigt. Sie müssen den Pfad zu Ihrem forum-Verzeichnis angeben.
+# Der Pfad "/" entspricht dabei dem Hauptverzeichnis der Domain (siehe Vorgabe unten).
+# Liegt Ihre apexx-Installation beispielsweise im Ordner "cms" dann geben Sie an: RewriteBase /cms/forum/
+# RewriteBase /forum/
+
+
+
+# --------------------------------------------------------------------------------------------------------
+
+
+########## Einfache Seiten ohne Parameter ##########
+RewriteRule ^(index|search|newposts)\.html$ $1.php [L]
+
+
+RewriteRule ^(forum|thread),([0-9]+),([0-9]+)(,.*)?\.html$ $1.php?id=$2&p=$3 [QSA,L]
+
+RewriteRule ^announcement,([0-9]+)(,.*)?\.html$ announcement.php?id=$1 [QSA,L]

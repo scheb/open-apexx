@@ -1,0 +1,68 @@
+<form action="action.php" name="textform" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_CONTENT_ADD]}{else}{LANG[TITLE_CONTENT_EDIT]}{/if}</td></tr>
+{if SET_SECTIONS}<tr>
+<td>{LANG[SECTION]}:<br /><small>({LANG[CTRLMULTI]})</small></td>
+<td><select name="secid[]" id="seclist" multiple="multiple">{SECTIONS(SECID)}</select></td>
+</tr>{/if}
+{if SPRIGHT_CONTENT_EDIT}
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td><select name="userid">{USER(USERID)}</select></td>
+</tr>
+{else}
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td>{LOGGED_USERNAME}</td>
+</tr>
+{/if}
+<tr>
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid">{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td>{LANG[TITLEINFO]}<br /><input type="text" name="title" value="{TITLE}" size="80" maxlength="255" style="width:400px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[INLINESCREENS]}:</td>
+<td>{INLINE('text',ID)}</td>
+</tr>
+<tr>
+<td>{LANG[CONTENT]}:</td>
+<td>{TEXTAREA('text',25,TEXT)}</td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin:10px 0;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[OPTIONS]}</td></tr>
+<tr>
+<td>
+{if SET_CONTENT_SEARCHABLE}<input type="checkbox" name="searchable" id="ip_searchable" value="1"{if SEARCHABLE} checked="checked"{/if} /><label for="ip_searchable"> {LANG[SEARCHABLE]}</label><br />{/if}
+{if MODULE_COMMENTS}{if SET_CONTENT_COMS}<input type="checkbox" name="allowcoms" id="ip_allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} /><label for="ip_allowcoms"> {LANG[ALLOWCOMS]}</label><br />{/if}{/if}
+{if MODULE_RATINGS}{if SET_CONTENT_RATINGS}<input type="checkbox" name="allowrating" id="ip_allowrating" value="1"{if ALLOWRATING} checked="checked"{/if} /><label for="ip_allowrating"> {LANG[ALLOWRATING]}</label><br />{/if}{/if}
+{if ACTION=='add'}{if RIGHT_CONTENT_ENABLE}<input type="checkbox" name="pubnow" id="ip_pubnow" value="1"{if PUBNOW} checked="checked"{/if} /><label for="ip_pubnow"> {LANG[PUBNOW]}</label><br />{/if}{/if}
+</td>
+</tr>
+</table>
+
+<table width="100%" class="table">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="content.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

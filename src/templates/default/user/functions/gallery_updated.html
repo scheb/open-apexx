@@ -1,0 +1,42 @@
+{*
+
+Template-Funktion: Zuletzt aktualisierte Benutzer-Galerien
+==========================================================
+
+GALLERY = Liste der Galerien
+GALLERY.ID = Galerie-ID
+GALLERY.TITLE = Galerie-Titel
+GALLERY.LINK = Link zur Galerie
+GALLERY.PREVIEW = Vorschau-Bild
+GALLERY.DESCRIPTION = Galerie-Beschreibung
+GALLERY.COUNT = Anzahl der enthaltenen Bilder
+GALLERY.TIME = Zeit (Timestamp)
+GALLERY.UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+GALLERY.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zur vorherigen Galerie)
+
+
+Kommentare
+----------
+GALLERY.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+GALLERY.COMMENT_COUNT = Anzahl der Kommentare
+GALLERY.COMMENT_LINK = Link zur Kommentar-Seite
+GALLERY.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+GALLERY.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+GALLERY.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Autor
+-----
+GALLERY.USERID = Benutzer-ID des Autors
+GALLERY.USERNAME = Benutzername
+GALLERY.REALNAME = Echter Name
+GALLERY.AVATAR = Avatar des Autors
+GALLERY.AVATER_TITLE = Avatar-Titel
+
+*}
+
+<ul>
+{list GALLERY}
+<li><a href="{GALLERY.LINK}">{GALLERY.TITLE}</a><br /><span class="small">{DATE('d.m.Y',GALLERY.TIME)}</span></li>
+{/list}
+</ul>

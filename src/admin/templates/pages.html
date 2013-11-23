@@ -1,0 +1,22 @@
+{if PAGE_COUNT>1}<div class="pages">
+{if PAGE_PREVIOUS} <a href="{PAGE_PREVIOUS}">&laquo;</a>{/if}
+
+{EXPECT_PAGE=1}{END_LIMIT=PAGE_COUNT-5}
+{START_LIMIT=5}
+{SEL_LOWER_LIMIT=PAGE_SELECTED-2}
+{SEL_UPPER_LIMIT=PAGE_SELECTED+2}
+
+{list PAGE}
+
+{if EXPECT_PAGE!=PAGE.NUMBER && !DOTPRINT} ...{DOTPRINT=1}{/if}
+
+{if PAGE.NUMBER>=SEL_LOWER_LIMIT && PAGE.NUMBER<=SEL_UPPER_LIMIT}
+{include pagenumber.html}{continue}
+{elseif PAGE.NUMBER<=START_LIMIT || PAGE.NUMBER>END_LIMIT || PAGE.NUMBER%10==0}
+{include pagenumber.html}
+{/if}
+
+{/list}
+
+{if PAGE_NEXT} <a href="{PAGE_NEXT}">&raquo;</a>{/if}
+</div>{/if}

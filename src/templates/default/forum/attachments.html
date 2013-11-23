@@ -1,0 +1,92 @@
+{*
+
+Anhänge verwalten
+=================
+
+CHARSET = In der Konfiguration festgelegtes Charset
+MESSAGE = Statusnachricht (hat nur einen Wert, wenn eine Statusnachricht angezeigt werden soll)
+SERVER_URL = An diese URL muss das Formular gesendet werden
+REFRESH = An dieser Stelle wird Javascript eingefügt um das Hauptfenster zu aktualisieren (WICHTIG!)
+
+Anhänge
+-------
+ATTACHMENT = Liste der aktuellen Anhänge
+ATTACHMENT.ID = Anhang-ID
+ATTACHMENT.ICON = Pfad zum Dateityp-Icon
+ATTACHMENT.FILENAME = Dateiname
+ATTACHMENT.SIZE = Dateigröße
+
+Dateitypen
+----------
+TYPE = Liste der erlaubten Dateitypen
+TYPE.EXT = Dateiendung
+TYPE.ICON = Pfad zum Dateityp-Icon
+TYPE.MAXSIZE = Maximale Dateigröße
+
+*}
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>{LANG[ATTACHMENTS]}</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="design/design.css" type="text/css" />
+<link rel="stylesheet" href="design/content.css" type="text/css" />
+<script type="text/javascript" src="lib/script.js"></script>
+</head>
+<body style="padding:10px;text-align:left;">
+
+{* Statusnachricht *}
+{if MESSAGE}
+<table width="100%" border="1">
+<tr><td class="form_header">{LANG[CORE_MESSAGE]}</td></tr>
+<tr class="cell1"><td>{MESSAGE}</td></tr>
+</table>
+
+<div style="height:10px;"></div>
+{/if}
+
+<form action="{SERVER_URL}" method="post" enctype="multipart/form-data">
+<table width="100%" border="1">
+<tr><td class="form_header">{LANG[UPLOAD]}</td></tr>
+<tr class="cell1"><td>
+<input type="file" name="file1" class="input" size="42" /><br />
+<input type="file" name="file2" class="input" size="42" /><br />
+<input type="file" name="file3" class="input" size="42" />
+</td></tr>
+<tr class="form_footer"><td><input type="submit" name="send" value="{LANG[UPLOAD]}" class="button" /></td></tr>
+</table>
+</form>
+
+{if ATTACHMENT}
+<div style="height:10px;"></div>
+
+<table width="100%">
+<tr><td class="form_header">{LANG[ATTACHMENTS]}</td></tr>
+{list ATTACHMENT}
+<tr class="cell1"><td><form action="{SERVER_URL}" method="post"><div style="float:right;"><input type="submit" name="delete[{ATTACHMENT.ID}]" value="{LANG[DELETE]}" class="button" /></div><img src="{ATTACHMENT.ICON}" alt="" style="vertical-align:middle;" /> {ATTACHMENT.FILENAME} ({ATTACHMENT.SIZE})</form></td></tr>
+{/list}
+</table>
+{/if}
+
+<div style="height:10px;"></div>
+
+<table width="100%">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tr><td class="form_header" colspan="2">{LANG[FILETYPES]}</td></tr>
+{list TYPE}
+<tr class="cell1">
+<td><img src="{TYPE.ICON}" alt="{TYPE.EXT}" style="vertical-align:middle;" /> {TYPE.EXT}</td>
+<td align="center">{TYPE.MAXSIZE} kB</td>
+</tr>
+{/list}
+</table>
+
+{* Anzeige im Hauptfenster aktualisieren *}
+{REFRESH}
+
+</body>
+</html>

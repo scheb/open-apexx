@@ -1,0 +1,178 @@
+/* DESIGN */
+body {
+	font-family:tahoma, verdana, arial, sans-serif;
+	font-size:12px;
+}
+
+td {
+	font-size:12px;
+}
+
+img {
+	border:0px;
+}
+
+
+
+/* TEXTBLÖCKE */
+.small {
+	font-size:10px;
+}
+
+
+.pages {
+	font-size:11px;
+	margin:0px 3px 5px 3px;
+}
+
+
+.sortby {
+	text-align:center;
+	font-size:11px;
+	margin:10px 0px 0px 0px;
+}
+
+
+.slink, .letters {
+	margin:15px 20px;
+	padding:3px 5px;
+	border-top:1px solid #C2C2C2;
+	border-bottom:1px solid #C2C2C2;
+	background:#F0F0F0;
+}
+
+.letters {
+	font-size:11px;
+	text-align:center;
+}
+
+.error { border:1px solid white; color:white; padding:5px; margin:5px; font-family:courier,sans-serif; background:darkred; }
+
+
+/* TABELLEN */
+table {
+	border-collapse:collapse;
+}
+
+td {
+	font-size:12px;
+}
+
+.header1 {
+	height:25px;
+	padding-left:3px;
+	border:1px solid #C2C2C2;
+	background-color:#CCCCCC;
+	font-size:14px;
+	font-weight:bold;
+}
+
+
+.header2 {
+	height:22px;
+	border:1px solid #C2C2C2;
+	background-color:#DEDEDE;
+	font-size:11px; font-weight:bold;
+	text-align:center;
+}
+
+
+tr.color td,
+td.color,
+tr.color_nosize td,
+td.color_nosize {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+}
+
+
+tr.color td,
+td.color,
+tr.color_hover td {
+	height:27px;
+}
+
+
+.footer, .footer_tbl {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#E0E0E0;
+	text-align:center;
+}
+
+
+.footer_tbl {
+	text-align:right;
+}
+
+
+.space1 {
+	font-size:0px;
+	height:10px;
+}
+
+
+.space2 {
+	font-size:0px;
+	height:3px;
+}
+
+
+/* LAYER*/
+.layer_table td {
+	padding:0px;
+}
+
+.layer {
+	border:1px dashed #C2C2C2;
+	padding:20px 10px;
+}
+
+
+.layer_bar {
+	font-size:12px;
+	background:url('layer.gif');
+}
+
+
+.layer_bar a:link,
+.layer_bar a:active,
+.layer_bar a:visited {
+	color:#A6A6A6;
+}
+
+
+.layer_bar a:hover {
+	color:#2B2B2B;
+}
+
+
+.layer_bar_sel {
+	font-size:12px;
+	background:url('layer_sel.gif');
+}
+
+
+/* FORMULAR */
+form {
+	margin:0px;
+}
+
+input, select, textarea {
+	font-family:tahoma, verdana, arial, sans-serif;
+	font-size:12px;
+	color:#3E3631;
+}
+
+textarea,
+.input {
+	border:1px solid #B3B3B3;
+	padding:2px;
+}
+
+.button { 
+	color:#2B2B2B;
+	border-width:1px;
+	background-color:#CCCCCC;
+}

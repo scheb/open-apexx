@@ -1,0 +1,13 @@
+{*
+
+Sicherheitsabfrage: Abonnement löschen
+======================================
+
+ID = ID des Abonements
+
+*}
+<p>{LANG[MSG_DELSUBSCRIPTION]}</p>
+<p><input type="submit" name="send" value="{LANG[DELETE]}" accesskey="s" id="count" class="button" /> <input type="button" name="backbutton" value="{LANG[GOBACK]}" onclick="javascript:history.back()" class="button" /></p>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="option" value="delete" />
+<input type="hidden" name="action" value="subscribe" />

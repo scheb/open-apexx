@@ -1,0 +1,88 @@
+{*
+
+Benutzer-Center
+===============
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+LINK_PROFILE = Link: Profil bearbeiten
+LINK_SHOWPROFILE = Link: Eigenes Profil ansehen
+LINK_SIGNATURE = Link: Signatur bearbeiten
+LINK_AVATAR = Link: Avatar bearbeiten
+LINK_FRIENDS = Link: Freundesliste anzeigen
+LINK_PMS = Link: Persönliche Nachrichen anzeigen
+LINK_NEWPM = Link: Neue Nachricht verfassen
+LINK_NEWMAIL = Link: Neue eMail verfassen
+LINK_IGNORELIST = Link: Ignorier-Liste verwalten
+LINK_SUBSCRIPTIONS = Link: Forum-Abonnements zeigen (nur verfügbar, wenn Forum-Modul aktiv)
+LINK_LOGOUT = Link: Abmelden
+
+LINK_BLOG = Link: Eigenen Blog verwalten (nur verfügbar, wenn aktiviert)
+LINK_SHOWBLOG = Link: Eigenen Blog ansehen (nur verfügbar, wenn aktiviert)
+LINK_GALLERY = Link: Eigene Galerie verwalten (nur verfügbar, wenn aktiviert)
+LINK_SHOWGALLERY = Link: Eigene Galerie ansehen (nur verfügbar, wenn aktiviert)
+LINK_SHOWGUESTBOOK = Link: Eigenes Gästebuch ansehen (nur verfügbar, wenn aktiviert)
+LINK_COLLECTION = Zur Sammlung des Benutzers (nur verfügbar, wenn aktiviert und Produkt-Modul vorhanden)
+
+NEWPMS = Anzahl der neuen Nachrichten
+TOTALPMS = Gesamtzahl der Nachrichten
+NEWGB = Anzahl der neuen Gästebuch-Einträge
+
+
+Besucher des eigenen Profils
+----------------------------
+VISITOR = Liste der Besucher
+VISITOR.USERID = Benutzer-ID
+VISITOR.USERNAME = Benutzername
+VISITOR.GROUPID = ID der Benutzergruppe
+VISITOR.ONLINE = Ist der Benutzer online?
+VISITOR.REALNAME = Echter Name
+VISITOR.GENDER = Geschlecht (1=m, 2=w)
+VISITOR.CITY = Stadt
+VISITOR.PLZ = Postleitzahl
+VISITOR.COUNTRY = Land
+VISITOR.LASTACTIVE = Zuletzt aktiv (Timestamp)
+VISITOR.AVATAR = Pfad zum Avatar
+VISITOR.AVATAR_TITLE = Avatar-Titel
+
+Benuterdefinierte Felder
+------------------------
+VISITOR.CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+VISITOR.CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+*}
+
+<table width="100%"><tr><td width="55%" valign="top">
+<div>{LANG[WELCOME]} <b>{LOGGED_USERNAME}</b>!</div>
+<div><br />
+&raquo; <a href="{LINK_PROFILE}">{LANG[PROFILE]}</a> (<a href="{LINK_SHOWPROFILE}">{LANG[SHOWPROFILE]}</a>)<br />
+&raquo; <a href="{LINK_SIGNATURE}">{LANG[SIGNATURE]}</a><br />
+&raquo; <a href="{LINK_AVATAR}">{LANG[AVATAR]}</a><br />
+&raquo; <a href="{LINK_FRIENDS}">{LANG[FRIENDS]}</a><br />
+&raquo; <a href="{LINK_PMS}">{LANG[MESSAGES]}</a> (<b>{NEWPMS}</b>/{TOTALPMS})<br />
+&raquo; <a href="{LINK_NEWPM}">{LANG[NEWMESSAGE]}</a> / <a href="{LINK_NEWMAIL}">{LANG[NEWMAIL]}</a><br />
+&raquo; <a href="{LINK_IGNORELIST}">{LANG[IGNORELIST]}</a><br />
+{if MODULE_FORUM}&raquo; <a href="{LINK_SUBSCRIPTIONS}">{LANG[SUBSCRIPTIONS]}</a><br />{/if}
+{if LINK_BLOG}&raquo; <a href="{LINK_BLOG}">{LANG[BLOG]}</a> (<a href="{LINK_SHOWBLOG}">{LANG[SHOWBLOG]}</a>)<br />{/if}
+{if LINK_GALLERY}&raquo; <a href="{LINK_GALLERY}">{LANG[GALLERY]}</a> (<a href="{LINK_SHOWGALLERY}">{LANG[SHOWGALLERY]}</a>)<br />{/if}
+{if LINK_SHOWGUESTBOOK}&raquo; <a href="{LINK_SHOWGUESTBOOK}">{LANG[SHOWGUESTBOOK]}</a>{if NEWGB} ({NEWGB} {LANG[NEW]}){/if}<br />{/if}
+{if LINK_COLLECTION}&raquo; <a href="{LINK_COLLECTION}">{LANG[SHOWCOLLECTION]}</a><br />{/if}
+&raquo; <a href="{LINK_LOGOUT}">{LANG[LOGOUT]}</a>
+<br />&nbsp;
+</div>
+
+{* Geburtstage anzeigen *}
+{BIRTHDAYS()}
+
+</td><td width="5%">&nbsp;</td><td width="40%" valign="top">
+
+{* Buddyliste anzeigen *}
+{BUDDYLIST()}
+<br />
+
+{* Bookmarks anzeigen *}
+{SHOWBOOKMARKS()}
+
+</td></tr></table>

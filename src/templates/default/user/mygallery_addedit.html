@@ -1,0 +1,43 @@
+{*
+
+Galerie-Verwaltung: Galerie erstelle/bearbeiten
+===============================================
+
+POSTTO = Formular senden an...
+ACTION = "add" oder "edit", je nach dem was das System gerade tut
+
+ID = ID der Galerie (beim Bearbeiten als hidden-Feld übergeben!)
+TITLE = Titel der Galerie
+DESCRIPTION = Beschreibung
+PASSWORT = Passwortsicherung
+ALLOWCOMS = Kommentare erlaubt
+ID = ID der Galerie (als hidden-Feld übergeben!)
+
+*}
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td class="header1" colspan="2">{if ACTION=='add'}{LANG[ADDGALLERY]}{else}{LANG[EDITGALLERY]}{/if}</td></tr>
+<tr class="color">
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="40" style="width:300px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[DESCRIPTION]}: <span class="small">({LANG[OPTIONAL]})</span></td>
+<td><textarea name="description" rows="3" cols="60" class="input" style="width:98%;">{DESCRIPTION}</textarea></td>
+</tr>
+<tr class="color">
+<td>{LANG[PASSWORD]}: <span class="small">({LANG[OPTIONAL]})</span></td>
+<td><input type="password" name="password" value="{PASSWORD}" class="input" size="20" style="width:100px;" /></td>
+</tr>
+{if MODULE_COMMENTS}
+<tr class="color">
+<td>{LANG[ALLOWCOMS]}:</td>
+<td><input type="checkbox" name="allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} /></td>
+</tr>
+{/if}
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{if ACTION=='add'}{LANG[ADDGALLERY]}{else}{LANG[EDITGALLERY]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="do" value="{ACTION}" />
+</form>

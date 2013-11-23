@@ -1,0 +1,131 @@
+{*
+
+Galerien auflisten
+==================
+
+Galerien
+--------
+GALLERY = Liste der Galerien
+GALLERY.ID = Galerie-ID
+GALLERY.TITLE = Galerie-Titel
+GALLERY.LINK = Link zur Galerie
+GALLERY.PREVIEW = Vorschau-Bild
+GALLERY.PREVIEW_FULLSIZE = Große Version des Vorschau-Bilds
+GALLERY.DESCRIPTION = Galerie-Beschreibung
+GALLERY.COUNT = Anzahl der enthaltenen Bilder
+GALLERY.TIME = Zeit (Timestamp)
+GALLERY.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+GALLERY.UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+GALLERY.RESTRICTED = Altersabfrage aktiviert?
+GALLERY.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen Artikel)
+
+GALLERY.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+GALLERY.TAG = Liste aller Tags
+GALLERY.TAG.ID = ID des Tags
+GALLERY.TAG.NAME = Darstellbarer Name des Tags
+GALLERY.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kommentare zu den Galerien
+--------------------------
+GALLERY.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+GALLERY.COMMENT_COUNT = Anzahl der Kommentare
+GALLERY.COMMENT_LINK = Link zur Kommentar-Seite
+GALLERY.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+GALLERY.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+GALLERY.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+
+Buchstaben-Auswahl
+------------------
+Alle Platzhalter finden Sie in der Datei templates/default/letters.html
+
+*}
+
+<style type="text/css">
+<!--
+
+.gallery_datehead {
+	text-align:center;
+	font-weight:bold;
+	background:#F0F0F0;
+	border-top:1px solid #C2C2C2;
+	border-bottom:1px solid #C2C2C2;
+	margin:10px 0px;
+}
+
+.gallery_list td {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+	margin:10px 0px;
+}
+
+.gallery_spacer {
+	font-size:1px;
+	height:10px;
+}
+
+.gallery_best {
+	width:210px;
+	height:135px;
+	border:1px solid #B3B3B3;
+	background:#F0F0F0;
+	float:left;
+	margin:0px 3px;
+	text-align:center;
+}
+
+.gallery_best div {
+	text-align:left;
+	color:#f2f2f2;
+	font-size:10px;
+	font-weight:bold;
+	background-image:url('design/header_box.gif');
+	background-position:bottom;
+	padding:4px 0px 9px 3px;
+	margin-bottom:3px;
+}
+
+.gallery_best img,
+.gallery_list img {
+	border:2px solid #2B2B2B;
+}
+
+-->
+</style>
+
+<div>
+<div class="gallery_best"><div>{LANG[TOPPICS_RATING]}</div>{GALLERY_BESTPICS_RATING(1)}</div>
+<div class="gallery_best"><div>{LANG[TOPPICS_HITS]}</div>{GALLERY_BESTPICS_HITS(1)}</div>
+<div class="gallery_best"><div>{LANG[NEWPIC]}</div>{GALLERY_LASTPICS(1)}</div>
+</div>
+
+<div style="clear:both;padding-top:10px;">
+{include ../letters.html}
+
+<div style="float:left;margin-right:20px;">{CHOOSEGALLERY()}</div>
+
+{include ../pages.html}
+
+<table width="475">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+{list GALLERY}
+{if GALLERY.DATEHEAD}<tr><td colspan="2"><div class="gallery_datehead">{DATE('d. M Y',GALLERY.DATEHEAD)}</div></td></tr>{/if}
+<tr class="gallery_list">
+<td align="center"><a href="{GALLERY.LINK}"><img src="{GALLERY.PREVIEW}" alt="{GALLERY.TITLE|notags}" title="{GALLERY.TITLE|notags}" /></a></td>
+<td><a href="{GALLERY.LINK}">{GALLERY.TITLE}</a><br />{GALLERY.DESCRIPTION}<br /><span class="small">{GALLERY.COUNT} {LANG[PICTURES]} | {DATE('d.m.Y - H:i:s',GALLERY.TIME)}</span> {if GALLERY.DISPLAY_COMMENTS} | <a href="{GALLERY.COMMENT_LINK}" class="small">{LANG[COMMENTS]} ({GALLERY.COMMENT_COUNT})</a>{/if}</td>
+</tr>
+{/list}
+</table>
+
+</div>

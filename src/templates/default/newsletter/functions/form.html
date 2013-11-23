@@ -1,0 +1,24 @@
+{*
+
+Template-Funktion: Formular um Newsletter anzumelden
+====================================================
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+CATEGORY = Liste der Newsletter-Kategorien
+CATEGORY.ID = ID
+CATEGORY.TITLE = Bezeichnung
+
+*}
+
+<form action="newsletter.php{if SECTION_ID}?sec={SECTION_ID}{/if}" method="post">
+<u>{LANG[NEWSLETTER]}</u><br />
+<input type="text" name="email" size="23" class="input" value="{LOGGED_EMAIL}" style="font-size:11px;" /><br />
+<input type="radio" name="action" value="in" checked="checked" /> {LANG[SIGNIN]}<br />
+<input type="radio" name="action" value="out" /> {LANG[SIGNOFF]}<br />
+{LANG[HTML]}: <input type="checkbox" name="html" value="1" /><br />
+<select name="catid[]" multiple="multiple" style="font-size:11px;"><option value="all" selected="selected">{LANG[ALL]}</option>{list CATEGORY}<option value="{CATEGORY.ID}">{CATEGORY.TITLE}</option>{/list}</select><br />
+<input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" style="font-size:11px;" />
+</form>

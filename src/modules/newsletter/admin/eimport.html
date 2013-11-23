@@ -1,0 +1,26 @@
+<form name="textform" action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_NEWSLETTER_EIMPORT]}</td></tr>
+<tr>
+<td>{LANG[EMAIL]}:<br /><small>({LANG[EMAIL_INFO]})</small></td>
+<td><textarea name="email" rows="20" style="width:98%;"></textarea></td>
+</tr>
+<tr>
+<td>{LANG[CATEGORIES]}:</td>
+<td><select name="catid[]" multiple="multiple">{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[HTML]}</td>
+<td><input type="checkbox" name="html" value="1"{if HTML} checked="checked"{/if} /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="newsletter.eimport" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

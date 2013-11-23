@@ -1,0 +1,31 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='radd'}{LANG[TITLE_MEDIAMANAGER_RADD]}{else}{LANG[TITLE_MEDIAMANAGER_REDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[EXTENSION]}:</td>
+<td><input type="text" name="extension" value="{EXTENSION}" class="input" size="10" maxlength="10" style="width:50px;" /></td>
+</tr>
+<tr>
+<td>{LANG[NAME]}:</td>
+<td><input type="text" name="name" value="{NAME}" class="input" size="70" maxlength="100" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[SPECIAL]}:</td>
+<td><select name="special">
+<option value="">{LANG[NOTHING]}</option>
+<option value="undel" id="special_undel"{if SPECIAL=='undel'} selected="selected"{/if}>{LANG[UNDEL]}</option>
+<option value="block"{if SPECIAL=='block'} selected="selected"{/if}>{LANG[BLOCK]}</option>
+</select></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='radd'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="mediamanager.{ACTION}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

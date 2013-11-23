@@ -1,0 +1,118 @@
+{*
+
+Download-Details anzeigen
+=========================
+
+Ausgewählte Kategorie
+---------------------
+CATID = Kategorie-ID
+CATTITLE = Titel der Kategorie
+CATLINK = Link: Nur Inhalte aus dieser Kategorie
+CATTEXT = Beschreibung der Kategorie
+CATICON = Kategorie-Symbol
+CATCOUNT = Anzahl Links in der gewählten Kategorie
+PATH = Liste: Kategorie-Pfad
+PATH.TITLE = Kategorie-Titel
+PATH.LINK = Link zur Kategorie
+
+
+Download
+--------
+ID = Link-ID
+TITLE = Titel
+URL = URL
+TEXT = Beschreibung
+PICTURE = Aufmacher-Bild
+PICTURE_POPUP = Link: "größe Version des Aufmacher-Bilds anzeigen"
+PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+HITS = Klicks
+TIME = Zeit (Timestamp)
+TOP = Top-Link?
+RESTRICTED = Altersabfrage aktiviert?
+NEW = Neuer Link?
+USERID = Benutzer-ID des Autors
+USERNAME = Benutzername des Autors
+EMAIL = eMail-Adresse des Autors
+EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+GOTOLINK = Link um die Website aufzurufen
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Verknüpfte Galerie
+------------------
+GALLERY_ID = ID der Galerie
+GALLERY_TITLE = Titel der Galerie
+GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Bewertung (Template includen?)
+------------------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+Alle Platzhalter finden Sie in der Datei templates/default/ratings/rating.html
+
+*}
+
+<style type="text/css">
+<!--
+
+.links_detail {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+}
+
+.links_title {
+	font-size:16px;
+	padding-bottom:5px;
+}
+
+.links_goto {
+	padding:15px;
+	text-align:center;
+	clear:both;
+}
+
+.links_footer td {
+	font-size:11px;
+}
+
+-->
+</style>
+
+<p>&raquo; <a href="links.php{if SECTION_ID}?sec={SECTION_ID}{/if}">{LANG[HEADLINE]}</a>{list PATH} &raquo; <a href="{PATH.LINK}">{PATH.TITLE}</a>{/list}
+{if CATID}<br /><span class="small"><!-- {CATTITLE} {CATICON} -->{CATTEXT}</span>{/if}</p>
+
+<div class="links_detail">
+<div class="links_title"><a href="{LINK}">{TITLE}</a></div>
+<div>{if PICTURE}{if PICTURE_POPUP}<a href="{PICTURE_POPUP}">{/if}<img src="{PICTURE}" alt="" style="float:left; margin:0px 10px 10px 0px;" />{if PICTURE_POPUP}</a>{/if}{/if}{TEXT}</div>
+
+<div class="links_goto"><a href="{GOTOLINK}" target="_blank"><img src="modules/links/images/visit.gif" alt="" /></a><br /><a href="{BROKEN}" class="small">{LANG[BROKEN]}</a></div>
+
+<table width="100%" class="links_footer">
+<tr>
+<td nowrap="nowrap">{if DISPLAY_RATING}{include ../ratings/rating.html}{/if}</td>
+<td width="100%" align="right">{if DISPLAY_COMMENTS}<a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a> | {/if} {DATE('d.m.Y - H:i',TIME)} | {HITS} {LANG[HITS]} | {if USERID}<a href="{PROFILE(USERID)}">{/if}{USERNAME}{if USERID}</a>{/if}</td>
+</tr>
+</table>
+
+</div>
+
+<div class="tags" style="margin-top:10px;">{list TAG} <a href="links.php?action=search&amp;tag={TAG.NAME|urlencode}" style="{TAGSIZE=50+50*TAG.WEIGHT}font-size:{TAGSIZE}%;">{TAG.NAME}</a>{/list}</div>
+
+{if DISPLAY_COMMENTS}<br />{include ../comments/comments.html}{/if}

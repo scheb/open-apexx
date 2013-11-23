@@ -1,0 +1,74 @@
+<p style="margin-bottom:5px;"><img src="design/mm/folder_open.gif" alt="" title="" style="vertical-align:middle;" /> <a href="action.php?action=mediamanager.index&amp;module={MODULE}">{LANG[MEDIADIR]}</a>
+{list PARENT} &raquo; <a href="{PARENT.LINK}">{PARENT.NAME}</a>{/list}
+</p>
+<form name="tableform" action="action.php" method="post">
+<table width="100%" class="tablelist">
+<thead>
+<tr>
+<th width="100%">{LANG[COL_DIRFILE]}</th>
+<th width="1" style="white-space:nowrap;padding:0px 10px;">{LANG[CORE_COL_OPTIONS]}</th>
+<th width="1"><input type="checkbox" name="checkall" id="checkall" onclick="checkbox_toggle(this.form)" /></th>
+</tr>
+</thead>
+{if FILE && FOOTER}
+<tfoot>
+<tr><td colspan="3">{FOOTER} <img src="design/marrow.gif" alt="" style="vertical-align:middle;" /></td></tr>
+</tfoot>
+{/if}
+<tbody>
+{list DIR}
+<tr>
+<td class="title">{DIR.PRE}<a href="{DIR.LINK}">{DIR.IMG}</a> <a href="{DIR.LINK}">{DIR.NAME}</a></td>
+<td style="text-align:center;white-space:nowrap;">{DIR.OPTIONS}</td>
+<td></td>
+</tr>
+{/list}
+{list FILE}
+<tr>
+<td class="title">{if FILE.MFUNC}<div style="float:right;">{FILE.MFUNC}</div>{/if}{FILE.IMG} {FILE.NAME}</td>
+<td style="text-align:center;white-space:nowrap;">{FILE.OPTIONS}</td>
+<td style="text-align:center;"><input type="checkbox" name="multiid[]" value="{FILE.ID}" /></td>
+</tr>
+{/list}
+{if !FILE && !DIR}<tr><td colspan="3" class="footer" align="center">{NONE}</td></tr>{/if}
+</tbody>
+</table>
+<input type="hidden" name="action" value="mediamanager.index" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+{if MULTIACTION}
+<script type="text/javascript">
+
+var multiactions = new Array();
+{list MULTIACTION}
+multiactions[multiactions.length] = { url:'{MULTIACTION.URL}', overlay:{if MULTIACTION.OVERLAY}true{else}false{/if} };
+{/list}
+
+
+//Multi-Aktion ausführen
+function tableMultiAction(index) {
+	var selected = new Array();
+	var form = document.forms.tableform;
+	for ( var i = 0; i<form.elements.length; i++ ) {
+		var element = form.elements[i];
+		if ( element.type=='checkbox' && element.name=='multiid[]' && element.checked ) {
+			selected[selected.length] = element.value;
+		}
+	}
+	if ( selected.length ) {
+		var action = multiactions[index];
+		var url = action.url;
+		url += '&multiid[]='+selected.join('&multiid[]=');
+		if ( action.overlay ) {
+			MessageOverlayManager.createLayer(url);
+		}
+		else {
+			window.location.href = url;
+		}
+	}
+}
+
+</script>
+{/if}

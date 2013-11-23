@@ -1,0 +1,194 @@
+{*
+
+Video-Details anzeigen
+=========================
+
+Ausgewählte Kategorie
+---------------------
+CATID = Kategorie-ID
+CATTITLE = Titel der Kategorie
+CATLINK = Link: Nur Inhalte aus dieser Kategorie
+CATTEXT = Beschreibung der Kategorie
+CATICON = Kategorie-Symbol
+CATCOUNT = Anzahl Videos in der gewählten Kategorie
+PATH = Liste: Kategorie-Pfad
+PATH.TITLE = Kategorie-Titel
+PATH.LINK = Link zur Kategorie
+
+
+Video
+--------
+ID = Video-ID
+TITLE = Titel
+TEXT = Beschreibung
+LINK = Link zur Detailansicht
+USERID = Benutzer-ID des Autors
+USERNAME = Benutzername des Autor
+EMAIL = eMail-Adresse des Autors
+EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+PICTURE = News-Bild
+PICTURE_POPUP = Link: "größe Version des News-Bilds anzeigen"
+PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+TIME = Zeit (Timestamp)
+TOP = Top-Video?
+RESTRICTED = Altersabfrage aktiviert?
+NEW = Neuer Video?
+SOURCE = Gibt an woher das Video stammt (mögliche Werte: "apexx", "youtube", "myvideo", "sevenload", "clipfish", "gametrailers", "machinima")
+VIDEOFILE = Pfad zur FLV-Datei, wenn das Video lokal vorhanden ist (SOURCE gleich "apexx")
+EMBEDCODE = Wenn das Video von einem externen Service stammt (SOURCE ungleich "apexx") befindet sich in dieser Variable der Embed-Code
+HITS = Klicks
+PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Screenshots
+-----------
+SCREENSHOT = Liste der Bilder
+SCREENSHOT.IMAGE = Pfad zum Vorschaubild
+SCREENSHOT.FULLSIZE = Pfad zum Vorschaubild
+SCREENSHOT.LINK = Link zur Großansicht
+
+
+Download Original-Video
+-----------------------
+DOWNLOAD = Wenn das Video heruntergeladen werden kann, Link zum Download. Ansonsten leer.
+DOWNLOADFILE = Direkte URL zum Original-Video
+SIZE = Dateigröße
+LIMIT = Ist das tägliche Videolimit erreicht?
+REGONLY = Dürfen nur registrierte Benutzer herunterladen?
+BROKEN = Link: Downloadlink ist defekt
+DOWNLOADS = Anzahl Downloads bisher
+TIME_MODEM = Videodauer mit Modem (56k)
+TIME_ISDN = Videodauer mit ISDN (64k)
+TIME_ISDN2 = Videodauer mit Zweikanal-ISDN (128k)
+TIME_DSL1000 = Videodauer mit DSL 1000
+TIME_DSL2000 = Videodauer mit DSL 2000
+TIME_DSL6000 = Videodauer mit DSL 6000
+TIME_DSL10000 = Videodauer mit DSL 10000
+TIME_DSL12000 = Videodauer mit DSL 12000
+TIME_DSL16000 = Videodauer mit DSL 16000
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Bewertung (Template includen?)
+------------------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+Alle Platzhalter finden Sie in der Datei templates/default/ratings/rating.html
+
+*}
+<style type="text/css">
+<!--
+
+.video_list {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+	margin:10px 0px;
+}
+
+.video_title {
+	font-size:16px;
+	margin:0px;
+}
+
+.video_info {
+	font-size:11px;
+	margin:0px 0px 10px 0px;
+}
+
+.video_footer td {
+	font-size:11px;
+}
+
+.video_player {
+	margin-bottom:10px;
+}
+
+.video_screens img {
+	margin:0 3px;
+}
+
+-->
+</style>
+
+<p>&raquo; <a href="videos.php{if SECTION_ID}?sec={SECTION_ID}{/if}">{LANG[HEADLINE]}</a>{list PATH} &raquo; <a href="{PATH.LINK}">{PATH.TITLE}</a>{/list}
+{if CATID}<br /><span class="small"><!-- {CATTITLE} {CATICON} -->{CATTEXT}</span>{/if}</p>
+
+<div class="video_list">
+<a name="video{ID}"></a>
+
+<p class="video_title"> <a href="{LINK}">{TITLE}</a>{if TOP} <img src="modules/video/images/top.gif" alt="" align="bottom" />{/if}</p>
+<p class="video_info">{DATE('d.m.Y - H:i:s',TIME)}</p>
+<p>{TEXT}</p>
+
+<div class="video_player">
+
+{* Video ist lokal vorhanden *}
+{if SOURCE=='apexx'}
+<object type="application/x-shockwave-flash" data="modules/videos/player/videoplayer.swf" width="400" height="300">
+<param name="movie" value="modules/videos/player/videoplayer.swf" />
+<param name="allowFullScreen" value="true" />
+<param name="FlashVars" value="flv={VIDEOFILE}&amp;showstop=1&amp;showvolume=1&amp;showtime=1&amp;showfullscreen=1{if SCREENSHOT}{list SCREENSHOT}&amp;startimage={SCREENSHOT.FULLSIZE}{break}{/list}{/if}" />
+</object>
+
+{* Video stammt von einem externen Service, Embed-Code ausgeben *}
+{else}
+{EMBEDCODE}
+{/if}
+
+</div>
+
+{if SCREENSHOT}
+<div class="video_screens">
+{list SCREENSHOT}
+<a href="{SCREENSHOT.LINK}"><img src="{SCREENSHOT.IMAGE}" alt="" /></a>
+{/list}
+</div>
+{/if}
+
+<table width="100%"><tr class="video_footer">
+<td nowrap="nowrap">{if DISPLAY_RATING}{include ../ratings/rating.html}{/if}</td>
+<td width="100%" align="right">{if DISPLAY_COMMENTS}<a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a> | {/if} <a href="{TELL()}" target="_blank">{LANG[TELL]}</a> | {HITS} {LANG[HITS]} | {if USERID}<a href="{PROFILE(USERID)}" target="_blank">{/if}{USERNAME}{if USERID}</a>{/if} {if EMAIL}({EMAIL}){/if}</td>
+</tr></table>
+
+</div>
+
+{* Download-Anzeige nur anzeigen, wenn Download verfügbar *}
+{if DOWNLOAD}
+<table width="100%">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<tr><td colspan="2" class="header1">{LANG[DOWNLOAD]}</td></tr>
+<tr>
+<td class="color">{LANG[SIZE]}:</td>
+<td class="color">{SIZE}</td>
+</tr>
+<tr>
+<td class="color">{LANG[ESTTIME]}:</td>
+<td class="color">{LANG[MODEM]}: {TIME_MODEM}<br />{LANG[ISDN]}: {TIME_ISDN}<br />{LANG[DSL]} 1000: {TIME_DSL1000}<br />{LANG[DSL]} 2000: {TIME_DSL2000}<br />{LANG[DSL]} 6000: {TIME_DSL6000}<br />{LANG[DSL]} 10000: {TIME_DSL10000}</td>
+</tr>
+<tr><td class="color" colspan="2" align="center"><a href="{BROKEN}">{LANG[BROKEN]}</a> | <a href="{TELL()}">{LANG[TELL]}</a>{if DISPLAY_COMMENTS} | <a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a>{/if}</td></tr>
+{if !LIMIT}<tr><td class="footer" colspan="2"><a href="{DOWNLOAD}"><img src="modules/videos/images/download.gif" alt="{LANG[DOWNLOAD]}" /></a><br /><span class="small">{DOWNLOADS} {LANG[DOWNLOADS]}</span>{/if}
+</td></tr>
+</table>
+{/if}
+
+<div class="tags" style="margin-top:10px;">{list TAG} <a href="videos.php?action=search&amp;tag={TAG.NAME|urlencode}" style="{TAGSIZE=50+50*TAG.WEIGHT}font-size:{TAGSIZE}%;">{TAG.NAME}</a>{/list}</div>
+
+{if DISPLAY_COMMENTS}<br />{include ../comments/comments.html}{/if}

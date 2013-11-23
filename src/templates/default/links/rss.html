@@ -1,0 +1,43 @@
+{*
+
+RSS-Feed für Links
+==================
+
+WEBSITENAME = Titel der Website (in der Konfiguration eingestellt)
+
+LINK = Liste der Links
+LINK.TITLE = Titel
+LINK.URL = URL
+LINK.TEXT = Gekürzte Beschreibung
+LINK.TIME = Zeit+Datum im RFC2822-Format
+LINK.LINK = Link zu diesem Eintrag
+LINK.USERNAME = Benutzername des Autors
+LINK.EMAIL = eMail-Adresse des Autors
+LINK.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+LINK.CATTITLE = Kategorie-Titel
+LINK.TOP = Top-Link?
+
+*}
+<?xml version="1.0" encoding="{CHARSET}" ?>
+<rss version="2.0">
+<channel>
+<title>{WEBSITENAME} Links</title>
+<link>{SERVER_HTTPHOST}</link>
+<description></description>
+<language>de</language>
+
+{list LINK}
+<item>
+<guid>{LINK.LINK}</guid>
+<title><![CDATA[ {LINK.TITLE} ]]></title>
+<link>{LINK.LINK}</link>
+<description><![CDATA[ {LINK.TEXT} ]]></description>
+<pubDate>{LINK.TIME}</pubDate>
+{if LINK.EMAIL}<author>{LINK.EMAIL} ({LINK.USERNAME})</author>{/if}
+<category><![CDATA[ {LINK.CATTITLE} ]]></category>
+</item>
+
+{/list}
+
+</channel>
+</rss>

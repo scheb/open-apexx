@@ -1,0 +1,75 @@
+{*
+
+Artikel-Archiv: Monate auflisten
+================================
+
+ARCHIVE = Liste der Monate
+ARCHIVE.LINK = Link
+ARCHIVE.YEAR = Jahr
+ARCHIVE.MONTH = Zeit (Timestamp)
+ARCHIVE.COUNT = Anzahl Artikel in diesem Monat
+=> {DATE('M',ARCHIVE.MONTH)} = Kalendermonat
+=> {DATE('m',ARCHIVE.MONTH)} = Monatszahl
+
+
+Suchformular
+------------
+SEARCH_POSTTO = URL, an die das Formular gesendet werden soll
+SEARCH_CATEGORY = Liste der Kategorien (für Dropdown)
+SEARCH_CATEGORY.ID = Kategorie-ID
+SEARCH_CATEGORY.TITLE = Kategorie-Titel
+SEARCH_CATEGORY.LEVEL = Level der Untergliederung
+
+*}
+
+<table width="100%">
+{list ARCHIVE}
+{if ARCHIVE.YEAR!=LASTYEAR}
+{if LASTYEAR}<tr><td>&nbsp;</td></tr>{/if}
+<tr><td><u>{LANG[YEAR]} {ARCHIVE.YEAR}</u></td></tr>
+{/if}
+<tr><td>&raquo; <a href="{ARCHIVE.LINK}">{DATE('M',ARCHIVE.MONTH)}</a> ({ARCHIVE.COUNT})</td></tr>
+{LASTYEAR=ARCHIVE.YEAR}{/list}
+</table>
+
+<br />&nbsp;
+
+<form action="{SEARCH_POSTTO}" method="post">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[SEARCH]}</td></tr>
+<tr class="color">
+<td>{LANG[ITEM]}:</td>
+<td><input type="text" name="item" size="50" class="input" /><br /><input type="radio" name="conn" value="and" checked="checked" /> {LANG[CONNAND]} &nbsp; <input type="radio" name="conn" value="or" /> {LANG[CONNOR]}</td>
+</tr>
+<tr class="color">
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid"><option value="">{LANG[ALL]}</option>{list SEARCH_CATEGORY}<option value="{SEARCH_CATEGORY.ID}">{repeat SEARCH_CATEGORY.LEVEL-1}&nbsp;&nbsp;{/repeat}{SEARCH_CATEGORY.TITLE}</option>{/list}</select></td>
+</tr>
+<tr class="color">
+<td>{LANG[TYPE]}:</td>
+<td>
+<input type="checkbox" name="type[]" value="normal" checked="checked" /> {LANG[TYPE_NORMAL]} &nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="type[]" value="review" checked="checked" /> {LANG[TYPE_PREVIEW]} &nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="type[]" value="preview" checked="checked" /> {LANG[TYPE_REVIEW]}
+</td>
+</tr>
+<tr class="color">
+<td>{LANG[TIMEPERIOD]}:</td>
+<td>
+<select name="start_day"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+<select name="start_month"><option value=""></option><option value="1">{LANG[MONTH_JAN]}</option><option value="2">{LANG[MONTH_FEB]}</option><option value="3">{LANG[MONTH_MAR]}</option><option value="4">{LANG[MONTH_APR]}</option><option value="5">{LANG[MONTH_MAY]}</option><option value="6">{LANG[MONTH_JUN]}</option><option value="7">{LANG[MONTH_JUL]}</option><option value="8">{LANG[MONTH_AUG]}</option><option value="9">{LANG[MONTH_SEP]}</option><option value="10">{LANG[MONTH_OCT]}</option><option value="11">{LANG[MONTH_NOV]}</option><option value="12">{LANG[MONTH_DEC]}</option></select>
+<select name="start_year"><option value=""></option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2009</option><option value="2020">2020</option></select> - 
+<select name="end_day"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+<select name="end_month"><option value=""></option><option value="1">{LANG[MONTH_JAN]}</option><option value="2">{LANG[MONTH_FEB]}</option><option value="3">{LANG[MONTH_MAR]}</option><option value="4">{LANG[MONTH_APR]}</option><option value="5">{LANG[MONTH_MAY]}</option><option value="6">{LANG[MONTH_JUN]}</option><option value="7">{LANG[MONTH_JUL]}</option><option value="8">{LANG[MONTH_AUG]}</option><option value="9">{LANG[MONTH_SEP]}</option><option value="10">{LANG[MONTH_OCT]}</option><option value="11">{LANG[MONTH_NOV]}</option><option value="12">{LANG[MONTH_DEC]}</option></select>
+<select name="end_year"><option value=""></option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2009</option><option value="2020">2020</option></select>
+</td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="submit" value="{LANG[SEARCH]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="search" />
+<input type="hidden" name="send" value="1" />
+</form>

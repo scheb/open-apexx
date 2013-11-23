@@ -1,0 +1,108 @@
+{*
+
+Gästebuch: Eintrag erstellen
+============================
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+CAPTCHA = HTML-Code, um das Bild für die visuelle Bestätigung auszugeben
+
+
+Benuterdefinierte Eingabefelder
+-------------------------------
+CUSTOM1_NAME = Bezeichnung Feld 1
+CUSTOM2_NAME = Bezeichnung Feld 2
+CUSTOM3_NAME = Bezeichnung Feld 3
+CUSTOM4_NAME = Bezeichnung Feld 4
+CUSTOM5_NAME = Bezeichnung Feld 5
+
+*}
+
+<script type="text/javascript">
+<!--
+var lang_entertext="{LANG[CORE_ENTERTEXT]}";
+var lang_enterltext="{LANG[CORE_ENTERLTEXT]}";
+var lang_entermail="{LANG[CORE_ENTEREMAIL]}";
+var lang_enterurl="{LANG[CORE_ENTERURL]}";
+//-->
+</script>
+<script type="text/javascript" src="lib/javascript/public_codes.js"></script>
+<script type="text/javascript" src="lib/javascript/public_popups.js"></script>
+
+<form name="textform" action="{POSTTO}" method="post">
+
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tr><td colspan="2" class="header1">{LANG[SIGNGB]}</td></tr>
+{if LOGGED_ID}{* WENN ANGEMELDET *}
+<tr class="color">
+<td>{LANG[NAME]}:</td>
+<td><b>{LOGGED_USERNAME}</b></td>
+</tr>
+{else}{* WENN NICHT ANGEMELDET *}
+<tr class="color">
+<td>{LANG[NAME]}: *</td>
+<td><input type="text" name="username" maxlength="20" size="50" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" maxlength="255" size="50" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[HOMEPAGE]}:</td>
+<td><input type="text" name="homepage" maxlength="255" size="50" class="input" /></td>
+</tr>
+{/if}
+{if CUSTOM1_NAME}<tr class="color">
+<td>{CUSTOM1_NAME}:</td>
+<td><input type="text" name="custom1" class="input" size="50" /></td>
+</tr>{/if}
+{if CUSTOM2_NAME}<tr class="color">
+<td>{CUSTOM2_NAME}:</td>
+<td><input type="text" name="custom2" class="input" size="50" /></td>
+</tr>{/if}
+{if CUSTOM3_NAME}<tr class="color">
+<td>{CUSTOM3_NAME}:</td>
+<td><input type="text" name="custom3" class="input" size="50" /></td>
+</tr>{/if}
+{if CUSTOM4_NAME}<tr class="color">
+<td>{CUSTOM4_NAME}:</td>
+<td><input type="text" name="custom4" class="input" size="50" /></td>
+</tr>{/if}
+{if CUSTOM5_NAME}<tr class="color">
+<td>{CUSTOM5_NAME}:</td>
+<td><input type="text" name="custom5" class="input" size="50" /></td>
+</tr>{/if}
+<tr class="color">
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" maxlength="50" size="80" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[TEXT]}: *<br /><br /><span class="small">&raquo; <a href="javascript:showcodes()">Codes</a><br />&raquo; <a href="javascript:showsmilies()">Smilies</a></span></td>
+<td>
+<div class="editor">
+<div style="float:right;">
+<div><a href="javascript:field_collapse(document.forms.textform.text);"><img src="design/editor/field_collapse.gif" alt="{LANG[FIELDCOLLAPSE]}" title="{LANG[FIELDCOLLAPSE]}" /></a></div>
+<div><a href="javascript:field_expand(document.forms.textform.text);"><img src="design/editor/field_expand.gif" alt="{LANG[FIELDEXPAND]}" title="{LANG[FIELDEXPAND]}" /></a></div>
+</div>
+<a href="javascript:simplecode('textinput','B');"><img src="design/editor/bold.gif" alt="{LANG[BOLD]}" title="{LANG[BOLD]}" /></a><a href="javascript:simplecode('textinput','I');"><img src="design/editor/italic.gif" alt="{LANG[ITALIC]}" title="{LANG[ITALIC]}" /></a><a href="javascript:simplecode('textinput','U');"><img src="design/editor/underline.gif" alt="{LANG[UNDERLINE]}" title="{LANG[UNDERLINE]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:linkcodenew('textinput','URL');"><img src="design/editor/link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /></a><a href="javascript:linkcodenew('textinput','EMAIL');"><img src="design/editor/email.gif" alt="{LANG[EMAIL]}" title="{LANG[EMAIL]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:simplecode('textinput','QUOTE');"><img src="design/editor/quote.gif" alt="{LANG[QUOTE]}" title="{LANG[QUOTE]}" /></a>
+</div>
+<textarea name="text" id="textinput" class="input" cols="80" rows="10"></textarea>
+</td>
+</tr>
+{if CAPTCHA}<tr>
+<td class="color">{LANG[CAPTCHA]}:</td>
+<td class="color">{CAPTCHA} =&gt; <input type="text" name="captcha" size="15" class="input" /></td>
+</tr>{/if}
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+
+</form>

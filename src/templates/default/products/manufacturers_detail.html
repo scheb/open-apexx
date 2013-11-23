@@ -1,0 +1,145 @@
+{*
+
+Hersteller-Details
+==================
+
+LINK_SHOWPRODUCTS = Link: Produkte des Herstellers anzeigen
+
+
+Hersteller
+----------
+ID = ID
+TYPE = Type ('company' = Firma, 'person' = Person)
+TITLE = Spiel-Titel
+LINK = Link zur Detailseite
+TYPE = Produkttyp (normal, game, music, movie, book)
+TEXT = Beschreibung
+PICTURE = Logo/Bild
+PICTURE_POPUP = Link: Popup zur Großansicht des Bilds
+PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+WEBSITE = Website
+FULLNAME = Vollständiger Name
+ADDRESS = Anschrift
+EMAIL = eMail-Adresse
+EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+PHONE = Telefon
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+
+Nur bei TYPE = 'company'
+------------------------
+FOUNDER = Gründer
+FOUNDER_YEAR = Gründungsjahr
+FOUNDER_COUNTRY = Gründungsland
+LEGALFORM = Unternehmensform
+HEADQUATERS = Unternehmenssitz
+EXECUTIVE = Unternehmensleitung
+EMPLOYEES = Mitarbeiter
+TURNOVER = Jahresumsatz
+SECTOR = Branche
+PRODUCTS = Produkte
+
+
+*}
+
+
+<style type="text/css">
+<!--
+
+.manu {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+}
+
+.manu_title {
+	font-size:16px;
+}
+
+.manu_text {
+	padding-bottom:20px;
+}
+
+.manu_footer td {
+	font-size:11px;
+	padding:10px 0px 0px 0px;
+}
+
+-->
+</style>
+
+<div class="manu">
+<div class="manu_title"><a href="{LINK}">{TITLE}</a></div>
+<div class="manu_text">
+{if PICTURE}{if PICTURE_POPUP}<a href="{PICTURE_POPUP}">{/if}<img src="{PICTURE}" alt="" style="float:right;" />{if PICTURE_POPUP}</a>{/if}{/if}
+{TEXT}
+<div style="clear:both;"></div>
+
+<table width="100%">
+<colgroup><col width="20%" /><col width="25%" /><col width="5%" /><col width="20%" /><col width="30%" /></colgroup>
+<tr>
+<td>{LANG[FULLNAME]}:</td>
+<td>{FULLNAME}</td>
+<td>&nbsp;</td>
+<td>{LANG[ADDRESS]}:</td>
+<td>{ADDRESS}</td>
+</tr>
+<tr>
+<td>{LANG[EMAIL]}:</td>
+<td>{EMAIL}</td>
+<td>&nbsp;</td>
+<td>{LANG[PHONE]}:</td>
+<td>{PHONE}</td>
+</tr>
+<tr>
+<td>{LANG[WEBSITE]}:</td>
+<td colspan="4">{if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+{if TYPE=='company'}
+<tr>
+<td>{LANG[FOUNDER]}:</td>
+<td>{FOUNDER}</td>
+<td>&nbsp;</td>
+<td>{LANG[FOUNDINGYEAR]}:</td>
+<td>{FOUNDING_YEAR}</td>
+</tr>
+<tr>
+<td>{LANG[EXECUTIVE]}:</td>
+<td>{EXECUTIVE}</td>
+<td>&nbsp;</td>
+<td>{LANG[FOUNDINGCOUNTRY]}:</td>
+<td>{FOUNDING_COUNTRY}</td>
+</tr>
+<tr>
+<td>{LANG[LEGALFORM]}:</td>
+<td>{LEGALFORM}</td>
+<td>&nbsp;</td>
+<td>{LANG[HEADQUATERS]}:</td>
+<td>{HEADQUATERS}</td>
+</tr>
+<tr>
+<td>{LANG[EMPLOYEES]}:</td>
+<td>{EMPLOYEES}</td>
+<td>&nbsp;</td>
+<td>{LANG[TURNOVER]}:</td>
+<td>{TURNOVER}</td>
+</tr>
+<tr>
+<td>{LANG[SECTOR]}:</td>
+<td>{SECTOR}</td>
+<td>&nbsp;</td>
+<td>{LANG[PRODUCTS]}:</td>
+<td>{PRODUCTS}</td>
+</tr>
+{/if}
+</table>
+
+</div>
+
+<!-- PRODUKTE DES HERSTELLERS -->
+<div><a href="{LINK_SHOWPRODUCTS}">{LANG[PRODUCTS]}:</a><br />
+{MANUFACTURER_PRODUCTS(ID,9999)}
+</div>
+
+</div>

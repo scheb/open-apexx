@@ -1,0 +1,111 @@
+<form action="action.php?action=user.{ACTION}" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr><td colspan="2" class="tableheader">{LANG[GENERAL]}</td></tr>
+<tr><td>{LANG[NAME]}:</td><td><input type="text" name="name" value="{NAME}" class="input" size="60" maxlength="30" style="width:200px;" /></td></tr>
+{if ID!=1}{if ID!=2}{if ID!=3}<tr><td>{LANG[GTYPE]}:</td><td>
+<input type="radio" name="gtype" id="ip_gtype_indiv" value="indiv"{if GTYPE=='indiv'} checked="checked"{/if} onclick="displayoptions('indiv');" onchange="displayoptions('indiv');" /> <label for="ip_gtype_indiv" onclick="displayoptions('indiv');">{LANG[GTYPE_INDIV]}</label><br />
+<input type="radio" name="gtype" id="ip_gtype_public" value="public"{if GTYPE=='public'} checked="checked"{/if} onclick="displayoptions('public');" onchange="displayoptions('public');" /> <label for="ip_gtype_public" onclick="displayoptions('public');">{LANG[GTYPE_PUBLIC]}</label>
+</td></tr>{/if}{/if}{/if}
+</table>
+
+{if SECTION_ACCESS}
+<table width="100%" id="sectbl" class="table" style="margin-top:10px;{if GTYPE=='admin'}display:none;{/if}">
+<tr><td class="tableheader">{LANG[SECTION_ACCESS]}</td></tr>
+<tr><td><select name="section_access[]" multiple="multiple">{SECTION_ACCESS}</select></td></tr>
+</table>
+{else}
+<input type="hidden" name="section_access[]" value="all" />
+{/if}
+
+<div id="righttbl" style="{if GTYPE!='indiv'}display:none;{/if}">
+<table width="100%" id="righttbl" class="tablelist" style="margin-top:10px;">
+<colgroup>
+<col />
+<col width="130" />
+<col width="130" />
+<col width="30" />
+</colgroup>
+<thead>
+<tr>
+<th>{LANG[ACTION]}</th>
+<th>{LANG[RIGHTS]}</th>
+<th>{LANG[SPRIGHTS]}</th>
+<th>&nbsp;</th>
+</tr>
+</thead>
+</table>
+
+{list MODULE}
+<table width="100%" class="table hover" style="margin-top:7px;">
+<colgroup>
+<col />
+<col width="130" />
+<col width="130" />
+<col width="30" />
+</colgroup>
+<tr>
+<td class="tableheader" style="text-align:left;">{MODULE.TITLE}</td>
+<td class="tableheader" align="center"><input type="checkbox" name="checkall_{MODULE.ID}" id="checkall_{MODULE.ID}" onclick="checkbox_toggleright(this.form,this.form.checkall_{MODULE.ID}.checked,'right:{MODULE.ID}')" /></td>
+<td class="tableheader" align="center"><input type="checkbox" name="checkall_sp_{MODULE.ID}" id="checkall_sp_{MODULE.ID}" onclick="checkbox_toggleright(this.form,this.form.checkall_sp_{MODULE.ID}.checked,'spright:{MODULE.ID}')" /></td>
+<td class="tableheader">&nbsp;</td>
+</tr>
+{list MODULE.ACTION}
+<tr>
+<td>{MODULE.ACTION.TITLE} ({MODULE.ACTION.ID})</td>
+<td align="center"><input type="checkbox" name="right[{MODULE.ACTION.ID}]" value="right:{MODULE.ID}"{if MODULE.ACTION.RIGHT} checked="checked"{/if} /></td>
+<td align="center">{if MODULE.ACTION.HASSP}<input type="checkbox" name="spright[{MODULE.ACTION.ID}]" value="spright:{MODULE.ID}"{if MODULE.ACTION.SPRIGHT} checked="checked"{/if} />{else}&nbsp;{/if}</td>
+<td align="center">{if MODULE.ACTION.INFO}<a href="javascript:void(0)" onclick="alert('{MODULE.ACTION.INFO}');"><img src="design/info.gif" title="{LANG[SHOWINFO]}" alt="{LANG[SHOWINFO]}" /></a>{else}&nbsp;{/if}</td>
+</tr>
+{/list}
+</table>
+{/list}
+</div>
+
+<table width="100%" style="margin-top:10px;">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{if ACTION=='gadd'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+<script type="text/javascript">
+
+function displayoptions(gtype) {
+	var table = yDom.get('righttbl');
+	var secacc = yDom.get('sectbl');
+	
+	//Rechte
+	if ( gtype=='indiv' ) {
+		table.style.display = '';
+	}
+	else {
+		table.style.display = 'none';
+	}
+	
+	//Sektionen
+	if ( gtype=='indiv' ) {
+		secacc.style.display = '';
+	}
+	else {
+		secacc.style.display = '';
+	}
+}
+
+
+//Checkbox-Toggle
+function checkbox_toggleright(form,setit,findvalue) {
+	for ( var i=0; i<form.elements.length; i++ ) {
+		var element=form.elements[i];
+		if ( element.type=='checkbox' && element.value==findvalue ) {
+			element.checked = setit;
+		}
+	}
+}
+
+//-->
+</script>

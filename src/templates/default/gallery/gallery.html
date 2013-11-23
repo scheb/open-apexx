@@ -1,0 +1,145 @@
+{*
+
+Galerie: Bilder auflisten
+=========================
+
+Galerie-Info
+------------
+ID = Galerie-ID
+TITLE = Galerie-Titel
+LINK = Link zur Galerie
+DESCRIPTION = Galerie-Beschreibung
+COUNT = Anzahl der enthaltenen Bilder
+TIME = Zeit (Timestamp)
+UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+RESTRICTED = Altersabfrage aktiviert?
+PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kommentare zur Galerie (Template includen?)
+-------------------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Bilder
+------
+PICTURE = Liste der Bilder
+PICTURE.IMAGE = Pfad zum Thumbnail
+PICTURE.FULLSIZE = Pfad zum Bild in voller Größe
+PICTURE.LINK = Link zum Bild
+PICTURE.CAPTION = Bildunterschift
+PICTURE.HITS = Klicks
+PICTURE.NEW = Ist das Bild neu?
+
+
+Kommentare zu den Bildern
+-------------------------
+PICTURE.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+PICTURE.COMMENT_COUNT = Anzahl der Kommentare
+PICTURE.COMMENT_LINK = Link zur Kommentar-Seite
+PICTURE.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+PICTURE.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+PICTURE.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+PICTURE.DISPLAY_RATING = Bewerten ist erlaubt?
+PICTURE.RATING = durchschnittliche Bewertung
+PICTURE.RATING_VOTES = Anzahl der Stimmen
+
+
+Nur mit Untergalerien
+---------------------
+GALLERY = Liste der Untergalerien
+GALLERY.ID = Untergalerie-ID
+GALLERY.TITLE = Untergalerie-Titel
+GALLERY.LINK = Link zur Untergalerie
+GALLERY.PREVIEW = Vorschau-Bild
+GALLERY.PREVIEW_FULLSIZE = Große Version des Vorschau-Bilds
+GALLERY.DESCRIPTION = Untergalerie-Beschreibung
+GALLERY.COUNT = Anzahl der enthaltenen Bilder
+GALLERY.TIME = Zeit (Timestamp)
+GALLERY.RESTRICTED = Altersabfrage aktiviert?
+PATH = Liste: Galerie-Pfad
+PATH.TITLE = Galerie-Titel
+PATH.LINK = Link zur Galerie
+
+*}
+
+<style type="text/css">
+<!--
+
+.gallery_sub {
+	border-collapse:separate;
+}
+
+.gallery_sub_td {
+	border:1px solid #DEDEDE;
+	background:#FAFAFA;
+	padding:3px;
+	vertical-align:top;
+}
+
+.gallery {
+	border-collapse:separate;
+	border-spacing:10px;
+}
+
+.gallery td {
+	width:25%;
+	background:#F1F1F1;
+	padding:5px;
+}
+
+-->
+</style>
+
+{if GALLERY}
+<table width="100%" class="gallery_sub">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+
+{list GALLERY}
+{if CCOUNT%3==0}<tr>{/if}
+{++CCOUNT}<td class="gallery_sub_td"><!-- {GALLERY.PREVIEW} --><a href="{GALLERY.LINK}">{GALLERY.TITLE}</a> ({GALLERY.COUNT}){if GALLERY.DESCRIPTION}<br /><span class="small">{GALLERY.DESCRIPTION}</span>{/if}</td>
+{if CCOUNT%3==0}</tr>{/if}
+{/list}
+
+{if CCOUNT%3==1}<td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if CCOUNT%3==2}<td>&nbsp;</td></tr>{/if}
+</table>
+<br />&nbsp;
+{/if}
+
+{if PATH}<p>&raquo; <a href="gallery.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Galerie</a>{list PATH} &raquo; <a href="{PATH.LINK}">{PATH.TITLE}</a>{/list}</p>{/if}
+
+<p><b style="font-size:15px;">{TITLE}</b><br />{DESCRIPTION}<!--{DATE('d.m.Y - H:i:s',TIME)} | {COUNT} {LANG[PICTURES]}--></p>
+
+{include ../pages.html}
+<table width="100%" class="gallery">
+{list PICTURE}{++COUNTER}
+{if COUNTER%4==1}<tr>{/if}
+<td align="center"><a href="{PICTURE.LINK}"><img src="{PICTURE.IMAGE}" alt="{PICTURE.CAPTION|notags}" title="{PICTURE.CAPTION|notags}" style="border:2px solid #2B2B2B;" /></a>{if PICTURE.NEW}<br /><img src="modules/gallery/images/new.gif" alt="" style="padding-top:2px;" />{/if}</td>
+{if COUNTER%4==0}</tr>{/if}
+{/list}
+{* Leere Zellen füllen *}
+{if COUNTER%4==1}<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if COUNTER%4==2}<td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if COUNTER%4==3}<td>&nbsp;</td></tr>{/if}
+</table>
+
+{if DISPLAY_COMMENTS}<br />&nbsp;{include ../comments/comments.html}{/if}

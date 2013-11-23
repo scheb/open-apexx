@@ -1,0 +1,49 @@
+{*
+
+Mitgliederkarte
+===============
+
+LOCATION = Liste der Positionen auf der Karte
+LOCATION.POS_TOP = Abstand vom oberen Rand der Karte
+LOCATION.POS_LEFT = Abstand vom linken Rand der Karte
+LOCATION.COUNT = Anzahl der Mitglieder, die in diesem Ort wohnen
+
+LOCATION.USER = Liste der Benutzer, die an diesem Ort wohnen
+LOCATION.USER.ID = Benutzer-ID
+LOCATION.USER.NAME = Benutzername
+
+*}
+<style type="text/css">
+<!--
+
+.map_pins img {
+	cursor:pointer;
+}
+
+.map_tooltip {
+	font-size:10px;
+}
+
+.map_tooltip strong {
+	font-size:12px;
+}
+
+.map_tooltip a:link,
+.map_tooltip a:active,
+.map_tooltip a:visited,
+.map_tooltip a:hover {
+	font-weight:normal;
+}
+
+-->
+</style>
+
+<div style="position:relative;">
+<img src="modules/user/images/map_de_at_ch.gif" alt="" />
+<div class="map_pins">
+{list LOCATION}
+<div style="position:absolute;top:{LOCATION.POS_TOP}px;left:{LOCATION.POS_LEFT}px;"><img src="modules/user/images/location{if LOCATION.COUNT>10}3{elseif LOCATION.COUNT>5}2{else}1{/if}.gif" alt="" onmouseover="TagToTip('tip_{LOCATION.ID}');" /></div>
+<div id="tip_{LOCATION.ID}" style="display:none;"><span class="map_tooltip"><strong>{LOCATION.CITY}</strong><br />{UCOUNT=0}{list LOCATION.USER}{++UCOUNT}{if UCOUNT>1}, {/if}<a href="{PROFILE(LOCATION.USER.ID)}">{LOCATION.USER.NAME}</a>{/list}</span></div>
+{/list}
+</div>
+</div>

@@ -1,0 +1,223 @@
+{*
+
+Kalender: Jahresansicht
+=======================
+
+MODE = Aktueller Modus (public = öffentlich, private = privat)
+SELECTED_YEAR = Gewähltes Jahr
+
+
+Navigation
+----------
+TIME_PREVIOUSYEAR = Erster Tag des vorherigen Jahres (Timestamp)
+TIME_THISYEAR = Erster Tag des gewählten Jahres (Timestamp)
+TIME_NEXTYEAR = Erster Tag des nächsten Jahres (Timestamp)
+LINK_PREVIOUSYEAR = Link: vorheriges Jahr
+LINK_NEXTYEAR = Link: nächstes Jahr
+LINK_SHOWTODAY = Link: In die aktuelle Tagesansicht wechseln
+LINK_SHOWWEEK = Link: In die Wochenansicht wechseln
+LINK_SHOWMONTH = Link: In die Monatsansicht wechseln
+LINK_SHOWYEAR = Link: In die Jahresansicht wechseln
+LINK_SHOWPRIVATE = Link: In den privaten Modus wechseln
+LINK_SHOWPUBLIC = Link: In den öffentlichen Modus wechseln
+
+Monate des gewählten Jahres
+---------------------------
+MONTH.TIME = Erster Tag des Monats (Timestamp)
+MONTH.LINK = Link: Diesen Monat anzeigen
+
+
+Tage eines Monats
+-----------------
+MONTH.DAY = Liste der Tage dieses Monats
+MONTH.DAY.LINK = Link zur Tages-Detailansicht
+MONTH.DAY.LINK_SHOWWEEK = Link: Woche zeigen, zu der dieser Tag gehört
+MONTH.DAY.TIME = Dieser Tages (Timestamp)
+MONTH.DAY.TODAY = Entspricht dieser Tag dem heutigen?
+MONTH.DAY.INMONTH = Gehört dieser Tag zum gewählten Monat? (ansonsten ausgrauen!)
+MONTH.DAY.EVENT_COUNT = Anzahl der Termine an diesem Tag
+MONTH.DAY.BIRTHDAY_COUNT = Anzahl der Geburtstage an diesem Tag
+
+*}
+<style type="text/css">
+<!--
+
+.thisyear {
+	font-size:18px;
+	font-weight:bold;
+}
+
+.monthbox {
+	vertical-align:top;
+	padding:10px;
+}
+
+.monthtitle {
+	font-size:12px !important;
+}
+
+.calendar td {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+	vertical-align:top;
+	text-align:center;
+	font-size:10px;
+	color:#848484;
+}
+
+.calendar tr.head td {
+	font-weight:bold;
+	background:#CFCFCF;
+	font-size:11px;
+	color:#2B2B2B;
+}
+
+.calendar .disabled {
+	background:#E5E5E5;
+	font-size:10px;
+	font-style:italic;
+}
+
+.calendar .today {
+	background:#FFFFFF;
+	border:2px outset #B0B0B0;
+}
+
+.calendar .selectmonth a:link,
+.calendar .selectmonth a:active,
+.calendar .selectmonth a:visited {
+	font-size:11px;
+	color:#969696;
+	font-weight:bold;
+}
+
+.calendar .selectmonth a:hover {
+	color:#2B2B2B;
+	text-decoration:none;
+}
+
+-->
+</style>
+
+<table width="100%">
+<tr>
+<td width="20%" align="left">{if LINK_PREVIOUSYEAR}<a href="{LINK_PREVIOUSYEAR}">&laquo; {DATE('Y',TIME_PREVIOUSYEAR)}</a>{/if}</td>
+<td width="60%" align="center" class="thisyear">{DATE('Y',TIME_THISYEAR)}</td>
+<td width="20%" align="right">{if LINK_NEXTYEAR}<a href="{LINK_NEXTYEAR}">{DATE('Y',TIME_NEXTYEAR)} &raquo;</a>{/if}</td>
+</tr>
+</table>
+
+&nbsp;
+
+<!-- JAHR START -->
+<table width="100%">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+{list MONTH}
+{if MCOUNT%3==0}<tr>{/if}<td class="monthbox">
+
+{++MCOUNT}
+<!-- MONAT START -->
+<table width="100%" class="calendar">
+<colgroup>
+<col width="2%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<tr><td colspan="8" class="monthtitle"><a href="{MONTH.LINK}">{DATE('F Y',MONTH.TIME)}</a></td></tr>
+<tr class="head">
+<td>&nbsp;</td>
+<td>Mo.</td>
+<td>Di.</td>
+<td>Mi.</td>
+<td>Do.</td>
+<td>Fr.</td>
+<td>Sa.</td>
+<td>So.</td>
+</tr>
+{list MONTH.DAY}
+
+{* Wochenzeile beginnen *}
+{if COUNTER%7==0}
+<tr>
+<td class="selectmonth"><a href="{DAY.LINK_SHOWWEEK}" title="{LANG[SELECTWEEK]}">&gt;</a></td>
+{/if}
+
+{* Tag ausgeben *}
+{++COUNTER}
+{if DAY.INMONTH}
+<td{if DAY.TODAY} class="today"{/if}><a href="{MONTH.DAY.LINK}">{DATE('j',DAY.TIME)}</a></td>
+{else}
+<td class="disabled">{DATE('j',DAY.TIME)}</td>
+{/if}
+
+{* Wochenzeile beenden *}
+{if COUNTER%7==0}</tr>{/if}
+{/list}
+</table>
+<!-- MONAT ENDE -->
+
+</td>{if MCOUNT%3==0}</tr>{/if}
+{/list}
+</table>
+<!-- JAHR ENDE -->
+
+&nbsp;
+
+<table width="100%"><tr><td>
+
+{* Direktauswahl *}
+<form action="calendar.php" method="get">
+<b>{LANG[SELECTYEAR]}:</b><br />
+<select name="year">
+<option value="2000"{if SELECTED_YEAR==2000} selected="selected"{/if}>2000</option>
+<option value="2001"{if SELECTED_YEAR==2001} selected="selected"{/if}>2001</option>
+<option value="2002"{if SELECTED_YEAR==2002} selected="selected"{/if}>2002</option>
+<option value="2003"{if SELECTED_YEAR==2003} selected="selected"{/if}>2003</option>
+<option value="2004"{if SELECTED_YEAR==2004} selected="selected"{/if}>2004</option>
+<option value="2005"{if SELECTED_YEAR==2005} selected="selected"{/if}>2005</option>
+<option value="2006"{if SELECTED_YEAR==2006} selected="selected"{/if}>2006</option>
+<option value="2007"{if SELECTED_YEAR==2007} selected="selected"{/if}>2007</option>
+<option value="2008"{if SELECTED_YEAR==2008} selected="selected"{/if}>2008</option>
+<option value="2009"{if SELECTED_YEAR==2009} selected="selected"{/if}>2009</option>
+<option value="2010"{if SELECTED_YEAR==2010} selected="selected"{/if}>2010</option>
+<option value="2011"{if SELECTED_YEAR==2011} selected="selected"{/if}>2011</option>
+<option value="2012"{if SELECTED_YEAR==2012} selected="selected"{/if}>2012</option>
+<option value="2013"{if SELECTED_YEAR==2013} selected="selected"{/if}>2013</option>
+<option value="2014"{if SELECTED_YEAR==2014} selected="selected"{/if}>2014</option>
+<option value="2015"{if SELECTED_YEAR==2015} selected="selected"{/if}>2015</option>
+<option value="2011"{if SELECTED_YEAR==2011} selected="selected"{/if}>2011</option>
+<option value="2012"{if SELECTED_YEAR==2012} selected="selected"{/if}>2012</option>
+<option value="2013"{if SELECTED_YEAR==2013} selected="selected"{/if}>2013</option>
+<option value="2014"{if SELECTED_YEAR==2014} selected="selected"{/if}>2014</option>
+<option value="2015"{if SELECTED_YEAR==2015} selected="selected"{/if}>2015</option>
+<option value="2016"{if SELECTED_YEAR==2016} selected="selected"{/if}>2016</option>
+<option value="2017"{if SELECTED_YEAR==2017} selected="selected"{/if}>2017</option>
+<option value="2018"{if SELECTED_YEAR==2018} selected="selected"{/if}>2018</option>
+<option value="2019"{if SELECTED_YEAR==2019} selected="selected"{/if}>2019</option>
+<option value="2020"{if SELECTED_YEAR==2020} selected="selected"{/if}>2020</option>
+</select>
+<input type="submit" value="Go!" class="button" />
+<input type="hidden" name="mode" value="{MODE}" />
+</form>
+
+</td><td align="right">
+
+{* Moduswechsel nur wenn angemeldet *}
+{if LOGGED_ID}{LANG[SWITCHMODE]}: {if MODE=='public'}<a href="{LINK_SHOWPRIVATE}">{LANG[MODE_PRIVATE]}</a>{else}<a href="{LINK_SHOWPUBLIC}">{LANG[MODE_PUBLIC]}</a>{/if}<br />{/if}
+
+{* Ansichtwechsel *}
+<a href="{LINK_SHOWTODAY}">{LANG[TODAY]}</a> | 
+<a href="{LINK_SHOWWEEK}">{LANG[SHOWWEEK]}</a> | 
+<a href="{LINK_SHOWMONTH}">{LANG[SHOWMONTH]}</a>
+
+</td></tr></table>

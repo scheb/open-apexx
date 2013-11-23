@@ -1,0 +1,120 @@
+{*
+
+Suchergebnis als Themen
+=======================
+
+IGNORED = Suchbegriffe, die ignoriert wurden
+SEARCHTIME = Suchdauer
+HOT_POSTS = Anzahl der Antworten, ab denen ein Thema "hot" ist
+HOT_VIEWS = Anzahl der Klicks, ab denen ein Thema "hot" ist
+
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_TITLE = Nach Titel sortieren
+SORTBY_OPENER = Nach Themenstarter sortieren
+SORTBY_POSTS = Nach der Beitragszahl sortieren
+SORTBY_VIEWS = Nach Klickzahl sortieren
+SORTBY_LASTPOST = Nach den neusten Beiträgen sortieren
+
+
+Themen
+------
+THREAD.ID = ID
+THREAD.TITLE = Themen-Titel
+THREAD.PREFIX = Themen-Präfix
+THREAD.LINK = Link zum Thema
+THREAD.ICON = Symbol (Pfad)
+THREAD.OPENER_USERID = Benutzer-ID des Themenstarters
+THREAD.OPENER_USERNAME = Benutzername des Themenstarters
+THREAD.OPENTIME = Zeitpunkt, zu dem das Thema eröffnet wurde (Timestamp)
+THREAD.LASTPOST_USERID = Benutzer-ID des Benutzers, der den letzten Beitrag verfasst hat
+THREAD.LASTPOST_USERNAME = Benutzername des Benutzers, der den letzten Beitrag verfasst hat
+THREAD.LASTPOST_TIME = Zeitpunkt des letzten Beitrags (Timestamp)
+THREAD.LASTPOST_LINK = Link zum letzten Beitrag
+THREAD.LINK_UNREAD = Link zum ersten ungelesenen Beitrag
+THREAD.STICKY = Ist das Thema gepinnt?
+THREAD.POSTS = Beiträge
+THREAD.VIEWS = Klicks
+THREAD.NEWPOSTS = Gibt es neue Beiträge in diesem Thema?
+THREAD.CLOSED = Ist das Thema geschlossen?
+
+Themen-Wertung
+--------------
+THREAD.DISPLAY_RATING = Soll die Wertung angezeigt werden?
+THREAD.RATING = Bewertung (1-5)
+THREAD.RATING_VOTES = Stimmen
+
+Forum-Informationen
+-------------------
+THREAD.FORUM_ID = ID des Forums
+THREAD.FORUM_TITLE = Forum-Titel
+THREAD.FORUM_LINK = Link zum Forum
+
+*}
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-bottom:5px;">
+<tr>
+<td width="100%" class="pages">{include pages.html}</td>
+<td style="white-space:nowrap;text-align:right;">{LANG[SEARCHTIME]}: {SEARCHTIME} {LANG[SECONDS]}{if IGNORED}<br />{LANG[IGNORED]}: {IGNORED}{/if}</td>
+</tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+<!-- THEMEN START -->
+<table width="100%">
+<colgroup>
+<col width="25" />
+<col width="25" />
+<col />
+<col width="60" />
+<col width="60" />
+<col width="140" />
+<col width="200" />
+</colgroup>
+<thead>
+<tr>
+<td class="tableheader">&nbsp;</td>
+<td class="tableheader">&nbsp;</td>
+<td class="tableheader"><a href="{SORTBY_TITLE}">{LANG[THREAD]}</a>{if SORTBY=='title.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='title.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} / <a href="{SORTBY_OPENER}">{LANG[CREATOR]}</a>{if SORTBY=='opener.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='opener.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}</td>
+<td class="tableheader"><a href="{SORTBY_POSTS}">{LANG[ANSWERS]}</a>{if SORTBY=='posts.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='posts.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}</td>
+<td class="tableheader"><a href="{SORTBY_VIEWS}">{LANG[VIEWS]}</a>{if SORTBY=='views.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='views.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}</td>
+<td class="tableheader"><a href="{SORTBY_LASTPOST}">{LANG[LASTPOST]}</a>{if SORTBY=='lastpost.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='lastpost.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}</td>
+<td class="tableheader">{LANG[FORUM]}</td>
+</tr>
+</thead>
+<tbody>
+{list THREAD}
+<tr>
+<td class="col1" style="text-align:center;"><img src="{if THREAD.ICON}{THREAD.ICON}{else}design/threadicon.gif{/if}" alt=""></td>
+<td class="col2" style="text-align:center;">{if THREAD.CLOSED}<img src="design/thread_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif THREAD.NEWPOSTS}<img src="design/thread_new{if THREAD.POSTS>=HOT_POSTS || THREAD.VIEWS>=HOT_VIEWS}_hot{/if}.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="design/thread_nonew{if THREAD.POSTS>=HOT_POSTS || THREAD.VIEWS>=HOT_VIEWS}_hot{/if}.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if}</td>
+<td class="col1"><div class="thread_title">{if THREAD.DISPLAY_RATING && THREAD.RATING}<img src="design/{THREAD.RATING}star.gif" alt="{THREAD.RATING}" style="float:right;" />{/if}{if THREAD.STICKY}{THREAD.STICKY}: {/if}{if THREAD.PREFIX}<span class="thread_prefix">{THREAD.PREFIX}</span> {/if}{if THREAD.NEWPOSTS}<a href="{THREAD.LINK_UNREAD}"><img src="design/lastpost2.gif" alt="{LANG[FIRSTUNREAD]}" title="{LANG[FIRSTUNREAD]}" style="vertical-align:bottom;" /></a> <a href="{THREAD.LINK}" class="thread_newposts">{THREAD.TITLE}</a>{else}<a href="{THREAD.LINK}" class="thread_nonewposts">{THREAD.TITLE}</a>{/if}</div><div class="thread_creator">{LANG[BY]} {if THREAD.OPENER_USERID}<a href="{PROFILE(THREAD.OPENER_USERID)}" target="_blank">{THREAD.OPENER_USERNAME}</a>{else}{THREAD.OPENER_USERNAME}{/if}</div></td>
+<td class="col2" style="text-align:center;">{THREAD.POSTS}</td>
+<td class="col1" style="text-align:center;">{THREAD.VIEWS}</td>
+<td class="col2"><div class="lastpost">{DATE('date',THREAD.LASTPOST_TIME)} - {DATE('time',THREAD.LASTPOST_TIME)} {LANG[CORE_OCLOCK]}<br />{LANG[BY]} {if THREAD.LASTPOST_USERID}<a href="{PROFILE(THREAD.LASTPOST_USERID)}" target="_blank">{THREAD.LASTPOST_USERNAME}</a>{else}{THREAD.LASTPOST_USERNAME}{/if} <a href="{THREAD.LASTPOST_LINK}"><img src="design/lastpost.gif" alt="{LANG[LASTPOST]}" title="{LANG[LASTPOST]}" style="vertical-align:bottom;" /></a></div></td>
+<td class="col1"><div class="thread_forum"><a href="{THREAD.FORUM_LINK}">{THREAD.FORUM_TITLE}</a></div></td>
+</tr>
+{/list}
+{if !THREAD}<tr><td colspan="7" class="col1" style="text-align:center;">{LANG[NONE]}</td></tr>{/if}
+</tbody>
+</table>
+<!-- THEMEN ENDE -->
+
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-top:5px;">
+<tr><td width="100%" class="pages">{include pages.html}</td></tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+<div style="height:20px;">&nbsp;</div>
+
+<div class="legend">
+<img src="design/thread_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[NEWPOSTS]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[NONEWPOSTS]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_nonew_hot.gif" alt="{LANG[HOTTHREAD]}" title="{LANG[HOTTHREAD]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[HOTTHREAD]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[CLOSED]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_pinned.gif" alt="{LANG[PINNED]}" title="{LANG[PINNED]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[PINNED]}
+</div>

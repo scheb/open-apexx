@@ -1,0 +1,37 @@
+{*
+
+Seitenzahlen ausgeben
+=====================
+Dieses Template gibt die Seitenzahlen in einer gekürzten Variante aus. Sobald mehr
+als 10 Seitenzahlen vorhanden sind, wird die Liste gekürzt wobei Lücken mit "..."
+gefüllt werden.
+
+PAGE_COUNT = Anzahl der Seiten
+PAGE_SELECTED = Ausgewählte Seitenzahl
+PAGE = Liste der Seitenzahlen
+PAGE.NUMBER = Seitenzahl
+PAGE.LINK = Link
+PAGE_PREVIOUS = Link "vorherige Seite"
+PAGE_NEXT = Link "nächste Seite"
+PAGE_FIRST = Link "erste Seite"
+PAGE_LAST = Link "letzte Seite"
+
+*}
+{LANG[CORE_PAGES]} ({PAGE_COUNT}):
+{if PAGE_PREVIOUS} <a href="{PAGE_PREVIOUS}">&laquo;</a>{/if}
+
+{EXPECT_PAGE=1}{END_LIMIT=PAGE_COUNT-5}
+{START_LIMIT=5}
+{SEL_LOWER_LIMIT=PAGE_SELECTED-2}
+{SEL_UPPER_LIMIT=PAGE_SELECTED+2}
+
+{list PAGE}
+{if EXPECT_PAGE!=PAGE.NUMBER && !DOTPRINT} ...{DOTPRINT=1}{/if}
+{if PAGE.NUMBER>=SEL_LOWER_LIMIT && PAGE.NUMBER<=SEL_UPPER_LIMIT}
+{include pagenumber.html}{continue}
+{elseif PAGE.NUMBER<=START_LIMIT || PAGE.NUMBER>END_LIMIT || PAGE.NUMBER%10==0}
+{include pagenumber.html}
+{/if}
+{/list}
+
+{if PAGE_NEXT} <a href="{PAGE_NEXT}">&raquo;</a>{/if}

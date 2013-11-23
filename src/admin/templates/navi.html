@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Navigation</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="design/navi.css" type="text/css" />
+<script type="text/javascript" src="../lib/yui/yahoo/yahoo-min.js"></script>
+<script type="text/javascript" src="../lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="../lib/javascript/global.js"></script>
+<script type="text/javascript" src="../lib/javascript/admin_basic.js"></script>
+<script type="text/javascript" src="../lib/javascript/admin_mediamanager.js"></script>
+</head>
+<body>
+
+<div id="logo"><a href="action.php?action=main.index" target="frame_content"><img src="design/logo.gif" alt="apexx Logo" /></a></div>
+<div id="buttons"><a href="action.php" target="frame_content"><img src="design/button_home.gif" alt="{LANG[CORE_HOME]}" title="{LANG[CORE_HOME]}" onmouseover="roll_in(this,'home')" onmouseout="roll_out(this,'home')" /></a><a href="javascript:openmm('mediamanager.php?action=mediamanager.index')"><img src="design/button_media.gif" alt="{LANG[CORE_MEDIA]}" title="{LANG[CORE_MEDIA]}" onmouseover="roll_in(this,'media')" onmouseout="roll_out(this,'media')" /></a><a href="action.php?action=user.logout&amp;sectoken={SECTOKEN}" target="_top"><img src="design/button_logout.gif" alt="{LANG[CORE_LOGOUT]}" title="{LANG[CORE_LOGOUT]}" onmouseover="roll_in(this,'logout')" onmouseout="roll_out(this,'logout')" /></a><a href="../" target="_blank"><img src="design/button_website.gif" alt="{LANG[CORE_WEBSITE]}" title="{LANG[CORE_WEBSITE]}" onmouseover="roll_in(this,'website')" onmouseout="roll_out(this,'website')" /></a></div>
+
+{SELSECTION=0}
+{if SECTION}<form action="index.php" method="post" target="_top" id="navi_sections">
+<select name="selectsection" onchange="updateSection(this);"><option value="0" style="font-weight:bold;">{LANG[ALLSECS]}</option>{list SECTION}{++SECINDEX}<option value="{SECTION.ID}"{if SECTION.SELECTED}{SELSECTION=SECINDEX} selected="selected"{/if}>{SECTION.TITLE}</option>{/list}</select>
+</form>{/if}
+
+<ul id="navi" class="navi">
+{list NAVI}
+<li class="navi_header{if NAVI.HIDDEN} collapsed{else} expanded{/if}" id="{NAVI.ID}"><a href="javascript:void(0);" class="navi_header"><span class="move" id="{NAVI.ID}_move"></span><span class="inner">{NAVI.TITLE}</span></a>
+<ul class="navi_sub" style="{if NAVI.HIDDEN}display:none;{/if}">
+{list NAVI.ACTION}<li class="navi_sub"><a href="{NAVI.ACTION.LINK}" target="frame_content">{NAVI.ACTION.TITLE}</a></li>{/list}
+</ul>
+</li>
+{/list}
+</ul>
+
+<script type="text/javascript" src="../lib/yui/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="../lib/yui/animation/animation-min.js"></script>
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/sortablenavi.js"></script>
+<script type="text/javascript" src="../lib/javascript/collapseable.js"></script>
+<script type="text/javascript">
+
+var menu=new Array();
+var mi=0;
+{list NAVI}
+menu[mi++]='{NAVI.ID}';
+{/list}
+
+
+var selectedSection = {SELSECTION};
+
+function updateSection(select) {
+	var confirmed = confirm('{LANG[CORE_CHANGESEC]}');
+	if ( confirmed ) {
+		var secid = select.options[select.selectedIndex].value;
+		top.location.href = "index.php?selectsection="+secid;
+		selectedSection = select.selectedIndex;
+	}
+	else {
+		select.selectedIndex = selectedSection;
+	}
+}
+
+yEvent.onDOMReady(function() {
+	new SortableNavi(yDom.get('navi'));
+});
+
+</script>
+
+</body>
+</html>

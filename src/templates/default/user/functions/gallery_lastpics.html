@@ -1,0 +1,40 @@
+{*
+
+Template-Funktion: Neuste Bilder aus Benutzer-Galerien
+======================================================
+
+Bilder
+------
+PICTURE = Liste der Bilder
+PICTURE.IMAGE = Pfad zum Thumbnail
+PICTURE.FULLSIZE = Pfad zum Bild in voller Größe
+PICTURE.LINK = Link zum Bild
+PICTURE.CAPTION = Bildunterschift
+PICTURE.TIME = Hinzugefügt am (Timestamp)
+
+
+Galerie, in der das Bild enthalten ist
+--------------------------------------
+PICTURE.GALLERY_ID = Galerie-ID
+PICTURE.GALLERY_TITLE = Titel
+PICTURE.GALLERY_DESCRIPTION = Beschreibung
+PICTURE.GALLERY_LINK = Link zur Galerie
+PICTURE.GALLERY_TIME = Zeit (Timestamp)
+PICTURE.GALLERY_UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+PICTURE.GALLERY_COUNT = Anzahl der enthaltenen Bilder
+
+
+Autor der Galerie
+-----------------
+PICTURE.USERID = Benutzer-ID des Autors
+PICTURE.USERNAME = Benutzername
+PICTURE.REALNAME = Echter Name
+PICTURE.AVATAR = Avatar des Autors
+PICTURE.AVATER_TITLE = Avatar-Titel
+
+*}
+
+{list PICTURE}
+<a href="{PICTURE.LINK}"><img src="{PICTURE.IMAGE}" alt="{PICTURE.CAPTION|notags}" title="{PICTURE.CAPTION|notags}" /></a><br />
+<span class="small">{DATE('d.m.Y',PICTURE.TIME)}</span>
+{/list}

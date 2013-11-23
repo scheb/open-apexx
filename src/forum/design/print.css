@@ -1,0 +1,147 @@
+body {
+	padding:15px;
+	margin:0px;
+	background-color:#FFFFFF;
+	font-family:tahoma, verdana, arial, sans-serif;
+	color:#2B2B2B;
+	font-size:12px;
+}
+
+table {
+	border-collapse:collapse;
+	border-spacing:0px;
+}
+
+td {
+	font-size:12px;
+}
+
+img {
+	border:0px;
+}
+
+.small {
+	font-size:10px;
+}
+
+.pages {
+	font-size:11px;
+}
+
+a:link,
+a:active, 
+a:visited {
+	color:#2B2B2B;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+a:hover {
+	text-decoration:underline;
+}
+
+
+
+/************** BEITRÄGE **************/
+
+/* Rahmen um den Beitrag*/
+.post { border:1px solid #000000; }
+
+/* Linke und Rechte Spalte */
+.post_col1 { padding:3px; }
+.post_col2 { padding:3px; }
+
+/* Datum und Zeit */
+.post_date {
+	padding:3px;
+	font-size:11px;
+}
+
+/* Benutzername */
+.post_name { font-size:20px; }
+.post_name a { font-weight:normal !important; }
+
+/* Benutzer-Rang */
+.post_rank { font-size:11px; padding-bottom:4px; }
+
+/* Benutzer-Avatar und Avatar-Titel */
+.post_avatar { padding:4px 0px; font-size:10px; }
+
+/* Weitere Informationen zum Benutzer (u.a. Beiträge) */
+.post_infos { padding:5px 0px; font-size:11px; }
+
+/* Beitrags-Titel */
+.post_title {
+	font-size:10px;
+	font-weight:bold;
+	border-bottom:1px solid #000000;
+	padding:4px 2px;
+	margin-bottom:5px;
+}
+
+/* Text */
+.post_text { /* NOTHING */ }
+
+/* Anhänge */
+.post_attachments {
+	font-size:11px;
+	margin:15px 5px 0px 5px;
+	padding:3px;
+}
+
+.post_attachments legend {
+	font-size:11px;
+}
+
+/* Zuletzt bearbeitet von... */
+.post_lastedit {
+	padding-top:15px;
+	font-size:10px;
+	color:#7A7A7A;
+}
+
+/* Control-Panel */
+.post_panel { text-align:right; }
+
+/* Text hervorheben bei Suchergebnissen */
+.highlight { color:red !important; font-weight:bold; }
+
+
+
+/************** HERVORHEBUNGEN IM TEXT **************/
+
+/* Überschriften über den Boxen */
+.inlinebox_headline {
+	margin:0px;
+	font-size:11px;
+	font-weight:bold;
+	display:block;
+	padding:0px 0px 2px 2px;
+}
+
+/* Zitat */
+.quote {
+	border:1px solid #000000;
+	padding:3px;
+	font-weight:normal;
+}
+
+/* Rahmen um die Codebox */
+.code {
+	border:1px solid #000000;
+}
+
+/* Inhalt der Codebox */
+.code td {
+	font-family:courier new,monospace;
+	font-size:12px;
+	padding:3px;
+	vertical-align:top;
+}
+
+/* Zeilennummern */
+.codelines {
+	color:#1A2932 !important;
+	width:1px;
+	background:#FFFFFF !important;
+}

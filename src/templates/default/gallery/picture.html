@@ -1,0 +1,127 @@
+{*
+
+Galerie: Bild zeigen
+====================
+
+ACHTUNG: Der komplette HTML-Code einer Website (so wie hier) ist nur dann nötig,
+wenn die Galerie-Bilder in einem Popup-Fenster gezeigt werden. Ansonsten wird dieses
+Template in das Design-Template eingebunden - HTML-Header und HTML-Footer sollten
+dann nicht mehr enthalten sein.
+
+
+Galerie-Info
+------------
+ID = Galerie-ID
+TITLE = Galerie-Titel
+LINK = Link zur Galerie
+DESCRIPTION = Galerie-Beschreibung
+COUNT = Anzahl der enthaltenen Bilder
+TIME = Zeit (Timestamp)
+UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+RESTRICTED = Altersabfrage aktiviert?
+PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Bild
+----
+IMAGE = Pfad zum Bild
+CAPTION = Bildunterschift
+HITS = Klicks
+NEW = Ist das Bild neu?
+RESIZE = Javascript-Code um die Fenstergröße anzupassen (wenn das Bild im Popup gezeigt wird)
+
+
+Seitenzahlen
+------------
+PICTURE_COUNT = Anzahl der Seiten
+PICTURE_SELECTED = Ausgewählte Seitenzahl
+PICTURE = Liste der Seitenzahlen
+PICTURE.NUMBER = Seitenzahl
+PICTURE.LINK = Link
+PICTURE_PREVIOUS = Link "vorherige Seite"
+PICTURE_PREVIOUS_PREVIEW = Pfad zum Thumbnail des vorherigen Bilds
+PICTURE_NEXT = Link "nächste Seite"
+PICTURE_NEXT_PREVIEW = Pfad zum Thumbnail des nächsten Bilds
+PICTURE_FIRST = Link "erste Seite"
+PICTURE_LAST = Link "letzte Seite"
+
+
+Nur mit Untergalerien
+---------------------
+GALLERY = Liste der Untergalerien
+GALLERY.ID = Untergalerie-ID
+GALLERY.TITLE = Untergalerie-Titel
+GALLERY.LINK = Link zur Untergalerie
+GALLERY.PREVIEW = Vorschau-Bild
+GALLERY.PREVIEW_FULLSIZE = Große Version des Vorschau-Bilds
+GALLERY.DESCRIPTION = Untergalerie-Beschreibung
+GALLERY.COUNT = Anzahl der enthaltenen Bilder
+GALLERY.TIME = Zeit (Timestamp)
+GALLERY.RESTRICTED = Altersabfrage aktiviert?
+PATH = Liste: Galerie-Pfad
+PATH.TITLE = Galerie-Titel
+PATH.LINK = Link zur Galerie
+
+
+Kommentare zum Bild (Template includen?)
+----------------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei /templates/default/comments/comments.html
+
+
+Bewertung (Template includen?)
+------------------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+Alle Platzhalter finden Sie in der Datei /templates/default/ratings/rating.html
+
+*}
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>apexx - CMS &amp; Portalsystem</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="design/import.css" type="text/css" />
+<script type="text/javascript" src="/lib/yui/yahoo/yahoo-min.js"></script>
+<script type="text/javascript" src="/lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/lib/javascript/global.js"></script>
+<script type="text/javascript" src="/lib/javascript/public_popups.js"></script>
+</head>
+<body style="background:#FFFFFF;font-size:12px;padding:20px;">
+
+<div style="text-align:left;">
+
+{if PATH}<p>&raquo; <a href="gallery.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Galerie</a>{list PATH} &raquo; <a href="{PATH.LINK}">{PATH.TITLE}</a>{/list}</p>{/if}
+
+<!--<p><b>{TITLE}</b><br />{DESCRIPTION}{DATE('d.m.Y - H:i:s',TIME)} | {PICTURE_COUNT} {LANG[PICTURES]}</p>-->
+
+<p class="pages" align="center">{LANG[CORE_PAGES]} ({PICTURE_COUNT}): 
+{if PICTURE_PREVIOUS} <a href="{PICTURE_PREVIOUS}">&laquo;</a>{/if}
+{list PICTURE}{if PICTURE.NUMBER==PICTURE_SELECTED} [{PICTURE.NUMBER}]{else} <a href="{PICTURE.LINK}">{PICTURE.NUMBER}</a>{/if}{/list}
+{if PICTURE_NEXT} <a href="{PICTURE_NEXT}">&raquo;</a>{/if}
+</p>
+
+<p align="center"><img src="{IMAGE}" alt="{PLAIN_CAPTION|notags}" title="{CAPTION|notags}" style="border:3px solid #343434;" />{if CAPTION}<br />{CAPTION}{/if}{if NEW}<br /><img src="modules/gallery/images/new.gif" alt="" style="padding-top:2px;" />{/if}</p>
+<p align="center">{if PICTURE_PREVIOUS}<a href="{PICTURE_PREVIOUS}"><img src="modules/gallery/images/previous.gif" alt="" /></a>{/if}{if PICTURE_NEXT} <a href="{PICTURE_NEXT}"><img src="modules/gallery/images/next.gif" alt="" /></a>{/if}</p>
+<p align="center">{HITS} {LANG[HITS]}</p>
+<div align="center">{if DISPLAY_RATING}{include ../ratings/rating.html}{/if}</div>
+
+{if DISPLAY_COMMENTS}
+<p align="center"><a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a></p>
+{include ../comments/comments.html}
+{/if}
+
+{RESIZE}
+
+</div>
+
+</body>
+</html>

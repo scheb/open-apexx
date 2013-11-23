@@ -1,0 +1,39 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[HEADLINE_ADD]}{else}{LANG[HEADLINE_EDIT]}{/if}</td></tr>
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="50" maxlength="50" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[VIRTUAL]}:<br /><small>({LANG[VIRTUAL_INFO]}</small></td>
+<td><input type="text" name="virtual" value="{VIRTUAL}" class="input" size="50" maxlength="50" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[THEME]}:</td>
+<td><select name="theme">{THEME}</select></td>
+</tr>
+<tr>
+<td>{LANG[LANG]}:</td>
+<td><select name="lang">{LANG}</select></td>
+</tr>
+<tr>
+<td>{LANG[ACTIVE]}:</td>
+<td><input type="checkbox" name="active" value="1"{if ACTIVE} checked="checked"{/if} /></td>
+</tr>
+<tr>
+<td>{LANG[NOACCESS]}:</td>
+<td><textarea name="msg_noaccess" cols="100" rows="7" style="width:98%;">{MSG_NOACCESS}</textarea></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="main.secshow" />
+<input type="hidden" name="do" value="{ACTION}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

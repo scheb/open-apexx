@@ -1,0 +1,17 @@
+{*
+
+Seitenzahl
+==========
+
+Dieses Template wird von pages.html verwendet und dient zur Ausgabe
+einer einzelnen Seitenzahl.
+
+*}
+{if PAGE.NUMBER==PAGE_SELECTED}
+ [{PAGE.NUMBER}]
+{else}
+ <a href="{PAGE.LINK}">{PAGE.NUMBER}</a>
+{/if}
+{EXPECT_PAGE=PAGE.NUMBER}
+{++EXPECT_PAGE}
+{DOTPRINT=0}

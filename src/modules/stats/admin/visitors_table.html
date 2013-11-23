@@ -1,0 +1,46 @@
+<p style="margin-bottom:20px;">{LANG[TOTAL]}: <b>{TOTAL}</b> {LANG[VISITORS]}<br />
+{LANG[TODAY]}: <b>{TODAY}</b> {LANG[VISITORS]}<br />
+{if PROGNOSIS}{LANG[PROGNOSIS]}: <b>{PROGNOSIS}</b> {LANG[VISITORS]}<br />{/if}
+{LANG[RECORD]} {RECORD_DATE}: <b>{RECORD}</b> {LANG[VISITORS]}</p>
+
+<table width="100%" class="tablelist" style="margin-bottom:20px;">
+<thead>
+<tr>
+<th width="24%">{LANG[LAST30DAYS]}</th>
+<th width="57%">&nbsp;</th>
+<th width="19%">{LANG[VISITORS]}</th>
+</tr>
+</thead>
+<tbody>
+{list LAST}
+<tr>
+<td>{LAST.DATE}</td>
+<td style="white-space:nowrap;"><img src="../modules/stats/images/statbar_h.gif" width="{LAST.WIDTH}" height="10" alt="" class="stats_bar_h" />{if LAST.PROGNOSIS}{if PROGNOSIS!=LAST.COUNT}<img src="design/1px.gif" width="{LAST.PROGNOSIS}" height="10" alt="" class="stats_bar_h_dark" />{/if}{/if}</td>
+<td style="text-align:center;">{LAST.COUNT} {if LAST.PROGNOSIS}({PROGNOSIS}){/if}</td>
+</tr>
+{/list}
+</tbody>
+</table>
+
+<table width="100%" class="tablelist">
+<thead>
+<tr>
+<th width="24%">{LANG[LAST6MONTHS]}</th>
+<th width="19%">{LANG[VISITORS]}</th>
+<th width="19%">{LANG[HITS]}</th>
+<th width="19%">&Oslash; {LANG[VISITORS]}</th>
+<th width="19%">&Oslash; {LANG[HITS]}</th>
+</tr>
+</thead>
+<tbody>
+{list MONTH}
+<tr>
+<td>{MONTH.MONTH}</td>
+<td style="text-align:center;">{MONTH.VISITORS}</td>
+<td style="text-align:center;">{MONTH.HITS}</td>
+<td style="text-align:center;">{MONTH.AVG_VISITORS}</td>
+<td style="text-align:center;">{MONTH.AVG_HITS}</td>
+</tr>
+{/list}
+</tbody>
+</table>

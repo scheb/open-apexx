@@ -1,0 +1,27 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[EDITGALLERY]}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="40" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="description" rows="3" cols="60" class="input" style="width:98%;">{DESCRIPTION}</textarea></td>
+</tr>
+<tr>
+<td>{LANG[PASSWORD]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="password" name="password" value="{PASSWORD}" class="input" size="20" style="width:100px;" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="send" value="{LANG[EDITGALLERY]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="user.gallery" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="userid" value="{USERID}" />
+<input type="hidden" name="do" value="edit" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

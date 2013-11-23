@@ -1,0 +1,34 @@
+.messagebox {
+	position:absolute;
+	width:700px;
+	top:35%;
+	left:50%;
+	right:50%;
+	margin-left:-350px;
+	text-align:left;
+}
+
+.message_text {
+	border:1px solid #D1D1D1;
+	background:#F2F2F2;
+	text-align:center;
+	padding:10px;
+}
+
+.message_text a:link,
+.message_text a:active, 
+.message_text a:visited {
+	color:#2B2B2B;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+.message_text a:hover {
+	text-decoration:underline;
+}
+
+.message_redirect {
+	font-weight:bold;
+	font-size:10px;
+	margin:7px 0px 0px 0px;
+}

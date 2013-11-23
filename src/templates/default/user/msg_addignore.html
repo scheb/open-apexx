@@ -1,0 +1,25 @@
+{*
+
+Nachricht: Benutzer auf die Ingorier-Liste setzen
+=================================================
+
+ID = ID der Benutzers
+USERNAEM = Vorgegebener Benutzername
+
+*}
+
+<table width="100%" style="text-align:left;">
+<colgroup><col width="20%" /><col width="80%" /></colgroup>
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td><input type="text" name="username" value="{USERNAME}" class="input" style="width:200px;" /></td>
+</tr>
+<tr>
+<td>{LANG[REASON]}: <span class="small">({LANG[OPTIONAL]})</span></td>
+<td><input type="text" name="reason" class="input" style="width:500px;" /></td>
+</tr>
+<tr><td colspan="2" style="text-align:center;"><input type="submit" name="send" value="{LANG[ADDUSER]}" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="javascript:history.back()" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="add" value="1" />
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}

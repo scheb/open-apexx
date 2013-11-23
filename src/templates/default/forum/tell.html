@@ -1,0 +1,49 @@
+{*
+
+Thema empfehlen
+===============
+
+POSTTO = Formular senden an...
+TITLE = Vorgabe: Titel
+TEXT = Vorgabe: Text
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tr><td class="form_header" colspan="2">{LANG[HEADLINE_TELL]}</td></tr>
+<tr class="cell1">
+<td>{LANG[USERNAME]}:</td>
+<td><input type="text" name="username" value="{LOGGED_USERNAME}" size="40" maxlength="30" class="textbox" /></td>
+</tr>
+<tr class="cell2">
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" value="{LOGGED_EMAIL}" size="40" maxlength="255" class="textbox" /></td>
+</tr>
+<tr class="cell1">
+<td>{LANG[TOEMAIL]}:</td>
+<td><input type="text" name="toemail" size="40" maxlength="255" class="textbox" /></td>
+</tr>
+<tr class="cell2">
+<td>{LANG[SUBJECT]}:</td>
+<td><input type="text" name="subject" value="{TITLE}" size="60" maxlength="100" class="textbox" /></td>
+</tr>
+<tr class="cell1">
+<td>{LANG[TEXT]}:</td>
+<td><textarea name="text" cols="65" rows="10" class="textbox" style="width:98%;">{TEXT}</textarea></td>
+</tr>
+{if CAPTCHA}<tr class="cell2">
+<td>{LANG[CAPTCHA]}:</td>
+<td>{CAPTCHA} =&gt; <input type="text" name="captcha" size="15" class="textbox" /></td>
+</tr>{/if}
+<tr><td class="form_footer" colspan="2"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>

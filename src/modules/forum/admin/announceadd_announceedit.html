@@ -1,0 +1,55 @@
+<form name="form" action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[ADDANNOUNCE]}{else}{LANG[EDITANNOUNCE]}{/if}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="90" maxlength="255" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[FORUMS]}:<br /><small>({LANG[CTRLMULTI]})</small></td>
+<td><select name="forumid[]" multiple="multiple" size="10">{FORUMLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:<br /><small>({LANG[BBCODEALLOWED]})</small></td>
+<td>{TEXTAREA('text',15,TEXT,0,0)}</td>
+</tr>
+<tr>
+<td>{LANG[STARTTIME]}:</td>
+<td>
+{if ACTION=='add'}
+<input type="checkbox" name="pubnow" id="ip_pubnow" value="1" checked="checked" onclick="updatePubnow();" onchange="updatePubnow();" /><label for="ip_pubnow" onclick="updatePubnow();"> {LANG[PUBNOW]}</label>
+<div id="pubdate" style="display:none;">{STARTTIME}</div>
+{else}
+{STARTTIME}
+{/if}
+</td>
+</tr>
+<tr>
+<td>{LANG[ENDTIME]}: <small>({LANG[OPTIONAL]})</small></td>
+<td>{ENDTIME}</td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[ADDANNOUNCE]}{else}{LANG[UPDATE]}{/if}" accesskey="s" class="button"  /></td></tr>
+</table>
+<input type="hidden" name="action" value="forum.announce" />
+<input type="hidden" name="do" value="{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript">
+
+function updatePubnow() {
+	if ( yDom.get('ip_pubnow').checked ) {
+		yDom.get('pubdate').style.display = 'none';
+	}
+	else {
+		yDom.get('pubdate').style.display = '';
+	}
+}
+
+</script>

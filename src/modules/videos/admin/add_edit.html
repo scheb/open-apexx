@@ -1,0 +1,164 @@
+<form action="action.php" name="textform" method="post" target="postframe" enctype="multipart/form-data">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='edit'}{LANG[TITLE_VIDEOS_EDIT]}{else}{LANG[TITLE_VIDEOS_ADD]}{/if}</td></tr>
+{if SPRIGHT_VIDEOS_EDIT}
+<tr>
+<td>{LANG[AUTHOR]}:</td>
+<td><select name="userid">{if USER_SEND}{USER_SEND}<option value=""></option>{/if}{USER(USERID)}</select></td>
+</tr>
+{else}
+<tr>
+<td>{LANG[AUTHOR]}:</td>
+<td>{LOGGED_USERNAME}</td>
+</tr>
+{/if}
+{if SET_SECTIONS}<tr>
+<td>{LANG[SECTION]}:<br /><small>({LANG[CTRLMULTI]})</small></td>
+<td><select name="secid[]" id="seclist" multiple="multiple">{SECTIONS(SECID)}</select></td>
+</tr>{/if}
+<tr>
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid">{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" size="80" maxlength="255" class="input" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TEASERPIC]}: <small>({LANG[OPTIONAL]})<br />({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</small></td>
+<td>
+<table width="100%" class="clear">
+<colgroup>
+<col width="100" />
+<col />
+</colgroup>
+{if TEASERPIC}
+<tr><td nowrap="nowrap" style="padding-bottom:3px;"><a href="{TEASERPIC}" target="_blank">{LANG[SHOWPIC]}</a> &nbsp;&raquo;</td><td style="padding-bottom:3px;"><input type="checkbox" name="delpic" id="ip_delpic" value="1" /><label for="ip_delpic"> {LANG[DELPIC]}</label></td></tr>
+{/if}
+<tr><td nowrap="nowrap">{LANG[TEASERPIC_UPLOAD]}:</td><td><input type="file" name="pic_upload" size="60" /></td></tr>
+<tr><td nowrap="nowrap" style="padding-top:3px;">{LANG[TEASERPIC_PATH]}:</td><td style="padding-top:3px;"><input type="text" name="pic_copy" id="pic_copy" value="{PIC_COPY}" class="input" size="53" style="width:260px;" /> <input type="button" name="mediamanager" value="{LANG[CORE_MEDIAMANAGER]}" onclick="javascript:openmm('mediamanager.php?action=mediamanager.index&amp;module=news')" class="button" /></td></tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>{LANG[INLINESCREENS]}:</td>
+<td>{INLINE('text',ID)}</td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td>{TEXTAREA('text',20,TEXT)}</td>
+</tr>
+<tr>
+<td>{LANG[TAGS]}:<br /><small>({LANG[OPTIONAL]}, {LANG[TAGSINFO]})</small></td>
+<td><input type="text" name="tags" value="{TAGS}" size="30" class="input" style="width:400px;" /><div id="taglist" class="taglist"></div></td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+{if MODULE_PRODUCTS}<tr>
+<td>{LANG[LINKPRODUCT]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><select name="prodid">{PRODUCTS(PRODID)}</select></td>
+</tr>{/if}
+</table>
+
+{if ACTION=='edit'}
+{include edit.html}
+{else}
+{include add.html}
+{/if}
+
+{if ACTION=='edit' && STARTTIME}
+<table width="100%" class="table" style="margin-top:10px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[PUBLICATION]}</td></tr>
+<tr>
+<td>{LANG[STARTTIME]}:</td>
+<td>{STARTTIME}</td>
+</tr>
+<tr>
+<td>{LANG[ENDTIME]}: <small>({LANG[OPTIONAL]})</small></td>
+<td>{ENDTIME}</td>
+</tr>
+</table>{/if}
+
+<table width="100%" class="table" style="margin-top:10px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[OPTIONS]}</td></tr>
+<tr><td colspan="2">
+{if SET_VIDEOS_SEARCHABLE}<input type="checkbox" name="searchable" id="ip_searchable" value="1"{if SEARCHABLE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_searchable"> {LANG[SEARCHABLE]}</label><br />{/if}
+{if MODULE_COMMENTS && SET_VIDEOS_COMS}<input type="checkbox" name="allowcoms" id="ip_allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_allowcoms"> {LANG[ALLOWCOMS]}</label><br />{/if}
+{if MODULE_RATINGS && SET_VIDEOS_RATINGS}<input type="checkbox" name="allowrating" id="ip_allowrating" value="1"{if ALLOWRATING} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_allowrating"> {LANG[ALLOWRATING]}</label><br />{/if}
+<input type="checkbox" name="restricted" id="ip_restricted" value="1"{if RESTRICTED} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_restricted"> {LANG[RESTRICTED]}</label><br />
+<input type="checkbox" name="top" id="ip_top" value="1"{if TOP} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_top"> {LANG[TOPVIDEO]}</label><br />
+{if ACTION=='add' && RIGHT_VIDEOS_ENABLE}<input type="checkbox" name="pubnow" id="ip_pubnow" value="1"{if PUBNOW} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_pubnow"> {LANG[PUBNOW]}</label><br />{/if}
+</td></tr>
+</table>
+
+<table width="100%" class="table" style="margin-top:10px;">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="action" value="videos.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/yui/datasource/datasource-min.js"></script>
+<script type="text/javascript" src="../lib/yui/autocomplete/autocomplete-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/tagsuggest.js"></script>
+
+<script type="text/javascript" src="../lib/javascript/objecttoolbox.js"></script>
+
+<script type="text/javascript">
+
+
+function addmirror() {
+	if ( mirrorshown>=20 ) return;
+	++mirrorshown;
+	obj=getobject('mirror'+mirrorshown);
+	obj.style.display='';
+}
+
+function refresh_location() {
+	if ( getobject('local1').checked ) {
+		getobject('row_filesize').style.display='none';
+	}
+	else {
+		getobject('row_filesize').style.display='';
+	}
+}
+
+function setlocal() {
+	getobject('local1').checked=true;
+	refresh_location();
+}
+
+function setexternal() {
+	getobject('local0').checked=true;
+	refresh_location();
+}
+
+yEvent.onDOMReady(function() {
+	new TagSuggest(document.forms[0].tags, yDom.get('taglist'), 200);
+	{if RIGHT_VIDEOS_CATADD}new ObjectToolbox(document.forms[0].catid, 'videos.catadd');{/if}
+	{if RIGHT_PRODUCTS_ADD}new ObjectToolbox(document.forms[0].prodid, 'products.add');{/if}
+	{if RIGHT_GALLERY_ADD}new ObjectToolbox(document.forms[0].galid, 'gallery.add');{/if}
+});
+
+</script>
+
+
+

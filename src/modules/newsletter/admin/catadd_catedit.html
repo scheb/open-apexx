@@ -1,0 +1,8 @@
+<form action="action.php" method="post" target="postframe" class="searchform">
+<p><input type="text" name="title" value="{TITLE}" class="input" maxlength="255" size="80" style="width:300px;" /> <input type="submit" name="apxsubmit" value="{if ACTION=='edit'}{LANG[CATEDIT]}{else}{LANG[CATADD]}{/if}" accesskey="s" class="button" /></p>
+<input type="hidden" name="action" value="newsletter.catshow" />
+<input type="hidden" name="do" value="{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

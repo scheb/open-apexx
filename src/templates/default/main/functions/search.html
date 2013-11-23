@@ -1,0 +1,30 @@
+{*
+
+Template-Funktion: Suchfeld
+===========================
+
+SEARCHIN = Modul-ID, die durchsucht werden soll
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[SEARCHIT]}</td></tr>
+<tr>
+<td class="color">{LANG[TERM]}:</td>
+<td class="color"><input type="text" name="item" class="input" size="80" /></td>
+</tr>
+<tr>
+<td class="color">{LANG[CONN]}:</td>
+<td class="color"><input type="radio" name="conn" value="and" checked="checked" /> {LANG[CONNAND]} &nbsp; <input type="radio" name="conn" value="or" /> {LANG[CONNOR]}</td>
+</tr>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="submit" value="{LANG[SEARCHIT]}" class="button" /></td></tr>
+</table>
+{if SEARCHIN}<input type="hidden" name="searchin" value="{SEARCHIN}" />{else}<input type="hidden" name="searchin" value="all" />{/if}
+<input type="hidden" name="send" value="1" />
+</form>

@@ -1,0 +1,321 @@
+{*
+
+Termine
+=======
+
+MODE = Aktueller Modus (public = öffentlich, private = privat)
+SELECTED_DAY = Gewählter Tag
+SELECTED_MONTH = Gewählter Monat
+SELECTED_YEAR = Gewähltes Jahr
+
+
+Tagesauswahl
+------------
+CALENDAR = Liste der Tage im gewählten Monat
+CALENDAR.LINK_SELECT = Link: Termine ab diesem Tag anzeigen
+CALENDAR.TIME = Dieser Tages (Timestamp), Datum ausgeben mit {DATE('d.m.Y',DAY.TIME)}
+CALENDAR.INMONTH = Gehört dieser Tag zum gewählten Monat? (ansonsten ausgrauen!)
+CALENDAR.EVENT_COUNT = Anzahl der Termine an diesem Tag
+
+
+Termine
+-------
+DAY = Liste der Tage
+DAY.TIME = Dieser Tages (Timestamp), Datum ausgeben mit {DATE('d.m.Y',DAY.TIME)}
+
+DAY.EVENT = Liste der Events an diesem Tag
+DAY.EVENT.ID = ID
+DAY.EVENT.LINK = Link zur Detailansicht
+DAY.EVENT.TITLE = Titel
+DAY.EVENT.TEXT = Informations-Text
+DAY.EVENT.LOCATION = Ort der Veranstaltung
+DAY.EVENT.LOCATION_LINK = Link zum Ort
+DAY.EVENT.PICTURE = Aufmacher-Bild
+DAY.EVENT.PICTURE_POPUP = Link: Großansicht des Aufmacher-Bilds
+DAY.EVENT.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+DAY.EVENT.USERID = Benutzer-ID des Autors
+DAY.EVENT.USERNAME = Benutzername des Autors
+DAY.EVENT.HITS = Klicks
+DAY.EVENT.PRIORITY = Priorität (1=hoch, 2=normal, 3=niedrig)
+DAY.EVENT.RESTRICTED = Altersabfrage aktiviert?
+DAY.EVENT.PRIVATE = Privater Termin?
+DAY.EVENT.STARTDAY = Beginn dieses Termins. Ausgabe des Datums mit {DATE('d.m.Y',DAY.EVENT.STARTDAY)}
+DAY.EVENT.STARTTIME = Hat einen Wert, wenn eine konkrete Zeit angegeben wurde. Ausgabe mit {DATE('H:i',DAY.EVENT.STARTTIME)}
+DAY.EVENT.ENDDAY = Hat einen Wert, wenn der Termin mehrtägig ist. Gibt den letzten Tag des Termins an. Ausgabe mit {DATE('d.m.Y',DAY.EVENT.ENDDAY)}
+DAY.EVENT.ENDTIME = Hat einen Wert, wenn der Termin mehrtägig ist und zu einem bestimmten Zeitpunkt endet. Ausgabe mit {DATE('H:i',DAY.EVENT.ENDTIME)}
+
+DAY.EVENT.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+DAY.EVENT.TAG = Liste aller Tags
+DAY.EVENT.TAG.ID = ID des Tags
+DAY.EVENT.TAG.NAME = Darstellbarer Name des Tags
+DAY.EVENT.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Angehängte Links
+----------------
+DAY.EVENT.RELATED = Liste der "Links zu dieser News"
+DAY.EVENT.RELATED.TITLE = Vorangestellte Linkbezeichnung
+DAY.EVENT.RELATED.TEXT = Verlinkter Text
+DAY.EVENT.RELATED.URL = URL
+DAY.EVENT.RELATED.POPUP = Neues Fenster öffnen?
+
+
+Kategorie
+---------
+Kategorie-Informationen stehen bei privaten Terminen nicht zur Verfügung!
+DAY.EVENT.CATID = Kategorie-ID
+DAY.EVENT.CATTITLE = Kategorie-Titel
+DAY.EVENT.CATICON = Pfad zum Kategorie-Symbol
+
+
+Verknüpfte Galerie
+------------------
+Galerie-Verknüpfungen sind bei privaten Terminen nicht möglich!
+DAY.EVENT.GALLERY_ID = ID der Galerie
+DAY.EVENT.GALLERY_TITLE = Titel der Galerie
+DAY.EVENT.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+Kommentare stehen bei privaten Terminen nicht zur Verfügung!
+DAY.EVENT.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+DAY.EVENT.COMMENT_COUNT = Anzahl der Kommentare
+DAY.EVENT.COMMENT_LINK = Link zur Kommentar-Seite
+DAY.EVENT.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+DAY.EVENT.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+DAY.EVENT.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+*}
+
+<style type="text/css">
+<!--
+
+.month {
+	text-align:center;
+}
+
+.events_navigation {
+	margin-bottom:10px;
+}
+
+.events_category {
+	text-align:center;
+	margin:10px 0px;
+}
+
+.month table {
+	width:250px;
+	margin:auto;
+	text-align:left;
+}
+
+.month td {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+	vertical-align:top;
+	text-align:center;
+	font-size:10px;
+	color:#848484;
+}
+
+.month tr.head td {
+	font-weight:bold;
+	background:#CFCFCF;
+	font-size:11px;
+	color:#2B2B2B;
+}
+
+.month .disabled {
+	background:#E5E5E5;
+	font-size:10px;
+	font-style:italic;
+}
+
+.month .today {
+	background:#FFFFFF;
+	border:2px outset #B0B0B0;
+}
+
+.events td {
+	padding:3px;
+	vertical-align:top;
+}
+
+.events .small,
+.events .small a {
+	color:#999999;
+}
+
+.events_datehead {
+	text-align:center;
+	font-size:12px;
+	font-weight:bold;
+	background:#F0F0F0;
+	border-top:1px solid #C2C2C2;
+	border-bottom:1px solid #C2C2C2;
+	margin:10px 0px;
+	padding:2px;
+}
+
+-->
+</style>
+
+<p>&raquo; <a href="{LINK_SEARCH}">{LANG[SEARCHEVENTS]}</a>
+{if LOGGED_ID}<br />&raquo; <a href="{LINK_ADDEVENT}">{LANG[ADDEVENT]}</a>{/if}</p>
+
+<table width="100%" class="events_navigation">
+<tr>
+<td align="left"><a href="{LINK_PREVIOUSWEEK}">&laquo; {LANG[PREVIOUS_WEEK]}</a><br /><a href="{LINK_PREVIOUSDAY}">&laquo; {LANG[PREVIOUS_DAY]}</a></td>
+<td align="center">
+
+<!-- MONAT START -->
+<div class="month">
+<table width="100%">
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<tr class="head">
+<td>Mo.</td>
+<td>Di.</td>
+<td>Mi.</td>
+<td>Do.</td>
+<td>Fr.</td>
+<td>Sa.</td>
+<td>So.</td>
+</tr>
+{list CALENDAR}
+
+{* Wochenzeile beginnen *}
+{if COUNTER%7==0}<tr>{/if}
+
+{* Tag ausgeben *}
+{++COUNTER}
+{if CALENDAR.INMONTH}
+<td{if CALENDAR.SELECTED} class="today"{/if}><a href="{CALENDAR.LINK_SELECT}">{DATE('j',CALENDAR.TIME)}</a></td>
+{else}
+<td class="disabled">{DATE('j',CALENDAR.TIME)}</td>
+{/if}
+
+{* Wochenzeile beenden *}
+{if COUNTER%7==0}</tr>{/if}
+{/list}
+</table>
+</div>
+<!-- MONAT ENDE -->
+
+</td>
+<td align="right"><a href="{LINK_NEXTWEEK}">{LANG[NEXT_WEEK]} &raquo;</a><br /><a href="{LINK_NEXTDAY}">{LANG[NEXT_DAY]} &raquo;</a></td>
+</tr>
+</table>
+
+<!-- DIREKTAUSWAHL START -->
+<form action="events.php" method="get" class="events_category">
+<b>{LANG[SELECTMONTH]}:</b><br />
+<select name="month">
+<option value="1"{if SELECTED_MONTH==1} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if SELECTED_MONTH==2} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if SELECTED_MONTH==3} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if SELECTED_MONTH==4} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if SELECTED_MONTH==5} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if SELECTED_MONTH==6} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if SELECTED_MONTH==7} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if SELECTED_MONTH==8} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if SELECTED_MONTH==9} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if SELECTED_MONTH==10} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if SELECTED_MONTH==11} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if SELECTED_MONTH==12} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select>
+<select name="year">
+<option value="2000"{if SELECTED_YEAR==2000} selected="selected"{/if}>2000</option>
+<option value="2001"{if SELECTED_YEAR==2001} selected="selected"{/if}>2001</option>
+<option value="2002"{if SELECTED_YEAR==2002} selected="selected"{/if}>2002</option>
+<option value="2003"{if SELECTED_YEAR==2003} selected="selected"{/if}>2003</option>
+<option value="2004"{if SELECTED_YEAR==2004} selected="selected"{/if}>2004</option>
+<option value="2005"{if SELECTED_YEAR==2005} selected="selected"{/if}>2005</option>
+<option value="2006"{if SELECTED_YEAR==2006} selected="selected"{/if}>2006</option>
+<option value="2007"{if SELECTED_YEAR==2007} selected="selected"{/if}>2007</option>
+<option value="2008"{if SELECTED_YEAR==2008} selected="selected"{/if}>2008</option>
+<option value="2009"{if SELECTED_YEAR==2009} selected="selected"{/if}>2009</option>
+<option value="2010"{if SELECTED_YEAR==2010} selected="selected"{/if}>2010</option>
+<option value="2011"{if SELECTED_YEAR==2011} selected="selected"{/if}>2011</option>
+<option value="2012"{if SELECTED_YEAR==2012} selected="selected"{/if}>2012</option>
+<option value="2013"{if SELECTED_YEAR==2013} selected="selected"{/if}>2013</option>
+<option value="2014"{if SELECTED_YEAR==2014} selected="selected"{/if}>2014</option>
+<option value="2015"{if SELECTED_YEAR==2015} selected="selected"{/if}>2015</option>
+<option value="2016"{if SELECTED_YEAR==2016} selected="selected"{/if}>2016</option>
+<option value="2017"{if SELECTED_YEAR==2017} selected="selected"{/if}>2017</option>
+<option value="2018"{if SELECTED_YEAR==2018} selected="selected"{/if}>2018</option>
+<option value="2019"{if SELECTED_YEAR==2019} selected="selected"{/if}>2019</option>
+<option value="2020"{if SELECTED_YEAR==2020} selected="selected"{/if}>2020</option>
+</select>
+<input type="submit" value="Go!" class="button" />
+<input type="hidden" name="mode" value="{MODE}" />
+<input type="hidden" name="day" value="1" />
+<!--<input type="hidden" name="catid" value="{SERVER_REQUEST_CATID}" />-->
+<input type="hidden" name="sec" value="{SECTION_ID}" />
+</form>
+<!-- DIREKTAUSWAHL ENDE -->
+
+<!-- KATEGORIEN START -->
+{if MODE=='public'}
+<form action="events.php" method="get" class="events_category">
+<b>{LANG[SELECTCATEGORY]}:</b><br />
+{EVENTS_CATEGORIES()}
+<input type="submit" value="Go!" class="button" />
+<input type="hidden" name="mode" value="{MODE}" />
+<input type="hidden" name="day" value="{SELECTED_DAY}" />
+<input type="hidden" name="month" value="{SELECTED_MONTH}" />
+<input type="hidden" name="year" value="{SELECTED_YEAR}" />
+<input type="hidden" name="sec" value="{SECTION_ID}" />
+</form>
+{/if}
+<!-- KATEGORIEN ENDE -->
+
+&nbsp;
+
+<!-- TERMINE START -->
+
+{list DAY}
+<div class="events_datehead">{DATE('l, j. F Y',DAY.TIME)}</div>
+{if DAY.EVENT}
+{else}
+<div>{LANG[NOEVENTS]}</div>
+{/if}
+<table width="100%" class="events">
+<colgroup>
+<col width="60%" />
+<col width="15%" />
+<col width="25%" />
+</colgroup>
+{list DAY.EVENT}
+<tr>
+<td><a href="{DAY.EVENT.LINK}">{DAY.EVENT.TITLE}</a></td>
+<td class="small">{if DAY.EVENT.DISPLAY_COMMENTS}<a href="{DAY.EVENT.COMMENT_LINK}">{DAY.EVENT.COMMENT_COUNT} {LANG[COMMENTS]}</a>{/if}</td>
+<td class="small">{LANG[EVENTSTART]}: {DATE('d.m.Y',DAY.EVENT.STARTDAY)} {if DAY.EVENT.STARTTIME}{DATE('H:i',DAY.EVENT.STARTTIME)} {LANG[CORE_OCLOCK]}{/if}{if DAY.EVENT.ENDDAY}<br />{LANG[EVENTEND]}: {DATE('d.m.Y',DAY.EVENT.ENDDAY)} {if DAY.EVENT.ENDTIME}{DATE('H:i',DAY.EVENT.ENDTIME)} {LANG[CORE_OCLOCK]}{/if}{/if}</td>
+</tr>
+{/list}
+</table>
+{/list}
+<!-- TERMINE ENDE -->
+
+&nbsp;
+
+<div style="text-align:right;">
+
+{* Moduswechsel nur wenn angemeldet *}
+{if LOGGED_ID}{LANG[SWITCHMODE]}: {if MODE=='public'}<a href="{LINK_SHOWPRIVATE}">{LANG[MODE_PRIVATE]}</a>{else}<a href="{LINK_SHOWPUBLIC}">{LANG[MODE_PUBLIC]}</a>{/if}<br />{/if}
+
+</div>
+
+{if MODE=='public'}
+{CALENDAR_TAGCLOUD()}
+{/if}

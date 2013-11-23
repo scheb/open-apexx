@@ -1,0 +1,133 @@
+{*
+
+Themen-Ansicht (Druckansicht)
+=============================
+
+Thema
+-----
+THREADID = ID des Themas
+FORUMID = ID des Forums
+CLOSED = Thema geschlossen?
+RIGHT_OPEN = Hat der Benutzer das Recht ein neues Thema zu eröffnen?
+RIGHT_POST = Hat der Benutzer das Recht einen neuen Beitrag zu schreiben?
+RIGHT_DELTHREAD = Hat der Benutzer dieses Thema zu löschen?
+POSTSPERPAGE = Beiträge pro Seite (Benutzereinstellung)
+LOGGED_IS_ADMIN = Ist der angemeldete Benutzer ein Administrator?
+LOGGED_IS_MODERATOR = Ist der angemeldete Benutzer ein Moderator?
+
+
+Beiträge
+--------
+POST = Liste der Beiträge
+POST.ID = ID des Beitrags
+POST.TITLE = Titel des Beitrags
+POST.TEXT = Text des Beitrags
+POST.TIME = Datum/Zeit (Timestamp)
+POST.RANK = Benutzer-Rang des Autors
+POST.RANK_IMAGE = Symbol für den Benutzer-Rang des Autors (Dateipfad)
+POST.RANK_COLOR = Farbe für den Benutzer-Rang des Autors
+POST.USERID = Benutzer-ID des Autors
+POST.USERNAME = Benutzername des Autors
+POST.USER_POSTS = Foren-Beiträge des Autors
+POST.USER_REGTIME = Zeitpunkt der Registrierung des Autors
+POST.ONLINE = Ist der Autor online?
+POST.IP = IP, mit der dieser Beitrag verfasst wurde
+POST.HOMEPAGE = Homepage des Autors
+POST.AVATAR = Avatar (Pfad zum Bild)
+POST.AVATAR_TITLE = Avatar-Titel
+POST.SIGNATURE = Signatur des Autors
+POST.CITY = Wohnort des Autors
+POST.NEW = Neuer Beitrag?
+POST.STARTER = Ist der Autor des Beitrags Themenstarter?
+POST.NUMBER = Nummer des Beirags
+POST.FIRST = Ist dies der erste Beitrag in diesem Thema?
+POST.LASTEDIT_TIME = Zeitpunkt der letzten Bearbeitung
+POST.LASTEDIT_USERNAME = Benutzer, der den Beitrag zuletzt bearbeitet hat
+POST.RIGHT_DELPOST = Hat der aktuelle Benutzer das Recht diesen Beitrag zu löschen?
+POST.RIGHT_EDITPOST = Hat der aktuelle Benutzer das Recht diesen Beitrag zu bearbeiten?
+
+Benuterdefinierte Profil-Felder des Autors
+------------------------------------------
+POST.CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+POST.CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Messenger
+---------
+POST.CONTACT_ICQ = ICQ-Nummer
+POST.CONTACT_MSN = MSN-ID
+POST.CONTACT_AIM = AIM-ID
+POST.CONTACT_YIM = YIM-ID
+POST.CONTACT_SKYPE = Skype-Name
+
+
+Benutzer-Typen
+--------------
+POST.IS_GUEST = Ist der Autor ein Gast?
+POST.IS_ADMIN = Ist der Autor ein Administrator?
+POST.IS_TEAM = Ist der Autor ein Teammitglied?
+POST.IS_MODERATOR = Ist der Autor Moderator?
+
+
+Anhänge
+-------
+POST.ATTACHMENT = Liste der Anhänge zu diesem Beitrag
+POST.ATTACHMENT.ICON = Dateisymbol
+POST.ATTACHMENT.NAME = Name der Datei
+POST.ATTACHMENT.LINK = Link zur Datei
+POST.ATTACHMENT.SIZE = Dateigröße
+
+
+Themen-Optionen
+---------------
+LINK_SUBSCRIBE = Link: Thema abonnieren
+LINK_TELL = Link: Thema weiterempfehlen
+LINK_PRINT = Link: Thema drucken
+
+
+Thema bewerten
+--------------
+DISPLAY_RATING = Soll die Wertung angezeigt werden?
+RATING = Bewertung (1-5)
+RATING_VOTES = Stimmen
+Alle weiteren Platzhalter finden Sie in der Datei templates/default/ratings/rating.html
+
+*}
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-bottom:5px;">
+<tr><td width="100%" class="pages">{include pages.html}</td></tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+<!-- BEITRÄGE START -->
+{list POST}
+
+<div class="space2">&nbsp;</div>
+
+<a name="p{POST.ID}" id="p{POST.ID}"></a>
+<table width="100%" class="post">
+<tr><td class="post_date" colspan="2"><div style="float:right;"><a href="post.php?id={POST.ID}">#{POST.NUMBER}</a></div> {DATE('date',POST.TIME)} - {DATE('time',POST.TIME)} {LANG[CORE_OCLOCK]}</td></tr>
+<tr>
+<td width="210" class="post_col1" style="vertical-align:top;">
+<div class="post_name">{if POST.USERID}<a href="{PROFILE(POST.USERID)}" target="_blank"{if POST.IS_ADMIN} class="user_admin"{elseif POST.IS_TEAM} class="user_team"{elseif POST.IS_MODERATOR} class="user_moderator"{elseif POST.RANK_COLOR} style="color:{POST.RANK_COLOR};"{/if}>{POST.USERNAME}</a>{else}<span class="user_guest">{POST.USERNAME}</span>{/if}</div>
+{if POST.RANK}<div class="post_rank">{POST.RANK}{if POST.RANK_IMAGE}<br /><img src="{POST.RANK_IMAGE}" alt="" />{/if}</div>{/if}
+</td>
+<td class="post_col2" style="vertical-align:top;">
+{if POST.TITLE}<div class="post_title">{POST.TITLE}</div>{/if}
+<div class="post_text">{POST.TEXT}
+{if POST.ATTACHMENT}<fieldset class="post_attachments"><legend>{LANG[ATTACHMENTS]}</legend>{list POST.ATTACHMENT}<div><img src="{POST.ATTACHMENT.ICON}" alt="" style="vertical-align:middle;" /> <a href="{POST.ATTACHMENT.LINK}" target="_blank">{POST.ATTACHMENT.NAME}</a> ({POST.ATTACHMENT.SIZE})</div>{/list}</fieldset>{/if}
+{if POST.SIGNATURE}<br />_________________________<br />{POST.SIGNATURE}{/if}</div>
+{if POST.LASTEDIT_TIME}<div class="post_lastedit">{LANG[LASTEDIT]} {DATE('date',POST.LASTEDIT_TIME)} - {DATE('time',POST.LASTEDIT_TIME)} {LANG[CORE_OCLOCK]} {LANG[BY]} {POST.LASTEDIT_USERNAME}</div>{/if}
+</td>
+</tr>
+</table>
+{/list}
+<!-- BEITRÄGE ENDE -->
+
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-top:5px;">
+<tr><td width="100%" class="pages">{include pages.html}</td></tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->

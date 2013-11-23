@@ -1,0 +1,45 @@
+{*
+
+Galerie-Verwaltung: Bilder hochladen
+====================================
+
+SPACE = Speicherverbrauch (bei beschränkter Bilderzahl)
+SPACE_PERCENT = Freier Speicher in Prozent
+SPACE_WIDTH = Breite des "Verbrauch"-Balkens
+
+POSTTO = Formular senden an...
+
+*}
+{if SPACE}
+<!-- SPEICHERPLATZ START -->
+<table width="100%" cellpadding="0" style="margin:0px 0px 20px 0px;">
+<tr>
+<td nowrap="nowrap">{LANG[PICSPACE]}:&nbsp;</td>
+<td width="100%" class="color" style="padding:0px;height:18px;"><img src="modules/user/images/pmspace.gif" width="{SPACE_WIDTH}" height="18" alt="" /></td>
+<td nowrap="nowrap">&nbsp;{SPACE} &raquo; {SPACE_PERCENT} {LANG[FREE]}</td>
+</tr>
+</table>
+<!-- SPEICHERPLATZ ENDE -->
+{/if}
+
+<!-- UPLOAD START -->
+<form action="{POSTTO}" method="post" enctype="multipart/form-data">
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td class="header1" colspan="2">{LANG[UPLOADIMAGES]}</td></tr>
+<tr class="color">
+<td>{LANG[PICTURE]} 1:</td>
+<td><input type="file" name="upload1" class="input" size="60" style="margin-bottom:5px;" /><br />{LANG[CAPTION]}: <input type="text" name="caption1" class="input" size="60" style="width:300px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[PICTURE]} 2:</td>
+<td><input type="file" name="upload2" class="input" size="60" style="margin-bottom:5px;" /><br />{LANG[CAPTION]}: <input type="text" name="caption2" class="input" size="60" style="width:300px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[PICTURE]} 3:</td>
+<td><input type="file" name="upload3" class="input" size="60" style="margin-bottom:5px;" /><br />{LANG[CAPTION]}: <input type="text" name="caption3" class="input" size="60" style="width:300px;" /></td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{LANG[UPLOADIMAGES]}" accesskey="s" class="button" /></td></tr>
+</table>
+</form>
+<!-- UPLOAD ENDE -->

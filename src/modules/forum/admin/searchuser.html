@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>apexx - {LANG[ADMINISTRATION]} | {LANG[TITLE_FORUM_SEARCHUSER]}</title>
+<meta http-equiv="content-Type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="design/import.css" type="text/css" />
+<script type="text/javascript" src="../lib/yui/yahoo/yahoo-min.js"></script>
+<script type="text/javascript" src="../lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="../lib/javascript/global.js"></script>
+<script type="text/javascript" src="../lib/javascript/admin_basic.js"></script>
+</head>
+<body>
+
+<form action="action.php" method="post" class="searchform">
+{LANG[TITLE_FORUM_SEARCHUSER]}: <input type="text" name="item" value="{ITEM}" class="input" style="width:180px;" /> <input type="submit" name="apxsubmit" value="{LANG[SEARCH]}" accesskey="s" class="button" />
+<input type="hidden" name="action" value="forum.searchuser" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="insertfunc" value="{INSERTFUNC}" />
+</form>
+
+{if RESULT}
+
+<table width="100%" class="tablelist">
+<colgroup>
+<col width="70%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr>
+<th class="header2">{LANG[LOGINNAME]}</th>
+<th class="header2">{LANG[CORE_COL_OPTIONS]}</th>
+</tr>
+</thead>
+<tbody>
+{list RESULT}
+<tr>
+<td>{RESULT.NAME}</td>
+<td align="center"><a href="javascript:opener.{INSERTFUNC}({RESULT.ID},'{RESULT.INSERT}');">{LANG[INSERT]}</a></td>
+</tr>
+{/list}
+</tbody>
+</table>
+{/if}
+
+</body>
+</html>

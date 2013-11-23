@@ -1,0 +1,21 @@
+{*
+
+Affiliates auflisten
+====================
+
+AFFILIATE = Liste der Affiliates
+AFFILIATE.TITLE = Titel
+AFFILIATE.IMAGE = Bild/Button
+AFFILIATE.LINK = Link (Weiterleitung mit Klick-Zähler)
+AFFILIATE.URL = Link (URL direkt, keine Weiterleitung, kein Klick-Zähler)
+AFFILIATE.HITS = Klicks
+
+*}
+
+{list AFFILIATE}
+<div style="text-align:center;padding-bottom:5px;">{if AFFILIATE.IMAGE}
+<a href="{AFFILIATE.LINK}" target="_blank"><img src="{AFFILIATE.IMAGE}" alt="{AFFILIATE.TITLE} - {AFFILIATE.HITS} {LANG[HITS]}" title="{AFFILIATE.TITLE} - {AFFILIATE.HITS} {LANG[HITS]}" style="border:1px solid #31393D;" /></a>
+{else}
+<a href="{AFFILIATE.LINK}" target="_blank">{AFFILIATE.TITLE} ({AFFILIATE.HITS})</a>
+{/if}</div>
+{/list}

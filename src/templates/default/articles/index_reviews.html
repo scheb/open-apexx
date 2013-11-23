@@ -1,0 +1,207 @@
+{*
+
+Tests auflisten
+===============
+
+Artikel
+-------
+ARTICLE = Liste der Artikel
+ARTICLE.ID = Artikel-ID
+ARTICLE.TITLE = Titel
+ARTICLE.SUBTITLE = Untertitel
+ARTICLE.TEASER = Teaser-Text
+ARTICLE.TEXT = Text von Seite 1 des Artikels
+ARTICLE.LINK = Link zum Artikel
+ARTICLE.TIME = Zeit (Timestamp)
+ARTICLE.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen Artikel)
+ARTICLE.PICTURE = Artikel-Bild
+ARTICLE.PICTURE_POPUP = Link: "größe Version des Artikel-Bilds anzeigen"
+ARTICLE.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+ARTICLE.TOP = Top-Artikel?
+ARTICLE.RESTRICTED = Altersabfrage aktiviert?
+ARTICLE.HITS = Klicks
+ARTICLE.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+
+ARTICLE.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+ARTICLE.TAG = Liste aller Tags
+ARTICLE.TAG.ID = ID des Tags
+ARTICLE.TAG.NAME = Darstellbarer Name des Tags
+ARTICLE.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+ARTICLE.USERID = Benutzer-ID des Autors
+ARTICLE.USERNAME = Benutzername des Autors
+ARTICLE.EMAIL = eMail-Adresse des Autors
+ARTICLE.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+
+ARTICLE.CATID = Kategorie-ID
+ARTICLE.CATTITLE = Kategorie-Titel
+ARTICLE.CATLINK = Link: Nur Inhalte aus dieser Kategorie
+ARTICLE.CATICON = Kategorie-Icon
+
+ARTICLE.RELATED = Liste der "Links zu diesem Artikel"
+ARTICLE.RELATED.TITLE = Vorangestellte Linkbezeichnung
+ARTICLE.RELATED.TEXT = Verlinkter Text
+ARTICLE.RELATED.URL = URL
+ARTICLE.RELATED.POPUP = Neues Fenster öffnen?
+
+ARTICLE.PICSERIES = Bilderserie, sofern vorhanden
+ARTICLE.PICSERIES.IMAGE = Pfad zum Thumbnail
+ARTICLE.PICSERIES.FULLSIZE = Pfad zur großen Version des Bilds
+ARTICLE.PICSERIES.LINK = Link zur Großansicht
+
+
+Spezielle Variablen nur bei Tests
+---------------------------------
+ARTICLE.CUSTOM1_NAME ... ARTICLE.CUSTOM10_NAME = Bezeichnung der benutzerdefinierten Felder 1-10
+ARTICLE.CUSTOM1 ... ARTICLE.CUSTOM10 = Wert der benutzerdefinierten Felder 1-10, sofern verwendet
+ARTICLE.FINAL_RATING = Gesamtwertung
+ARTICLE.POSITIVE = Positives
+ARTICLE.NEGATIVE = Negatives
+ARTICLE.AWARD = Auszeichnung
+
+
+Verknüpfte Galerie
+------------------
+ARTICLE.GALLERY_ID = ID der Galerie
+ARTICLE.GALLERY_TITLE = Titel der Galerie
+ARTICLE.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Artikel-Seiten
+--------------
+ARTICLE.INDEX = Liste der Artikelseiten
+ARTICLE.INDEX.NUMBER = Seitenzahl
+ARTICLE.INDEX.TITLE = Seitentitel
+ARTICLE.INDEX.LINK = Link zu dieser Seite
+
+
+Kommentare
+----------
+ARTICLE.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+ARTICLE.COMMENT_COUNT = Anzahl der Kommentare
+ARTICLE.COMMENT_LINK = Link zur Kommentar-Seite
+ARTICLE.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+ARTICLE.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+ARTICLE.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+ARTICLE.DISPLAY_RATING = Bewerten ist erlaubt?
+ARTICLE.RATING = durchschnittliche Bewertung
+ARTICLE.RATING_VOTES = Anzahl der Stimmen
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+
+Buchstaben-Auswahl
+------------------
+Alle Platzhalter finden Sie in der Datei templates/default/letters.html
+
+*}
+
+<style type="text/css">
+<!--
+
+.articles_datehead {
+	text-align:center;
+	font-size:14px;
+	font-weight:bold;
+	background:#F0F0F0;
+	border-top:1px solid #C2C2C2;
+	border-bottom:1px solid #C2C2C2;
+	margin:10px 0px;
+	padding:2px;
+}
+
+.articles_list {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+	margin:10px 0px;
+}
+
+.articles_title {
+	font-size:16px;
+	margin:0px;
+}
+
+.articles_info {
+	font-size:11px;
+	margin:0px 0px 10px 0px;
+}
+
+.articles_footer {
+	text-align:right;
+	font-size:11px;
+	margin:10px 0px 0px 0px;
+}
+
+.articles_best {
+	width:320px;
+	height:100px;
+	border:1px solid #B3B3B3;
+	background:#F0F0F0;
+	float:left;
+	margin:0px 3px;
+}
+
+.articles_best_head {
+	color:#f2f2f2;
+	font-size:10px;
+	font-weight:bold;
+	background-image:url('design/header_box.gif');
+	background-position:bottom;
+	padding:4px 0px 9px 3px;
+}
+
+.articles_best_content {
+	display:block;
+	padding:3px;
+}
+
+-->
+</style>
+
+<div>
+<div class="articles_best"><div class="articles_best_head">{LANG[LASTARTICLES]}</div><div class="articles_best_content">{LASTARTICLES(5)}</div></div>
+<div class="articles_best"><div class="articles_best_head">{LANG[TOPARTICLES]}</div><div class="articles_best_content">{TOPARTICLES(5)}</div></div>
+</div>
+
+<div style="clear:both;padding-top:10px;">
+
+{include ../letters.html}
+{include ../pages.html}
+
+{list ARTICLE}
+
+{if ARTICLE.DATEHEAD}
+<div class="articles_datehead">{DATE('d. M Y',ARTICLE.DATEHEAD)}</div>
+{/if}
+
+<div class="articles_list">
+<a name="news{ARTICLE.ID}"></a>
+
+<p class="articles_title"> <a href="{ARTICLE.LINK}">{ARTICLE.TITLE}</a>{if ARTICLE.TOP} <img src="modules/articles/images/top.gif" alt="" align="bottom" />{/if}</p>
+<p class="articles_info">{if ARTICLE.SUBTITLE}{ARTICLE.SUBTITLE} | {/if} <!--{ARTICLE.CATICON}<a href="articles.php?catid={ARTICLE.CATID}">-->{ARTICLE.CATTITLE}<!--</a>--> | {DATE('d.m.Y - H:i:s',ARTICLE.TIME)}</p>
+
+<div style="text-align:justify;">{if ARTICLE.GALLERY_ID}{GALLERY(1,ARTICLE.GALLERY_ID)}{else}{if ARTICLE.PICTURE}{if ARTICLE.PICTURE_POPUP}<a href="{ARTICLE.PICTURE_POPUP}">{/if}<img src="{ARTICLE.PICTURE}" alt="" style="float:left; margin:0px 10px 10px 0px;" />{if ARTICLE.PICTURE_POPUP}</a>{/if}{/if}{/if}
+{if ARTICLE.TEASER}{ARTICLE.TEASER}{else}{SHORTTEXT(ARTICLE.TEXT,200)}{/if}
+</div>
+
+<p class="articles_footer">{if ARTICLE.DISPLAY_COMMENTS}<a href="{ARTICLE.COMMENT_LINK}">{LANG[COMMENTS]} ({ARTICLE.COMMENT_COUNT})</a> | {/if}{ARTICLE.HITS} {LANG[HITS]} | {if ARTICLE.USERID}<a href="{PROFILE(ARTICLE.USERID)}" target="_blank">{/if}{ARTICLE.USERNAME}{if ARTICLE.USERID}</a>{/if} {if ARTICLE.EMAIL}({ARTICLE.EMAIL}){/if}</p>
+
+</div>
+{/list}
+
+</div>
+
+
+{ARTICLES_CATEGORIES()}
+
+{ARTICLES_TAGCLOUD(10, 'review')}

@@ -1,0 +1,58 @@
+{*
+
+Links: Link einsenden
+=====================
+
+POSTTO = Formular senden an...
+CAPTCHA = HTML-Code, um das Bild für die visuelle Bestätigung auszugeben
+
+CATEGORY = Liste der Kategorien
+CATEGORY.ID = Kategorie-ID
+CATEGORY.TITLE = Kategorie-Titel
+CATEGORY.OPEN = Dürfen in diese Kategorie News gepostet werden?
+CATEGORY.LEVEL = Level (bei Unterkategorien)
+
+Die Eingabefelder "send_username" und "send_email" werden nicht benötigt,
+wenn der Benutzer angemeldet ist.
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td class="header1" colspan="2">{LANG[HEADLINE]}</td></tr>
+{if !LOGGED_ID}
+<tr class="color">
+<td>{LANG[USERNAME]}:</td>
+<td><input type="text" name="send_username" size="40" maxlength="30" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[EMAIL]}: <span class="small">({LANG[OPTIONAL]})</span></td>
+<td><input type="text" name="send_email" size="40" maxlength="255" class="input" /></td>
+</tr>
+{/if}
+<tr class="color">
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid"><option value=""></option>{list CATEGORY}
+{if CATEGORY.OPEN}<option value="{CATEGORY.ID}" style="color:green;">{else}<option value="" style="color:grey;" disabled="disabled">{/if}{repeat CATEGORY.LEVEL-1}&nbsp;&nbsp;{/repeat}{CATEGORY.TITLE}</option>
+{/list}</select></td>
+</tr>
+<tr class="color">
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" size="80" maxlength="255" class="input" /></td>
+</tr>
+<tr class="color">
+<td>URL:</span></td>
+<td><input type="text" name="url" size="80" maxlength="255" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[TEXT]}:</td>
+<td><textarea name="text" cols="80" rows="15" class="input"></textarea></td>
+</tr>
+{if CAPTCHA}<tr>
+<td class="color">{LANG[CAPTCHA]}:</td>
+<td class="color">{CAPTCHA} =&gt; <input type="text" name="captcha" size="15" class="input" /></td>
+</tr>{/if}
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>

@@ -1,0 +1,13 @@
+{*
+
+Sicherheitsabfrage: Beitrag wiederherstellen
+============================================
+
+ID = ID des Beitrags
+
+*}
+
+<p>{LANG[MSG_RECOVERPOST]}</p>
+<p><input type="submit" name="send" value="{LANG[RECOVER]}" accesskey="s" id="count" class="button" /> <input type="button" name="backbutton" value="{LANG[GOBACK]}" onclick="javascript:history.back()" class="button" /></p>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="recoverpost" />

@@ -1,0 +1,33 @@
+<script type="text/javascript" src="../lib/yui/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/yui/element/element-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/listview.js"></script>
+<script type="text/javascript">
+
+var list = new ListView(yDom.get('list'));
+
+
+var ajaxFailed = false;
+
+
+//Knoten verschoben
+list.onNodeMoved.subscribe(function(type, args) {
+	//console.log('moved:', args[0]);
+	if ( ajaxFailed ) {
+		alert('ajax has failed, please reload page!');
+	}
+	else {
+		var info = args[0];
+		var callback = {
+			success: function() {},
+			failure: function() {
+				ajaxFailed = true;
+				alert('ajax has failed, please reload page!');
+			}
+		};
+		var data = 'action=forum.iconmoved&id='+info.nodeId+'&before='+info.beforeId+'&after='+info.afterId+'&sectoken={SECTOKEN}';
+		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', callback, data); 
+	}
+});
+
+</script>

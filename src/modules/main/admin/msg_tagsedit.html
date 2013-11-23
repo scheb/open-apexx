@@ -1,0 +1,15 @@
+<table width="100%" style="text-align:left;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[NAME]}:</td>
+<td><input type="text" name="tag" value="{TAG}" class="input" maxlength="255" style="width:350px;" /></td>
+</tr>
+</table>
+<p class="buttons"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_EDIT]}" accesskey="s" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="parent.MessageOverlayManager.closeLayer();" class="button" /></p>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="main.tags" />
+<input type="hidden" name="do" value="edit" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />

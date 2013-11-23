@@ -1,0 +1,152 @@
+{*
+
+Abonnements
+===========
+
+HOT_POSTS = Anzahl der Antworten, ab denen ein Thema "hot" ist
+HOT_VIEWS = Anzahl der Klicks, ab denen ein Thema "hot" ist
+
+
+Abonnierte Foren
+----------------
+FORUM = Liste der abonnierten Foren
+FORUM.ID = ID
+FORUM.TITLE = Titel
+FORUM.DESCRIPTION = Beschreibung
+FORUM.CLOSED = Ist das Forum geschlossen?
+FORUM.LINK = Link zur Themenübersicht
+FORUM.LASTPOST_THREADID = ID des Themas mit den neustem Beitrag
+FORUM.LASTPOST_THREADTITLE = Titel des Themas mit den neustem Beitrag
+FORUM.LASTPOST_THREADPREFIX = Themen-Präfix
+FORUM.LASTPOST_USERNAME = Benutzer, der den letzten Beitrag verfasst hat
+FORUM.LASTPOST_USERID = Benutzer-ID dieses Benutzers
+FORUM.LASTPOST_TIME = Zeitpunkt (Timestamp) zu dem der Beitrag verfasst wurde
+FORUM.LASTPOST_LINK = Link zum letzten Beitrag
+FORUM.NOTIFICATION = Art der Benachrichtigung
+FORUM.LINK_DEL = Link: Abonnements löschen
+FORUM.LINK_EDIT = Link: Abonnement bearbeiten
+
+
+Abonnierte Themen
+-----------------
+THREAD.ID = ID
+THREAD.TITLE = Themen-Titel
+THREAD.PREFIX = Themen-Präfix
+THREAD.LINK = Link zum Thema
+THREAD.ICON = Symbol (Pfad)
+THREAD.OPENER_USERID = Benutzer-ID des Themenstarters
+THREAD.OPENER_USERNAME = Benutzername des Themenstarters
+THREAD.OPENTIME = Zeitpunkt, zu dem das Thema eröffnet wurde (Timestamp)
+THREAD.LASTPOST_USERID = Benutzer-ID des Benutzers, der den letzten Beitrag verfasst hat
+THREAD.LASTPOST_USERNAME = Benutzername des Benutzers, der den letzten Beitrag verfasst hat
+THREAD.LASTPOST_TIME = Zeitpunkt des letzten Beitrags (Timestamp)
+THREAD.LASTPOST_LINK = Link zum letzten Beitrag
+THREAD.LINK_UNREAD = Link zum ersten ungelesenen Beitrag
+THREAD.NEWPOSTS = Gibt es neue Beiträge in diesem Thema?
+THREAD.CLOSED = Ist das Thema geschlossen?
+THREAD.NOTIFICATION = Art der Benachrichtigung
+THREAD.LINK_DEL = Link: Abonnements löschen
+THREAD.LINK_EDIT = Link: Abonnement bearbeiten
+
+*}
+<style type="text/css">
+<!--
+
+.forum_title {  }
+.forum_description { font-size:10px; }
+
+.thread_title {  }
+.thread_newposts { font-weight:blod; }
+.thread_nonewposts { font-weight:normal !important; }
+.thread_creator { font-size:10px; }
+.thread_creator a { font-weight:normal !important; }
+.thread_prefix {
+	font-weight:bold;
+	font-style:italic;
+	text-transform:uppercase;
+}
+
+.lastpost { font-size:11px; text-align:right; }
+.lastpost a { font-weight:normal !important; }
+.lastpost div { text-align:left; padding-bottom:3px; }
+
+-->
+</style>
+
+<!-- FOREN START -->
+<table width="100%">
+<colgroup>
+<col width="50" />
+<col />
+<col width="160" />
+<col width="110" />
+<col width="60" />
+</colgroup>
+<tr><td class="header1" colspan="5">{LANG[FORUMS]}</td></tr>
+{if FORUM}
+<tr>
+<td class="header2">&nbsp;</td>
+<td class="header2">{LANG[TITLE]}</td>
+<td class="header2">{LANG[LASTPOST]}</td>
+<td class="header2">{LANG[NOTIFICATION]}</td>
+<td class="header2">{LANG[OPTIONS]}</td>
+</tr>
+{list FORUM}
+<tr class="color">	
+<td style="text-align:center;">{if FORUM.CLOSED}<img src="forum/design/forum_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif FORUM.NEWPOSTS}<img src="forum/design/forum_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="forum/design/forum_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if}</td>
+<td><span class="forum_title"><a href="{FORUM.LINK}">{FORUM.TITLE}</a></span>{if FORUM.DESCRIPTION}<br /><span class="forum_description">{FORUM.DESCRIPTION}</span>{/if}</td>
+<td style="text-align:center;">{if FORUM.LASTPOST_TIME}<div class="lastpost"><div>{if FORUM.LASTPOST_THREADPREFIX}<span class="thread_prefix">{FORUM.LASTPOST_THREADPREFIX}</span> {/if}<a href="{FORUM.LASTPOST_LINK}" style="font-weight:bold !important;" title="{FORUM.LASTPOST_THREADTITLE}">{SHORTTEXT(FORUM.LASTPOST_THREADTITLE,20)}</a><br />{LANG[BY]} {if FORUM.LASTPOST_USERID}<a href="{PROFILE(FORUM.LASTPOST_USERID)}" target="_blank">{FORUM.LASTPOST_USERNAME}</a>{else}{FORUM.LASTPOST_USERNAME}{/if}</div>{DATE('date',FORUM.LASTPOST_TIME)} - {DATE('time',FORUM.LASTPOST_TIME)} {LANG[CORE_OCLOCK]} <a href="{FORUM.LASTPOST_LINK}"><img src="forum/design/lastpost.gif" alt="{LANG[LASTPOST]}" title="{LANG[LASTPOST]}" style="vertical-align:bottom;" /></a></div>{else}-{/if}</td>
+<td style="text-align:center;">{FORUM.NOTIFICATION}</td>
+<td style="text-align:center;">
+<a href="{FORUM.LINK_EDIT}"><img src="modules/user/images/edit.gif" title="{LANG[UPDATE]}" alt="{LANG[UPDATE]}" /></a>
+<a href="{FORUM.LINK_DEL}"><img src="modules/user/images/del.gif" title="{LANG[DELETE]}" alt="{LANG[DELETE]}" /></a>
+</td>
+</td>
+</tr>
+{/list}
+{else}
+<tr><td class="color" colspan="5" align="center">{LANG[NONE]}</td></tr>
+{/if}
+</table>
+<!-- FOREN ENDE -->
+
+<div style="height:20px;"></div>
+
+<!-- THEMEN START -->
+<table width="100%">
+<colgroup>
+<col width="25" />
+<col width="25" />
+<col />
+<col width="140" />
+<col width="110" />
+<col width="60" />
+</colgroup>
+<tr><td colspan="6" class="header1">{LANG[THREADS]}</td></tr>
+{if THREAD}
+<tr>
+<td class="header2">&nbsp;</td>
+<td class="header2">&nbsp;</td>
+<td class="header2">{LANG[TITLE]} / {LANG[CREATOR]}</td>
+<td class="header2">{LANG[LASTPOST]}</td>
+<td class="header2">{LANG[NOTIFICATION]}</td>
+<td class="header2">{LANG[OPTIONS]}</td>
+</tr>
+{list THREAD}
+<tr class="color">
+<td style="text-align:center;">{if THREAD.ICON}<img src="{THREAD.ICON}" alt="">{else}&nbsp;{/if}</td>
+<td style="text-align:center;">{if THREAD.CLOSED}<img src="forum/design/thread_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" />{elseif THREAD.NEWPOSTS}<img src="forum/design/thread_new{if THREAD.POSTS>=HOT_POSTS || THREAD.VIEWS>=HOT_VIEWS}_hot{/if}.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" />{else}<img src="forum/design/thread_nonew{if THREAD.POSTS>=HOT_POSTS || THREAD.VIEWS>=HOT_VIEWS}_hot{/if}.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" />{/if}</td>
+<td><div class="thread_title">{if THREAD.PREFIX}<span class="thread_prefix">{THREAD.PREFIX}</span> {/if}{if THREAD.NEWPOSTS}<a href="{THREAD.LINK_UNREAD}"><img src="forum/design/lastpost2.gif" alt="{LANG[FIRSTUNREAD]}" title="{LANG[FIRSTUNREAD]}" style="vertical-align:bottom;" /></a> <a href="{THREAD.LINK}" class="thread_newposts">{THREAD.TITLE}</a>{else}<a href="{THREAD.LINK}" class="thread_nonewposts">{THREAD.TITLE}</a>{/if}</div><div class="thread_creator">{LANG[BY]} {if THREAD.OPENER_USERID}<a href="{PROFILE(THREAD.OPENER_USERID)}" target="_blank">{THREAD.OPENER_USERNAME}</a>{else}{THREAD.OPENER_USERNAME}{/if}</div></td>
+<td><div class="lastpost">{DATE('date',THREAD.LASTPOST_TIME)} - {DATE('time',THREAD.LASTPOST_TIME)} {LANG[CORE_OCLOCK]}<br />{LANG[BY]} {if THREAD.LASTPOST_USERID}<a href="{PROFILE(THREAD.LASTPOST_USERID)}" target="_blank">{THREAD.LASTPOST_USERNAME}</a>{else}{THREAD.LASTPOST_USERNAME}{/if} <a href="{THREAD.LASTPOST_LINK}"><img src="forum/design/lastpost.gif" alt="{LANG[LASTPOST]}" title="{LANG[LASTPOST]}" style="vertical-align:bottom;" /></a></div></td>
+<td style="text-align:center;">{THREAD.NOTIFICATION}</td>
+<td style="text-align:center;">
+<a href="{THREAD.LINK_EDIT}"><img src="modules/user/images/edit.gif" title="{LANG[UPDATE]}" alt="{LANG[UPDATE]}" /></a>
+<a href="{THREAD.LINK_DEL}"><img src="modules/user/images/del.gif" title="{LANG[DELETE]}" alt="{LANG[DELETE]}" /></a>
+</td>
+</tr>
+{/list}
+{else}
+<tr><td class="color" colspan="6" style="text-align:center;">{LANG[NONE]}</td></tr>
+{/if}
+</table>
+<!-- THEMEN ENDE -->

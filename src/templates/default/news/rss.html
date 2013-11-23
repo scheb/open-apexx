@@ -1,0 +1,43 @@
+{*
+
+RSS-Feed für News
+=================
+
+WEBSITENAME = Titel der Website (in der Konfiguration eingestellt)
+
+NEWS = Liste der News
+NEWS.TITLE = Titel
+NEWS.SUBTITLE = Untertitel
+NEWS.TEASER = Teaser-Text
+NEWS.TEXT = Text
+NEWS.TIME = Zeit+Datum im RFC2822-Format
+NEWS.LINK = Link zur News
+NEWS.USERNAME = Benutzername des Autors
+NEWS.EMAIL = eMail-Adresse des Autors
+NEWS.CATTITLE = Kategorie-Titel
+NEWS.TOP = Top-News?
+
+*}
+<?xml version="1.0" encoding="{CHARSET}" ?>
+<rss version="2.0">
+<channel>
+<title>{WEBSITENAME} News</title>
+<link>{SERVER_HTTPHOST}</link>
+<description></description>
+<language>de</language>
+
+{list NEWS}
+<item>
+<guid>{NEWS.LINK}</guid>
+<title><![CDATA[ {NEWS.TITLE}{if NEWS.SUBTITLE} - {NEWS.SUBTITLE}{/if} ]]></title>
+<link>{NEWS.LINK}</link>
+<description><![CDATA[ {if NEWS.TEASER}{NEWS.TEASER}{else}{SHORTTEXT(NEWS.TEXT,300)}{/if} ]]></description>
+<pubDate>{NEWS.TIME}</pubDate>
+{if NEWS.EMAIL}<author>{NEWS.EMAIL} ({NEWS.USERNAME})</author>{/if}
+<category><![CDATA[ {NEWS.CATTITLE} ]]></category>
+</item>
+
+{/list}
+
+</channel>
+</rss>

@@ -1,0 +1,83 @@
+{*
+
+Übersicht der Benutzer-Galerien
+===============================
+
+Benutzer-Informationen
+----------------------
+USERID = Benutzer-ID
+USERNAME = Benutzer-Name
+
+
+Benutzer-Funktionen
+-------------------
+LINK_PROFILE = Link: Zum Profil des Benutzers
+LINK_BLOG = Link: Zum Blog des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GUESTBOOK = Zum Gästebuch des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GALLERY = Zur Galerie des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_COLLECTION = Zur Sammlung des Benutzers (nur verfügbar, wenn aktiviert und Produkt-Modul vorhanden)
+
+
+Galerien
+--------
+GALLERY = Liste der Galerien
+GALLERY.ID = ID der Galerie
+GALLERY.TITLE = Titel
+GALLERY.DESCRIPTION = Beschreibung
+GALLERY.COUNT = Anzahl der Bilder in der Galerie
+GALLERY.TIME = Erstellungszeitpunkt (Timestamp)
+GALLERY.LASTUPDATE = Letzte Aktualisierung (Timestamp)
+GALLERY.PREVIEW = Pfad zum Vorschaubid
+GALLERY.PROTECTED = Ist die Galerie durch ein Passwort geschützt?
+
+
+Kommentare
+----------
+GALLERY.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+GALLERY.COMMENT_COUNT = Anzahl der Kommentare
+GALLERY.COMMENT_LINK = Link zur Kommentar-Seite
+GALLERY.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+GALLERY.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+GALLERY.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+*}
+<style type="text/css">
+<!--
+
+.gallery_list td {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+	margin:10px 0px;
+}
+
+-->
+</style>
+
+<div class="tabbar clearfix">
+<ul>
+<li><a href="{LINK_PROFILE}">{LANG[USER_PROFILE]}</a></li>
+<li><a href="{LINK_BLOG}">{LANG[USER_BLOG]}</a></li>
+<li class="selected"><a href="{LINK_GALLERY}">{LANG[USER_GALLERY]}</a></li>
+<li><a href="{LINK_COLLECTION}">{LANG[USER_COLLECTION]}</a></li>
+<li><a href="{LINK_GUESTBOOK}">{LANG[USER_GUESTBOOK]}</a></li>
+</ul>
+</div>
+<div class="tabbody">
+
+<table width="639">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+{list GALLERY}
+<tr class="gallery_list">
+<td align="center">{if GALLERY.PREVIEW}<a href="{GALLERY.LINK}"><img src="{GALLERY.PREVIEW}" alt="{GALLERY.TITLE|notags}" title="{GALLERY.TITLE|notags}" /></a>{else}&nbsp;{/if}</td>
+<td><a href="{GALLERY.LINK}">{GALLERY.TITLE}</a><br />{GALLERY.DESCRIPTION}<br /><span class="small">{GALLERY.COUNT} {LANG[PICTURES]} | {DATE('d.m.Y - H:i:s',GALLERY.TIME)}{if GALLERY.DISPLAY_COMMENTS} | {GALLERY.COMMENT_COUNT} {LANG[COMMENTS]}{/if}</span></td>
+</tr>
+{/list}
+</table>
+
+</div>

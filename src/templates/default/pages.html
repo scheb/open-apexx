@@ -1,0 +1,24 @@
+{*
+
+Seitenzahlen
+============
+Dieses Template wird von mehreren Modul-Template verwendet!
+Der Code wurde wegen seiner häufigen verwendung zentral abgespeichert.
+
+PAGE_COUNT = Anzahl der Seiten
+PAGE_SELECTED = Ausgewählte Seitenzahl
+PAGE = Liste der Seitenzahlen
+PAGE.NUMBER = Seitenzahl
+PAGE.LINK = Link
+PAGE_PREVIOUS = Link "vorherige Seite"
+PAGE_NEXT = Link "nächste Seite"
+PAGE_FIRST = Link "erste Seite"
+PAGE_LAST = Link "letzte Seite"
+
+*}
+
+<p class="pages">{LANG[CORE_PAGES]} ({PAGE_COUNT}):
+{if PAGE_PREVIOUS} <a href="{PAGE_PREVIOUS}">&laquo;</a>{/if}
+{list PAGE}{if PAGE.NUMBER==PAGE_SELECTED} [{PAGE.NUMBER}] {else} <a href="{PAGE.LINK}">{PAGE.NUMBER}</a>{/if}{/list}
+{if PAGE_NEXT} <a href="{PAGE_NEXT}">&raquo;</a>{/if}
+</p>

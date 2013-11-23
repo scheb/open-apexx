@@ -1,0 +1,339 @@
+{*
+
+Termin erstellen
+================
+
+POSTTO = Formular senden an...
+
+START_DAY = Beginn (Tag)
+START_MONTH = Beginn (Monat)
+START_YEAR = Beginn (Jahr)
+
+*}
+<form action="{POSTTO}" name="textform" method="post">
+<table width="100%">
+<colgroup><col width="25%" /><col width="75%" /></colgroup>
+<tr><td class="header1" colspan="2">{LANG[ADDEVENT]}</td></tr>
+<tr class="color">
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" size="80" maxlength="255" class="input" style="width:400px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[STARTDAY]}: <span class="small">({LANG[TIMEOPTIONAL]})</span></td>
+<td>
+<select name="start_day">
+<option value=""></option>
+<option value="1"{if START_DAY=='1'} selected="selected"{/if}>1</option>
+<option value="2"{if START_DAY=='2'} selected="selected"{/if}>2</option>
+<option value="3"{if START_DAY=='3'} selected="selected"{/if}>3</option>
+<option value="4"{if START_DAY=='4'} selected="selected"{/if}>4</option>
+<option value="5"{if START_DAY=='5'} selected="selected"{/if}>5</option>
+<option value="6"{if START_DAY=='6'} selected="selected"{/if}>6</option>
+<option value="7"{if START_DAY=='7'} selected="selected"{/if}>7</option>
+<option value="8"{if START_DAY=='8'} selected="selected"{/if}>8</option>
+<option value="9"{if START_DAY=='9'} selected="selected"{/if}>9</option>
+<option value="10"{if START_DAY=='10'} selected="selected"{/if}>10</option>
+<option value="11"{if START_DAY=='11'} selected="selected"{/if}>11</option>
+<option value="12"{if START_DAY=='12'} selected="selected"{/if}>12</option>
+<option value="13"{if START_DAY=='13'} selected="selected"{/if}>13</option>
+<option value="14"{if START_DAY=='14'} selected="selected"{/if}>14</option>
+<option value="15"{if START_DAY=='15'} selected="selected"{/if}>15</option>
+<option value="16"{if START_DAY=='16'} selected="selected"{/if}>16</option>
+<option value="17"{if START_DAY=='17'} selected="selected"{/if}>17</option>
+<option value="18"{if START_DAY=='18'} selected="selected"{/if}>18</option>
+<option value="19"{if START_DAY=='19'} selected="selected"{/if}>19</option>
+<option value="20"{if START_DAY=='20'} selected="selected"{/if}>20</option>
+<option value="21"{if START_DAY=='21'} selected="selected"{/if}>21</option>
+<option value="22"{if START_DAY=='22'} selected="selected"{/if}>22</option>
+<option value="23"{if START_DAY=='23'} selected="selected"{/if}>23</option>
+<option value="24"{if START_DAY=='24'} selected="selected"{/if}>24</option>
+<option value="25"{if START_DAY=='25'} selected="selected"{/if}>25</option>
+<option value="26"{if START_DAY=='26'} selected="selected"{/if}>26</option>
+<option value="27"{if START_DAY=='27'} selected="selected"{/if}>27</option>
+<option value="28"{if START_DAY=='28'} selected="selected"{/if}>28</option>
+<option value="29"{if START_DAY=='29'} selected="selected"{/if}>29</option>
+<option value="30"{if START_DAY=='30'} selected="selected"{/if}>30</option>
+<option value="31"{if START_DAY=='31'} selected="selected"{/if}>31</option>
+</select>. 
+<select name="start_month">
+<option value=""></option>
+<option value="1"{if START_MONTH=='1'} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if START_MONTH=='2'} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if START_MONTH=='3'} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if START_MONTH=='4'} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if START_MONTH=='5'} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if START_MONTH=='6'} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if START_MONTH=='7'} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if START_MONTH=='8'} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if START_MONTH=='9'} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if START_MONTH=='10'} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if START_MONTH=='11'} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if START_MONTH=='12'} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select>
+<input type="text" name="start_year" value="{if START_YEAR}{START_YEAR}{/if}" maxlength="4" size="4" class="input" style="width:50px;" />
+, &nbsp;
+<select name="start_hour">
+<option value=""></option>
+<option value="0">00</option>
+<option value="1">01</option>
+<option value="2">02</option>
+<option value="3">03</option>
+<option value="4">04</option>
+<option value="5">05</option>
+<option value="6">06</option>
+<option value="7">07</option>
+<option value="8">08</option>
+<option value="9">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+</select> : 
+<select name="start_minute">
+<option value=""></option>
+<option value="0">00</option>
+<option value="1">01</option>
+<option value="2">02</option>
+<option value="3">03</option>
+<option value="4">04</option>
+<option value="5">05</option>
+<option value="6">06</option>
+<option value="7">07</option>
+<option value="8">08</option>
+<option value="9">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+<option value="32">32</option>
+<option value="33">33</option>
+<option value="34">34</option>
+<option value="35">35</option>
+<option value="36">36</option>
+<option value="37">37</option>
+<option value="38">38</option>
+<option value="39">39</option>
+<option value="40">40</option>
+<option value="41">41</option>
+<option value="42">42</option>
+<option value="43">43</option>
+<option value="44">44</option>
+<option value="45">45</option>
+<option value="46">46</option>
+<option value="47">47</option>
+<option value="48">48</option>
+<option value="49">49</option>
+<option value="50">50</option>
+<option value="51">51</option>
+<option value="52">52</option>
+<option value="53">53</option>
+<option value="54">54</option>
+<option value="55">55</option>
+<option value="56">56</option>
+<option value="57">57</option>
+<option value="58">58</option>
+<option value="59">59</option>
+</select> {LANG[CORE_OCLOCK]}
+</td>
+</tr>
+<tr class="color">
+<td>{LANG[ENDDAY]}: <span class="small">({LANG[OPTIONAL]}, {LANG[TIMEOPTIONAL]})</span></td>
+<td>
+<select name="end_day">
+<option value=""></option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>. 
+<select name="end_month">
+<option value=""></option>
+<option value="1">{LANG[MONTH_JAN]}</option>
+<option value="2">{LANG[MONTH_FEB]}</option>
+<option value="3">{LANG[MONTH_MAR]}</option>
+<option value="4">{LANG[MONTH_APR]}</option>
+<option value="5">{LANG[MONTH_MAY]}</option>
+<option value="6">{LANG[MONTH_JUN]}</option>
+<option value="7">{LANG[MONTH_JUL]}</option>
+<option value="8">{LANG[MONTH_AUG]}</option>
+<option value="9">{LANG[MONTH_SEP]}</option>
+<option value="10">{LANG[MONTH_OCT]}</option>
+<option value="11">{LANG[MONTH_NOV]}</option>
+<option value="12">{LANG[MONTH_DEC]}</option>
+</select> 
+<input type="text" name="end_year" maxlength="4" size="4" class="input" style="width:50px;" />
+, &nbsp;
+<select name="end_hour">
+<option value=""></option>
+<option value="0">00</option>
+<option value="1">01</option>
+<option value="2">02</option>
+<option value="3">03</option>
+<option value="4">04</option>
+<option value="5">05</option>
+<option value="6">06</option>
+<option value="7">07</option>
+<option value="8">08</option>
+<option value="9">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+</select> : 
+<select name="end_minute">
+<option value=""></option>
+<option value="0">00</option>
+<option value="1">01</option>
+<option value="2">02</option>
+<option value="3">03</option>
+<option value="4">04</option>
+<option value="5">05</option>
+<option value="6">06</option>
+<option value="7">07</option>
+<option value="8">08</option>
+<option value="9">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+<option value="32">32</option>
+<option value="33">33</option>
+<option value="34">34</option>
+<option value="35">35</option>
+<option value="36">36</option>
+<option value="37">37</option>
+<option value="38">38</option>
+<option value="39">39</option>
+<option value="40">40</option>
+<option value="41">41</option>
+<option value="42">42</option>
+<option value="43">43</option>
+<option value="44">44</option>
+<option value="45">45</option>
+<option value="46">46</option>
+<option value="47">47</option>
+<option value="48">48</option>
+<option value="49">49</option>
+<option value="50">50</option>
+<option value="51">51</option>
+<option value="52">52</option>
+<option value="53">53</option>
+<option value="54">54</option>
+<option value="55">55</option>
+<option value="56">56</option>
+<option value="57">57</option>
+<option value="58">58</option>
+<option value="59">59</option>
+</select> {LANG[CORE_OCLOCK]}
+</td>
+</tr>
+<tr class="color">
+<td>{LANG[TEXT]}:</td>
+<td><textarea name="text" cols="80" rows="10" class="input" style="width:98%;"></textarea></td>
+</tr>
+<tr class="color">
+<td>{LANG[LOCATION]}:</td>
+<td><input type="text" name="location" class="input" style="width:200px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[LOCATION_LINK]}:</td>
+<td><input type="text" name="location_link" class="input" style="width:300px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[PRIORITY]}:</td>
+<td>
+<select name="priority">
+<option value="1">{LANG[PRIORITY_HIGH]}</option>
+<option value="2" selected="selected">{LANG[PRIORITY_NORMAL]}</option>
+<option value="3">{LANG[PRIORITY_LOW]}</option>
+</select>
+</td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{LANG[ADDEVENT]}" accesskey="s" class="button" /></td></tr>
+</table>
+</form>

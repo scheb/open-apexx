@@ -1,0 +1,55 @@
+/* HORIZONTAL */
+img.stats_bar_h {
+	border:1px solid #F9A280;
+}
+
+
+img.stats_bar_h_dark {
+	border-width:1px 1px 1px 0px;
+	border-style:dashed;
+	border-color:#ADADAD;
+	background:#E8E8E8;
+}
+
+
+/* VERTIKAL */
+.stats_scale {
+	height:75px;
+	font-size:10px;
+	padding:0px 5px;
+	background-image:url('scalebg.gif');
+	background-repeat:repeat-x;
+	border-right:2px solid #3D3D3D;
+}
+
+
+.stats_scalezero {
+	font-size:10px;
+	border-top:2px solid #ABABAB;
+	padding:0px 5px;
+}
+
+
+.stats_main,
+.stats_blank {
+	height:300px;
+	background-color:#FAFAFA;
+	background-image:url('statbg.gif');
+	border-bottom:2px solid #3D3D3D;
+}
+
+
+.stats_main_bar1 {
+	margin:0px 2px;
+	border-width:1px 1px 0px 1px;
+	border-style:solid;
+	border-color:#F9A280;
+}
+
+
+.stats_main_bar2 {
+	margin:0px 2px;
+	border-width:1px 1px 0px 1px;
+	border-style:solid;
+	border-color:#C9C9C9;
+}

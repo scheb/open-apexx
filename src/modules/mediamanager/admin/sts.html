@@ -1,0 +1,23 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_MEDIAMANAGER_STS]}</td></tr>
+<tr>
+<td>{LANG[SOURCE]}:</td>
+<td><input type="text" name="source" value="{SOURCE}" class="input" size="60" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[FILENAME]}:</td>
+<td><input type="text" name="filename" value="{FILENAME}" class="input" size="60" style="width:300px;" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="dir" value="{DIR}" />
+<input type="hidden" name="action" value="mediamanager.sts" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

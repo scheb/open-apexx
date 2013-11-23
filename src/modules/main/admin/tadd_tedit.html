@@ -1,0 +1,25 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[HEADLINE_ADD]}{else}{LANG[HEADLINE_EDIT]}{/if}</td></tr>
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="60" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[CODE]}:</td>
+<td>{TEXTAREA('code',25,CODE)}</td>
+</tr>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="main.tshow" />
+<input type="hidden" name="do" value="{ACTION}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+

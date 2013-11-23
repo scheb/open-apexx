@@ -1,0 +1,19 @@
+<p class="hint">{LANG[INFO]}</p>
+<table width="100%" class="tablelist">
+<thead>
+<tr>
+<th width="25%">{LANG[OS]}</th>
+<th width="60%">&nbsp;</th>
+<th width="15%">{LANG[PART]}</th>
+</tr>
+</thead>
+<tbody>
+{list OS}
+<tr>
+<td>{OS.ICON} {OS.NAME}</td>
+<td><img src="../modules/stats/images/statbar_h.gif" width="{OS.WIDTH}" height="12" alt="" class="stats_bar_h" /></td>
+<td>{OS.PERCENT}% ({OS.COUNT})</td>
+</tr>
+{/list}
+</tbody>
+</table>

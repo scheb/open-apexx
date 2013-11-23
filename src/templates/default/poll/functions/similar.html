@@ -1,0 +1,32 @@
+{*
+
+Template-Funktion: Umfragen mit gleichem Schlüsselwort
+======================================================
+
+POLL = Liste der Umfragen
+POLL.LINK = Link zu dieser Umfrage
+POLL.QUESTION = Frage der Umfrage
+POLL.STARTDATE = Beginn der Umfrage
+POLL.ENDDATE = Ende der Umfrage
+
+POLL.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+POLL.TAG = Liste aller Tags
+POLL.TAG.ID = ID des Tags
+POLL.TAG.NAME = Darstellbarer Name des Tags
+POLL.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kommentare
+----------
+POLL.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+POLL.COMMENT_COUNT = Anzahl der Kommentare
+POLL.COMMENT_LINK = Link zur Kommentar-Seite
+POLL.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+POLL.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+POLL.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+*}
+
+{list POLL}
+<div><a href="{POLL.LINK}">{POLL.QUESTION}</a> <span class="small">{DATE('d.m.Y',POLL.STARTTIME)} - {DATE('d.m.Y',POLL.ENDTIME)}</span></div>
+{/list}

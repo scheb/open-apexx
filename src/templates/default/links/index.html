@@ -1,0 +1,250 @@
+{*
+
+Links auflisten
+===============
+
+Ausgewählte Kategorie
+---------------------
+CATID = Kategorie-ID
+CATTITLE = Titel der Kategorie
+CATLINK = Link: Nur Inhalte aus dieser Kategorie
+CATTEXT = Beschreibung der Kategorie
+CATICON = Kategorie-Symbol
+CATCOUNT = Anzahl Links in der gewählten Kategorie
+PATH = Liste: Kategorie-Pfad
+PATH.TITLE = Kategorie-Titel
+PATH.LINK = Link zur Kategorie
+
+
+Unterkategorien
+---------------
+CATEGORY = Liste der Unterkategorien
+CATEGORY.ID = Unterkategorie-ID
+CATEGORY.TITLE = Titel der Unterkategorie
+CATEGORY.TEXT = Beschreibung der Unterkategorie
+CATEGORY.ICON = Symbol der Unterkategorie
+CATEGORY.COUNT = Anzahl Links in dieser Kategorie
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+
+Links
+-----
+LINK = Liste der enthaltenen Links
+LINK.ID = Link-ID
+LINK.TITLE = Titel
+LINK.URL = URL
+LINK.TEXT = Beschreibung
+LINK.PICTURE = Aufmacher-Bild
+LINK.PICTURE_POPUP = Link: "größe Version des Aufmacher-Bilds anzeigen"
+LINK.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+LINK.LINK = Link zur Detailansicht
+LINK.HITS = Klicks
+LINK.TIME = Zeit (Timestamp)
+LINK.TOP = Top-Link?
+LINK.RESTRICTED = Altersabfrage aktiviert?
+LINK.NEW = Neuer Link?
+LINK.USERID = Benutzer-ID des Autors
+LINK.USERNAME = Benutzername des Autors
+LINK.EMAIL = eMail-Adresse des Autors
+LINK.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+LINK.GOTO = Link: Diese Webseite besuchen
+
+LINK.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+LINK.TAG = Liste aller Tags
+LINK.TAG.ID = ID des Tags
+LINK.TAG.NAME = Darstellbarer Name des Tags
+LINK.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kategorie
+---------
+LINK.CATID = Unterkategorie-ID
+LINK.CATTITLE = Titel der Unterkategorie
+LINK.CATTEXT = Beschreibung der Unterkategorie
+LINK.CATICON = Symbol der Unterkategorie
+
+
+Verknüpfte Galerie
+------------------
+LINK.GALLERY_ID = ID der Galerie
+LINK.GALLERY_TITLE = Titel der Galerie
+LINK.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+LINK.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+LINK.COMMENT_COUNT = Anzahl der Kommentare
+LINK.COMMENT_LINK = Link zur Kommentar-Seite
+LINK.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+LINK.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+LINK.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+LINK.DISPLAY_RATING = Bewerten ist erlaubt?
+LINK.RATING = durchschnittliche Bewertung
+LINK.RATING_VOTES = Anzahl der Stimmen
+
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_TITLE = Link: Sortieren nach Titel
+SORTBY_HITS = Link: Sortieren nach Klicks
+SORTBY_DATE = Link: Sortieren nach Datum
+SORTBY_RATING = Link: Sortieren nach Bewertung
+
+
+Suche
+-----
+SEARCH_POSTTO = URL, an die das Formular gesendet werden soll
+SEARCH_CATEGORY = Liste der Kategorien (für Dropdown)
+SEARCH_CATEGORY.ID = Kategorie-ID
+SEARCH_CATEGORY.TITLE = Kategorie-Titel
+SEARCH_CATEGORY.LEVEL = Level der Untergliederung
+
+*}
+
+<style type="text/css">
+<!--
+
+.links_category {
+	border-collapse:separate;
+}
+
+.links_category_td {
+	border:1px solid #DEDEDE;
+	background:#FAFAFA;
+	padding:3px;
+	vertical-align:top;
+}
+
+.links_best {
+	width:210px;
+	height:100px;
+	border:1px solid #B3B3B3;
+	background:#F0F0F0;
+	float:left;
+	margin:0px 3px;
+}
+
+.links_best_head {
+	color:#f2f2f2;
+	font-size:10px;
+	font-weight:bold;
+	background-image:url('design/header_box.gif');
+	background-position:bottom;
+	padding:4px 0px 9px 3px;
+}
+
+.links_best_content {
+	padding:3px;
+}
+
+-->
+</style>
+
+<div>
+<div class="links_best"><div class="links_best_head">{LANG[TOPLINKS_RATING]}</div><div class="links_best_content">{BESTLINKS_RATING(5)}</div></div>
+<div class="links_best"><div class="links_best_head">{LANG[TOPLINKS_HITS]}</div><div class="links_best_content">{BESTLINKS_HITS(5)}</div></div>
+<div class="links_best"><div class="links_best_head">{LANG[NEWLINKS]}</div><div class="links_best_content">{LASTLINKS(5)}</div></div>
+</div>
+
+<div style="clear:both;padding-top:10px;">
+
+<p>&raquo; <a href="links.php{if SECTION_ID}?sec={SECTION_ID}{/if}">{LANG[HEADLINE]}</a>{list PATH} &raquo; <a href="{PATH.LINK}">{PATH.TITLE}</a>{/list}
+{if CATID}<br /><span class="small"><!-- {CATTITLE} {CATICON} -->{CATTEXT}</span>{/if}</p>
+
+{if CATEGORY}
+<table width="100%" class="links_category">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+
+{list CATEGORY}
+{if CCOUNT%3==0}<tr>{/if}
+{++CCOUNT}<td class="links_category_td">{if CATEGORY.ICON}<img src="{CATEGORY.ICON}" alt="" style="vertical-align:middle;" />{else}<img src="modules/links/images/folder.gif" alt="" style="vertical-align:middle;" />{/if} <a href="{CATEGORY.LINK}">{CATEGORY.TITLE}</a> ({CATEGORY.COUNT}){if CATEGORY.TEXT}<br /><span class="small">{CATEGORY.TEXT}</span>{/if}</td>
+{if CCOUNT%3==0}</tr>{/if}
+{/list}
+
+{if CCOUNT%3==1}<td>&nbsp;</td><td>&nbsp;</td></tr>{/if}
+{if CCOUNT%3==2}<td>&nbsp;</td></tr>{/if}
+</table>
+<br />&nbsp;
+{/if}
+
+{if LINK}
+{include ../pages.html}
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="60%" />
+</colgroup>
+<tr>
+<td class="header2">{LANG[COL_TITLE]}</td>
+<td class="header2">{LANG[COL_DATE]}</td>
+<td class="header2">{LANG[COL_TEXT]}</td>
+</tr>
+{list LINK}
+<tr>
+<td class="color"><a href="{LINK.LINK}">{LINK.TITLE}</a>{if LINK.NEW} <img src="modules/links/images/new.gif" alt="" />{/if}{if LINK.TOP} <img src="modules/links/images/top.gif" alt="" />{/if}</td>
+<td class="color" align="center">{DATE('d.m.Y',LINK.TIME)}</td>
+<td class="color">{SHORTTEXT(LINK.TEXT,200)} ({LINK.HITS} {LANG[HITS]})</td>
+</tr>
+{/list}
+</table>
+
+<p class="sortby">{LANG[SORTBY]}: 
+<a href="{SORTBY_TITLE}">{LANG[SORT_TITLE]}</a>{if SORTBY=='title.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='title.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+<a href="{SORTBY_HITS}">{LANG[SORT_HITS]}</a>{if SORTBY=='hits.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='hits.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} |
+<a href="{SORTBY_DATE}">{LANG[SORT_DATE]}</a>{if SORTBY=='date.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='date.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}
+{if SORTBY_RATING} | <a href="{SORTBY_RATING}">{LANG[SORT_RATING]}</a>{if SORTBY=='rating.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='rating.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}{/if}
+</p>
+{/if}
+
+</div>
+
+{* Links suchen *}
+<form action="{SEARCH_POSTTO}" method="post" style="margin-top:20px;">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[SEARCH]}</td></tr>
+<tr class="color">
+<td>{LANG[ITEM]}:</td>
+<td><input type="text" name="item" size="50" class="input" /><br /><input type="radio" name="conn" value="and" checked="checked" /> {LANG[CONNAND]} &nbsp; <input type="radio" name="conn" value="or" /> {LANG[CONNOR]}</td>
+</tr>
+<tr class="color">
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid"><option value="">{LANG[ALL]}</option>{list SEARCH_CATEGORY}<option value="{SEARCH_CATEGORY.ID}">{repeat SEARCH_CATEGORY.LEVEL-1}&nbsp;&nbsp;{/repeat}{SEARCH_CATEGORY.TITLE}</option>{/list}</select></td>
+</tr>
+<tr class="color">
+<td>{LANG[TIMEPERIOD]}:</td>
+<td>
+<select name="start_day"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+<select name="start_month"><option value=""></option><option value="1">{LANG[MONTH_JAN]}</option><option value="2">{LANG[MONTH_FEB]}</option><option value="3">{LANG[MONTH_MAR]}</option><option value="4">{LANG[MONTH_APR]}</option><option value="5">{LANG[MONTH_MAY]}</option><option value="6">{LANG[MONTH_JUN]}</option><option value="7">{LANG[MONTH_JUL]}</option><option value="8">{LANG[MONTH_AUG]}</option><option value="9">{LANG[MONTH_SEP]}</option><option value="10">{LANG[MONTH_OCT]}</option><option value="11">{LANG[MONTH_NOV]}</option><option value="12">{LANG[MONTH_DEC]}</option></select>
+<select name="start_year"><option value=""></option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2009</option><option value="2020">2020</option></select> - 
+<select name="end_day"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+<select name="end_month"><option value=""></option><option value="1">{LANG[MONTH_JAN]}</option><option value="2">{LANG[MONTH_FEB]}</option><option value="3">{LANG[MONTH_MAR]}</option><option value="4">{LANG[MONTH_APR]}</option><option value="5">{LANG[MONTH_MAY]}</option><option value="6">{LANG[MONTH_JUN]}</option><option value="7">{LANG[MONTH_JUL]}</option><option value="8">{LANG[MONTH_AUG]}</option><option value="9">{LANG[MONTH_SEP]}</option><option value="10">{LANG[MONTH_OCT]}</option><option value="11">{LANG[MONTH_NOV]}</option><option value="12">{LANG[MONTH_DEC]}</option></select>
+<select name="end_year"><option value=""></option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2009</option><option value="2020">2020</option></select>
+</td>
+</tr>
+<tr><td class="footer" colspan="2"><input type="submit" name="submit" value="{LANG[SEARCH]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="search" />
+<input type="hidden" name="send" value="1" />
+</form>
+
+{LINKS_TAGCLOUD()}

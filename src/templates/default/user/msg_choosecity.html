@@ -1,0 +1,14 @@
+{*
+
+Nachricht: Eintrag aus dem Gästebuch löschen
+============================================
+
+ID = ID des Eintrags
+
+*}
+
+<p>{LANG[MSG_CHOOSECITY]}</p>
+<p><select name="locid">{list SELECT}<option value="{SELECT.ID}">{SELECT.NAME}</option>{/list}</select><input type="submit" name="send" value="{LANG[SELECT]}" class="button" /></p>
+<input type="hidden" name="action" value="search" />
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}
+{INPUTS}

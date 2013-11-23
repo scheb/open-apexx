@@ -1,0 +1,82 @@
+<form action="action.php" name="textform" method="post" target="postframe" enctype="multipart/form-data">
+
+{if CUSTOM1_TITLE}
+<table width="100%" class="table" style="margin-bottom:10px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[ADDNL]}</td></tr>
+<tr>
+<td>{CUSTOM1_TITLE}:</td>
+<td><input type="text" name="custom1" value="{CUSTOM1}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>
+{if CUSTOM2_TITLE}<tr>
+<td>{CUSTOM2_TITLE}:</td>
+<td><input type="text" name="custom2" value="{CUSTOM2}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+{if CUSTOM3_TITLE}<tr>
+<td>{CUSTOM3_TITLE}:</td>
+<td><input type="text" name="custom3" value="{CUSTOM3}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+{if CUSTOM4_TITLE}<tr>
+<td>{CUSTOM4_TITLE}:</td>
+<td><input type="text" name="custom4" value="{CUSTOM4}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+{if CUSTOM5_TITLE}<tr>
+<td>{CUSTOM5_TITLE}:</td>
+<td><input type="text" name="custom5" value="{CUSTOM5}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+{if CUSTOM6_TITLE}<tr>
+<td>{CUSTOM6_TITLE}:</td>
+<td><input type="text" name="custom6" value="{CUSTOM6}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+{if CUSTOM7_TITLE}<tr>
+<td>{CUSTOM7_TITLE}:</td>
+<td><input type="text" name="custom7" value="{CUSTOM7}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+{if CUSTOM8_TITLE}<tr>
+<td>{CUSTOM8_TITLE}:</td>
+<td><input type="text" name="custom8" value="{CUSTOM8}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+{if CUSTOM9_TITLE}<tr>
+<td>{CUSTOM9_TITLE}:</td>
+<td><input type="text" name="custom9" value="{CUSTOM9}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+{if CUSTOM10_TITLE}<tr>
+<td>{CUSTOM10_TITLE}:</td>
+<td><input type="text" name="custom10" value="{CUSTOM10}" size="80" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>{/if}
+</table>
+{/if}
+
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[RATING]}</td></tr>
+<tr>
+<td>{LANG[IMPRESSION]}:</td>
+<td><input type="text" name="impression" value="{IMPRESSION}" size="80" maxlength="255" style="width:200px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[INLINESCREENS]}:</td>
+<td>{INLINE('conclusion',ID)}</td>
+</tr>
+<tr>
+<td>{LANG[CONLUSION]}:</td>
+<td>{TEXTAREA('conclusion',25,CONCLUSION)}</td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin-top:10px;">
+<tr class="submit"><td><input type="submit" name="submit_next" value="{LANG[SUBMIT_PICS]}" class="button" /> <input type="submit" name="submit_finish" value="{LANG[SUBMIT_FINISH]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="pubnow" value="{PUBNOW}" />
+<input type="hidden" name="action" value="articles.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="pageid" value="conclusion" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

@@ -1,0 +1,51 @@
+{*
+
+Template-Funktion: Bild der Woche
+=================================
+
+Bild
+----
+IMAGE = Pfad zum Thumbnail
+FULLSIZE = Pfad zur Großansicht des Bilds
+LINK = Link zum Bild
+CAPTION = Bildunterschift
+HITS = Klicks
+NEW = Ist das Bild neu?
+
+
+Galerie, in der das Bild enthalten ist
+--------------------------------------
+GALLERY_ID = Galerie-ID
+GALLERY_TITLE = Titel
+GALLERY_DESCRIPTION = Beschreibung
+GALLERY_LINK = Link zur Galerie
+GALLERY_TIME = Zeit (Timestamp)
+GALLERY_UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+GALLERY_COUNT = Anzahl der enthaltenen Bilder
+GALLERY_RESTRICTED = Altersabfrage aktiviert?
+GALLERY_PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+
+GALLERY_TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+GALLERY_TAG = Liste aller Tags
+GALLERY_TAG.ID = ID des Tags
+GALLERY_TAG.NAME = Darstellbarer Name des Tags
+GALLERY_TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kommentare
+----------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+
+
+Besucher-Bewertung
+------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+RATING = durchschnittliche Bewertung
+RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+<a href="{LINK}"><img src="{IMAGE}" alt="{CAPTION|notags}" title="{CAPTION|notags}" /></a><br />
+<span class="small">{CAPTION}</span>

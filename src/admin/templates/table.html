@@ -1,0 +1,73 @@
+<form name="tableform" action="action.php" method="post">
+<table width="100%" class="tablelist">
+<thead>
+<tr>
+{list COL}
+<th width="{COL.WIDTH}%">{COL.TITLE}</th>
+{/list}
+<th width="1" style="white-space:nowrap;padding:0px 10px;">{LANG[CORE_COL_OPTIONS]}</th>
+{if CHECKBOXES}<th width="1"><input type="checkbox" name="checkall" id="checkall" onclick="checkbox_toggle(this.form)" /></th>{/if}
+</tr>
+</thead>
+{if FOOTER && TABLE}
+<tfoot>
+<tr><td colspan="{COLCOUNT}" align="center">{FOOTER} <img src="design/marrow.gif" alt="" style="vertical-align:middle;" /></td></tr>
+</tfoot>
+{/if}
+<tbody>
+{list TABLE}
+{if TABLE.SPACER}<tr class="spacer"><td colspan="{COLCOUNT}"><img src="design/1px.gif" width="1" height="1" alt="" /></td></tr>{/if}
+<tr class="{TABLE.CLASS}" id="{TABLE.ID}">
+{if COL1_ACTIVE}<td{COL1_ATTRIB}>{TABLE.COL1}</td>{/if}
+{if COL2_ACTIVE}<td{COL2_ATTRIB}>{TABLE.COL2}</td>{/if}
+{if COL3_ACTIVE}<td{COL3_ATTRIB}>{TABLE.COL3}</td>{/if}
+{if COL4_ACTIVE}<td{COL4_ATTRIB}>{TABLE.COL4}</td>{/if}
+{if COL5_ACTIVE}<td{COL5_ATTRIB}>{TABLE.COL5}</td>{/if}
+{if COL6_ACTIVE}<td{COL6_ATTRIB}>{TABLE.COL6}</td>{/if}
+{if COL7_ACTIVE}<td{COL7_ATTRIB}>{TABLE.COL7}</td>{/if}
+{if COL8_ACTIVE}<td{COL8_ATTRIB}>{TABLE.COL8}</td>{/if}
+{if COL9_ACTIVE}<td{COL9_ATTRIB}>{TABLE.COL9}</td>{/if}
+<td align="center" style="white-space:nowrap;">{if TABLE.OPTIONS}{TABLE.OPTIONS}{else}&nbsp;{/if}</td>
+{if CHECKBOXES}<td align="center">{if TABLE.ID}<input type="checkbox" name="multiid[]" value="{TABLE.ID}" />{else}&nbsp;{/if}</td>{/if}
+</tr>
+{/list}
+{if !TABLE}<tr><td colspan="{COLCOUNT}" class="tablenone">{LANG[NONE]}</td></tr>{/if}
+</tbody>
+</table>
+</form>
+
+{if MULTIACTION}
+<script type="text/javascript">
+
+var multiactions = new Array();
+{list MULTIACTION}
+multiactions[multiactions.length] = { url:'{MULTIACTION.URL}', overlay:{if MULTIACTION.OVERLAY}true{else}false{/if} };
+{/list}
+
+
+//Multi-Aktion ausführen
+function tableMultiAction(index) {
+	var selected = new Array();
+	var form = document.forms.tableform;
+	for ( var i = 0; i<form.elements.length; i++ ) {
+		var element = form.elements[i];
+		if ( element.type=='checkbox' && element.name=='multiid[]' && element.checked ) {
+			selected[selected.length] = element.value;
+		}
+	}
+	if ( selected.length ) {
+		var action = multiactions[index];
+		var url = action.url;
+		url += '&sectoken={SECTOKEN}';
+		url += '&multiid[]='+selected.join('&multiid[]=');
+		if ( action.overlay ) {
+			MessageOverlayManager.createLayer(url);
+		}
+		else {
+			window.location.href = url;
+		}
+	}
+}
+
+</script>
+{/if}

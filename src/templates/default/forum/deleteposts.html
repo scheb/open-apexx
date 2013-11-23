@@ -1,0 +1,89 @@
+{*
+
+Mehrere Beiträge löschen
+========================
+
+Neues Thema
+-----------
+ID = ID des Themas, das geteilt werden soll
+TITLE = Eingabe: Titel
+TEXT = Eingabe: Text
+ICON = ID des Themenicons
+ANNCOUNCE = Der Benutzer hat das Recht Ankündigungen zu erstellen
+STICKY_TYPE = Art der Ankündigung
+STICKY_TEXT = Benutzerdefiniertes Präfix für Ankündigungen
+
+
+Seiten
+------
+P = Seitenzahl
+PREVIOUS = Vorherige Seite verfügbar?
+NEXT = Nächste Seite verfügbar?
+
+
+Zielforum
+---------
+FORUM = Liste aller verfügbaren Foren
+FORUM.ID = ID des Forums
+FORUM.TITLE = Titel
+FORUM.LEVEL = Untergliederungs-Level
+FORUM.ISCAT = Forum ist eine Kategorie (nicht auswählbar)
+FORUM.SELECTED = Forum ausgewählt
+
+Beiträge
+--------
+POST = Liste der Beiträge
+POST.ID = ID des Beitrags
+POST.USERNAME = Name des Autors
+POST.TEXT = Beitrag-Text
+POST.TIME = Zeitpunkt (Timestamp)
+POST.SELECTED = Ist der Beitrag ausgewählt?
+
+
+Bereits ausgewählte Beitrage
+----------------------------
+Diese IDs müssen durch hidden-Felder übergeben werden, da sie bereits auf
+vorherigen Seiten ausgewählt wurden.
+SELPOST = Liste der restlichen Beiträge
+SELPOST.ID = ID
+
+*}
+
+<form name="message" action="admin.php" method="post">
+<table width="100%">
+<tr><td class="form_header"><input type="checkbox" name="post_checkall" value="1" onclick="checkbox_toggle(this.form,this.checked,'post');" style="vertical-align:text-bottom;"> {LANG[SELECTPOSTS]}</td></tr>
+</table>
+<div class="space2">&nbsp;</div>
+
+{list POST}
+<table width="100%" class="post">
+<tr>
+<td class="post_date" rowspan="2" width="10">{if !POST.FIRST}<input type="checkbox" name="post[]" value="{POST.ID}"{if POST.SELECTED} checked="checked"{/if} />{/if}</td>
+<td class="post_date" colspan="2">{DATE('date',POST.TIME)} - {DATE('time',POST.TIME)} {LANG[CORE_OCLOCK]}</td>
+</tr>
+<tr>
+<td width="210" class="post_col1" style="vertical-align:top;text-align:center;">{POST.USERNAME}</td>
+<td class="post_col2" style="vertical-align:top;">{SHORTTEXT(POST.TEXT,300)}</td>
+</tr>
+</table>
+<div class="space2">&nbsp;</div>
+{/list}
+
+<table width="100%">
+<tr class="cell1">
+<td><input type="checkbox" name="realdel" id="ip_realdel" value="1" /><label for="ip_realdel"> {LANG[REALDEL]}</label></td>
+</tr>
+<tr><td class="form_footer">
+{if PREVIOUS}<input type="button" name="previous" value="&laquo; {LANG[PREVIOUS]}" onclick="this.form.p.value=parseInt(this.form.p.value)-1;this.form.submit();" class="button" />{/if} 
+<input type="submit" name="send" value="{LANG[DELPOSTS]}" class="button" accesskey="s" /> 
+{if NEXT}<input type="button" name="next" value="{LANG[NEXT]} &raquo;" onclick="this.form.p.value=parseInt(this.form.p.value)+1;this.form.submit();" class="button" />{/if}
+</td></tr>
+</table>
+
+{* Beiträge, die bereits ausgewählt sind, sich aber nicht auf dieser Seite befinden *}
+{list SELPOST}<input type="hidden" name="post[]" value="{SELPOST.ID}" />{/list}
+
+<input type="hidden" name="p" value="{P}" />
+<input type="hidden" name="action" value="delposts" />
+<input type="hidden" name="id" value="{ID}" />
+</form>

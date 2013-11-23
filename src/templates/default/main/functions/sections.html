@@ -1,0 +1,15 @@
+{*
+
+Template-Funktion: Sektionen ausgeben
+=====================================
+
+SECTION = Liste der Sektionen
+SECTION.ID = ID
+SECTION.TITLE = Titel
+SECTION.VIRTUALDIR = Name des virtuellen Ordners
+SECTION.LINK = Link zur Startseite der Sektion
+
+*}
+{list SECTION}
+<a href="{SECTION.LINK}">{SECTION.TITLE}</a>
+{/list}

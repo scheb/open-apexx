@@ -1,0 +1,245 @@
+{*
+
+Termine suchen
+==============
+
+Suchformular
+------------
+POSTTO = Formular senden an...
+ITEM = Auswahl: Suchbegriff
+TAG = Auswahl: Tag
+CATEGORY = Liste der Kategorien (für Dropdown)
+CATEGORY.ID = Kategorie-ID
+CATEGORY.TITLE = Kategorie-Titel
+CATEGORY.LEVEL = Level der Untergliederung
+CATEGORY.SELECTED = Ist die Kategorie gewählt?
+START_DAY = Auswahl: Beginn (Tag)
+START_MONTH = Auswahl: Beginn (Monat)
+START_YEAR = Auswahl: Beginn (Jahr)
+END_DAY = Auswahl: Ende (Tag)
+END_MONTH = Auswahl: Ende (Monat)
+END_YEAR = Auswahl: Ende (Jahr)
+LOCATION = Auswahl: Suchbegriff im Ort
+
+
+Suchergebnisse
+--------------
+DAY.EVENT = Liste der Events an diesem Tag
+EVENT.ID = ID
+EVENT.LINK = Link zur Detailansicht
+EVENT.TITLE = Titel
+EVENT.TEXT = Informations-Text
+EVENT.LOCATION = Ort der Veranstaltung
+EVENT.LOCATION_LINK = Link zum Ort
+EVENT.PICTURE = Aufmacher-Bild
+EVENT.PICTURE_POPUP = Link: Großansicht des Aufmacher-Bilds
+EVENT.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+EVENT.USERID = Benutzer-ID des Autors
+EVENT.USERNAME = Benutzername des Autors
+EVENT.HITS = Klicks
+EVENT.PRIORITY = Priorität (1=hoch, 2=normal, 3=niedrig)
+EVENT.RESTRICTED = Altersabfrage aktiviert?
+EVENT.PRIVATE = Privater Termin?
+EVENT.STARTDAY = Beginn dieses Termins. Ausgabe des Datums mit {DATE('d.m.Y',EVENT.STARTDAY)}
+EVENT.STARTTIME = Hat einen Wert, wenn eine konkrete Zeit angegeben wurde. Ausgabe mit {DATE('H:i',EVENT.STARTTIME)}
+EVENT.ENDDAY = Hat einen Wert, wenn der Termin mehrtägig ist. Gibt den letzten Tag des Termins an. Ausgabe mit {DATE('d.m.Y',EVENT.ENDDAY)}
+EVENT.ENDTIME = Hat einen Wert, wenn der Termin mehrtägig ist und zu einem bestimmten Zeitpunkt endet. Ausgabe mit {DATE('H:i',EVENT.ENDTIME)}
+
+EVENT.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+EVENT.TAG = Liste aller Tags
+EVENT.TAG.ID = ID des Tags
+EVENT.TAG.NAME = Darstellbarer Name des Tags
+EVENT.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Angehängte Links
+----------------
+EVENT.RELATED = Liste der "Links zu dieser News"
+EVENT.RELATED.TITLE = Vorangestellte Linkbezeichnung
+EVENT.RELATED.TEXT = Verlinkter Text
+EVENT.RELATED.URL = URL
+EVENT.RELATED.POPUP = Neues Fenster öffnen?
+
+
+Kategorie
+---------
+Kategorie-Informationen stehen bei privaten Terminen nicht zur Verfügung!
+EVENT.CATID = Kategorie-ID
+EVENT.CATTITLE = Kategorie-Titel
+EVENT.CATICON = Pfad zum Kategorie-Symbol
+
+
+Verknüpfte Galerie
+------------------
+Galerie-Verknüpfungen sind bei privaten Terminen nicht möglich!
+EVENT.GALLERY_ID = ID der Galerie
+EVENT.GALLERY_TITLE = Titel der Galerie
+EVENT.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+Kommentare stehen bei privaten Terminen nicht zur Verfügung!
+EVENT.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+EVENT.COMMENT_COUNT = Anzahl der Kommentare
+EVENT.COMMENT_LINK = Link zur Kommentar-Seite
+EVENT.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+EVENT.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+EVENT.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="100%">
+<colgroup><col width="25%" /><col width="75%" /></colgroup>
+<tr><td colspan="2" class="header1">{LANG[HEADLINE_SEARCH]}</td></tr>
+<tr class="color">
+<td>{LANG[ITEM]}:</td>
+<td><input type="text" name="item" value="{ITEM}" class="input" style="width:300px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[LOCATION]}:</td>
+<td><input type="text" name="location" value="{LOCATION}" class="input" style="width:300px;" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid"><option value="">{LANG[ALL]}</option>{list CATEGORY}<option value="{CATEGORY.ID}"{if CATEGORY.SELECTED} selected="selected"{/if}>{repeat CATEGORY.LEVEL-1}&nbsp;&nbsp;{/repeat}{CATEGORY.TITLE}</option>{/list}</select></td>
+</tr>
+<tr class="color">
+<td>{LANG[PERIOD]}:</td>
+<td>
+{LANG[STARTDAY]}: 
+<select name="start_day">
+<option value=""></option>
+<option value="1"{if START_DAY=='1'} selected="selected"{/if}>1</option>
+<option value="2"{if START_DAY=='2'} selected="selected"{/if}>2</option>
+<option value="3"{if START_DAY=='3'} selected="selected"{/if}>3</option>
+<option value="4"{if START_DAY=='4'} selected="selected"{/if}>4</option>
+<option value="5"{if START_DAY=='5'} selected="selected"{/if}>5</option>
+<option value="6"{if START_DAY=='6'} selected="selected"{/if}>6</option>
+<option value="7"{if START_DAY=='7'} selected="selected"{/if}>7</option>
+<option value="8"{if START_DAY=='8'} selected="selected"{/if}>8</option>
+<option value="9"{if START_DAY=='9'} selected="selected"{/if}>9</option>
+<option value="10"{if START_DAY=='10'} selected="selected"{/if}>10</option>
+<option value="11"{if START_DAY=='11'} selected="selected"{/if}>11</option>
+<option value="12"{if START_DAY=='12'} selected="selected"{/if}>12</option>
+<option value="13"{if START_DAY=='13'} selected="selected"{/if}>13</option>
+<option value="14"{if START_DAY=='14'} selected="selected"{/if}>14</option>
+<option value="15"{if START_DAY=='15'} selected="selected"{/if}>15</option>
+<option value="16"{if START_DAY=='16'} selected="selected"{/if}>16</option>
+<option value="17"{if START_DAY=='17'} selected="selected"{/if}>17</option>
+<option value="18"{if START_DAY=='18'} selected="selected"{/if}>18</option>
+<option value="19"{if START_DAY=='19'} selected="selected"{/if}>19</option>
+<option value="20"{if START_DAY=='20'} selected="selected"{/if}>20</option>
+<option value="21"{if START_DAY=='21'} selected="selected"{/if}>21</option>
+<option value="22"{if START_DAY=='22'} selected="selected"{/if}>22</option>
+<option value="23"{if START_DAY=='23'} selected="selected"{/if}>23</option>
+<option value="24"{if START_DAY=='24'} selected="selected"{/if}>24</option>
+<option value="25"{if START_DAY=='25'} selected="selected"{/if}>25</option>
+<option value="26"{if START_DAY=='26'} selected="selected"{/if}>26</option>
+<option value="27"{if START_DAY=='27'} selected="selected"{/if}>27</option>
+<option value="28"{if START_DAY=='28'} selected="selected"{/if}>28</option>
+<option value="29"{if START_DAY=='29'} selected="selected"{/if}>29</option>
+<option value="30"{if START_DAY=='30'} selected="selected"{/if}>30</option>
+<option value="31"{if START_DAY=='31'} selected="selected"{/if}>31</option>
+</select>. 
+<select name="start_month">
+<option value=""></option>
+<option value="1"{if START_MONTH=='1'} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if START_MONTH=='2'} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if START_MONTH=='3'} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if START_MONTH=='4'} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if START_MONTH=='5'} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if START_MONTH=='6'} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if START_MONTH=='7'} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if START_MONTH=='8'} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if START_MONTH=='9'} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if START_MONTH=='10'} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if START_MONTH=='11'} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if START_MONTH=='12'} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select>
+<input type="text" name="start_year" value="{if START_YEAR}{START_YEAR}{/if}" maxlength="4" size="4" class="input" style="width:50px;" /><br />
+{LANG[ENDDAY]}:
+<select name="end_day">
+<option value=""></option>
+<option value="1"{if END_DAY=='1'} selected="selected"{/if}>1</option>
+<option value="2"{if END_DAY=='2'} selected="selected"{/if}>2</option>
+<option value="3"{if END_DAY=='3'} selected="selected"{/if}>3</option>
+<option value="4"{if END_DAY=='4'} selected="selected"{/if}>4</option>
+<option value="5"{if END_DAY=='5'} selected="selected"{/if}>5</option>
+<option value="6"{if END_DAY=='6'} selected="selected"{/if}>6</option>
+<option value="7"{if END_DAY=='7'} selected="selected"{/if}>7</option>
+<option value="8"{if END_DAY=='8'} selected="selected"{/if}>8</option>
+<option value="9"{if END_DAY=='9'} selected="selected"{/if}>9</option>
+<option value="10"{if END_DAY=='10'} selected="selected"{/if}>10</option>
+<option value="11"{if END_DAY=='11'} selected="selected"{/if}>11</option>
+<option value="12"{if END_DAY=='12'} selected="selected"{/if}>12</option>
+<option value="13"{if END_DAY=='13'} selected="selected"{/if}>13</option>
+<option value="14"{if END_DAY=='14'} selected="selected"{/if}>14</option>
+<option value="15"{if END_DAY=='15'} selected="selected"{/if}>15</option>
+<option value="16"{if END_DAY=='16'} selected="selected"{/if}>16</option>
+<option value="17"{if END_DAY=='17'} selected="selected"{/if}>17</option>
+<option value="18"{if END_DAY=='18'} selected="selected"{/if}>18</option>
+<option value="19"{if END_DAY=='19'} selected="selected"{/if}>19</option>
+<option value="20"{if END_DAY=='20'} selected="selected"{/if}>20</option>
+<option value="21"{if END_DAY=='21'} selected="selected"{/if}>21</option>
+<option value="22"{if END_DAY=='22'} selected="selected"{/if}>22</option>
+<option value="23"{if END_DAY=='23'} selected="selected"{/if}>23</option>
+<option value="24"{if END_DAY=='24'} selected="selected"{/if}>24</option>
+<option value="25"{if END_DAY=='25'} selected="selected"{/if}>25</option>
+<option value="26"{if END_DAY=='26'} selected="selected"{/if}>26</option>
+<option value="27"{if END_DAY=='27'} selected="selected"{/if}>27</option>
+<option value="28"{if END_DAY=='28'} selected="selected"{/if}>28</option>
+<option value="29"{if END_DAY=='29'} selected="selected"{/if}>29</option>
+<option value="30"{if END_DAY=='30'} selected="selected"{/if}>30</option>
+<option value="31"{if END_DAY=='31'} selected="selected"{/if}>31</option>
+</select>. 
+<select name="end_month">
+<option value=""></option>
+<option value="1"{if END_MONTH=='1'} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if END_MONTH=='2'} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if END_MONTH=='3'} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if END_MONTH=='4'} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if END_MONTH=='5'} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if END_MONTH=='6'} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if END_MONTH=='7'} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if END_MONTH=='8'} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if END_MONTH=='9'} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if END_MONTH=='10'} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if END_MONTH=='11'} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if END_MONTH=='12'} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select> 
+<input type="text" name="end_year" value="{if END_YEAR}{END_YEAR}{/if}" maxlength="4" size="4" class="input" style="width:50px;" />
+</td>
+</tr>
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[STARTSEARCH]}" class="button" /></td></tr>
+</table>
+</form>
+
+{if EVENT}
+<br />&nbsp;
+
+<!-- TERMINE START -->
+<div>{include ../pages.html}</div>
+<table width="100%" class="events">
+<colgroup>
+<col width="60%" />
+<col width="15%" />
+<col width="25%" />
+</colgroup>
+{list EVENT}
+<tr>
+<td><a href="{EVENT.LINK}">{EVENT.TITLE}</a></td>
+<td class="small">{if EVENT.DISPLAY_COMMENTS}<a href="{EVENT.COMMENT_LINK}">{EVENT.COMMENT_COUNT} {LANG[COMMENTS]}</a>{/if}</td>
+<td class="small">{LANG[EVENTSTART]}: {DATE('d.m.Y',EVENT.STARTDAY)} {if EVENT.STARTTIME}{DATE('H:i',EVENT.STARTTIME)} {LANG[CORE_OCLOCK]}{/if}{if EVENT.ENDDAY}<br />{LANG[EVENTEND]}: {DATE('d.m.Y',EVENT.ENDDAY)} {if EVENT.ENDTIME}{DATE('H:i',EVENT.ENDTIME)} {LANG[CORE_OCLOCK]}{/if}{/if}</td>
+</tr>
+{/list}
+</table>
+<!-- TERMINE ENDE -->
+{/if}

@@ -1,0 +1,122 @@
+{*
+
+Globale Ankündigung
+===================
+
+Ankündigung
+-----------
+ID = Themen-ID
+TITLE = Titel des Beitrags
+TEXT = Text des Beitrags
+TIME = Datum/Zeit (Timestamp)
+RANK = Benutzer-Rang des Autors
+RANK_IMAGE = Symbol für den Benutzer-Rang des Autors (Dateipfad)
+RANK_COLOR = Farbe für den Benutzer-Rang des Autors
+USERID = Benutzer-ID des Autors
+USERNAME = Benutzername des Autors
+USER_POSTS = Foren-Beiträge des Autors
+USER_REGTIME = Zeitpunkt der Registrierung des Autors
+ONLINE = Ist der Autor online?
+IP = IP, mit der dieser Beitrag verfasst wurde
+HOMEPAGE = Homepage des Autors
+AVATAR = Avatar (Pfad zum Bild)
+AVATAR_TITLE = Avatar-Titel
+SIGNATURE = Signatur des Autors
+CITY = Wohnort des Autors
+NEW = Neuer Beitrag?
+
+Benuterdefinierte Profil-Felder des Autors
+------------------------------------------
+CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Kontakt
+-------
+LINK_SENDMAIL = Link: eMail senden
+LINK_SENDPM = Link: Nachricht senden
+CONTACT_ICQ = ICQ-Nummer
+CONTACT_MSN = MSN-ID
+CONTACT_AIM = AIM-ID
+CONTACT_YIM = YIM-ID
+CONTACT_SKYPE = Skype-Name
+
+
+Benutzer-Typen
+--------------
+IS_GUEST = Ist der Autor ein Gast?
+IS_ADMIN = Ist der Autor ein Administrator?
+IS_TEAM = Ist der Autor ein Teammitglied?
+IS_MODERATOR = Ist der Autor Moderator?
+
+*}
+<div id="forum_posts">
+
+<!-- ANKÜNDIGUNG START -->
+<table width="100%">
+<tr>
+<td width="210" class="tableheader">{LANG[AUTHOR]}</td>
+<td class="tableheader" id="refWidth">{LANG[POST]}</td>
+</tr>
+</table>
+
+<div class="space2">&nbsp;</div>
+
+<a name="p{ID}" id="p{ID}"></a>
+<table width="100%" class="post">
+<tr><td class="post_date" colspan="2"><div>{if NEW}<img src="design/post_new.gif" alt="{LANG[NEW]}" title="{LANG[NEW]}" style="vertical-align:bottom;" />{else}<img src="design/post_old.gif" alt="{LANG[OLD]}" title="{LANG[OLD]}" style="vertical-align:bottom;" />{/if} {DATE('date',TIME)} - {DATE('time',TIME)} {LANG[CORE_OCLOCK]}</td></tr>
+<tr>
+<td width="210" class="post_col1" style="vertical-align:top;">
+<div class="post_name">{if USERID}<a href="{PROFILE(USERID)}" target="_blank"{if IS_ADMIN} class="user_admin"{elseif IS_TEAM} class="user_team"{elseif IS_MODERATOR} class="user_moderator"{elseif RANK_COLOR} style="color:{RANK_COLOR};"{/if}>{USERNAME}</a>{else}<span class="user_guest">{USERNAME}</span>{/if}</div>
+{if RANK}<div class="post_rank">{RANK}{if RANK_IMAGE}<br /><img src="{RANK_IMAGE}" alt="" />{/if}</div>{/if}
+{if AVATAR}<div class="post_avatar"><img src="{AVATAR}" alt="" />{if AVATAR_TITLE}<br />{AVATAR_TITLE}{/if}</div>{/if}
+{if STARTER}<div class="post_infos"><img src="design/starter.gif" alt="{LANG[STARTER]}" title="{LANG[STARTER]}" style="vertical-align:middle;" /> {LANG[STARTER]}</div>{/if}
+{if USERID}<div class="post_infos">{LANG[REGSINCE]}: {DATE('F Y',USER_REGTIME)}<br />{if CITY}{LANG[CITY]}: {CITY}<br />{/if}{if HOMEPAGE}<a href="{HOMEPAGE}">{LANG[HOMEPAGE]}</a><br />{/if}{LANG[POSTS]}: {USER_POSTS}</div>{/if}
+</td>
+<td class="post_col2" rowspan="2" style="vertical-align:top;">
+{if TITLE}<div class="post_title">{TITLE}</div>{/if}
+<div class="post_text">{TEXT}
+{if SIGNATURE}<br />_________________________<br />{SIGNATURE}{/if}</div>
+</td>
+</tr>
+<tr>
+<td class="post_col1">
+{if USERID}{if ONLINE}<img src="design/online.gif" alt="{USERNAME} {LANG[ISONLINE]}" title="{USERNAME} {LANG[ISONLINE]}" />{else}<img src="design/offline.gif" alt="{USERNAME} {LANG[ISOFFLINE]}" title="{USERNAME} {LANG[ISOFFLINE]}" />{/if}&nbsp;&nbsp;{/if}
+{if LINK_SENDMAIL} <a href="{LINK_SENDMAIL}"><img src="design/email.gif" alt="{LANG[SENDEMAIL]}" title="{LANG[SENDEMAIL]}" /></a>{/if}
+{if LINK_SENDMAIL} <a href="{LINK_SENDPM}"><img src="design/pm.gif" alt="{LANG[SENDPM]}" title="{LANG[SENDPM]}" /></a>{/if}
+{if LINK_USERPOSTS} <a href="{LINK_USERPOSTS}"><img src="design/search.gif" alt="{LANG[FINDPOSTS]}" title="{LANG[FINDPOSTS]}" /></a>{/if}
+{if LINK_ADDBUDDY} <a href="{LINK_ADDBUDDY}"><img src="design/buddy.gif" alt="{LANG[ADDBUDDY]}" title="{LANG[ADDBUDDY]}" /></a>{/if}
+{if CONTACT_ICQ} <a href="http://www.icq.com/whitepages/about_me.php?uin={CONTACT_ICQ}"><img src="design/icq.gif" alt="ICQ" title="ICQ" /></a>{/if}
+{if CONTACT_MSN} <a href="{PROFILE(USERID)}"><img src="design/msn.gif" alt="MSN Messenger" title="MSN Messenger" /></a>{/if}
+{if CONTACT_AIM} <a href="aim:goim?screenname={CONTACT_AIM}&message=Hallo.+Sind+Sie+da?"><img src="design/aim.gif" alt="AOL Instant Messenger" title="AOL Instant Messenger" /></a>{/if}
+{if CONTACT_YIM} <a href="http://edit.yahoo.com/config/send_webmesg?.target={CONTACT_YIM}&.amp;src=pg"><img src="design/yim.gif" alt="Yahoo Instant Messenger" title="Yahoo Instant Messenger" /></a>{/if}
+{if CONTACT_SKYPE} <a href="skype:{CONTACT_SKYPE}?call"><img src="design/skype.gif" alt="Skype" title="Skype" /></a>{/if}
+</td>
+</tr>
+</table>
+<!-- ANKÜNDIGUNG ENDE -->
+
+</div>
+
+<script type="text/javascript">
+
+//Bilder an Breite anpassen
+function resizeImages(evt) {
+	var maxWidth = yDom.getRegion(yDom.get('refWidth')).width-20;
+	var posts = yDom.getElementsByClassName('post', 'table');
+	for ( var i=0; i<posts.length; i++ ) {
+		var post = posts[i];
+		var content = yDom.getElementsByClassName('post_col2', 'td', post)[0];
+		var images = content.getElementsByTagName('img');
+		for ( var j=0; j<images.length; j++ ) {
+			var image = images[j];
+			if ( image.width>maxWidth ) {
+				image.width = maxWidth;
+			}
+		}
+	}
+}
+
+yEvent.addListener(window, 'load', resizeImages);
+
+</script>

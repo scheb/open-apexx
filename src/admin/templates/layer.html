@@ -1,0 +1,16 @@
+{if SHOWHEADER}
+<div class="tabbar clearfix">
+<ul>
+{list LAYER}
+<li{if LAYER.SELECTED} class="selected"{/if}><a href="{LAYER.LINK}">{LAYER.NAME}</a></li>
+{/list}
+</ul>
+</div>
+<div class="tabbody">
+<div style="width:100%">
+{/if}
+
+{if SHOWFOOTER}
+</div>
+</div>
+{/if}

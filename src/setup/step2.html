@@ -1,0 +1,9 @@
+{if FAILED}
+<p>Es sind Fehler aufgetreten!</p>
+{else}
+<p>Die MySQL-Tabellen des apexx-Core wurden angelegt!</p>
+<form action="index.php" method="post">
+<p align="right"><input type="submit" name="next" value="Weiter &raquo;" class="button" /></p>
+<input type="hidden" name="step" value="2" />
+</form>
+{/if}

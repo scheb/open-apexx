@@ -1,0 +1,79 @@
+{*
+
+Blog-Verwaltung: Neuer Eintrag/Eintrag bearbeiten
+=================================================
+
+POSTTO = Formular senden an...
+PREVIEW = Vorschau des Eintrags
+
+ID = ID des Eintrags (beim Bearbeiten)
+TITLE = Titel-Vorgabe
+TEXT = Text-Vorgabe
+ALLOWCOMS = Kommentare erlaubt
+
+*}
+
+<form name="textform" action="{POSTTO}" method="post">
+{if PREVIEW}
+<table width="100%">
+<tr><td colspan="2" class="header1">{LANG[PREVIEW]}</td></tr>
+<tr><td class="color">{PREVIEW}</td></tr>
+</table>
+&nbsp;
+{/if}
+<table width="100%">
+<colgroup><col width="30%" /><col width="70%" /></colgroup>
+<tr><td colspan="2" class="header1">{if ID}{LANG[EDITENTRY]}{else}{LANG[NEWENTRY]}{/if}</td></tr>
+<tr>
+<td class="color">{LANG[TITLE]}:</td>
+<td class="color"><input type="text" name="title" value="{TITLE}" class="input" style="width:400px;" /></td>
+</tr>
+<tr>
+<td class="color">{LANG[TEXT]}:<br /><br /><br /><span class="small">&raquo; <a href="javascript:showcodes()">Codes</a><br />&raquo; <a href="javascript:showsmilies('','textform','text')">Smilies</a></span></td>
+<td class="color">
+<div class="editor">
+<div style="float:right;">
+<div><a href="javascript:field_collapse(document.forms.textform.text);"><img src="design/editor/field_collapse.gif" alt="{LANG[FIELDCOLLAPSE]}" title="{LANG[FIELDCOLLAPSE]}" /></a></div>
+<div><a href="javascript:field_expand(document.forms.textform.text);"><img src="design/editor/field_expand.gif" alt="{LANG[FIELDEXPAND]}" title="{LANG[FIELDEXPAND]}" /></a></div>
+</div>
+<a href="javascript:simplecode('textinput','B');"><img src="design/editor/bold.gif" alt="{LANG[BOLD]}" title="{LANG[BOLD]}" /></a><a href="javascript:simplecode('textinput','I');"><img src="design/editor/italic.gif" alt="{LANG[ITALIC]}" title="{LANG[ITALIC]}" /></a><a href="javascript:simplecode('textinput','U');"><img src="design/editor/underline.gif" alt="{LANG[UNDERLINE]}" title="{LANG[UNDERLINE]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:linkcodenew('textinput','URL');"><img src="design/editor/link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /></a><a href="javascript:linkcodenew('textinput','EMAIL');"><img src="design/editor/email.gif" alt="{LANG[EMAIL]}" title="{LANG[EMAIL]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:simplecode('textinput','QUOTE');"><img src="design/editor/quote.gif" alt="{LANG[QUOTE]}" title="{LANG[QUOTE]}" /></a>
+</div>
+<textarea name="text" id="textinput" rows="20" style="width:98%;">{TEXT}</textarea>
+</td>
+</tr>
+{if MODULE_COMMENTS}
+<tr class="color">
+<td>{LANG[ALLOWCOMS]}</td>
+<td><input type="checkbox" name="allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} /></td>
+</tr>
+{/if}
+<tr><td class="footer" colspan="2"><input type="submit" name="send" value="{if ID}{LANG[EDITENTRY]}{else}{LANG[NEWENTRY]}{/if}" accesskey="s" class="button" />  <input type="submit" name="preview" value="{LANG[PREVIEW]}" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="myblog" />
+
+{* Eintrag bearbeiten *}
+{if ID}
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="do" value="edit" />
+
+{* Neuer Eintrag *}
+{else}
+<input type="hidden" name="do" value="add" />
+{/if}
+</form>
+
+<script type="text/javascript" src="lib/javascript/public_popups.js"></script>
+<script type="text/javascript" src="lib/javascript/public_codes.js"></script>
+<script type="text/javascript">
+<!--
+var lang_entertext="{LANG[CORE_ENTERTEXT]}";
+var lang_enterltext="{LANG[CORE_ENTERLTEXT]}";
+var lang_entermail="{LANG[CORE_ENTEREMAIL]}";
+var lang_enterurl="{LANG[CORE_ENTERURL]}";
+var lang_charsleft='{LANG[CHARSLEFT]}';
+-->
+</script>

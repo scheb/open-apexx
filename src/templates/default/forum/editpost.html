@@ -1,0 +1,164 @@
+{*
+
+Beitrag bearbeiten
+==================
+
+PREVIEW = Vorschau
+
+ID = Themen-ID
+HASH = Hash-Wert (WICHTIG!)
+FIRST = Dies ist der erste Beitrag eines Themas (dann Themenicons anzeigen)
+USERID = Benutzer-ID des Autors
+USERNAME = Eingabe: Benutername
+TITLE = Eingabe: Titel
+TEXT = Eingabe: Text
+ICON = ID des Themenicons
+ANNCOUNCE = Der Benutzer hat das Recht Ankündigungen zu erstellen
+STICKY_TYPE = Art der Ankündigung
+STICKY_TEXT = Benutzerdefiniertes Präfix für Ankündigungen
+TRANSFORM_LINKS = Eingabe: Links automatisch transformieren (AN/AUS)
+ALLOWCODES = Eingabe: Codes erlauben (AN/AUS)
+ALLOWSMILIES = Eingabe: Smilies erlauben (AN/AUS)
+ALLOWSIG = Eingabe: Signatur anfügen (AN/AUS)
+SET_CODES = Codes sind global erlaubt?
+SET_SMILIES = Smilies sind global erlaubt?
+
+
+Präfixe
+-------
+PREFIX = Liste der verfügbaren Prefixes
+PREFIX.ID = ID
+PREFIX.TITLE = Titel
+
+
+Anhänge
+-------
+ATTACH = Ist es dem Benutzer erlaubt Anhänge hinzuzufügen?
+ATTACHMENT_TYPES = Erlaubte Dateitypen
+ATTACHMENT = Anhänge
+
+
+Themenicons
+-----------
+ICONLIST = Liste aller Themenicons
+ICONLIST.ID = ID
+ICONLIST.IMAGE = Pfad zur Bilddatei
+
+
+Smileyliste
+-----------
+SMILEYLIST = Liste von Smilies
+SMILEYLIST.IMAGE = Pfad zur Bilddatei
+SMILEYLIST.INSERTCODE = Code zum einfügen in Javascript
+
+
+*}
+
+{if PREVIEW}
+<table width="100%">
+<tr><td class="form_header">{LANG[PREVIEW]}</td></tr>
+<tr><td class="cell1">{PREVIEW}</td></tr>
+</table>
+
+<div style="height:20px;">&nbsp;</div>
+{/if}
+
+<form name="message" action="admin.php" method="post">
+<table width="100%">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tr><td class="form_header" colspan="2">{LANG[HEADLINE_EDITPOST]}</td></tr>
+<tr class="cell1">
+<td>{LANG[USERNAME]}:</td>
+<td>{if USERID}{USERNAME}{else}<input type="text" name="username" value="{USERNAME}" class="textbox" maxlength="30" tabindex="1" style="width:200px;" />{/if}</td>
+</tr>
+<tr class="cell2">
+<td>{LANG[TITLE]}:{if !FIRST} <span class="small">({LANG[OPTIONAL]})</span>{/if}</td>
+<td>
+{if PREFIX}
+<select name="prefix">
+<option></option>
+{list PREFIX}<option value="{PREFIX.ID}"{if PREFIX.SELECTED} selected="selected"{/if}>{PREFIX.TITLE}</option>{/list}
+</select>
+{/if}
+<input type="text" name="title" value="{TITLE}" class="textbox" maxlength="255" tabindex="1" style="width:400px;" /></td>
+</tr>
+{if FIRST}{NEXTCELL=2}
+<tr class="cell1">
+<td>{LANG[ICON]}:</td>
+<td><label for="icon_none"><input type="radio" name="icon" id="icon_none" value="none"{if ICON=='none' || ICON===''} checked="checked"{/if} style="vertical-align:bottom;" /> {LANG[NOICON]}</label>&nbsp;&nbsp; {list ICONLIST}<label for="icon_id{ICONLIST.ID}" style="white-space:nowrap;"><input type="radio" name="icon" id="icon_id{ICONLIST.ID}" value="{ICONLIST.ID}"{if ICON===ICONLIST.ID} checked="checked"{/if} style="vertical-align:bottom;" /> <img src="{ICONLIST.IMAGE}" alt="" /></label>&nbsp;&nbsp; {/list}</td>
+</tr>
+{else}{NEXTCELL=1}{/if}
+<tr class="cell{NEXTCELL}">
+<td>
+{LANG[TEXT]}:<br /><br />
+<span class="small">&raquo; <a href="javascript:showcodes()">{LANG[CODES]}</a><br />&raquo; <a href="javascript:showsmilies('..','message','text')">{LANG[SMILEYS]}</a></span><br /><br /><br />
+
+<table align="center" class="smileylist">
+{list SMILEYLIST}{++COUNTER}
+{if COUNTER%4==1}<tr>{/if}
+<td><a href="javascript:insert_code('text','{SMILEYLIST.INSERTCODE}','','')"><img src="{SMILEYLIST.IMAGE}" alt="" /></a></td>
+{if COUNTER%4==0}</tr>{/if}
+{/list}
+{if COUNTER%4}{repeat 4-COUNTER%4}<td>&nbsp;</td>{/repeat}</tr>{/if}
+</table>
+</div>
+
+</td>
+<td>
+{include editor.html}
+<textarea name="text" id="text" rows="15" cols="80" tabindex="1" style="width:98%">{TEXT}</textarea>
+</td>
+</tr>
+{if FIRST && ANNOUNCE}
+<tr class="cell1">
+<td>{LANG[STICKY]}:</td>
+<td>
+<label for="sticky_type1"><input type="radio" name="sticky_type" id="sticky_type1" value="no"{if STICKY_TYPE=='no'} checked="checked"{/if} tabindex="1" style="vertical-align:middle;" /> {LANG[NO]}</label> &nbsp;&nbsp;
+<label for="sticky_type2"><input type="radio" name="sticky_type" id="sticky_type2" value="announcement"{if STICKY_TYPE=='announcement'} checked="checked"{/if} tabindex="1" style="vertical-align:middle;" /> {LANG[ANNOUNCEMENT]}</label> &nbsp;&nbsp;
+<label for="sticky_type3"><input type="radio" name="sticky_type" id="sticky_type3" value="important"{if STICKY_TYPE=='important'} checked="checked"{/if} tabindex="1" style="vertical-align:middle;" /> {LANG[IMPORTANT]}</label> &nbsp;&nbsp;
+<label for="sticky_type4"><input type="radio" name="sticky_type" id="sticky_type4" value="own"{if STICKY_TYPE=='own'} checked="checked"{/if} tabindex="1" style="vertical-align:middle;" /> {LANG[OWNTEXT]}</label>: <input type="text" name="sticky_text" value="{STICKY_TEXT}" class="textbox" maxlength="255" style="width:150px;" onchange="getobject('sticky_type4').checked=true;" />
+</td>
+</tr>
+{/if}
+{if CAPTCHA}<tr class="cell2">
+<td>{LANG[CAPTCHA]}:</td>
+<td>{CAPTCHA} =&gt; <input type="text" name="captcha" class="textbox" style="width:100px;" tabindex="1" /></td>
+</tr>{/if}
+
+{if ATTACH}<tr><td class="space1" colspan="2">&nbsp;</td></tr>
+<tr><td class="form_header" colspan="2">{LANG[ATTACHMENTS]}</td></tr>
+<tr class="cell1">
+<td colspan="2">
+<div>{LANG[ATTACHINFO]}: {ATTACHMENT_TYPES}</div>
+<div id="attachlist" style="padding:3px 0px;">{ATTACHMENTS}</div>
+<div><input type="button" name="attach" value="{LANG[ATTACH]}" tabindex="1" onclick="att.manager({ID},'{HASH}');" class="button" /></div>
+</td>
+</tr>{/if}
+
+<tr><td class="space1" colspan="2">&nbsp;</td></tr>
+<tr><td class="form_header" colspan="2">{LANG[OPTIONS]}</td></tr>
+<tr class="cell1">
+<td colspan="2">
+{if SET_CODES}<label for="input_transform_links"><input type="checkbox" name="transform_links" id="input_transform_links" value="1"{if TRANSFORM_LINKS} checked="checked"{/if} tabindex="1" style="vertical-align:middle;" /> {LANG[TRANSFORM_LINKS]}</label><br />
+<label for="input_allowcodes"><input type="checkbox" name="allowcodes" id="input_allowcodes" value="1"{if ALLOWCODES} checked="checked"{/if} tabindex="1" style="vertical-align:middle;" /> {LANG[ALLOWCODES]}</label><br />{/if}
+{if SET_SMILIES}<label for="input_allowsmilies"><input type="checkbox" name="allowsmilies" id="input_allowsmilies" value="1"{if ALLOWSMILIES} checked="checked"{/if} tabindex="1" style="vertical-align:middle;" /> {LANG[ALLOWSMILIES]}</label><br />{/if}
+<label for="input_allowsig"><input type="checkbox" name="allowsig" id="input_allowsig" value="1"{if ALLOWSIG} checked="checked"{/if} tabindex="1" style="vertical-align:middle;" /> {LANG[ALLOWSIG]}</label>
+</td>
+</tr>
+<tr><td class="space2" colspan="2">&nbsp;</td></tr>
+<tr><td class="form_footer" colspan="2"><input type="submit" name="send" value="{LANG[UPDATE]}" class="button" tabindex="1" accesskey="s" /> <input type="submit" name="preview" value="{LANG[PREVIEW]}" tabindex="1" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="editpost" />
+<input type="hidden" name="hash" value="{HASH}" />
+<input type="hidden" name="id" value="{ID}" />
+</form>
+
+<script type="text/javascript" src="lib/attachment.js"></script>
+<script type="text/javascript">
+<!--
+var att=new attachment('attachlist');
+//-->
+</script>

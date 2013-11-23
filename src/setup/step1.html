@@ -1,0 +1,13 @@
+<ul>
+<li class="green">MySQL-Verbindung aufgebaut</li>
+<li class="green">&quot;cache&quot;-Ordner hat Schreibrechte</li>
+{if WRITEABLE_UPLOADS}<li class="green">&quot;uploads&quot;-Ordner hat Schreibrechte</li>{else}{FAILED=1}<li class="red">&quot;uploads&quot;-Ordner hat KEINE Schreibrechte</li>{/if}
+</ul>
+
+{if FAILED}
+<p>Es sind Fehler aufgetreten! Beheben Sie die Fehler, und starten Sie die Installation neu.</p>
+{else}
+<form action="index.php" method="post">
+<p align="right"><input type="submit" name="next" value="Weiter &raquo;" class="button" /></p>
+</form>
+{/if}

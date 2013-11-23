@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>apexx - {LANG[CORE_ADMINISTRATION]} | {LANG[CORE_MESSAGE]}</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+{if REDIRECT}<meta http-equiv="refresh" content="3; URL={REDIRECT}">{/if}
+<link rel="stylesheet" href="design/import.css" type="text/css" />
+<script type="text/javascript" src="../lib/yui/yahoo/yahoo-min.js"></script>
+<script type="text/javascript" src="../lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="../lib/javascript/global.js"></script>
+<script type="text/javascript" src="../lib/javascript/admin_basic.js"></script>
+</head>
+<body{if OVERLAY} style="background:transparent;"{/if}>
+
+<script type="text/javascript">
+<!--
+
+//Titelleiste aktualisieren
+if ( typeof(parent.document)!='undefined' && typeof(parent.document)!='unknown' && typeof(parent.document.title)=='string' ) {
+	parent.document.title = 'apexx - {LANG[CORE_ADMINISTRATION]} | {HEADLINE}';
+}
+
+//-->
+</script>
+
+<div id="messagebox">
+<div id="message_shadow">
+<div id="message_text">
+{CONTENT}
+{if REDIRECT}<p id="message_redirect">&raquo; <a href="{REDIRECT}">{LANG[CORE_FASTREDIRECT]}</a> &laquo;</p>{/if}
+</div>
+</div>
+</div>
+
+</body>
+</html>

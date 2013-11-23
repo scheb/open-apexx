@@ -1,0 +1,76 @@
+<form action="action.php" name="textform" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_GLOSSAR_ADD]}{else}{LANG[TITLE_GLOSSAR_EDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid">{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" size="50" maxlength="255" class="input" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[SPELLING]}:<br /><small>({LANG[SEPBYCOMMA]}, {LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="spelling" value="{SPELLING}" size="80" maxlength="255" class="input" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[INLINESCREENS]}:</td>
+<td>{INLINE('text')}</td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td>{TEXTAREA('text',25,TEXT)}</td>
+</tr>
+<tr>
+<td>{LANG[TAGS]}:<br /><small>({LANG[OPTIONAL]}, {LANG[TAGSINFO]})</small></td>
+<td><input type="text" name="tags" value="{TAGS}" size="30" class="input" style="width:400px;" /><div id="taglist" class="taglist"></div></td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin:10px 0;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[OPTIONS]}</td></tr>
+<tr><td colspan="2">
+{if SET_GLOSSAR_SEARCHABLE}<input type="checkbox" name="searchable" id="ip_searchable" value="1"{if SEARCHABLE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_searchable"> {LANG[SEARCHABLE]}</label><br />{/if}
+{if MODULE_COMMENTS}{if SET_GLOSSAR_COMS}<input type="checkbox" name="allowcoms" id="ip_allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_allowcoms"> {LANG[ALLOWCOMS]}</label><br />{/if}{/if}
+{if MODULE_RATINGS}{if SET_GLOSSAR_RATINGS}<input type="checkbox" name="allowrating" id="ip_allowrating" value="1"{if ALLOWRATING} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_allowrating"> {LANG[ALLOWRATING]}</label><br />{/if}{/if}
+{if ACTION=='add' && RIGHT_GLOSSAR_ENABLE}<input type="checkbox" name="pubnow" id="ip_pubnow" value="1"{if PUBNOW} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_pubnow"> {LANG[PUBNOW]}</label>{/if}
+</td></tr>
+</table>
+
+<table width="100%" class="table">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="glossar.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="ignore" value="0" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/yui/datasource/datasource-min.js"></script>
+<script type="text/javascript" src="../lib/yui/autocomplete/autocomplete-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/tagsuggest.js"></script>
+
+<script type="text/javascript" src="../lib/javascript/objecttoolbox.js"></script>
+
+<script type="text/javascript">
+
+yEvent.onDOMReady(function() {
+	new TagSuggest(document.forms[0].tags, yDom.get('taglist'), 200);
+	{if RIGHT_GLOSSAR_CATADD}new ObjectToolbox(document.forms[0].catid, 'glossar.catadd');{/if}
+});
+
+</script>

@@ -1,0 +1,353 @@
+{*
+
+Themen-Ansicht
+==============
+
+Thema
+-----
+THREADID = ID des Themas
+THREAD_TITLE = Titel des Themas
+THREAD_LINK = Link zum Thema
+THREAD_DELETED = Ist das Thema gelöscht?
+FORUMID = ID des Forums
+FORUM_TITLE = Titel des Forums
+FORUM_LINK = Link zum Forum
+CLOSED = Thema geschlossen?
+RIGHT_OPEN = Hat der Benutzer das Recht ein neues Thema zu eröffnen?
+RIGHT_POST = Hat der Benutzer das Recht einen neuen Beitrag zu schreiben?
+RIGHT_DELTHREAD = Hat der Benutzer dieses Thema zu löschen?
+POSTSPERPAGE = Beiträge pro Seite (Benutzereinstellung)
+LOGGED_IS_ADMIN = Ist der angemeldete Benutzer ein Administrator?
+LOGGED_IS_MODERATOR = Ist der angemeldete Benutzer ein Moderator?
+HASH = Hash-Wert zum Erstellen von Beiträgen (WICHTIG!)
+
+
+Beiträge
+--------
+POST = Liste der Beiträge
+POST.ID = ID des Beitrags
+POST.TITLE = Titel des Beitrags
+POST.TEXT = Text des Beitrags
+POST.TIME = Datum/Zeit (Timestamp)
+POST.RANK = Benutzer-Rang des Autors
+POST.RANK_IMAGE = Symbol für den Benutzer-Rang des Autors (Dateipfad)
+POST.RANK_COLOR = Farbe für den Benutzer-Rang des Autors
+POST.USERID = Benutzer-ID des Autors
+POST.USERNAME = Benutzername des Autors
+POST.USER_POSTS = Foren-Beiträge des Autors
+POST.USER_REGTIME = Zeitpunkt der Registrierung des Autors
+POST.ONLINE = Ist der Autor online?
+POST.IP = IP, mit der dieser Beitrag verfasst wurde
+POST.HOMEPAGE = Homepage des Autors
+POST.AVATAR = Avatar (Pfad zum Bild)
+POST.AVATAR_TITLE = Avatar-Titel
+POST.SIGNATURE = Signatur des Autors
+POST.CITY = Wohnort des Autors
+POST.NEW = Neuer Beitrag?
+POST.DELETED = Beitrag gelöscht?
+POST.STARTER = Ist der Autor des Beitrags Themenstarter?
+POST.NUMBER = Nummer des Beirags
+POST.FIRST = Ist dies der erste Beitrag in diesem Thema?
+POST.LASTEDIT_TIME = Zeitpunkt der letzten Bearbeitung
+POST.LASTEDIT_USERNAME = Benutzer, der den Beitrag zuletzt bearbeitet hat
+POST.RIGHT_DELPOST = Hat der aktuelle Benutzer das Recht diesen Beitrag zu löschen?
+POST.RIGHT_EDITPOST = Hat der aktuelle Benutzer das Recht diesen Beitrag zu bearbeiten?
+
+Benuterdefinierte Profil-Felder des Autors
+------------------------------------------
+POST.CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+POST.CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Optionen
+--------
+POST.LINK_SENDMAIL = Link: eMail senden
+POST.LINK_SENDPM = Link: Nachricht senden
+POST.LINK_USERPOSTS = Beiträge vom Benutzer finden
+POST.CONTACT_ICQ = ICQ-Nummer
+POST.CONTACT_MSN = MSN-ID
+POST.CONTACT_AIM = AIM-ID
+POST.CONTACT_YIM = YIM-ID
+POST.CONTACT_SKYPE = Skype-Name
+
+
+Benutzer-Typen
+--------------
+POST.IS_GUEST = Ist der Autor ein Gast?
+POST.IS_ADMIN = Ist der Autor ein Administrator?
+POST.IS_TEAM = Ist der Autor ein Teammitglied?
+POST.IS_MODERATOR = Ist der Autor Moderator?
+
+
+Anhänge
+-------
+POST.ATTACHMENT = Liste der Anhänge zu diesem Beitrag
+POST.ATTACHMENT.ICON = Dateisymbol
+POST.ATTACHMENT.NAME = Name der Datei
+POST.ATTACHMENT.LINK = Link zur Datei
+POST.ATTACHMENT.SIZE = Dateigröße
+
+
+Angehängte Bilder
+-----------------
+POST.IMAGEATTACHMENT = Liste der Anhänge zu diesem Beitrag
+POST.IMAGEATTACHMENT.THUMBNAIL = Pfad zum Thumbnail
+POST.IMAGEATTACHMENT.ICON = Dateisymbol
+POST.IMAGEATTACHMENT.NAME = Name der Datei
+POST.IMAGEATTACHMENT.LINK = Link zur Datei
+POST.IMAGEATTACHMENT.SIZE = Dateigröße
+
+
+Aktive Benutzer
+---------------
+ACTIVITY_USERS = Anzahl aktive Benutzer
+ACTIVITY_GUESTS = Anzahl aktive Gäste
+ACTIVITY = Liste aller aktiven Benutzer
+ACTIVITY.USERID = Benutzer-ID
+ACTIVITY.USERNAME = Benutzername
+ACTIVITY.RANK_COLOR = Farbe für den Rang des Benutzers
+ACTIVITY.INVISIBLE = Ist der Benutzer unsichtbar?
+ACTIVITY.IS_ADMIN = Ist der Benutzer ein Administrator?
+ACTIVITY.IS_TEAM = Ist der Benutzer ein Teammitglied?
+ACTIVITY.IS_MODERATOR = Ist der Benutzer Moderator?
+
+
+Themen-Optionen
+---------------
+LINK_SUBSCRIBE = Link: Thema abonnieren
+LINK_TELL = Link: Thema weiterempfehlen
+LINK_PRINT = Link: Thema drucken
+
+
+Thema bewerten
+--------------
+DISPLAY_RATING = Soll die Wertung angezeigt werden?
+RATING = Bewertung (1-5)
+RATING_VOTES = Stimmen
+Alle weiteren Platzhalter finden Sie in der Datei templates/default/ratings/rating.html
+
+*}
+{if THREAD_DELETED}
+<p class="deleted_info">{LANG[INFO_THREADDELETED]}</p>
+{/if}
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-bottom:5px;">
+<tr>
+<td width="100%" class="forumpages">{include pages.html}</td>
+<td style="white-space:nowrap;">{if RIGHT_OPEN}<a href="newthread.php?id={FORUMID}"><img src="design/newthread.gif" alt="{LANG[NEWTHREAD]}" title="{LANG[NEWTHREAD]}" /></a> {/if}{if !THREAD_DELETED && RIGHT_POST}<a href="newpost.php?id={THREADID}"><img src="design/newpost.gif" alt="{LANG[NEWPOST]}" title="{LANG[NEWPOST]}" /></a>{else}&nbsp;{/if}</td>
+</tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+<div id="forum_posts">
+
+<!-- BEITRÄGE START -->
+<table width="100%">
+<tr>
+<td width="210" class="tableheader">{LANG[AUTHOR]}</td>
+<td class="tableheader" id="refWidth">{LANG[POST]}</td>
+</tr>
+</table>
+{list POST}
+
+<div class="space2">&nbsp;</div>
+
+{if POST.DELETED}
+<a name="p{POST.ID}" id="p{POST.ID}"></a>
+<table width="100%" class="post">
+<tr>
+<td class="post_deleted">
+{if LOGGED_IS_ADMIN || LOGGED_IS_MODERATOR}<span class="options"><a href="post.php?id={POST.ID}">{LANG[SHOWPOST]}</a>, <a href="admin.php?action=recoverpost&amp;id={POST.ID}">{LANG[RECOVERPOST]}</a>{if !POST.FIRST}, <a href="admin.php?action=delpost&amp;id={POST.ID}">{LANG[REALDEL]}</a>{/if}</span>{/if}
+{LANG[DELETEDPOSTOF]} {if POST.USERID}<a href="{PROFILE(POST.USERID)}" target="_blank"{if POST.IS_ADMIN} class="user_admin"{elseif POST.IS_TEAM} class="user_team"{elseif POST.IS_MODERATOR} class="user_moderator"{elseif POST.RANK_COLOR} style="color:{POST.RANK_COLOR};"{/if}>{POST.USERNAME}</a>{else}<span class="user_guest">{POST.USERNAME}</span>{/if}, {DATE('date',POST.TIME)} - {DATE('time',POST.TIME)} {LANG[CORE_OCLOCK]}
+</td>
+</tr>
+</table>
+
+{else}
+<a name="p{POST.ID}" id="p{POST.ID}"></a>
+<table width="100%" class="post">
+<tr><td class="post_date" colspan="2"><div style="float:right;"><a href="post.php?id={POST.ID}">#{POST.NUMBER}</a></div>{if POST.NEW}<img src="design/post_new.gif" alt="{LANG[NEW]}" title="{LANG[NEW]}" style="vertical-align:bottom;" />{else}<img src="design/post_old.gif" alt="{LANG[OLD]}" title="{LANG[OLD]}" style="vertical-align:bottom;" />{/if} {DATE('date',POST.TIME)} - {DATE('time',POST.TIME)} {LANG[CORE_OCLOCK]}</td></tr>
+<tr>
+<td width="210" class="post_col1" style="vertical-align:top;">
+<div class="post_name">{if POST.USERID}<a href="{PROFILE(POST.USERID)}" target="_blank"{if POST.IS_ADMIN} class="user_admin"{elseif POST.IS_TEAM} class="user_team"{elseif POST.IS_MODERATOR} class="user_moderator"{elseif POST.RANK_COLOR} style="color:{POST.RANK_COLOR};"{/if}>{POST.USERNAME}</a>{else}<span class="user_guest">{POST.USERNAME}</span>{/if}</div>
+{if POST.RANK}<div class="post_rank">{POST.RANK}{if POST.RANK_IMAGE}<br /><img src="{POST.RANK_IMAGE}" alt="" />{/if}</div>{/if}
+{if POST.AVATAR}<div class="post_avatar"><img src="{POST.AVATAR}" alt="" />{if POST.AVATAR_TITLE}<br />{POST.AVATAR_TITLE}{/if}</div>{/if}
+{if POST.STARTER}<div class="post_infos"><img src="design/starter.gif" alt="{LANG[STARTER]}" title="{LANG[STARTER]}" style="vertical-align:middle;" /> {LANG[STARTER]}</div>{/if}
+{if POST.USERID}<div class="post_infos">{LANG[REGSINCE]}: {DATE('F Y',POST.USER_REGTIME)}<br />{if POST.CITY}{LANG[CITY]}: {POST.CITY}<br />{/if}{if POST.HOMEPAGE}<a href="{POST.HOMEPAGE}">{LANG[HOMEPAGE]}</a><br />{/if}{LANG[POSTS]}: {POST.USER_POSTS}</div>{/if}
+</td>
+<td class="post_col2" style="vertical-align:top;">
+{if POST.TITLE}<div class="post_title">{POST.TITLE}</div>{/if}
+<div class="post_text">{POST.TEXT}
+{if POST.IMAGEATTACHMENT}<fieldset class="post_imgattachments"><legend>{LANG[IMAGEATTACHMENTS]}</legend>{list POST.IMAGEATTACHMENT}<a href="{POST.IMAGEATTACHMENT.LINK}" target="_blank"><img src="{POST.IMAGEATTACHMENT.THUMBNAIL}" alt="{POST.IMAGEATTACHMENT.NAME}" /></a>{/list}</fieldset>{/if}
+{if POST.ATTACHMENT}<fieldset class="post_attachments"><legend>{LANG[ATTACHMENTS]}</legend>{list POST.ATTACHMENT}<div><img src="{POST.ATTACHMENT.ICON}" alt="" style="vertical-align:middle;" /> <a href="{POST.ATTACHMENT.LINK}" target="_blank">{POST.ATTACHMENT.NAME}</a> ({POST.ATTACHMENT.SIZE})</div>{/list}</fieldset>{/if}
+{if POST.SIGNATURE}<br />_________________________<br />{POST.SIGNATURE}{/if}</div>
+{if POST.LASTEDIT_TIME}<div class="post_lastedit">{LANG[LASTEDIT]} {DATE('date',POST.LASTEDIT_TIME)} - {DATE('time',POST.LASTEDIT_TIME)} {LANG[CORE_OCLOCK]} {LANG[BY]} {POST.LASTEDIT_USERNAME}</div>{/if}
+</td>
+</tr>
+<tr>
+<td class="post_col1">
+{if POST.USERID}{if POST.ONLINE}<img src="design/online.gif" alt="{POST.USERNAME} {LANG[ISONLINE]}" title="{POST.USERNAME} {LANG[ISONLINE]}" />{else}<img src="design/offline.gif" alt="{POST.USERNAME} {LANG[ISOFFLINE]}" title="{POST.USERNAME} {LANG[ISOFFLINE]}" />{/if}&nbsp;&nbsp;{/if}
+{if POST.LINK_SENDMAIL} <a href="{POST.LINK_SENDMAIL}"><img src="design/email.gif" alt="{LANG[SENDEMAIL]}" title="{LANG[SENDEMAIL]}" /></a>{/if}
+{if POST.LINK_SENDMAIL} <a href="{POST.LINK_SENDPM}"><img src="design/pm.gif" alt="{LANG[SENDPM]}" title="{LANG[SENDPM]}" /></a>{/if}
+{if POST.LINK_USERPOSTS} <a href="{POST.LINK_USERPOSTS}"><img src="design/search.gif" alt="{LANG[FINDPOSTS]}" title="{LANG[FINDPOSTS]}" /></a>{/if}
+{if POST.LINK_ADDBUDDY} <a href="{POST.LINK_ADDBUDDY}"><img src="design/buddy.gif" alt="{LANG[ADDBUDDY]}" title="{LANG[ADDBUDDY]}" /></a>{/if}
+{if POST.CONTACT_ICQ} <a href="http://www.icq.com/whitepages/about_me.php?uin={POST.CONTACT_ICQ}"><img src="design/icq.gif" alt="ICQ" title="ICQ" /></a>{/if}
+{if POST.CONTACT_MSN} <a href="{PROFILE(POST.USERID)}"><img src="design/msn.gif" alt="MSN Messenger" title="MSN Messenger" /></a>{/if}
+{if POST.CONTACT_AIM} <a href="aim:goim?screenname={POST.CONTACT_AIM}&message=Hallo.+Sind+Sie+da?"><img src="design/aim.gif" alt="AOL Instant Messenger" title="AOL Instant Messenger" /></a>{/if}
+{if POST.CONTACT_YIM} <a href="http://edit.yahoo.com/config/send_webmesg?.target={POST.CONTACT_YIM}&.amp;src=pg"><img src="design/yim.gif" alt="Yahoo Instant Messenger" title="Yahoo Instant Messenger" /></a>{/if}
+{if POST.CONTACT_SKYPE} <a href="skype:{POST.CONTACT_SKYPE}?call"><img src="design/skype.gif" alt="Skype" title="Skype" /></a>{/if}
+</td>
+<td class="post_col2"><div class="post_panel">
+{if !THREAD_DELETED}
+{if LOGGED_IS_ADMIN || LOGGED_IS_MODERATOR} <a href="admin.php?action=ipstats&amp;id={POST.ID}"><img src="design/button_ip.gif" alt="{LANG[IPSTATS]} {POST.IP}" title="{LANG[IPSTATS]} {POST.IP}" /></a>{/if}
+{if POST.RIGHT_EDITPOST || LOGGED_IS_ADMIN || LOGGED_IS_MODERATOR} <a href="admin.php?action=editpost&amp;id={POST.ID}"><img src="design/button_edit.gif" alt="{LANG[EDITPOST]}" title="{LANG[EDITPOST]}" /></a>{/if}
+{if POST.FIRST}
+{if POST.RIGHT_DELTHREAD || LOGGED_IS_ADMIN || LOGGED_IS_MODERATOR} <a href="admin.php?action=delthread&amp;id={THREADID}"><img src="design/button_deletethread.gif" alt="{LANG[DELTHREAD]}" title="{LANG[DELTHREAD]}" /></a>{/if}
+{else}
+{if POST.RIGHT_DELPOST || LOGGED_IS_ADMIN || LOGGED_IS_MODERATOR} <a href="admin.php?action=delpost&amp;id={POST.ID}"><img src="design/button_delete.gif" alt="{LANG[DELPOST]}" title="{LANG[DELPOST]}" /></a>{/if}
+{/if}
+{if LOGGED_ID} <a href="report.php?id={POST.ID}"><img src="design/button_report.gif" alt="{LANG[REPORT]}" title="{LANG[REPORT]}" /></a>{/if}
+{if RIGHT_POST} <a href="newpost.php?id={THREADID}&amp;quote={POST.ID}"><img src="design/button_quote.gif" alt="{LANG[QUOTEIT]}" title="{LANG[QUOTEIT]}" /></a>{/if}
+{/if}
+</div></td>
+</tr>
+</table>
+{/if}
+{/list}
+
+</div>
+
+{if LOGGED_ID}
+<table width="100%">
+<tr><td colspan="2" class="space2">&nbsp;</td></tr>
+<tr><td colspan="2" class="tablefooter" style="text-align:right;">
+{if LOGGED_IS_ADMIN || LOGGED_IS_MODERATOR}
+<form action="admin.php" method="post" style="float:left;">
+{LANG[ADMINOPTIONS]}: <select name="action" onchange="if ( this.options[this.selectedIndex].value!='' ) window.location.href='admin.php?action='+this.options[this.selectedIndex].value+'&id={THREADID}'">
+<option value="" selected="selected"></option>
+{if THREAD_DELETED}
+<option value="delthread">{LANG[REALDEL]}</option>
+{else}
+{if CLOSED}<option value="openthread">{LANG[OPENTHREAD]}</option>{else}<option value="closethread">{LANG[CLOSETHREAD]}</option>{/if}
+<option value="movethread">{LANG[MOVETHREAD]}</option>
+<option value="delthread">{LANG[DELTHREAD]}</option>
+<option disabled="disabled">---------</option>
+<option value="splitthread">{LANG[SPLITTHREAD]}</option>
+<option value="mergeposts">{LANG[MERGEPOSTS]}</option>
+<option value="delposts">{LANG[DELPOSTS]}</option>
+{/if}
+</select> <input type="submit" value="{LANG[GO]}" class="button" /><input type="hidden" name="id" value="{THREADID}" />
+</form>
+{/if}
+<form action="{PAGE_FIRST}" method="post"><select name="ppp" onchange="this.form.submit();">
+<option value="5"{if POSTSPERPAGE==5} selected="selected"{/if}>5 {LANG[POSTSPERPAGE]}</option>
+<option value="10"{if POSTSPERPAGE==10} selected="selected"{/if}>10 {LANG[POSTSPERPAGE]}</option>
+<option value="15"{if POSTSPERPAGE==15} selected="selected"{/if}>15 {LANG[POSTSPERPAGE]}</option>
+<option value="20"{if POSTSPERPAGE==20} selected="selected"{/if}>20 {LANG[POSTSPERPAGE]}</option>
+<option value="30"{if POSTSPERPAGE==30} selected="selected"{/if}>30 {LANG[POSTSPERPAGE]}</option>
+<option value="40"{if POSTSPERPAGE==40} selected="selected"{/if}>40 {LANG[POSTSPERPAGE]}</option>
+<option value="50"{if POSTSPERPAGE==50} selected="selected"{/if}>50 {LANG[POSTSPERPAGE]}</option>
+</select> <input type="submit" name="send" value="{LANG[GO]}" class="button" /><input type="hidden" name="id" value="{THREADID}" /></form>
+</td></tr>
+</table>
+{/if}
+<!-- BEITRÄGE ENDE -->
+
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-top:5px;">
+<tr>
+<td width="100%" class="forumpages">{include pages.html}</td>
+<td style="white-space:nowrap;">{if RIGHT_OPEN}<a href="newthread.php?id={FORUMID}"><img src="design/newthread.gif" alt="{LANG[NEWTHREAD]}" title="{LANG[NEWTHREAD]}" /></a> {/if}{if !THREAD_DELETED && RIGHT_POST}<a href="newpost.php?id={THREADID}"><img src="design/newpost.gif" alt="{LANG[NEWPOST]}" title="{LANG[NEWPOST]}" /></a>{else}&nbsp;{/if}</td>
+</tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+
+<!-- SCHNELLANTWORT START -->
+{if RIGHT_POST && LOGGED_ID}
+<div style="height:30px;">&nbsp;</div>
+
+<form name="message" action="newpost.php" method="post">
+<table width="100%">
+<tr><td class="form_header">{LANG[QUICKANSWER]}</td></tr>
+<tr class="cell1">
+<td>
+{include editor.html}
+<textarea name="text" id="text" rows="7" cols="80" style="width:98%">{TEXT}</textarea>
+</td>
+</tr>
+<tr>
+<td class="form_footer"><input type="submit" name="send" value="{LANG[NEWPOST]}" class="button" accesskey="s" /> <input type="submit" name="extend" value="{LANG[EXTEND]}" class="button" /></td>
+</tr>
+</table>
+<input type="hidden" name="allowcodes" value="1" />
+<input type="hidden" name="allowsmilies" value="1" />
+<input type="hidden" name="allowsig" value="1" />
+<input type="hidden" name="transform_links" value="1" />
+<input type="hidden" name="id" value="{THREADID}" />
+<input type="hidden" name="hash" value="{HASH}" />
+</form>
+{/if}
+<!-- SCHNELLANTWORT ENDE -->
+
+
+<!-- AKTIVE USER START -->
+<table width="100%" style="margin-top:20px;">
+<tr><td class="infobox_header">{LANG[CURRENTACTIVITY]} ({ACTIVITY_USERS} {LANG[USERS]}, {ACTIVITY_GUESTS} {LANG[GUESTS]})</td></tr>
+<tr>
+<td class="infobox">{list ACTIVITY}{++AI}{if AI>1}, {/if}<a href="{PROFILE(ACTIVITY.USERID)}" style="{if ACTIVITY.INVISIBLE}font-style:italic;{/if}{if ACTIVITY.RANK_COLOR && !ACTIVITY.IS_ADMIN && !ACTIVITY.IS_TEAM && !ACTIVITY.IS_MODERATOR}color:{ACTIVITY.RANK_COLOR};{/if}"{if ACTIVITY.IS_ADMIN} class="user_admin"{elseif ACTIVITY.IS_TEAM} class="user_team"{elseif ACTIVITY.IS_MODERATOR} class="user_moderator"{/if}>{ACTIVITY.USERNAME}</a>{/list}</td>
+</tr>
+</table>
+<!-- AKTIVE USER ENDE -->
+
+
+<!-- OPTIONEN START -->
+<table width="100%" style="margin-top:20px;">
+<tr>
+{if DISPLAY_RATING}<td width="33%" class="infobox_header">{LANG[RATETHREAD]}</td>{/if}
+<td width="33%" class="infobox_header">{LANG[SEARCH]}</td>
+<td width="33%" class="infobox_header">{LANG[OPTIONS]}</td>
+</tr>
+<tr>
+{if DISPLAY_RATING}<td class="infobox">
+{if RATING}<div style="padding-bottom:4px;">{LANG[CURRENTRATING]}: <img src="design/{RATING}star.gif" alt="{RATING}" /> ({RATING_VOTES})</div>{/if}
+<form action="{RATING_POSTTO}" method="post">
+<select name="rating"><option value="5">{LANG[5STARS]}</option><option value="4">{LANG[4STARS]}</option><option value="3">{LANG[3STARS]}</option><option value="2">{LANG[2STARS]}</option><option value="1">{LANG[1STAR]}</option></select> <input type="submit" name="sendrate" value="{LANG[SUBMITRATE]}" class="button" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="mid" value="{MID}" />
+</form>
+</td>{/if}
+<td class="infobox"><form action="search.php" method="post"><input type="text" name="keywords_req" class="textbox" style="width:200px;" /> <input type="submit" name="send" value="{LANG[GO]}" class="button" /><input type="hidden" name="forumid[]" value="{FORUMID}" /></form>&raquo; <a href="search.php">{LANG[EXTENDEDSEARCH]}</a></td>
+<td class="infobox">
+<img src="design/print.gif" alt="{LANG[PRINT]}" style="vertical-align:middle;" /> <a href="{LINK_PRINT}" target="_blank">{LANG[PRINT]}</a><br />
+<img src="design/tell.gif" alt="{LANG[TELL]}" style="vertical-align:middle;" /> <a href="{LINK_TELL}">{LANG[TELL]}</a><br />
+{if LINK_SUBSCRIBE}<img src="design/subscribe.gif" alt="{LANG[SUBSCRIBE]}" style="vertical-align:middle;" /> <a href="{LINK_SUBSCRIBE}">{LANG[SUBSCRIBE]}</a>{/if}
+</td>
+</tr>
+</table>
+<!-- OPTIONEN ENDE -->
+
+<script type="text/javascript">
+
+//Bilder an Breite anpassen
+function resizeImages(evt) {
+	var maxWidth = yDom.getRegion(yDom.get('refWidth')).width-20;
+	var posts = yDom.getElementsByClassName('post', 'table');
+	for ( var i=0; i<posts.length; i++ ) {
+		var post = posts[i];
+		var content = yDom.getElementsByClassName('post_col2', 'td', post)[0];
+		var images = content.getElementsByTagName('img');
+		for ( var j=0; j<images.length; j++ ) {
+			var image = images[j];
+			if ( image.width>maxWidth ) {
+				image.width = maxWidth;
+			}
+		}
+	}
+}
+
+yEvent.addListener(window, 'load', resizeImages);
+
+</script>

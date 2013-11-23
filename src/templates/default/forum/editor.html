@@ -1,0 +1,36 @@
+{*
+
+Editor-Buttons
+==============
+
+*}
+<script type="text/javascript">
+<!--
+
+var lang_enterimage='{LANG[ENTERIMAGE]}';
+var lang_enterlink='{LANG[ENTERLINK]}';
+var lang_enteremail='{LANG[ENTEREMAIL]}';
+var lang_enterlist='{LANG[ENTERLIST]}';
+
+//-->
+</script>
+<script type="text/javascript" src="lib/editor.js"></script>
+<div class="editor">
+<select name="font" onchange="formatcode('text','FONT',this)"><option value="">{LANG[FONT]}</option><option value="Arial">Arial</option><option value="Arial Black">Arial Black</option><option value="Arial Narrow">Arial Narrow</option><option value="Book Antiqua">Book Antiqua</option><option value="Century Gothic">Century Gothic</option><option value="Comic Sans MS">Comic Sans MS</option><option value="Courier New">Courier New</option><option value="Fixedsys">Fixedsys</option><option value="Franklin Gothic Medium">Franklin Gothic Medium</option><option value="Garamond">Garamond</option><option value="Georgia">Georgia</option><option value="Impact">Impact</option><option value="Lucida Console">Lucida Console</option><option value="Lucida Sans Unicode">Lucida Sans Unicode</option><option value="Microsoft Sans Serif">Microsoft Sans Serif</option><option value="Palatino Linotype">Palatino Linotype</option><option value="System">System</option><option value="Tahoma">Tahoma</option><option value="Times New Roman">Times New Roman</option><option value="Trebuchet MS">Trebuchet MS</option><option value="Verdana">Verdana</option></select> 
+<select name="size" onchange="formatcode('text','SIZE',this)"><option value="">{LANG[FONTSIZE]}</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select> 
+<select name="color" onchange="formatcode('text','COLOR',this)"><option value="">{LANG[COLOR]}</option><option value="black" style="background:black;">black</option><option value="white" style="background:white;">white</option><option value="silver" style="background:silver;">silver</option><option value="skyblue" style="background:skyblue;">skyblue</option><option value="royalblue" style="background:royalblue;">royalblue</option><option value="blue" style="background:blue;">blue</option><option value="darkblue" style="background:darkblue;">darkblue</option><option value="orange" style="background:orange;">orange</option><option value="orangered" style="background:orangered;">orangered</option><option value="crimson" style="background:crimson;">crimson</option><option value="red" style="background:red;">red</option><option value="firebrick" style="background:firebrick;">firebrick</option><option value="darkred" style="background:darkred;">darkred</option><option value="green" style="background:green;">green</option><option value="limegreen" style="background:limegreen;">limegreen</option><option value="seagreen" style="background:seagreen;">seagreen</option><option value="deeppink" style="background:deeppink;">deeppink</option><option value="tomato" style="background:tomato;">tomato</option><option value="coral" style="background:coral;">coral</option><option value="purple" style="background:purple;">purple</option><option value="indigo" style="background:indigo;">indigo</option><option value="burlywood" style="background:burlywood;">burlywood</option><option value="sandybrown" style="background:sandybrown;">sandybrown</option><option value="sienna" style="background:sienna;">sienna</option><option value="chocolate" style="background:chocolate;">chocolate</option><option value="teal" style="background:teal;">teal</option></select>
+<br />
+<div style="float:right;">
+<div><a href="javascript:field_collapse(document.forms.message.text);"><img src="design/editor/field_collapse.gif" alt="{LANG[FIELDCOLLAPSE]}" title="{LANG[FIELDCOLLAPSE]}" /></a></div>
+<div><a href="javascript:field_expand(document.forms.message.text);"><img src="design/editor/field_expand.gif" alt="{LANG[FIELDEXPAND]}" title="{LANG[FIELDEXPAND]}" /></a></div>
+</div>
+<a href="javascript:simplecode('text','B');"><img src="design/editor/bold.gif" alt="{LANG[BOLD]}" title="{LANG[BOLD]}" /></a><a href="javascript:simplecode('text','I');"><img src="design/editor/italic.gif" alt="{LANG[ITALIC]}" title="{LANG[ITALIC]}" /></a><a href="javascript:simplecode('text','U');"><img src="design/editor/underline.gif" alt="{LANG[UNDERLINE]}" title="{LANG[UNDERLINE]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:simplecode('text','LEFT');"><img src="design/editor/left.gif" alt="{LANG[LEFT]}" title="{LANG[LEFT]}" /></a><a href="javascript:simplecode('text','CENTER');"><img src="design/editor/center.gif" alt="{LANG[CENTER]}" title="{LANG[CENTER]}" /></a><a href="javascript:simplecode('text','RIGHT');"><img src="design/editor/right.gif" alt="{LANG[RIGHT]}" title="{LANG[RIGHT]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:linkcode('text','IMG');"><img src="design/editor/image.gif" alt="{LANG[IMAGE]}" title="{LANG[IMAGE]}" /></a><a href="javascript:linkcode('text','URL');"><img src="design/editor/link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /></a><a href="javascript:linkcode('text','EMAIL');"><img src="design/editor/email.gif" alt="{LANG[EMAIL]}" title="{LANG[EMAIL]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:listcode('text','');"><img src="design/editor/insertunorderedlist.gif" alt="{LANG[LIST]}" title="{LANG[LIST]}" /></a><a href="javascript:listcode('text','1');"><img src="design/editor/insertorderedlist.gif" alt="{LANG[NUMERICLIST]}" title="{LANG[NUMERICLIST]}" /></a><a href="javascript:listcode('text','a');"><img src="design/editor/insertalphabeticlist.gif" alt="{LANG[ALPHALIST]}" title="{LANG[ALPHALIST]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:simplecode('text','QUOTE');"><img src="design/editor/quote.gif" alt="{LANG[QUOTE]}" title="{LANG[QUOTE]}" /></a><a href="javascript:simplecode('text','CODE');"><img src="design/editor/code.gif" alt="{LANG[CODE]}" title="{LANG[CODE]}" /></a><a href="javascript:simplecode('text','HTML');"><img src="design/editor/html.gif" alt="{LANG[HTMLCODE]}" title="{LANG[HTMLCODE]}" /></a><a href="javascript:simplecode('text','PHP');"><img src="design/editor/php.gif" alt="{LANG[PHPCODE]}" title="{LANG[PHPCODE]}" /></a>
+</div>

@@ -1,0 +1,14 @@
+{*
+
+Nachricht: Buddy löschen?
+=========================
+
+ID = ID des Buddys
+
+*}
+
+<p>{LANG[MSG_TEXT]}</p>
+<p><input type="submit" name="apxsubmit" value="{LANG[DELBUDDY]}" id="count" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="javascript:history.back()" class="button" /></p>
+<input type="hidden" name="action" value="delbuddy" />
+<input type="hidden" name="id" value="{ID}" />
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}

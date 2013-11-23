@@ -1,0 +1,98 @@
+{*
+
+Template-Funktion: Informationen zu einem Benutzer
+==================================================
+
+Benutzer-Funktionen
+-------------------
+LINK_PROFILE = Link: Zum Profil des Benutzers
+LINK_BLOG = Link: Zum Blog des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GUESTBOOK = Zum Gästebuch des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GALLERY = Zur Galerie des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_COLLECTION = Zur Sammlung des Benutzers (nur verfügbar, wenn aktiviert und Produkt-Modul vorhanden)
+
+
+Profil
+------
+USERNAME = Benutzername
+GROUP = Benutzergruppe
+EMAIL = eMail-Adresse
+EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+REGDATE = Tag/Zeit der Registrierung (Timestamp)
+REGDAYS = Tage seit der Registrierung
+LASTACTIVE = Letzte Aktivität (Timestamp)
+HOMEPAGE = Homepage
+ICQ = MSN-Uin
+AIM = AIM-Uin
+YIM = YIM-Uin
+MSN = MSN-Uin
+SKYPE = Skype-Name
+REALNAME = Echter Name
+GENDER = Geschlecht (1=m, 2=w)
+BIRTHDAY = Geburtstag
+CITY = Wohnort
+INTERESTS = Interessen
+WORK = Beruf
+SIGNATURE = Signatur
+AVATAR = Avatar
+AVATAR_TITLE = Avatar-Titel
+COMMENTS = Anzahl der Kommentare (nur vorhanden, wenn Kommentar-Modul aktiv)
+
+
+Benuterdefinierte Felder
+------------------------
+CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Buddyliste
+----------
+BUDDY = Liste der Buddies
+BUDDY.ID = Benutzer-ID
+BUDDY.USERNAME = Benutzername
+BUDDY.GROUPID = ID der Benutzergruppe
+BUDDY.EMAIL = eMail-Adresse des Buddy
+BUDDY.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+BUDDY.ONLINE = Ist der Buddy online?
+BUDDY.REALNAME = Echter Name
+BUDDY.GENDER = Geschlecht (1=m, 2=w)
+BUDDY.CITY = Stadt
+BUDDY.PLZ = Postleitzahl
+BUDDY.COUNTRY = Land
+BUDDY.REGTIME = Datum/Zeit der Registrierung (Timestamp)
+BUDDY.REGDAYS = Tage seit der Registrierung
+BUDDY.LASTACTIVE = Zuletzt aktiv (Timestamp)
+BUDDY.AVATAR = Pfad zum Avatar
+BUDDY.AVATAR_TITLE = Avatar-Titel
+BUDDY.BIRTHDAY = Geburtstag
+BUDDY.AGE = Alter
+BUDDY.ISBUDDY = Ist dieser Benutzer Freund des angemeldeten Benutzers?
+BUDDY.LINK_SENDEMAIL = Link: eMail an Buddy senden
+BUDDY.LINK_SENDPM = Link: PN an Buddy senden
+
+
+Benuterdefinierte Felder
+------------------------
+BUDDY.CUSTOM1_NAME -> BUDDY.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+BUDDY.CUSTOM1 -> BUDDY.CUSTOM10 = Wert des Eingabefelds
+
+
+Interaktionen
+-------------
+Diese Variablen stehen nur zur Verfügung, wenn man angemeldet ist.
+LINK_BUDDY = Link: In die eigene Buddyliste aufnehmen
+LINK_SENDEMAIL = Link: eMail schreiben
+LINK_SENDPM = Link: Persönliche Nachricht schreiben
+
+
+Forum
+-----
+Diese Variablen stehen nur zur Verfügung, wenn das Forum-Modul von apexx verwendet wird.
+FORUM_POSTS = Anzahl der Beiträge im Forum
+FORUM_LASTACTIVE = Letzte Aktivität um Forum (Timestamp)
+FORUM_FINDPOSTS = Link: Beiträge des Benuters finden
+
+
+*}
+
+<p>{if AVATAR}<img src="{AVATAR}" alt="" /><br />{/if}{USERNAME}</p>

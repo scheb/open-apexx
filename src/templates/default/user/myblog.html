@@ -1,0 +1,46 @@
+{*
+
+Blog-Verwaltung: Übersicht
+==========================
+
+LINK_NEW = Link: Neuen Blogeintrag erstellen
+
+Blog-Einträge
+-------------
+ENTRY.ID = ID des Eintrags
+ENTRY.TITLE = Titel
+ENTRY.TIME = Veröffentlichung (Timestamp)
+ENTRY.LINK_EDIT = Link: Diesen Eintrag bearbeiten
+ENTRY.LINK_DEL = Link: Diesen Eintrag löschen
+
+
+Seitenzahlen (Template includen?)
+---------------------------------
+PAGE_COUNT = Anzahl der Seiten
+PAGE_SELECTED = Ausgewählte Seitenzahl
+PAGE = Liste der Seitenzahlen
+PAGE.NUMBER = Seitenzahl
+PAGE.LINK = Link
+PAGE_PREVIOUS = Link "vorherige Seite"
+PAGE_NEXT = Link "nächste Seite"
+PAGE_FIRST = Link "erste Seite"
+PAGE_LAST = Link "letzte Seite"
+
+*}
+<p><a href="{LINK_NEW}">&raquo; {LANG[NEWENTRY]}</a></p>
+{include ../pages.html}
+<table width="100%">
+<tr>
+<td width="60%" class="header2">{LANG[TITLE]}</td>
+<td width="30%" class="header2">{LANG[DATE]}</td>
+<td width="10%" class="header2">&nbsp;</td>
+</tr>
+{list ENTRY}
+<tr class="color">
+<td>{ENTRY.TITLE}</td>
+<td align="center">{DATE('d.m.Y - H:i',ENTRY.TIME)}</td>
+<td align="center"><a href="{ENTRY.LINK_EDIT}"><img src="design/edit.gif" alt="" /></a> <a href="{ENTRY.LINK_DEL}"><img src="design/delete.gif" alt="" /></a></td>
+</tr>
+{/list}
+{if !ENTRY}<tr><td class="color" colspan="3" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>

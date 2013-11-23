@@ -1,0 +1,32 @@
+{*
+
+Template-Funktion: Userstatus setzen
+====================================
+
+POSTTO = Formular senden an...
+
+Status
+------
+STATUS = Aktueller Status-Text
+STATUS_SMILEY = Aktueller Status-Smiley
+
+Smilies
+-------
+SMILEY = Liste der verfügbaren Smilies
+SMILEY.CODE = Code
+SMILEY.INSERTCODE = Code mit maskierten Anführungszeichen (für Javascript)
+SMILEY.IMAGE = Pfad zum Smilie-Bild
+SMILEY.DESCRIPTION = Beschreibung des Smilies
+
+*}
+
+<div style="margin-top:10px;">
+{LANG[SET_YOUR_STATUS]}
+<form action="{POSTTO}" method="post">
+{list SMILEY}{++SCOUNT}{if SCOUNT<=10}
+<input type="radio" name="status_smiley" value="{SMILEY.CODE}"{if SMILEY.CODE==STATUS_SMILEY} checked="checked"{/if} /><img src="{SMILEY.IMAGE}" alt="{SMILEY.CODE}" /> &nbsp;
+{/if}{/list}
+<textarea name="status" style="font-size:11px;width:120px;">{STATUS}</textarea>
+<input type="submit" name="send" value="{LANG[SAVE_STATUS]}" class="button" style="font-size:11px;" />
+</form>
+</div>

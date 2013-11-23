@@ -1,0 +1,24 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<tr class="tableheader"><td colspan="2">{LANG[HEADLINE]}</td></tr>
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[DIR]}:</td>
+<td><input type="text" name="dir" value="{DIR}" class="input" size="10" style="width:100px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="70" maxlength="255" style="width:300px;" /></td>
+</tr>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="main.lshow" />
+<input type="hidden" name="do" value="add" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

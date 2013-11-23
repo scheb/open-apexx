@@ -1,0 +1,43 @@
+{*
+
+RSS-Feed für Artikel
+====================
+
+WEBSITENAME = Titel der Website (in der Konfiguration eingestellt)
+
+ARTICLE = Liste der Artikel
+ARTICLE.TITLE = Titel
+ARTICLE.SUBTITLE = Untertitel
+ARTICLE.TEASER = Teaser-Text
+ARTICLE.TEXT = Text
+ARTICLE.TIME = Zeit+Datum im RFC2822-Format
+ARTICLE.LINK = Link zum Artikel
+ARTICLE.USERNAME = Benutzername des Autors
+ARTICLE.EMAIL = eMail-Adresse des Autors
+ARTICLE.CATTITLE = Kategorie-Titel
+ARTICLE.TOP = Top-Artikel?
+
+*}
+<?xml version="1.0" encoding="{CHARSET}" ?>
+<rss version="2.0">
+<channel>
+<title>{WEBSITENAME} Artikel</title>
+<link>{SERVER_HTTPHOST}</link>
+<description></description>
+<language>de</language>
+
+{list ARTICLE}
+<item>
+<guid>{ARTICLE.LINK}</guid>
+<title><![CDATA[ {ARTICLE.TITLE}{if ARTICLE.SUBTITLE} - {ARTICLE.SUBTITLE}{/if} ]]></title>
+<link>{ARTICLE.LINK}</link>
+<description><![CDATA[ {if ARTICLE.TEASER}{ARTICLE.TEASER}{else}{SHORTTEXT(ARTICLE.TEXT,300)}{/if} ]]></description>
+<pubDate>{ARTICLE.TIME}</pubDate>
+{if ARTICLE.EMAIL}<author>{ARTICLE.EMAIL} ({ARTICLE.USERNAME})</author>{/if}
+<category><![CDATA[ {ARTICLE.CATTITLE} ]]></category>
+</item>
+
+{/list}
+
+</channel>
+</rss>

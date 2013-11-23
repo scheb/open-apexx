@@ -1,0 +1,34 @@
+{*
+
+Galerie-Verwaltung: Meine Galerien
+==================================
+
+LINK_NEW = Link: Neue Galerie anlegen
+
+GALLERY = Liste der Galerien
+GALLERY.ID = ID der Galerie
+GALLERY.LINK = Link zur Galerie
+GALLERY.TITLE = Titel der Galerie
+GALLERY.COUNT = Anzahl der Bilder in der Galerie
+GALLERY.LINK_EDIT = Link: Galerie bearbeiten
+GALLERY.LINK_DEL = Link: Galerie löschen
+GALLERY.LINK_PICS = Link: Bilder verwalten
+
+*}
+<p><a href="{LINK_NEW}">&raquo; {LANG[ADDGALLERY]}</a></p>
+
+<table width="100%">
+<tr>
+<td width="60%" class="header2">{LANG[TITLE]}</td>
+<td width="30%" class="header2">{LANG[PICTURECOUNT]}</td>
+<td width="10%" class="header2">&nbsp;</td>
+</tr>
+{list GALLERY}
+<tr class="color">
+<td><a href="{GALLERY.LINK}">{GALLERY.TITLE}</a></td>
+<td align="center">{GALLERY.COUNT}</td>
+<td align="center"><a href="{GALLERY.LINK_EDIT}"><img src="design/edit.gif" alt="" /></a> <a href="{GALLERY.LINK_DEL}"><img src="design/delete.gif" alt="" /></a> <a href="{GALLERY.LINK_PICS}"><img src="design/image.gif" alt="" /></a></td>
+</tr>
+{/list}
+{if !GALLERY}<tr><td class="color" colspan="3" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>

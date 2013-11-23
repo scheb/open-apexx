@@ -1,0 +1,22 @@
+{*
+
+Seitenzahlen für Kommentare
+===========================
+
+COMMENT_PAGE_COUNT = Anzahl der Seiten
+COMMENT_PAGE_SELECTED = Ausgewählte Seitenzahl
+COMMENT_PAGE = Liste der Seitenzahlen
+COMMENT_PAGE.NUMBER = Seitenzahl
+COMMENT_PAGE.LINK = Link
+COMMENT_PAGE_PREVIOUS = Link "vorherige Seite"
+COMMENT_PAGE_NEXT = Link "nächste Seite"
+COMMENT_PAGE_FIRST = Link "erste Seite"
+COMMENT_PAGE_LAST = Link "letzte Seite"
+
+*}
+
+<p class="pages">{LANG[CORE_PAGES]} ({COMMENT_PAGE_COUNT}): 
+{if COMMENT_PAGE_PREVIOUS} <a href="{COMMENT_PAGE_PREVIOUS}">&laquo;</a>{/if}
+{list COMMENT_PAGE}{if COMMENT_PAGE.NUMBER==COMMENT_PAGE_SELECTED} [{COMMENT_PAGE.NUMBER}]{else} <a href="{COMMENT_PAGE.LINK}">{COMMENT_PAGE.NUMBER}</a>{/if}{/list}
+{if COMMENT_PAGE_NEXT} <a href="{COMMENT_PAGE_NEXT}">&raquo;</a>{/if}
+</p>

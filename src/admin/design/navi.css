@@ -1,0 +1,160 @@
+body {
+	padding:0 1px 10px 0;
+	margin:0;
+	background:#1a1a1a url('nav_bg.gif') right top repeat-y;
+	font-family:tahoma, verdana, arial, sans-serif;
+	color:#f2f2f2;
+}
+
+img {
+	border:0px;
+}
+
+a {
+	color:#f2f2f2;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+a:link,
+a:active,
+a:visited {
+	
+}
+
+a:hover {
+	text-decoration:underline;
+}
+
+
+
+/* NAVI HEAD */
+
+#logo {
+	padding:5px 5px 7px 5px;
+	text-align:center;
+}
+
+#buttons {
+	padding:0 0 5px 0;
+	text-align:center;
+}
+
+#buttons a {
+	margin:0 5px;
+	outline:none;
+}
+
+#navi_sections {
+	padding:0 0 5px 0;
+	text-align:center;
+}
+
+#navi_sections select {
+	width:150px;
+}
+
+
+
+/* NAVIGATION */
+
+.navi {
+	display:block;
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+
+.navi_header {
+	position:relative;
+	max-width:250px;
+}
+
+.navi_header a.navi_header {
+	display:block;
+	height:27px;
+	padding:0 5px 0 15px;
+	margin-bottom:-1px;
+	color:#f2f2f2;
+	font-weight:bold;
+	font-size:11px;
+	text-decoration:none;
+	line-height:27px;
+	background:url('nav_point.gif') no-repeat;
+	outline:none;
+}
+
+.navi_header span.move {
+	display:block;
+	position:absolute;
+	top:1px;
+	left:0;
+	z-index:99;
+	width:10px;
+	height:25px;
+	cursor:move !important;
+}
+
+.navi_header a.navi_header span.inner {
+	display:block;
+	height:27px;
+	cursor:pointer;
+}
+
+.navi_header a.navi_header:hover {
+	color:#000;
+	background-image:url('nav_point_h.gif');
+}
+
+.navi_header.expanded a.navi_header span.inner {
+	background:url('expanded_black.gif') right center no-repeat;
+}
+
+.navi_header.collapsed a.navi_header span.inner {
+	background:url('collapsed_black.gif') right center no-repeat;
+}
+
+.navi_header.expanded a.navi_header:hover span.inner {
+	background:url('expanded_white.gif') right center no-repeat;
+}
+
+.navi_header.collapsed a.navi_header:hover span.inner {
+	background:url('collapsed_white.gif') right center no-repeat;
+}
+
+ul.navi_sub {
+	display:block;
+	padding:0;
+	margin:0;
+	list-style:none;
+	font-weight:bold;
+	font-size:11px;
+	line-height:14px;
+	padding:2px 2px 10px 7px;
+}
+
+li.navi_sub {
+	height:auto;
+	padding:0;
+	margin:0;
+	padding-left:10px;
+	background:url('nav_dot.gif') no-repeat;
+	background-position:left center;
+}
+
+li.navi_sub a {
+	outline:none;
+}
+
+
+
+/* FORMULAR */
+form {
+	margin:0px;
+}
+
+select {
+	font-family:tahoma, verdana, arial, sans-serif;
+	font-size:11px;
+	color:#2B2B2B;
+}

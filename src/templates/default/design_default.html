@@ -1,0 +1,201 @@
+{*
+
+Standard-Design
+===============
+
+CHARSET = In der Konfiguration festgelegtes Charset
+CONTENT = Inhalt der Seite
+
+HEADLINE = Liste der Headline-Pfad-Elemente
+HEADLINE.TEXT = Text eines Elements
+HEADLINE.LINK = Link zu einem Pfadelement
+
+META_DESCRIPTION = Meta-Description der jeweiligen Seiten (optional)
+
+*}
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>apexx - CMS &amp; Portalsystem |{if SECTION_TITLE} {SECTION_TITLE} &raquo;{/if} {TITLEBAR}</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+{if META_DESCRIPTION}<meta name="description" content="{META_DESCRIPTION}" />{/if}
+<link rel="stylesheet" href="design/import.css" type="text/css" />
+<link href="misc.php?action=newsfeed" type="application/rss+xml" rel="alternate" title="News RSS-Feed" />
+<link href="misc.php?action=articlesfeed" type="application/rss+xml" rel="alternate" title="Artikel RSS-Feed" />
+<link href="misc.php?action=downloadsfeed" type="application/rss+xml" rel="alternate" title="Downloads RSS-Feed" />
+<link href="misc.php?action=linksfeed" type="application/rss+xml" rel="alternate" title="Links RSS-Feed" />
+<link href="misc.php?action=galleryfeed" type="application/rss+xml" rel="alternate" title="Galerie RSS-Feed" />
+<script type="text/javascript">
+<!--
+
+function roll_in(obj,name) {
+	obj.src='design/button_'+name+'_h.gif';
+}
+
+function roll_out(obj,name) {
+	obj.src='design/button_'+name+'.gif';
+}
+
+//-->
+</script>
+</head>
+<body>
+
+<div class="base">
+
+<!-- HEADER START -->
+<div class="header">
+<div class="header_line1"><img src="design/1px.gif" alt="" /></div>
+<div class="header_line2"><img src="design/1px.gif" alt="" /></div>
+<div class="header_line3"><img src="design/1px.gif" alt="" /></div>
+<div class="header_menu">
+<div class="header_menu_edge"><img src="design/menu_edge.gif" alt="" /></div>
+<div class="header_menu_buttons"><a href="index.php{if SECTION_ID}?sec={SECTION_ID}{/if}"><img src="design/button_home.gif" alt="Startseite" title="Startseite" onmouseover="roll_in(this,'home')" onmouseout="roll_out(this,'home')" /></a><a href="search.php{if SECTION_ID}?sec={SECTION_ID}{/if}"><img src="design/button_search.gif" alt="Seite durchsuchen" title="Seite durchsuchen" onmouseover="roll_in(this,'search')" onmouseout="roll_out(this,'search')" /></a><a href="{TELL()}"><img src="design/button_tell.gif" alt="Seite empfehlen" title="Seite empfehlen" onmouseover="roll_in(this,'tell')" onmouseout="roll_out(this,'tell')" /></a>{if LOGGED_ID}<a href="{BOOKMARK()}"><img src="design/button_bookmark.gif" alt="Seite bookmarken" title="Seite bookmarken" onmouseover="roll_in(this,'bookmark')" onmouseout="roll_out(this,'bookmark')" /></a>{/if}<a href="{PRINT()}"><img src="design/button_print.gif" alt="Drucken" title="Drucken" onmouseover="roll_in(this,'print')" onmouseout="roll_out(this,'print')" /></a><a href="contact.php{if SECTION_ID}?sec={SECTION_ID}{/if}"><img src="design/button_contact.gif" alt="Kontakt" title="Kontakt" onmouseover="roll_in(this,'contact')" onmouseout="roll_out(this,'contact')" /></a></div>
+</div>
+</div>
+<!-- HEADER ENDE -->
+
+<!-- MAIN START -->
+<div class="main">
+<div class="navi1">
+<div class="logo"><a href="index.php{if SECTION_ID}?sec={SECTION_ID}{/if}"><img src="design/logo.gif" alt="apexx Logo" /></a></div>
+
+<div class="navi_header"><div style="float:right;padding-right:5px;"><a href="misc.php?action=newsfeed"><img src="design/rss.gif" alt="RSS" /></a></div>News</div>
+<div class="navi_sub">
+<a href="news.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Aktuell</a>
+<a href="newsarchive.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Archiv</a>
+<a href="sendnews.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Einsenden</a>
+</div>
+
+<div class="navi_header"><div style="float:right;padding-right:5px;"><a href="misc.php?action=articlesfeed"><img src="design/rss.gif" alt="RSS" /></a></div>Artikel</div>
+<div class="navi_sub">
+<a href="articles.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Artikel</a>
+<a href="previews.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Vorschauen</a>
+<a href="reviews.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Tests</a>
+<a href="articlearchive.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Archiv</a>
+</div>
+
+<div class="navi_header"><div style="float:right;padding-right:5px;"><a href="misc.php?action=downloadsfeed"><img src="design/rss.gif" alt="RSS" /></a></div>Downloads</div>
+<div class="navi_sub">
+<a href="downloads.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Downloads</a>
+<a href="senddownload.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Einsenden</a>
+</div>
+
+<div class="navi_header"><div style="float:right;padding-right:5px;"><a href="misc.php?action=linksfeed"><img src="design/rss.gif" alt="RSS" /></a></div>Links</div>
+<div class="navi_sub">
+<a href="links.php">Links</a>
+<a href="sendlink.php">Einsenden</a>
+</div>
+
+<div class="navi_header">Kalender</div>
+<div class="navi_sub">
+<a href="calendar.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Kalender</a>
+<div style="float:right;padding-right:5px;"><a href="misc.php?action=eventsfeed" style="background:none;padding:0px;"><img src="design/rss.gif" alt="RSS" /></a></div><a href="events.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Termine</a>
+<a href="sendevent.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Termin einsenden</a>
+</div>
+
+<div class="navi_header"><div style="float:right;padding-right:5px;"><a href="misc.php?action=productsfeed"><img src="design/rss.gif" alt="RSS" /></a></div>Produkte</div>
+<div class="navi_sub">
+<a href="products.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Übersicht</a>
+<a href="manufacturers.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Hersteller</a>
+<a href="releases.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Releaseliste</a>
+</div>
+
+
+<div class="navi_header">Sonstiges</div>
+<div class="navi_sub">
+<a href="forum/">Forum</a>
+<div style="float:right;padding-right:5px;"><a href="misc.php?action=videosfeed" style="background:none;padding:0px;"><img src="design/rss.gif" alt="RSS" /></a></div><a href="videos.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Videos</a>
+<div style="float:right;padding-right:5px;"><a href="misc.php?action=galleryfeed" style="background:none;padding:0px;"><img src="design/rss.gif" alt="RSS" /></a></div><a href="gallery.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Galerie</a>
+<a href="faq.php{if SECTION_ID}?sec={SECTION_ID}{/if}">FAQ</a>
+<a href="glossar.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Glossar</a>
+<a href="guestbook.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Gästebuch</a>
+<a href="newsletter.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Newsletter</a>
+<a href="team.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Team</a>
+</div>
+
+{if LOGGED_ISTEAM}
+<div class="navi_header">Administration</div>
+<div class="navi_sub">
+<a href="admin/">Zum Adminbereich</a>
+</div>
+{/if}
+
+<div class="navi_header">Partner</div>
+<div class="navi_content">
+{AFFILIATES()}
+</div>
+
+</div>
+
+<div class="content" style="position:relative;">
+<h1>{list HEADLINE}<img src="design/arrow.gif" alt="" /> {if HEADLINE.LINK}<a href="{HEADLINE.LINK}">{/if}{HEADLINE.TEXT}{if HEADLINE.LINK}</a>{/if} {/list}</h1>
+<div class="content_position">
+<!-- INHALT START -->
+
+{CONTENT}
+
+<!-- INHALT ENDE -->
+</div>
+</div>
+
+<div class="navi2">
+
+<div class="navi_content">
+{USERONLINE()}
+{ONLINERECORD()}
+{if LOGGED_ID}
+{NEWPMS()}
+{NEWGBENTRIES()}
+{/if}
+{NEWUSER(2)}
+</div>
+
+<div class="navi_header">Benutzersystem</div>
+<div class="navi_sub">
+<a href="user.php?action=list{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Benutzerliste</a>
+<a href="user.php?action=usermap{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Mitgliederkarte</a>
+<a href="user.php?action=online{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Wer ist online?</a>
+</div>
+<div class="navi_sub">
+{if LOGGED_ID}
+<a href="user.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Benutzer-Center</a>
+<a href="user.php?action=myprofile{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Profil</a>
+<a href="user.php?action=pms{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Nachrichten</a>
+<a href="user.php?action=newpm{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Neue Nachricht</a>
+<a href="user.php?action=logout{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Abmelden</a>
+{USERSTATUS()}
+{else}
+<a href="user.php?action=register{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Registrieren</a>
+{LOGINBOX()}
+{/if}
+</div>
+
+<div class="navi_header">Poll</div>
+<div class="navi_content">{POLL()}</div>
+<div class="navi_sub">
+<a href="poll.php?recent=1{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">Aktuelle Umfrage</a>
+<a href="poll.php{if SECTION_ID}?sec={SECTION_ID}{/if}">Archiv</a>
+</div>
+
+<div class="navi_content">{COUNTER()}</div>
+
+</div>
+
+</div>
+<!-- MAIN ENDE -->
+
+<!-- FOOTER START -->
+<div class="foot">
+<div class="foot_line1"><img src="design/1px.gif" alt="" /></div>
+<div class="foot_line2"><img src="design/1px.gif" alt="" /></div>
+<div class="foot_line3"><img src="design/1px.gif" alt="" /></div>
+<div class="copyright">apexx CMS &amp; Portalsystem - &copy; by <a href="http://www.stylemotion.de" target="_blank">Stylemotion.de</a></div>
+</div>
+<!-- FOOTER ENDE -->
+
+</div>
+
+</body>
+</html>

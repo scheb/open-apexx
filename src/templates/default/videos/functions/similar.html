@@ -1,0 +1,75 @@
+{*
+
+Template-Funktion: Videos mit gleichem Schlüsselwort
+=======================================================
+
+Videos
+------
+VIDEO.ID = Video-ID
+VIDEO.TITLE = Titel
+VIDEO.TEXT = Beschreibung
+VIDEO.LINK = Link zur Detailansicht
+VIDEO.USERID = Benutzer-ID des Autors
+VIDEO.USERNAME = Benutzername des Autor
+VIDEO.EMAIL = eMail-Adresse des Autors
+VIDEO.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+VIDEO.PICTURE = News-Bild
+VIDEO.PICTURE_POPUP = Link: "größe Version des News-Bilds anzeigen"
+VIDEO.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+VIDEO.TIME = Zeit (Timestamp)
+VIDEO.TOP = Top-Video?
+VIDEO.RESTRICTED = Altersabfrage aktiviert?
+VIDEO.NEW = Neuer Video?
+VIDEO.SOURCE = Gibt an woher das Video stammt (mögliche Werte: "apexx", "youtube", "myvideo", "sevenload", "clipfish", "gametrailers", "machinima")
+VIDEO.VIDEOFILE = Pfad zur FLV-Datei, wenn das Video lokal vorhanden ist (SOURCE gleich "apexx")
+VIDEO.EMBEDCODE = Wenn das Video von einem externen Service stammt (SOURCE ungleich "apexx") befindet sich in dieser Variable der Embed-Code
+VIDEO.DOWNLOADLINK = Wenn das Video heruntergeladen werden kann, Link zum Download. Ansonsten leer.
+VIDEO.DOWNLOADFILE = Pfad zur Original-Datei, sofern vorhanden (SOURCE gleich "apexx")
+VIDEO.DOWNLOADS = Anzahl Downloads bisher
+VIDEO.HITS = Klicks
+VIDEO.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+
+VIDEO.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+VIDEO.TAG = Liste aller Tags
+VIDEO.TAG.ID = ID des Tags
+VIDEO.TAG.NAME = Darstellbarer Name des Tags
+VIDEO.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kategorie
+---------
+VIDEO.CATID = Unterkategorie-ID
+VIDEO.CATTITLE = Titel der Unterkategorie
+VIDEO.CATTEXT = Beschreibung der Unterkategorie
+VIDEO.CATICON = Symbol der Unterkategorie
+
+
+Screenshots
+-----------
+VIDEO.SCREENSHOT = Liste der Bilder
+VIDEO.SCREENSHOT.IMAGE = Pfad zum Vorschaubild
+VIDEO.SCREENSHOT.FULLSIZE = Pfad zum Vorschaubild
+VIDEO.SCREENSHOT.LINK = Link zur Großansicht
+
+
+Kommentare
+----------
+VIDEO.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+VIDEO.COMMENT_COUNT = Anzahl der Kommentare
+VIDEO.COMMENT_LINK = Link zur Kommentar-Seite
+VIDEO.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+VIDEO.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+VIDEO.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+VIDEO.DISPLAY_RATING = Bewerten ist erlaubt?
+VIDEO.RATING = durchschnittliche Bewertung
+VIDEO.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{list VIDEO}
+<a href="{VIDEO.LINK}">{VIDEO.TITLE}</a> <span class="small">({DATE('d.m.Y',VIDEO.TIME)})</span><br />
+{/list}

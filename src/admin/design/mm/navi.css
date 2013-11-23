@@ -1,0 +1,41 @@
+body {
+	height:25px;
+	padding:0px;
+	margin:0px;
+	background:#F2F2F2;
+	font-family:tahoma, verdana, arial, sans-serif;
+	color:#2B2B2B;
+}
+
+
+img {
+	border:0px;
+}
+
+
+.border {
+	height:25px;
+	background:#2B2B2B;
+	padding-bottom:1px;
+}
+
+
+.navi {
+	height:24px;
+	background:#F2F2F2;
+}
+
+
+.navi div {
+	padding:3px 0px 0px 7px;
+	font-size:11px;
+}
+
+
+.navi a:link,
+.navi a:active, 
+.navi a:visited {
+	color:#2B2B2B;
+	font-weight:bold;
+	text-decoration:none;
+}

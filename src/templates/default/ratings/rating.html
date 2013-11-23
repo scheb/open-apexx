@@ -1,0 +1,28 @@
+{*
+
+Bewertung
+=========
+
+Besucher-Bewertung
+------------------
+RATING = durchschnittliche Bewertung
+RATING_VOTES = Anzahl der Stimmen
+RATING_HASVOTED = Hat der Benutzer bereits abgestimmt?
+
+
+Formular (Template includen?)
+-----------------------------
+RATING_POSTTO = URL, an die das Formular gesendet werden soll
+RATING_NOFORM = Formular nicht anzeigen?
+RATING_OPTION = Liste der Bewertungsmöglichkeiten
+RATING_OPTION.TEXT = Bezeichnung
+RATING_OPTION.VALUE = Wert
+MODULE = Modul (für "hidden"-Feld)
+MID = ID (für "hidden"-Feld)
+
+*}
+
+<div>
+{LANG[RATING]}: {if RATING}{RATING} {LANG[POINTS]} ({RATING_VOTES}){else}N/A{/if}
+{include form.html}
+</div>

@@ -1,0 +1,65 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_BANNER_ADD]}{else}{LANG[TITLE_BANNER_EDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[PARTNER]}:</td>
+<td><input type="text" name="partner" value="{PARTNER}" size="60" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[CODE]}:</td>
+<td>{TEXTAREA('code',10,CODE,0,0)}</td>
+</tr>
+<tr>
+<td>{LANG[LIMIT]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="limit" value="{if LIMIT}{LIMIT}{/if}" size="15" style="width:100px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[CAPPING]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="capping" value="{if CAPPING}{CAPPING}{/if}" size="2" maxlength="4" style="width:60px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[RATIO]}:</td>
+<td><input type="text" name="ratio" value="{RATIO}" size="2" maxlength="4" style="width:60px;" class="input" /> : 1</td>
+</tr>
+<tr>
+<td>{LANG[GROUP]}:</td>
+<td>
+<select name="group">{GROUPS}</select></td>
+</tr>
+
+{if RIGHT_BANNER_ENABLE}
+</table>
+<table width="100%" class="table" style="margin:10px 0;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[PUBLICATION]}</td></tr>
+<tr>
+<td>{LANG[STARTTIME]}:</td>
+<td>{STARTTIME}</td>
+</tr>
+<tr>
+<td>{LANG[ENDTIME]}: <small>({LANG[OPTIONAL]})</small></td>
+<td>{ENDTIME}</td>
+</tr>
+
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+{/if}
+
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="action" value="banner.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

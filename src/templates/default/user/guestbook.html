@@ -1,0 +1,187 @@
+{*
+
+Gästebuch
+=========
+
+Benutzer-Informationen
+----------------------
+USERID = Benutzer-ID
+USERNAME = Benutzer-Name
+
+
+Benutzer-Funktionen
+-------------------
+LINK_PROFILE = Link: Zum Profil des Benutzers
+LINK_BLOG = Link: Zum Blog des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GUESTBOOK = Zum Gästebuch des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_GALLERY = Zur Galerie des Benutzers (nur verfügbar, wenn aktiviert)
+LINK_COLLECTION = Zur Sammlung des Benutzers (nur verfügbar, wenn aktiviert und Produkt-Modul vorhanden)
+
+
+Gästebuch-Einträge
+------------------
+ENTRY = Liste der Gästebucheinträge
+ENTRY.NAME = Benutzername
+ENTRY.EMAIL = eMail-Adresse
+ENTRY.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+ENTRY.USERID = Benutzer-ID
+ENTRY.HOMEPAGE = Homepage
+ENTRY.AVATAR = Avatar
+ENTRY.AVATAR_TITLE = Avatar-Titel
+ENTRY.SIGNATURE = Signatur
+ENTRY.TITLE = Titel
+ENTRY.TEXT = Text
+ENTRY.TIME = Zeit (Timestamp)
+ENTRY.ONLINE = Online-Status des Benutzers
+ENTRY.NUMBER = Nummer des Gästebuch-Eintrags
+ENTRY.IGNORELINK = Link: Diesen Benutzer auf die Ignorier-Liste setzen
+
+Admin
+-----
+Diese Platzhalter stehen nur zur Verfügung, wenn der Betrachter
+mit Besitzer des Gästebuchs ist und er die Einträge in seinem
+Gästebuch löschen darf.
+ENTRY.DELETELINK = Link: Eintrag löschen
+
+
+Seitenzahlen (Template includen?)
+---------------------------------
+PAGE_COUNT = Anzahl der Seiten
+PAGE_SELECTED = Ausgewählte Seitenzahl
+PAGE = Liste der Seitenzahlen
+PAGE.NUMBER = Seitenzahl
+PAGE.LINK = Link
+PAGE_PREVIOUS = Link "vorherige Seite"
+PAGE_NEXT = Link "nächste Seite"
+PAGE_FIRST = Link "erste Seite"
+PAGE_LAST = Link "letzte Seite"
+
+
+Eingabeformular
+---------------
+POSTTO = Formular senden an...
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+
+*}
+
+<style type="text/css">
+<!--
+
+.gb_title {
+	margin:0px 0px 10px 0px;
+	font-size:10px;
+	font-weight:bold;
+}
+
+.gb_comment {
+	font-size:11px;
+	padding:3px;
+	margin-left:20px;
+	margin-right:20px;
+	border:1px solid #B5B5B5;
+	background:#EAEAEA;
+}
+
+.gb_date {
+	font-size:10px;
+	text-align:right;
+	border-top:1px solid #B5B5B5;
+	padding-top:3px;
+}
+
+-->
+</style>
+
+<div class="tabbar clearfix">
+<ul>
+<li><a href="{LINK_PROFILE}">{LANG[USER_PROFILE]}</a></li>
+<li><a href="{LINK_BLOG}">{LANG[USER_BLOG]}</a></li>
+<li><a href="{LINK_GALLERY}">{LANG[USER_GALLERY]}</a></li>
+<li><a href="{LINK_COLLECTION}">{LANG[USER_COLLECTION]}</a></li>
+<li class="selected"><a href="{LINK_GUESTBOOK}">{LANG[USER_GUESTBOOK]}</a></li>
+</ul>
+</div>
+<div class="tabbody">
+
+{include ../pages.html}
+
+<table width="639">
+<tr>
+<td width="30%" class="header2">{LANG[COL_NAME]}</td>
+<td width="70%" class="header2">{LANG[COL_TEXT]}</td>
+</tr>
+{list ENTRY}
+<tr class="color">
+<td valign="top" align="center">
+<a href="{PROFILE(ENTRY.USERID)}" target="_blank">{ENTRY.NAME}</a>
+{if ENTRY.EMAIL} <a href="mailto:{ENTRY.EMAIL}"><img src="modules/guestbook/images/email.gif" alt="{LANG[ICON_EMAIL]}" title="{LANG[ICON_EMAIL]}" style="vertical-align:middle;" /></a>{/if}
+{if ENTRY.HOMEPAGE} <a href="{ENTRY.HOMEPAGE}" target="_blank"><img src="modules/guestbook/images/homepage.gif" alt="{LANG[ICON_HOMEPAGE]}" title="{LANG[ICON_HOMEPAGE]}" style="vertical-align:middle;" /></a>{/if}
+{if ENTRY.AVATAR}<p class="small"><img src="{ENTRY.AVATAR}" alt="" />
+{if ENTRY.AVATAR_TITLE}<br />{ENTRY.AVATAR_TITLE}</p>{/if}{/if}
+{if ENTRY.DELETELINK || ENTRY.IGNORELINK}<div>{if ENTRY.DELETELINK}<a href="{ENTRY.DELETELINK}"><img src="design/delete.gif" alt="" /></a>{/if}{if ENTRY.IGNORELINK} <a href="{ENTRY.IGNORELINK}"><img src="modules/user/images/ignore.gif" alt="" /></a>{/if}</div>{/if}
+</td>
+<td valign="top">
+<p class="gb_title">{ENTRY.TITLE}</p>
+<p>{ENTRY.TEXT}{if ENTRY.SIGNATURE}<br />_________________<br />{ENTRY.SIGNATURE}{/if}</p>
+<p class="gb_date">{DATE('d.m.Y - H:i:s',ENTRY.TIME)}</p>
+</td>
+</tr>
+{/list}
+{if !ENTRY}<tr><td colspan="2" class="color" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>
+
+
+{* Es dürfen sich nur angemeldete Benutzer in das Gästebuch eintragen *}
+{if LOGGED_ID}
+<br />&nbsp;
+
+<script type="text/javascript">
+<!--
+var lang_entertext="{LANG[CORE_ENTERTEXT]}";
+var lang_enterltext="{LANG[CORE_ENTERLTEXT]}";
+var lang_entermail="{LANG[CORE_ENTEREMAIL]}";
+var lang_enterurl="{LANG[CORE_ENTERURL]}";
+//-->
+</script>
+<script type="text/javascript" src="lib/javascript/public_codes.js"></script>
+<script type="text/javascript" src="lib/javascript/public_popups.js"></script>
+
+<form name="textform" action="{POSTTO}" method="post">
+<table width="639">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tr><td colspan="2" class="header1">{LANG[SIGNGB]}</td></tr>
+<tr class="color">
+<td>{LANG[NAME]}:</td>
+<td><b>{LOGGED_USERNAME}</b></td>
+</tr>
+<tr class="color">
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" maxlength="50" size="80" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[TEXT]}: *<br /><br /><span class="small">&raquo; <a href="javascript:showcodes()">Codes</a><br />&raquo; <a href="javascript:showsmilies()">Smilies</a></span></td>
+<td>
+<div class="editor">
+<div style="float:right;">
+<div><a href="javascript:field_collapse(document.forms.textform.text);"><img src="design/editor/field_collapse.gif" alt="{LANG[FIELDCOLLAPSE]}" title="{LANG[FIELDCOLLAPSE]}" /></a></div>
+<div><a href="javascript:field_expand(document.forms.textform.text);"><img src="design/editor/field_expand.gif" alt="{LANG[FIELDEXPAND]}" title="{LANG[FIELDEXPAND]}" /></a></div>
+</div>
+<a href="javascript:simplecode('textinput','B');"><img src="design/editor/bold.gif" alt="{LANG[BOLD]}" title="{LANG[BOLD]}" /></a><a href="javascript:simplecode('textinput','I');"><img src="design/editor/italic.gif" alt="{LANG[ITALIC]}" title="{LANG[ITALIC]}" /></a><a href="javascript:simplecode('textinput','U');"><img src="design/editor/underline.gif" alt="{LANG[UNDERLINE]}" title="{LANG[UNDERLINE]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:linkcodenew('textinput','URL');"><img src="design/editor/link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /></a><a href="javascript:linkcodenew('textinput','EMAIL');"><img src="design/editor/email.gif" alt="{LANG[EMAIL]}" title="{LANG[EMAIL]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:simplecode('textinput','QUOTE');"><img src="design/editor/quote.gif" alt="{LANG[QUOTE]}" title="{LANG[QUOTE]}" /></a>
+</div>
+<textarea name="text" class="input" cols="80" rows="10"></textarea>
+</td>
+</tr>
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>
+{/if}
+
+</div>

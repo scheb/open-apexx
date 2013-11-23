@@ -1,0 +1,30 @@
+{*
+
+Template-Funktion: Bookmark-Liste
+=================================
+
+BOOKMARK = Liste der Bookmarks
+BOOKMARK.ID = ID des Bookmarks
+BOOKMARK.TITLE = Bezeichnung
+BOOKMARK.LINK = Bookmark-Link
+BOOKMARK.TIME = Zeitpunkt der Erstellung
+BOOKMARK.LINK_DELBOOKMARK = Link: Bookmark löschen
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+*}
+
+{if LOGGED_ID}
+<table width="100%">
+<tr><td class="header1" colspan="3">{LANG[BOOKMARKS]}:</td></tr>
+{list BOOKMARK}
+<tr class="color">
+<td width="90%" class="small"><a href="{BOOKMARK.LINK}" target="_blank">{BOOKMARK.TITLE}</a></td>
+<td width="5%" align="center" nowrap="nowrap"><a href="{BOOKMARK.LINK_DELBOOKMARK}"><img src="modules/user/images/del.gif" title="{LANG[ICON_DELBOOKMARK]}" alt="{LANG[ICON_DELBOOKMARK]}" /></a></td>
+</tr>
+{/list}
+{if !BOOKMARK}<tr><td class="color" colspan="3" align="center">{LANG[BOOKMARKS_NONE]}</td></tr>{/if}
+</table>
+{/if}

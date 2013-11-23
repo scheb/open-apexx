@@ -1,0 +1,58 @@
+{*
+
+Template-Funktion: Buddyliste
+=============================
+
+BUDDY = Liste der Buddies
+BUDDY.ID = Benutzer-ID
+BUDDY.USERNAME = Benutzername
+BUDDY.GROUPID = ID der Benutzergruppe
+BUDDY.EMAIL = eMail-Adresse des Buddy
+BUDDY.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+BUDDY.ONLINE = Ist der Buddy online?
+BUDDY.REALNAME = Echter Name
+BUDDY.GENDER = Geschlecht (1=m, 2=w)
+BUDDY.CITY = Stadt
+BUDDY.PLZ = Postleitzahl
+BUDDY.COUNTRY = Land
+BUDDY.REGTIME = Datum/Zeit der Registrierung (Timestamp)
+BUDDY.REGDAYS = Tage seit der Registrierung
+BUDDY.LASTACTIVE = Zuletzt aktiv (Timestamp)
+BUDDY.AVATAR = Pfad zum Avatar
+BUDDY.AVATAR_TITLE = Avatar-Titel
+BUDDY.BIRTHDAY = Geburtstag
+BUDDY.AGE = Alter
+BUDDY.LINK_SENDEMAIL = Link: eMail an Buddy senden
+BUDDY.LINK_SENDPM = Link: PN an Buddy senden
+BUDDY.LINK_DELBUDDY = Link: Buddy löschen
+
+
+Benuterdefinierte Felder
+------------------------
+BUDDY.CUSTOM1_NAME -> BUDDY.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+BUDDY.CUSTOM1 -> BUDDY.CUSTOM10 = Wert des Eingabefelds
+
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+*}
+
+{if LOGGED_ID}
+<table width="100%">
+<tr><td class="header1" colspan="3">{LANG[BUDDYLIST]}:</td></tr>
+{list BUDDY}
+<tr class="color">
+<td width="5%" align="center">{if BUDDY.ONLINE}<img src="modules/user/images/online.gif" alt="" />{else}<img src="modules/user/images/offline.gif" alt="" />{/if}</td>
+<td width="90%"><a href="{PROFILE(BUDDY.USERID)}" target="_blank">{BUDDY.USERNAME}</a></td>
+<td width="5%" align="center" nowrap="nowrap">
+<a href="{BUDDY.LINK_SENDEMAIL}"><img src="modules/user/images/sendmail.gif" title="{LANG[ICON_SENDMAIL]}" alt="{LANG[ICON_SENDMAIL]}" /></a>
+<a href="{BUDDY.LINK_SENDPM}"><img src="modules/user/images/sendpm.gif" title="{LANG[ICON_SENDPM]}" alt="{LANG[ICON_SENDPM]}" /></a>
+<a href="{BUDDY.LINK_DELBUDDY}"><img src="modules/user/images/del.gif" title="{LANG[ICON_DELBUDDY]}" alt="{LANG[ICON_DELBUDDY]}" /></a>
+</td>
+</tr>
+{/list}
+{if !BUDDY}<tr><td class="color" colspan="3" align="center">{LANG[BUDDYLIST_NONE]}</td></tr>{/if}
+</table>
+{/if}

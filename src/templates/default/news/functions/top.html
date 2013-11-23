@@ -1,0 +1,75 @@
+{*
+
+Template-Funktion: TOP-News
+===========================
+
+News
+----
+NEWS = Liste der News
+NEWS.ID = News-ID
+NEWS.TITLE = Titel
+NEWS.SUBTITLE = Untertitel
+NEWS.TEASER = Einleitungs-Text
+NEWS.TEXT = Haupttext
+NEWS.LINK = Link zur News
+NEWS.TIME = Zeit (Timestamp)
+NEWS.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen News)
+NEWS.PICTURE = News-Bild
+NEWS.PICTURE_POPUP = Link: "größe Version des News-Bilds anzeigen"
+NEWS.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+NEWS.TOP = Top-News?
+NEWS.RESTRICTED = Altersabfrage aktiviert?
+NEWS.HITS = Klicks
+NEWS.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+NEWS.RELATED = Liste der "Links zu dieser News"
+NEWS.RELATED.TITLE = Vorangestellte Linkbezeichnung
+NEWS.RELATED.TEXT = Verlinkter Text
+NEWS.RELATED.URL = URL
+NEWS.RELATED.POPUP = Neues Fenster öffnen?
+
+NEWS.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+NEWS.TAG = Liste aller Tags
+NEWS.TAG.ID = ID des Tags
+NEWS.TAG.NAME = Darstellbarer Name des Tags
+NEWS.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+NEWS.USERID = Benutzer-ID des Autors
+NEWS.USERNAME = Benutzername des Autors
+NEWS.EMAIL = eMail-Adresse des Autors
+NEWS.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+
+NEWS.CATID = Kategorie-ID
+NEWS.CATTITLE = Kategorie-Titel
+NEWS.CATLINK = Link: Nur Inhalte aus dieser Kategorie
+NEWS.CATICON = Kategorie-Icon
+
+Verknüpfte Galerie
+------------------
+NEWS.GALLERY_ID = ID der Galerie
+NEWS.GALLERY_TITLE = Titel der Galerie
+NEWS.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+NEWS.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+NEWS.COMMENT_COUNT = Anzahl der Kommentare
+NEWS.COMMENT_LINK = Link zur Kommentar-Seite
+NEWS.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+NEWS.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+NEWS.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+NEWS.DISPLAY_RATING = Bewerten ist erlaubt?
+NEWS.RATING = durchschnittliche Bewertung
+NEWS.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{list NEWS}
+{if NEWS.DATEHEAD}<div>{DATE('d. M Y',NEWS.DATEHEAD)}</div>{/if}
+<div><a href="{NEWS.LINK}">{NEWS.TITLE}</a> <span class="small">({DATE('d.m.Y - H:i:s',NEWS.TIME)})</span></div>
+{/list}

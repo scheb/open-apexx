@@ -1,0 +1,129 @@
+{*
+
+Such-Formular
+=============
+
+Foren
+-----
+FORUM = Liste alles sichtbaren Foren
+FORUM.ID = ID des Forums
+FORUM.TITLE = Titel des Forums
+FORUM.ISCAT = Ist das Forum eine Kategorie? (als Ziel nicht geeignet!)
+FORUM.LEVEL = Untergliederungs-Level
+
+
+Präfixe
+-------
+PFORUM = Liste der Foren mit Präfixen
+PFORUM.TITLE = Titel des Forums
+PFORUM.PREFIX = Liste der Präfixe in dem Forum
+PFORUM.PREFIX.ID = ID
+PFORUM.PREFIX.TITLE = Präfix-Titel
+
+*}
+<form action="search.php" method="post">
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tr><td class="form_header" colspan="2">{LANG[HEADLINE_SEARCH]}</td></tr>
+<tr class="cell1">
+<td>{LANG[KEYWORDS_REQ]}:</td>
+<td><input type="text" name="keywords_req" class="textbox" maxlength="255" style="width:400px;" /><br /></td>
+</tr>
+<tr class="cell2">
+<td>{LANG[KEYWORDS_ONE]}:</td>
+<td><input type="text" name="keywords_one" class="textbox" maxlength="255" style="width:400px;" /><br /></td>
+</tr>
+<tr class="cell1">
+<td>{LANG[KEYWORDS_NOT]}:</td>
+<td><input type="text" name="keywords_not" class="textbox" maxlength="255" style="width:400px;" /><br /></td>
+</tr>
+<tr class="cell2">
+<td>{LANG[SEARCHIN]}:</td>
+<td><label for="input_searchtitle"><input type="checkbox" name="searchtitle" id="input_searchtitle" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[SEARCHTITLE]}</label> &nbsp;&nbsp;&nbsp;&nbsp; <label for="input_searchtext"><input type="checkbox" name="searchtext" id="input_searchtext" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[SEARCHTEXT]}</label></td>
+</tr>
+<tr class="cell1">
+<td>{LANG[AUTHOR]}:</td>
+<td>
+<input type="text" name="author" class="textbox" maxlength="255" style="width:200px;" /> <label for="input_exact"><input type="checkbox" name="exact" id="input_exact" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[EXACT]}</label><br />
+<label for="input_findthreads"><input type="checkbox" name="findthreads" id="input_findthreads" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[FINDTHREADS]}</label> &nbsp;&nbsp;&nbsp;&nbsp; <label for="input_findposts"><input type="checkbox" name="findposts" id="input_findposts" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[FINDPOSTS]}</label>
+</td>
+</tr>
+</table>
+
+<table width="100%">
+<tr><td class="space1" colspan="3">&nbsp;</td></tr>
+<tr><td class="form_header" colspan="3">{LANG[OPTIONS]}</td></tr>
+<tr>
+<td width="25%" class="cell1">{LANG[MINANSWERS]}:</td>
+<td width="50%" class="cell2"><input type="text" name="answers" value="0" class="textbox" style="width:50px;" /></td>
+<td width="25%" class="cell1" rowspan="{if PFORUM}5{else}4{/if}">
+{LANG[FORUMS]}:<br />
+<select name="forumid[]" multiple="multiple" size="15" style="width:350px;">
+<option value="all" selected="selected" style="font-weight:bold;">{LANG[ALL]}</option>
+{list FORUM}<option value="{FORUM.ID}"{if FORUM.ISCAT} class="category"{/if}>{repeat FORUM.LEVEL-1}&nbsp;&nbsp;{/repeat}{FORUM.TITLE}</option>{/list}
+</select>
+<label id="input_searchsubforums"><input type="checkbox" name="searchsubforums" id="input_searchsubforums" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[SEARCHSUBFORUMS]}</label>
+</td>
+</tr>
+{if PFORUM}
+<tr>
+<td class="cell1">{LANG[PREFIX]}:</td>
+<td class="cell2">
+<select name="prefix[]" multiple="multiple" size="5">
+{list PFORUM}
+<optgroup label="{PFORUM.TITLE}">
+{list PFORUM.PREFIX}
+<option value="{PFORUM.PREFIX.ID}">{PFORUM.PREFIX.TITLE}</option>
+{/list}
+</optgroup>
+{/list}
+</select>
+</td>
+</tr>
+{/if}
+<tr>
+<td class="cell1">{LANG[TIMEPEROID]}:</td>
+<td class="cell2">
+<select name="period">
+<option value="all" selected="selected">{LANG[PERIOD_ALL]}</option>
+<option value="lastvisit">{LANG[PERIOD_LASTVISIT]}</option>
+<option value="yesterday">{LANG[PERIOD_YESTERDAY]}</option>
+<option value="week1">{LANG[PERIOD_LASTWEEK]}</option>
+<option value="week2">{LANG[PERIOD_LAST2WEEKS]}</option>
+<option value="month1">{LANG[PERIOD_LASTMONTH]}</option>
+<option value="month3">{LANG[PERIOD_LAST3MONTHS]}</option>
+<option value="month6">{LANG[PERIOD_LAST6MONTHS]}</option>
+<option value="year">{LANG[PERIOD_LASTYEAR]}</option>
+</select> <select name="period_dir">
+<option value="younger" selected="selected">{LANG[YOUNGER]}</option>
+<option value="older">{LANG[OLDER]}</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="cell1">{LANG[SORTBY]}: </td>
+<td class="cell2"><select name="sortby">
+<option value="title">{LANG[SORTBY_TITLE]}</option>
+<option value="open">{LANG[SORTBY_OPEN]}</option>
+<option value="posts">{LANG[ANSWERS]}</option>
+<option value="views">{LANG[VIEWS]}</option>
+<option value="lastpost" selected="selected">{LANG[SORTBY_LASTPOST]}</option>
+</select><br />
+<label for="input_sortby_dir1"><input type="radio" name="sortby_dir" id="input_sortby_dir1" value="asc" style="vertical-align:middle;" /> {LANG[ASC]}</label><br />
+<label for="input_sortby_dir2"><input type="radio" name="sortby_dir" id="input_sortby_dir2" value="desc" checked="checked" style="vertical-align:middle;" /> {LANG[DESC]}</label></td>
+</tr>
+<tr>
+<td class="cell1">{LANG[DISPLAY]}:</td>
+<td class="cell2">
+<label for="input_display1"><input type="radio" name="display" id="input_display1" value="threads" checked="checked" style="vertical-align:middle;" /> {LANG[THREADS]}</label> &nbsp;&nbsp;&nbsp;&nbsp;
+<label for="input_display2"><input type="radio" name="display" id="input_display2" value="posts" style="vertical-align:middle;" /> {LANG[POSTS]}</label>
+</td>
+</tr>
+
+<tr><td class="space2" colspan="3">&nbsp;</td></tr>
+<tr><td class="form_footer" colspan="3"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" accesskey="s" /></td></tr>
+</table>
+</form>

@@ -1,0 +1,186 @@
+<p class="hint">{LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD}</span></p>
+<div class="yui-navset" id="uploadopts">
+
+<!-- AUSWAHL START -->
+<div class="tabbar clearfix">
+<ul class="yui-nav">
+<li class="selected"><a href="#files">{LANG[FILES]}</a></li>
+<li><a href="#pics">{LANG[PICS]}</a></li>
+</ul>
+</div>
+<!-- AUSWAHL ENDE -->
+
+<!-- TABS START -->
+<div class="tabbody yui-content">
+
+<!-- FILES START -->
+<form action="action.php" method="post" target="postframe" enctype="multipart/form-data" id="files">
+
+<table width="100%" class="table">
+<colgroup>
+<col width="150" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[FILES]}</td></tr>
+<tr><td>{LANG[FILE]} 1:</td><td><input type="file" name="upload1" class="input" size="50" /></td></tr>
+<tr><td>{LANG[FILE]} 2:</td><td><input type="file" name="upload2" class="input" size="50" /></td></tr>
+<tr><td>{LANG[FILE]} 3:</td><td><input type="file" name="upload3" class="input" size="50" /></td></tr>
+<tr><td>{LANG[FILE]} 4:</td><td><input type="file" name="upload4" class="input" size="50" /></td></tr>
+<tr><td>{LANG[FILE]} 5:</td><td><input type="file" name="upload5" class="input" size="50" /></td></tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit1" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="dir" value="{DIR}" />
+<input type="hidden" name="action" value="mediamanager.upload" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+<!-- FILES ENDE -->
+
+<!-- PICS START -->
+<form action="action.php" method="post" target="postframe" enctype="multipart/form-data" id="pics">
+
+<table width="100%" class="table">
+<colgroup>
+<col width="150" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[PICS]}</td></tr>
+<tr><td colspan="2">{LANG[PICINFO]}</td></tr>
+<tr><td>{LANG[GLOBALOPTIONS]}:</td><td>
+
+<table width="100%" class="clear" style="border-collapse:separate;">
+<tr>
+<td nowrap="nowrap">{LANG[RESIZETO]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="resizex_all" value="" size="3" class="input" style="width:35px;" onchange="text_toggle_name(this.form,this.value,'resizex')" /> x <input type="text" name="resizey_all" value="" size="3" class="input" style="width:35px;" onchange="text_toggle_name(this.form,this.value,'resizey')" /></td>
+<td width="100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="watermark_all" id="watermark_all" value="1" onclick="checkbox_toggle_name(yDom.get('pics'), yDom.get('watermark_all').checked, 'watermark')" onchange="checkbox_toggle_name(yDom.get('pics'), yDom.get('watermark_all').checked, 'watermark')" style="vertical-align:middle;" /><label for="watermark_all" onclick="checkbox_toggle_name(yDom.get('pics'), yDom.get('watermark_all').checked, 'watermark')"> {LANG[WATERMARK]}</label></td>
+</tr>
+<tr>
+<td nowrap="nowrap">{LANG[THUMB]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="thumbx_all" value="" size="3" class="input" style="width:35px;" onchange="text_toggle_name(this.form,this.value,'thumbx')" /> x <input type="text" name="thumby_all" value="" size="3" class="input" style="width:35px;" onchange="text_toggle_name(this.form,this.value,'thumby')" /></td>
+<td width="100%"></td>
+</tr>
+</table>
+
+</td></tr>
+
+<tr>
+<td>{LANG[PIC]} 1:</td>
+<td>
+<input type="file" name="picture1" class="input" size="50" style="margin-bottom:5px;" /><br />
+<table width="100%" class="clear" style="border-collapse:separate;">
+<tr>
+<td nowrap="nowrap">{LANG[RESIZETO]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="resizex1" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="resizey1" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="watermark1" id="watermark1" value="1" style="vertical-align:middle;" /><label for="watermark1"> {LANG[WATERMARK]}</label></td>
+</tr>
+<tr>
+<td nowrap="nowrap">{LANG[THUMB]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="thumbx1" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="thumby1" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%"></td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td>{LANG[PIC]} 2:</td>
+<td>
+<input type="file" name="picture2" class="input" size="50" style="margin-bottom:5px;" /><br />
+<table width="100%" class="clear" style="border-collapse:separate;">
+<tr>
+<td nowrap="nowrap">{LANG[RESIZETO]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="resizex2" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="resizey2" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="watermark2" id="watermark2" value="1" style="vertical-align:middle;" /><label for="watermark2"> {LANG[WATERMARK]}</label></td>
+</tr>
+<tr>
+<td nowrap="nowrap">{LANG[THUMB]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="thumbx2" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="thumby2" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%"></td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td>{LANG[PIC]} 3:</td>
+<td>
+<input type="file" name="picture3" class="input" size="50" style="margin-bottom:5px;" /><br />
+<table width="100%" class="clear" style="border-collapse:separate;">
+<tr>
+<td nowrap="nowrap">{LANG[RESIZETO]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="resizex3" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="resizey3" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="watermark3" id="watermark3" value="1" style="vertical-align:middle;" /><label for="watermark3"> {LANG[WATERMARK]}</label></td>
+</tr>
+<tr>
+<td nowrap="nowrap">{LANG[THUMB]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="thumbx3" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="thumby3" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%"></td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td>{LANG[PIC]} 4:</td>
+<td>
+<input type="file" name="picture4" class="input" size="50" style="margin-bottom:5px;" /><br />
+<table width="100%" class="clear" style="border-collapse:separate;">
+<tr>
+<td nowrap="nowrap">{LANG[RESIZETO]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="resizex4" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="resizey4" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="watermark4" id="watermark4" value="1" style="vertical-align:middle;" /><label for="watermark4"> {LANG[WATERMARK]}</label></td>
+</tr>
+<tr>
+<td nowrap="nowrap">{LANG[THUMB]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="thumbx4" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="thumby4" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%"></td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td>{LANG[PIC]} 5:</td>
+<td>
+<input type="file" name="picture5" class="input" size="50" style="margin-bottom:5px;" /><br />
+<table width="100%" class="clear" style="border-collapse:separate;">
+<tr>
+<td nowrap="nowrap">{LANG[RESIZETO]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="resizex5" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="resizey5" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="watermark5" id="watermark5" value="1" style="vertical-align:middle;" /><label for="watermark5"> {LANG[WATERMARK]}</label></td>
+</tr>
+<tr>
+<td nowrap="nowrap">{LANG[THUMB]}:</td>
+<td nowrap="nowrap">&nbsp;<input type="text" name="thumbx5" value="" size="3" class="input" style="width:35px;" /> x <input type="text" name="thumby5" value="" size="3" class="input" style="width:35px;" /></td>
+<td width="100%"></td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit2" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="dir" value="{DIR}" />
+<input type="hidden" name="action" value="mediamanager.upload" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+<!-- PICS ENDE -->
+
+</div>
+<!-- TABS ENDE -->
+
+</div>
+
+<script type="text/javascript" src="../lib/yui/element/element-min.js"></script>
+<script type="text/javascript" src="../lib/yui/tabview/tabview-min.js"></script>
+<script type="text/javascript">
+
+var tabView = new YAHOO.widget.TabView('uploadopts');
+
+</script>
+

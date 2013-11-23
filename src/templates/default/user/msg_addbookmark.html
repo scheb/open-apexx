@@ -1,0 +1,23 @@
+{*
+
+Nachricht: Bookmark hinzufügen?
+===============================
+
+TITLE = Titel des Bookmarks
+URL = URL des Bookmarks
+
+*}
+
+<table width="450" style="margin:auto;text-align:left;">
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>URL:</td>
+<td><input type="text" name="url" value="{URL}" class="input" style="width:300px;" /></td>
+</tr>
+</table>
+<p><input type="submit" name="apxsubmit" value="{LANG[ADDBOOKMARK]}" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="javascript:history.back()" class="button" /></p>
+<input type="hidden" name="action" value="addbookmark" />
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}

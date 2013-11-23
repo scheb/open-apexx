@@ -1,0 +1,125 @@
+{*
+
+Teaser auflisten
+================
+
+TEASER = Liste der Teasers
+TEASER.TITLE = Titel
+TEASER.IMAGE = Bild/Button
+TEASER.LINK = Link
+TEASER.URL = Original-Link ohne Weiterleitung
+TEASER.HITS = Klicks
+
+*}
+
+<div id="teaser">
+
+{* Teaser Buttons *}
+<ul class="teaserbuttons yui-nav">
+{C=0}{list TEASER}{++C}
+<li{if C==1} class="selected"{/if}><a href="#teaser{C}">&bull;</a> </li>
+{/list}
+</ul>
+
+{* Teaser Inhalt *}
+<div class="yui-content">
+
+{C=0}{list TEASER}{++C}
+<div id="teaser{C}" class="teaserbody yui-hidden" style="background-image:url('{TEASER.IMAGE}');">
+<div class="inner">
+<p class="title"><a href="{TEASER.URL}">{TEASER.TITLE}</a></p>
+<p class="text">{TEASER.TEXT}</p>
+</div>
+</div>
+{/list}
+
+</div>
+
+</div>
+
+
+<script type="text/javascript" src="lib/yui/element/element-min.js"></script>
+<script type="text/javascript" src="lib/yui/tabview/tabview-min.js"></script>
+<script type="text/javascript" src="lib/yui/animation/animation-min.js"></script>
+<script type="text/javascript" src="lib/javascript/topteaser.js"></script>
+<script type="text/javascript">
+
+yEvent.onDOMReady(function() {
+	new TeaserImage('teaser');
+});
+
+</script>
+
+<style type="text/css">
+<!--
+
+#teaser {
+	position:relative;
+	width:477px;
+	height:200px;
+	margin-bottom:15px;
+}
+
+.teaserbuttons {
+	position:absolute;
+	left:10px;
+	top:10px;
+	z-index:999;
+	display:block;
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+.teaserbuttons li {
+	display:inline;
+	margin:0;
+	padding:0;
+}
+
+.teaserbuttons li a {
+	color:#fff;
+}
+
+.teaserbuttons li.selected a {
+	color:#d6511d;
+}
+
+.teaserbody {
+	position:absolute;
+	top:0;
+	left:0;
+	width:477px;
+	height:200px;
+	background:no-repeat;
+}
+
+.teaserbody .inner {
+	position:absolute;
+	left:0;
+	bottom:0;
+	width:467px;
+	height:auto;
+	padding:5px;
+	background:url('design/teaser_bg.png');
+	color:#fff;
+	text-align:right;
+}
+
+.teaserbody p {
+	margin:0;
+}
+
+.teaserbody p.title {
+	font-size:18px;
+}
+
+.teaserbody a:link,
+.teaserbody a:active,
+.teaserbody a:visited,
+.teaserbody a:hover {
+	color:#fff;
+}
+
+-->
+</style>

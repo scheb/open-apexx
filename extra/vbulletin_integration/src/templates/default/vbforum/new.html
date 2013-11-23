@@ -1,0 +1,22 @@
+{*
+
+Neuste Themen im Forum anzeigen
+===============================
+
+THREAD = Liste der Themen
+THREAD.ID = ID
+THREAD.TITLE = Titel
+THREAD.LINK = Link zum Thema
+THREAD.TIME = Zeitpunkt, zu dem das Thema erstellt wurde
+THREAD.STARTER = Benutzername des Themenstarters
+THREAD.LASTPOST = Zeitpunkt des letzten Posts (Timestamp)
+THREAD.LASTPOSTER = Benutzername des letzten Posters
+THREAD.POSTS = Anzahl der Postings
+THREAD.VIEWS = Klicks
+
+*}
+
+
+{list THREAD}
+<a href="{THREAD.LINK}" target="_blank" title="{THREAD.TITLE|replace}">{SHORTTEXT(THREAD.TITLE,20)}</a><br />
+{/list}

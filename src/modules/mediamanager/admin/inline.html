@@ -1,0 +1,94 @@
+{if SCREEN}
+<table width="100%" class="tablelist" style="margin-bottom:10px;">
+<colgroup>
+<col width="15%" />
+<col width="20%" />
+<col width="10%" />
+<col width="55%" />
+</colgroup>
+<thead>
+<tr class="header2">
+<th>{LANG[INLINE_COL_CODE]}</th>
+<th>{LANG[INLINE_COL_IMAGE]}</th>
+<th>{LANG[CORE_COL_OPTIONS]}</th>
+<th>{LANG[TEXT]}</th>
+</tr>
+</thead>
+<tbody>
+{list SCREEN}{COUNT=0}
+<form action="action.php" method="post" target="postframe">
+<tr>
+<td align="center" class="code"><b>&#123;IMAGE({SCREEN.ID})&#125;</b>
+<div style="padding-top:10px;">{list INSERT}{++COUNT}<a href="javascript:parent.insert_add('{INSERT.ID}','&#123;IMAGE({SCREEN.ID})&#125;')"><img src="design/mm/insert_text{COUNT}.gif" alt="" /></a>{/list}</div>
+</td>
+<td align="center">
+{if SCREEN.POPUP}<a href="{SCREEN.POPUP}" target="_blank">{/if}<img src="{SCREEN.PICTURE}" alt="" />{if SCREEN.POPUP}</a>{/if}
+<div style="padding-top:3px;">{LANG[INLINE_ALIGN]}: <select name="align"><option value="">{LANG[INLINE_NOALIGN]}</option><option value="left"{if SCREEN.ALIGN=='left'} selected="selected"{/if}>{LANG[INLINE_LEFT]}</option><option value="right"{if SCREEN.ALIGN=='right'} selected="selected"{/if}>{LANG[INLINE_RIGHT]}</option></select></div>
+</td>
+<td align="center">
+<input type="submit" name="editpic" value="{LANG[CORE_EDIT]}" class="button" style="margin-bottom:3px;" /><br />
+<input type="submit" name="delpic" value="{LANG[CORE_DEL]}" class="button" onclick="return confirm('{LANG[INLINE_DELTEXT]}')" />
+<input type="hidden" name="id" value="{SCREEN.ID}" />
+<input type="hidden" name="action" value="mediamanager.inline" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="mid" value="{MID}" />
+<input type="hidden" name="fields" value="{FIELDS}" />
+<input type="hidden" name="hash" value="{HASH}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</td>
+<td><textarea name="text" cols="60" rows="3" class="textbox" style="width:98%;">{SCREEN.TEXT}</textarea></td>
+</tr>
+</form>
+{/list}
+</tbody>
+</table>
+{/if}
+
+<form action="action.php" method="post" enctype="multipart/form-data" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[INLINE_UPLOAD]}</td></tr>
+<tr>
+<td>{LANG[INLINE_PIC]}:</td>
+<td><input type="file" name="image" size="60" class="input" /><br />
+<div style="line-height:20px;">
+{LANG[INLINE_RESIZE]}: <input type="text" name="size_x" size="10" class="input" style="width:40px;" /> x <input type="text" name="size_y" size="10" class="input" style="width:40px;" />
+{if SET_MEDIAMANAGER_WATERMARK}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="watermark" id="ip_watermark" value="1" style="vertical-align:middle;" /><label for="ip_watermark"> {LANG[INLINE_WATERMARK]}</label>{/if}<br />
+{LANG[INLINE_ALIGN]}: <select name="align"><option value="">{LANG[INLINE_NOALIGN]}</option><option value="left">{LANG[INLINE_LEFT]}</option><option value="right">{LANG[INLINE_RIGHT]}</option></select>
+</div></td>
+</tr>
+<tr>
+<td>{LANG[INLINE_POPUP]}:</td>
+<td>
+<input type="checkbox" name="popup" id="ip_popup" value="1" style="vertical-align:middle;" id="check_popup" /><label for="ip_popup"> {LANG[YES]}</label>
+<div style="padding-top:3px;">{LANG[INLINE_RESIZE]}: <input type="text" name="popup_size_x" size="10" class="input" style="width:40px;" onchange="popup_check(this.value)" /> x <input type="text" name="popup_size_y" size="10" class="input" style="width:40px;" onchange="popup_check(this.value)" />
+{if SET_MEDIAMANAGER_WATERMARK}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="popup_watermark" id="ip_popup_watermark" value="1" checked="checked" style="vertical-align:bottom;" /><label for="ip_popup_watermark"> {LANG[INLINE_WATERMARK]}</label>{/if}
+</div></td>
+</tr>
+<tr>
+<td>{LANG[INLINE_TEXT]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="text" cols="60" rows="3" class="textbox" style="width:98%;">{TEXT}</textarea></td>
+</tr>
+<tr class="submit">
+<td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[INLINE_UPLOAD]}" class="button" accesskey="s" /></td>
+</tr>
+</table>
+<input type="hidden" name="upload" value="1" />
+<input type="hidden" name="action" value="mediamanager.inline" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="mid" value="{MID}" />
+<input type="hidden" name="fields" value="{FIELDS}" />
+<input type="hidden" name="hash" value="{HASH}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+<script type="text/javascript">
+
+function popup_check(value) {
+	if ( !value ) return;
+	getobject('check_popup').checked=true;
+}
+
+</script>

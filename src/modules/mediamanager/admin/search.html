@@ -1,0 +1,41 @@
+<form action="action.php" method="post">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[ITEMS]}</td></tr>
+<tr>
+<td>{LANG[SEARCHFOR]}:<br /><small>({LANG[WILDCARD]})</small></td>
+<td><input type="text" name="item" value="{ITEM}" class="input" size="60" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[DIR]}:</td>
+<td><select name="dir">{DIRLIST}</select></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="mediamanager.search" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="module" value="{MODULE}" />
+</form>
+
+{if ITEM}
+<table width="100%" class="tablelist" style="margin-top:10px;">
+<thead>
+<tr>
+<th width="60%">{LANG[COL_FILE]}</th>
+<th width="40%">{LANG[COL_DIR]}</th>
+<th width="0">&nbsp;</th>
+</tr>
+</thead>
+{list FILE}
+<tr>
+<td class="title">{FILE.IMG} {FILE.NAME}</td>
+<td style="text-align:center;">uploads/{if FILE.PATH}{FILE.PATH}/{/if}</td>
+<td style="text-align:center;white-space:nowrap;">{FILE.OPTIONS}</td>
+</tr>
+{/list}
+{if !FILE}<tr><td colspan="3" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>
+{/if}

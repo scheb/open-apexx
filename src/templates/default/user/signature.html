@@ -1,0 +1,73 @@
+{*
+
+Signatur aktualisieren
+======================
+
+POSTTO = Formular senden an...
+PREVIEW = Vorschau der Signatur
+SIGNATURE = Signatur
+MAXLEN = Maximale Zeichenzahl der Signatur
+
+*}
+
+<form name="textform" action="{POSTTO}" method="post">
+{if PREVIEW}
+<table width="100%">
+<tr><td colspan="2" class="header1">{LANG[SIGPREVIEW]}</td></tr>
+<tr><td class="color">{PREVIEW}</td></tr>
+</table>
+&nbsp;
+{/if}
+<table width="100%">
+<tr><td colspan="2" class="header1">{LANG[SIGNATURE]}</td></tr>
+<tr>
+<td width="25%" class="color"><span class="small">&raquo; <a href="javascript:showcodes()">Codes</a><br />&raquo; <a href="javascript:showsmilies('','textform','signature')">Smilies</a></span></td>
+<td width="75%" class="color">
+<div class="editor">
+<div style="float:right;">
+<div><a href="javascript:field_collapse(document.forms.textform.signature);"><img src="design/editor/field_collapse.gif" alt="{LANG[FIELDCOLLAPSE]}" title="{LANG[FIELDCOLLAPSE]}" /></a></div>
+<div><a href="javascript:field_expand(document.forms.textform.signature);"><img src="design/editor/field_expand.gif" alt="{LANG[FIELDEXPAND]}" title="{LANG[FIELDEXPAND]}" /></a></div>
+</div>
+<a href="javascript:simplecode('signature','B');"><img src="design/editor/bold.gif" alt="{LANG[BOLD]}" title="{LANG[BOLD]}" /></a><a href="javascript:simplecode('signature','I');"><img src="design/editor/italic.gif" alt="{LANG[ITALIC]}" title="{LANG[ITALIC]}" /></a><a href="javascript:simplecode('signature','U');"><img src="design/editor/underline.gif" alt="{LANG[UNDERLINE]}" title="{LANG[UNDERLINE]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:linkcodenew('signature','URL');"><img src="design/editor/link.gif" alt="{LANG[LINK]}" title="{LANG[LINK]}" /></a><a href="javascript:linkcodenew('signature','EMAIL');"><img src="design/editor/email.gif" alt="{LANG[EMAIL]}" title="{LANG[EMAIL]}" /></a>
+<img src="design/editor/spacer.gif" alt="" />
+<a href="javascript:simplecode('signature','QUOTE');"><img src="design/editor/quote.gif" alt="{LANG[QUOTE]}" title="{LANG[QUOTE]}" /></a>
+</div>
+<textarea name="signature" id="signature" cols="85" rows="10" class="input" onChange="sig_maxlen(this);" onFocus="sig_maxlen(this);" onKeyDown="sig_maxlen(this);" onKeyUp="sig_maxlen(this);">{SIGNATURE}</textarea><br />
+<input type="text" name="sig_info" id="sig_info" size="60" class="input" style="border:0px;background:none;" value="" disabled="disabled" />
+</td>
+</tr>
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /> <input type="submit" name="preview" value="{LANG[PREVIEW]}" class="button" /></td></tr>
+</table>
+</form>
+
+<script type="text/javascript" src="lib/javascript/public_popups.js"></script>
+<script type="text/javascript" src="lib/javascript/public_codes.js"></script>
+<script type="text/javascript">
+<!--
+var lang_entertext="{LANG[CORE_ENTERTEXT]}";
+var lang_enterltext="{LANG[CORE_ENTERLTEXT]}";
+var lang_entermail="{LANG[CORE_ENTEREMAIL]}";
+var lang_enterurl="{LANG[CORE_ENTERURL]}";
+var lang_charsleft='{LANG[CHARSLEFT]}';
+var maxlen={MAXLEN};
+
+function sig_maxlen(obj) {
+	strlen=obj.value.length
+	
+	if( strlen > maxlen ) {
+		obj.value=obj.value.substring(0,maxlen)
+		charsleft=0
+	}
+	else {
+		charsleft=maxlen-strlen;
+	}
+	
+	obj.form.sig_info.value = lang_charsleft+': '+charsleft
+}
+
+sig_maxlen(getobject('signature'));
+
+-->
+</script>

@@ -1,0 +1,55 @@
+{*
+
+Inhaltsseite anzeigen
+=====================
+
+ID = ID der Inhaltsseite
+TITLE = Titel der Seite
+CONTENT = Inhalt der Seite
+HITS = Anzahl der Klicks
+CATID = ID der Kategorie
+CATTITLE = Titel der Kategorie
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+HEADLINE = Liste der Headline-Pfad-Elemente
+HEADLINE.TEXT = Text eines Elements
+
+LASTCHANGE_TIME = Letzte Änderung (Timestamp)
+LASTCHANGE_USERID = ID des Benutzers, der diese Seite zuletzt geändert hat
+LASTCHANGE_USERNAME = Benutzername des Benutzers, der diese Seite zuletzt geändert hat
+LASTCHANGE_EMAIL = eMail-Adresse des Benutzer, der diese Seite zuletzt geändert hat
+LASTCHANGE_EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+
+AUTHOR_USERID = Benutzername des Autors (Seitenersteller)
+AUTHOR_USERNAME = Benutzername des Autors
+AUTHOR_EMAIL = eMail-Adresse des Autors
+AUTHOR_EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Bewertung (Template includen?)
+------------------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+Alle Platzhalter finden Sie in der Datei /templates/default/ratings/rating.html
+
+*}
+
+{CONTENT}
+
+<br />&nbsp;
+<table width="100%">
+<tr>
+<td width="30%" class="small">{if DISPLAY_RATING}{include ../ratings/rating.html}{/if}</td>
+<td width="70%" class="small" align="right">{LANG[LASTCHANGE]}: {DATE('d.m.Y - H:i:s',LASTCHANGE_TIME)} {LANG[BY]} <a href="{PROFILE(LASTCHANGE_USERID)}" target="_blank">{LASTCHANGE_USERNAME}</a> | {LANG[BY]} <a href="{PROFILE(AUTHOR_USERID)}" target="_blank">{AUTHOR_USERNAME}</a> {if AUTHOR_EMAIL}({AUTHOR_EMAIL}){/if}{if DISPLAY_COMMENTS} | <a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a>{/if} | <a href="{PRINT()}" target="_blank">{LANG[PRINT]}</a></td>
+</tr>
+</table>
+
+<br />&nbsp;
+{if DISPLAY_COMMENTS}{include ../comments/comments.html}{/if}

@@ -1,0 +1,55 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[ADDCAT]}{else}{LANG[EDITCAT]}{/if}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" size="60" maxlength="255" style="width:400px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td>{TEXTAREA('description',5,DESCRIPTION,0,0)}</td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+<tr>
+<td>{LANG[STYLESHEET]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="stylesheet" value="{STYLESHEET}" size="60" maxlength="255" style="width:300px;" class="input" /></td>
+</tr>
+</table>
+
+<!-- RECHTE -->
+{include rightmanagement.html}
+<!-- RECHTE -->
+
+<table width="100%" style="margin-top:10px;">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="create[{FTYPE}]" value="1" />
+<input type="hidden" name="parentid" value="{PARENTID}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="forum.{ACTION}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript">
+<!--
+
+function update_rights(boxvalue) {
+	if ( boxvalue==true ) {
+		getobject('rights').style.display='none';
+	}
+	else {
+		getobject('rights').style.display='';
+	}
+}
+
+//-->
+</script>

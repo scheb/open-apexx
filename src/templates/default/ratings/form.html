@@ -1,0 +1,27 @@
+{*
+
+Bewertungs-Formular
+===================
+
+RATING_POSTTO = URL, an die das Formular gesendet werden soll
+RATING_NOFORM = Formular nicht anzeigen?
+RATING_OPTION = Liste der Bewertungsmöglichkeiten
+RATING_OPTION.TEXT = Bezeichnung
+RATING_OPTION.VALUE = Wert
+MODULE = Modul (für "hidden"-Feld)
+MID = ID (für "hidden"-Feld)
+
+*}
+
+{if !RATING_NOFORM}
+<br />
+<form action="{RATING_POSTTO}" method="post">
+<select name="rating" style="font-size:10px;">
+{list RATING_OPTION}
+<option value="{RATING_OPTION.VALUE}">{RATING_OPTION.TITLE}</option>
+{/list}
+</select> <input type="submit" name="sendrate" value="{LANG[SUBMITRATE]}" class="button" style="font-size:10px;" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="mid" value="{MID}" />
+</form>
+{/if}

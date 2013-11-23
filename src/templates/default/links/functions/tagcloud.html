@@ -1,0 +1,12 @@
+{*
+
+Template-Funktion: Tagcloud
+===========================
+
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+*}
+<div class="tags" style="margin-top:20px;">{list TAG} <a href="links.php?action=search&amp;tag={TAG.NAME|urlencode}" style="{TAGSIZE=50+50*TAG.WEIGHT}font-size:{TAGSIZE}%;">{TAG.NAME}</a>{/list}</div>

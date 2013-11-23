@@ -1,0 +1,33 @@
+<form action="action.php" name="textform" method="post" target="postframe" enctype="multipart/form-data">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[ARTPAGES]}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" size="80" maxlength="255" style="width:400px;" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[INLINESCREENS]}:</td>
+<td>{INLINE('text',ID)}</td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td>{TEXTAREA('text',25,TEXT)}</td>
+</tr>
+<tr class="submit"><td colspan="2">
+{if SET_PREVIOUS}<input type="submit" name="submit_prev" value="&laquo; {LANG[SUBMIT_PREV]}" class="button" /> {/if} 
+{if TYPE=='normal'}<input type="submit" name="submit_walk" value="{LANG[SUBMIT_PICS]}" class="button" />{else}<input type="submit" name="submit_walk" value="{LANG[SUBMIT_CONCLUSION]}" class="button" />{/if}  
+<input type="submit" name="submit_next" value="{if SET_NEWPAGE}{LANG[SUBMIT_NEW]}{else}{LANG[SUBMIT_NEXT]} &raquo;{/if}" class="button" /> 
+{if ACTION=='edit' || TYPE=='normal'}<input type="submit" name="submit_finish" value="{LANG[SUBMIT_FINISH]}" class="button" />{/if}
+</td></tr>
+</table>
+<input type="hidden" name="pubnow" value="{PUBNOW}" />
+<input type="hidden" name="action" value="articles.{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="pageid" value="{PAGEID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

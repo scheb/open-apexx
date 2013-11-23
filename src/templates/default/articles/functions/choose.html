@@ -1,0 +1,21 @@
+{*
+
+Template-Funktion: Artikel auswählen
+====================================
+
+POSTTO = Formular senden an...
+
+ARTICLE = Liste der Artikel in alphabetischer Reihenfolge
+ARTICLE.ID = ID
+ARTICLE.TITLE = Titel
+
+*}
+
+<form action="{POSTTO}" method="post">
+<select name="id" size="25" class="small" style="width:160px;">
+{list ARTICLE}
+<option value="{ARTICLE.ID}">{ARTICLE.TITLE}</option>
+{/list}
+</select><br />
+<input type="submit" name="send" value="Go!" class="button" />
+</form>

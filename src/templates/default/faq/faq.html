@@ -1,0 +1,53 @@
+{*
+
+FAQ auflisten
+=============
+
+DISPLAY = Antworten anzeigen (wenn eine Frage gewählt)
+FAQ = Liste der Fragen
+FAQ.ID = ID
+FAQ.NUMBER = Nummerierung
+FAQ.QUESTION = Frage
+FAQ.ANSWER = Antwort
+FAQ.LINK = Link zu dieser Frage
+FAQ.TIME = Zeit (Timestamp)
+FAQ.LEVEL = Level der Untergliederung
+FAQ.HITS = Anzahl der Klicks
+
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+*}
+<style type="text/css">
+<!--
+
+.faq {
+	background:#F5F5F5;
+	margin:5px 0px;
+}
+
+.faq div {
+	padding:3px;
+}
+
+-->
+</style>
+
+{list FAQ}
+{if FAQ.LEVEL<LASTLEVEL}{DIFF=LASTLEVEL-FAQ.LEVEL}{repeat DIFF}</ul>{/repeat}{/if}
+{if FAQ.LEVEL>LASTLEVEL}<ul>{/if}
+<li>{FAQ.NUMBER} <a href="{FAQ.LINK}#{FAQ.ID}">{FAQ.QUESTION}</a></li>
+{LASTLEVEL=FAQ.LEVEL}
+{/list}
+{repeat LASTLEVEL}</ul>{/repeat}
+
+{if DISPLAY}
+
+{list FAQ}
+<div class="faq">
+<a name="{FAQ.ID}"></a>
+<div style="font-weight:bold;">{FAQ.NUMBER} {FAQ.QUESTION}</div>
+<div>{FAQ.ANSWER}</div>
+<div style="font-size:10px;text-align:right;">{DATE('d.m.Y',FAQ.TIME)} | {FAQ.HITS} {LANG[HITS]}</div>
+</div>
+{/list}
+{/if}

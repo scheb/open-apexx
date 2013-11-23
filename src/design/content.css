@@ -1,0 +1,312 @@
+/* TEXTBLÖCKE */
+
+.small {
+	font-size:10px;
+}
+
+.sortby {
+	text-align:center;
+	font-size:11px;
+	margin:10px 0px 0px 0px;
+}
+
+.slink {
+	margin:15px 20px;
+	padding:3px 5px;
+	border-top:1px solid #C2C2C2;
+	border-bottom:1px solid #C2C2C2;
+	background:#F0F0F0;
+}
+
+.error {
+	border:1px solid white;
+	color:white;
+	padding:5px;
+	margin:5px;
+	font-family:courier,sans-serif;
+	background:darkred;
+}
+
+.tags {
+	border:1px solid #dedede;
+	background:#f5f5f5;
+	padding:4px;
+	font-size:18px;
+	word-spacing:10px;
+}
+
+.tags a {
+	word-spacing:normal;
+}
+
+
+
+/*** SEITEN / BUCHSTABEN ***/
+
+.pages {
+	font-size:11px;
+}
+
+.letters {
+	font-size:11px;
+	letter-spacing:normal;
+	word-spacing:-2px;
+	text-align:center;
+}
+
+.pages a,
+.letters a  {
+	letter-spacing:normal;
+}
+
+.pages a,
+.letters a {
+	color:#313131;
+	background:none;
+	line-height:18px;
+	padding:1px 3px;
+}
+
+.pages a:hover,
+.letters a:hover {
+	color:#fff;
+	background:#d6511d;
+	text-decoration:none;
+}
+
+.pages a.selected,
+.pages a.selected:hover,
+.letters a.selected,
+.letters a.selected:hover {
+	color:#fff;
+	background:#d6511d;
+	text-decoration:none;
+}
+
+.pages form {
+	float:right;
+}
+
+.pages form input {
+	font-size:11px;
+}
+
+.pages form input.input {
+	text-align:center;
+}
+
+
+
+/* TABELLEN */
+table {
+	border-collapse:collapse;
+}
+
+td {
+	font-size:12px;
+}
+
+.header1 {
+	height:23px;
+	color:#f2f2f2;
+	padding-left:3px;
+	border:1px solid #383838;
+	border-bottom:2px solid #212121;
+	background:#383838 url('header1.gif') top;
+	font-size:14px;
+	font-weight:bold;
+}
+
+
+.header2 {
+	height:22px;
+	color:#f2f2f2;
+	border:1px solid #383838;
+	border-bottom:2px solid #212121;
+	background:#383838 url('header2.gif') top;
+	font-size:11px;
+	font-weight:bold;
+	text-align:center;
+}
+
+
+tr.color td,
+td.color,
+tr.color_nosize td,
+td.color_nosize {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+}
+
+
+tr.color td,
+td.color,
+tr.color_hover td {
+	height:27px;
+}
+
+
+.footer, .footer_tbl {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#E0E0E0;
+	text-align:center;
+}
+
+
+.footer_tbl {
+	text-align:right;
+}
+
+
+.space1 {
+	font-size:0px;
+	height:15px;
+}
+
+
+.space2 {
+	font-size:0px;
+	height:5px;
+}
+
+
+
+/*** TABS ***/
+
+div.tabbar {
+	position:relative;
+	top:1px;
+	z-index:1;
+	height:27px;
+}
+
+div.tabbar ul {
+	display:block;
+	list-style:none;
+	padding:0 0 0 10px;
+	margin:0;
+}
+
+div.tabbar li {
+	display:block;
+	float:left;
+	height:26px;
+	padding:0;
+	margin:0 0 0 5px;
+	line-height:26px;
+	background:#f7f7f7 url('layer_left.gif') top left no-repeat;
+}
+
+div.tabbar li a {
+	display:block;
+	padding:0 10px;
+	height:26px;
+	color:#d4d4d4;
+	line-height:26px;
+	background:url('layer_right.gif') top right no-repeat;
+	outline:none;
+}
+
+div.tabbar li.selected {
+	height:27px;
+	background-image:url('layer_sel_left.gif');
+}
+
+div.tabbar li.selected a {
+	height:27px;
+	color:#000;
+	background-image:url('layer_sel_right.gif');
+}
+
+div.tabbar li a:hover {
+	color:#000;
+}
+
+div.tabbody {
+	padding:10px;
+	background:#f7f7f7;
+	border:1px solid #999999;
+}
+
+
+
+/* GLOSSAR HIGHLIGHTS */
+
+.glossar_highlight {
+	color:blue;
+	border-bottom:1px dotted blue;
+	cursor:help;
+}
+
+.glossar_highlight:hover {
+	border-bottom:1px solid blue;
+}
+
+.glossar_info_title {
+	font-size:12px;
+}
+
+.glossar_info_text {
+	font-size:10px;
+}
+
+.glossar_info_readmore {
+	text-align:right;
+	font-size:10px;
+}
+
+
+
+/* FORMULAR */
+form {
+	margin:0px;
+}
+
+input, select, textarea, optgroup {
+	font-family:tahoma, verdana, arial, sans-serif;
+	font-size:12px;
+	color:#2B2B2B;
+}
+
+textarea,
+.input {
+	border:1px solid #B3B3B3;
+	padding:2px;
+}
+
+.button { 
+	color:#2B2B2B;
+	border-width:1px;
+	background-color:#B3B3B3;
+	background-image:url('bg_buttons.gif');
+}
+
+.code {
+	border:1px solid #B3B3B3;
+	padding:2px;
+	font-family:courier new, courier, monospace;
+}
+
+
+
+/************** EDITOR-FELD **************/
+
+.editor {
+	width:98%;
+}
+
+.editor a:link img,
+.editor a:active img,
+.editor a:visited img {
+	background:none;
+	border:none;
+	padding:1px;
+}
+
+.editor a:hover img {
+	background:#D9D9D9;
+	border:1px solid #999999;
+	padding:0px;
+}

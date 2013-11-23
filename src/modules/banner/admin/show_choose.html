@@ -1,0 +1,4 @@
+<form action="action.php" method="get" style="margin-bottom:10px;">
+<input type="hidden" name="action" value="banner.show" />
+<p>{LANG[CHOOSE]}: <select name="gid" onchange="this.form.submit();"><option value="0"></option>{list GROUP}<option value="{GROUP.ID}"{if GROUP.SELECTED} selected="selected"{/if}>{GROUP.TITLE}</option>{/list}</select></p>
+</form>

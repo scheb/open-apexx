@@ -1,0 +1,79 @@
+{*
+
+Bilderserie anzeigen
+====================
+
+ACHTUNG: Hier ist der komplette HTML-Code einer Website (so wie hier) nötig,
+da das Design-Template nicht um den Inhalt gelegt wird. Das heißt HTML-Header
+und Footer müssen sich in diesem Template befinden.
+
+
+Artikel-Info
+------------
+ID = Artikel-ID
+TITLE = Artikel-Titel
+SUBTITLE = Artikel-Untertitel
+LINK = Link zum Artikel
+TIME = Zeit (Timestamp)
+CATID = Kategorie-ID
+CATTITLE = Kategorie-Titel
+CATLINK = Link: Nur Inhalte aus dieser Kategorie
+CATICON = Kategorie-Icon
+COUNT = Anzahl der Bilder
+
+
+Angezeigtes Bild
+----------------
+IMAGE = Pfad zum Thumbnail
+CAPTION = Bildunterschift
+HITS = Klicks
+NEW = Ist das Bild neu?
+RESIZE = Javascript-Code um die Fenstergröße anzupassen
+
+
+Seitenzahlen
+------------
+PICTURE_COUNT = Anzahl der Seiten
+PICTURE_SELECTED = Ausgewählte Seitenzahl
+PICTURE = Liste der Seitenzahlen
+PICTURE.NUMBER = Seitenzahl
+PICTURE.LINK = Link
+PICTURE_PREVIOUS = Link "vorherige Seite"
+PICTURE_NEXT = Link "nächste Seite"
+PICTURE_FIRST = Link "erste Seite"
+PICTURE_LAST = Link "letzte Seite"
+
+*}
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>apexx - CMS &amp; Portalsystem</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="design/import.css" type="text/css" />
+<script type="text/javascript" src="/lib/yui/yahoo/yahoo-min.js"></script>
+<script type="text/javascript" src="/lib/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/lib/javascript/global.js"></script>
+<script type="text/javascript" src="/lib/javascript/public_popups.js"></script>
+</head>
+<body style="background:#FFFFFF;font-size:12px;padding:20px;">
+
+<div style="text-align:left;">
+
+<!--<p><b>{TITLE}</b><br />{DATE('d.m.Y - H:i:s',TIME)} | {PICTURE_COUNT} {LANG[PICTURES]}</p>-->
+
+<p class="pages" align="center">{LANG[CORE_PAGES]} ({PICTURE_COUNT}): 
+{if PICTURE_PREVIOUS} <a href="{PICTURE_PREVIOUS}">&laquo;</a>{/if}
+{list PICTURE}{if PICTURE.NUMBER==PICTURE_SELECTED} [{PICTURE.NUMBER}]{else} <a href="{PICTURE.LINK}">{PICTURE.NUMBER}</a>{/if}{/list}
+{if PICTURE_NEXT} <a href="{PICTURE_NEXT}">&raquo;</a>{/if}
+</p>
+
+<p align="center"><img src="{IMAGE}" alt="" style="border:3px solid #343434;" /></p>
+<p align="center">{if PICTURE_PREVIOUS}<a href="{PICTURE_PREVIOUS}"><img src="modules/gallery/images/previous.gif" alt="" /></a>{/if}{if PICTURE_NEXT} <a href="{PICTURE_NEXT}"><img src="modules/gallery/images/next.gif" alt="" /></a>{/if}</p>
+
+{RESIZE}
+
+</div>
+
+</body>
+</html>

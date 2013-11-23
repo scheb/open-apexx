@@ -1,0 +1,45 @@
+<ol>
+<li>{LANG[STEP1]}</li>
+<li>{LANG[STEP2]}</li>
+<li>{LANG[STEP3]}</li>
+</ol>
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[HEADLINE_ADD]}{else}{LANG[HEADLINE_EDIT]}{/if}</td></tr>
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[CODE]}:</td>
+<td><input type="text" name="code" value="{CODE}" class="input" size="5" maxlength="20" style="width:100px;" /></td>
+</tr>
+<tr>
+<td>{LANG[PLACEHOLDER]}:</td>
+<td>
+<input type="radio" name="count" id="count_1" value="1" {if COUNT==1}checked="checked"{/if} /><label for="count_1"> 1</label>&nbsp;&nbsp;
+<input type="radio" name="count" id="count_2" value="2" {if COUNT==2}checked="checked"{/if} /><label for="count_2"> 2</label></td>
+</tr>
+<tr>
+<td>{LANG[REPLACE]}:</td>
+<td>{LANG[PHEXPLAIN]}<br /><textarea name="replace" cols="80" rows="10" class="code" style="width:98%;">{REPLACE}</textarea></td>
+</tr>
+<tr>
+<td>{LANG[EXAMPLE]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="example" value="{EXAMPLE}" class="input" size="100" maxlength="255" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[ALLOWSIG]}:</td>
+<td>
+<input type="radio" name="allowsig" id="ip_allowsig_1" value="1" {if ALLOWSIG}checked="checked"{/if} /><label for="ip_allowsig_1"> {LANG[YES]}</label> &nbsp;&nbsp;
+<input type="radio" name="allowsig" id="ip_allowsig_0" value="0" {if !ALLOWSIG}checked="checked"{/if} /><label for="ip_allowsig_0"> {LANG[NO]}</label>
+</td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="main.cshow" />
+<input type="hidden" name="do" value="{ACTION}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

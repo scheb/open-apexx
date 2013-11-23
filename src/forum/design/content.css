@@ -1,0 +1,599 @@
+/**************************************************************************
+
+Mit dieser Datei lässt sich das Aussehen des Forums anpassen, ganz ohne den
+HTML-Code verändern zu müssen. 
+
+**************************************************************************/
+
+
+/************** ALLGEMEINES **************/
+
+/* Tabellen-Kopf mit Spalten-Bezeichnung */
+.tableheader {
+	height:22px;
+	color:#f2f2f2;
+	border:1px solid #383838;
+	border-bottom:2px solid #212121;
+	background:#D4D4D4 url('header2.gif') top;
+	font-size:11px;
+	font-weight:bold;
+	text-align:center;
+	white-space:nowrap;
+	padding:0px 3px;
+}
+
+.tableheader a:link,
+.tableheader a:active,
+.tableheader a:visited,
+.tableheader a:hover {
+	color:#f2f2f2;
+}
+
+/* Foren-Auflistung Spalte 1 und Spalte 2 für wechselnde Hintergrundfarben */
+.col1,
+.col2 {
+	padding:3px 5px;
+	border:1px solid #C2C2C2;
+}
+
+/* Farbe Spalte 1 und 2 */
+.col1 { background:#EBEBEB; }
+.col2 { background:#F2F2F2; }
+
+/* Fuß einer Tabelle */
+.tablefooter {
+	padding:3px;
+	font-size:11px;
+	border:1px solid #C2C2C2;
+	background:#E0E0E0;
+}
+
+/* Formularfelder mit kleiner Schriftgröße */
+.tablefooter input,
+.tablefooter select {
+	font-size:11px;
+}
+
+/* Seitenzahlen */
+.pages { font-size:11px; }
+
+/* Letzter Beitrag */
+.lastpost { font-size:11px; text-align:right; }
+
+/* Letzter Beitrag: Links nicht fett */
+.lastpost a { font-weight:normal !important; }
+
+/* Letzter Beitrag: Wenn der Thementitel auch angezeigt wird einen teil linksbündig anzeigen */
+.lastpost div { text-align:left; padding-bottom:3px; }
+
+/* Header einer Informations-Box (z.B. Onlineliste) */
+.infobox_header {
+	height:22px;
+	color:#f2f2f2;
+	border:1px solid #383838;
+	border-bottom:2px solid #212121;
+	background:#D4D4D4 url('header2.gif') top;
+	font-size:13px;
+	font-weight:bold;
+	padding-left:3px;
+}
+
+.infobox_header a:link,
+.infobox_header a:active,
+.infobox_header a:visited,
+.infobox_header a:hover {
+	color:#f2f2f2;
+}
+
+
+/* Inhalt einer Informations-Box */
+.infobox {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#EDEDED;
+	font-size:11px;
+}
+
+/* Links nicht fett */
+.infobox a:link,
+.infobox a:active,
+.infobox a:visited,
+.infobox a:hover {
+	font-weight:normal;
+}
+
+/* Formularfelder mit kleiner Schriftgröße */
+.infobox input,
+.infobox select {
+	font-size:11px;
+}
+
+/* Legende am Ende der Website */
+.legend {
+	padding-top:30px;
+	text-align:center;
+	font-size:11px;
+}
+
+
+
+/************** FOREN **************/
+
+/* Spacer zwischen Foren der obersten Ebene */
+.forum_spacer {
+	height:5px;
+	font-size:0;
+	overflow:hidden;
+	/*display:none;*/ /* Diese Zeile aktivieren, um den Spacer zu deaktivieren */
+}
+
+/* Kategorie auf oberster Ebene */
+.forum_category.level1 td {
+	height:40px;
+	color:#f2f2f2;
+	border:1px solid #383838;
+	border-bottom:none;
+	background:#D4D4D4 url('header1.gif') bottom;
+	padding-bottom:3px;
+	padding-left:5px;
+}
+
+.forum_category.level1 a {
+	color:#f2f2f2;
+}
+
+/* Kategorie als Unter-Forum */
+.forum_category.level2 td {
+	height:30px;
+}
+
+.forum_category.level2 a {
+	font-size:12px;
+	color:#333333;
+}
+
+
+/* Forum auf oberster Ebene */
+.forum_entry.level1 {  }
+
+.forum_entry.level1 td.first {
+	border-right:none;
+}
+
+.forum_entry.level1 td.second {
+	border-left:none;
+}
+
+
+/* Forum als Unter-Forum */
+.forum_entry.level2 {  }
+
+.forum_entry.level1 .forum_title a {  }
+
+
+/* Kategorie-Überschrift und Beschreibung */
+.forum_category_title { font-size:14px; font-weight:bold; }
+
+.forum_category_description { font-size:10px; }
+
+/* Foren-Symbol zentriert */
+.forum_icon { text-align:center; }
+
+/* Foren-Titel und Beschreibung */
+.forum_title a:link,
+.forum_title a:active,
+.forum_title a:visited,
+.forum_title a:hover {
+	color:#D6511D;
+}
+
+/* Unter-Foren eines Forums */
+.forum_subforum {
+	margin-top:5px;
+	font-size:10px;
+	-moz-column-count:3;
+	-moz-column-gap:10px;
+	-webkit-column-count:3;
+	-webkit-column-gap:10px;
+}
+
+.forum_subforum img {
+	vertical-align:bottom;
+}
+
+.forum_subforum a {
+	display:inline-block;
+}
+
+.forum_description { font-size:10px; }
+
+/* Foren-Betreuer */
+.forum_moderators { text-align:center; font-size:11px; }
+
+
+
+/************** THEMEN **************/
+
+/* Themen-Titel */
+.thread_title {  }
+
+/* Themen-Präfix */
+.thread_prefix {
+	font-weight:bold;
+	font-style:italic;
+	text-transform:uppercase;
+}
+
+/* Präfix von gepinnten Themen */
+.thread_stickytext {  }
+
+/* Themen-Titel fett, wenn neue Beiträge */
+.thread_newposts { font-weight:blod; }
+
+/* Themen-Titel nicht fett, wenn keine neuen Beiträge */
+.thread_nonewposts { font-weight:normal !important; }
+
+/* Gelöschtes Thema */
+.thread_deleted {
+	color:#4D4D4D;
+	font-size:11px;
+	background:#D9D9D9;
+}
+
+.thread_deleted .options {
+	float:right;
+}
+
+.thread_deleted a {
+	color:#8f8f8f;
+}
+
+.thread_deleted a:hover {
+	color:#4D4D4D;
+}
+
+/* Platzhalter zwischen gepinten Themen und normalen Themen */
+.thread_spacer {
+	font-size:1px;
+	height:5px;
+	background:#E0E0E0;
+	border:1px solid #C2C2C2;
+}
+
+/* Themenstarter */
+.thread_creator { font-size:10px; }
+.thread_creator a { font-weight:normal !important; }
+
+/* Forum, in dem sich das Thema befindet (bei Suchergebnissen) */
+.thread_forum { text-align:center; }
+.thread_forum a { font-weight:normal !important; }
+
+
+/* Information bei gelöschten Themen/Beiträge */
+.deleted_info {
+	font-weight:bold;
+	color:red;
+}
+
+
+
+/************** BEITRÄGE **************/
+
+/* Rahmen um den Beitrag*/
+.post { border:1px solid #C2C2C2; }
+
+/* Linke und Rechte Spalte */
+.post_col1 { padding:3px; background:#EBEBEB; border-right:1px solid #C2C2C2; }
+.post_col2 { padding:3px; background:#F0F0F0; }
+
+/* Datum und Zeit */
+.post_date {
+	color:#4D4D4D;
+	padding:3px;
+	font-size:11px;
+	border:1px solid #C2C2C2;
+	background:#D9D9D9;
+}
+
+/* Gelöschter Beitrag */
+.post_deleted {
+	color:#4D4D4D;
+	padding:3px;
+	font-size:11px;
+	border:1px solid #C2C2C2;
+	background:#D9D9D9;
+}
+
+.post_deleted .options {
+	float:right;
+}
+
+.post_deleted a {
+	color:#8f8f8f;
+}
+
+.post_deleted a:hover {
+	color:#4D4D4D;
+}
+
+/* Benutzername */
+.post_name { font-size:20px; }
+.post_name a { font-weight:normal !important; }
+
+/* Benutzer-Rang */
+.post_rank { font-size:11px; padding-bottom:4px; }
+
+/* Benutzer-Avatar und Avatar-Titel */
+.post_avatar { padding:4px 0px; font-size:10px; }
+
+/* Weitere Informationen zum Benutzer (u.a. Beiträge) */
+.post_infos { padding:5px 0px; font-size:11px; }
+
+/* Beitrags-Titel */
+.post_title {
+	font-size:10px;
+	font-weight:bold;
+	border-bottom:1px solid #C2C2C2;
+	padding:4px 2px;
+	margin-bottom:5px;
+}
+
+/* Text */
+.post_text { /* NOTHING */ }
+
+/* Anhänge */
+.post_imgattachments,
+.post_attachments {
+	font-size:11px;
+	margin:15px 5px 0px 5px;
+	padding:3px;
+}
+
+.post_imgattachments legend,
+.post_attachments legend {
+	font-size:11px;
+}
+
+.post_imgattachments a {
+	margin-right:10px;
+}
+
+.post_imgattachments img {
+	border:1px solid #808080;
+}
+
+/* Zuletzt bearbeitet von... */
+.post_lastedit {
+	padding-top:15px;
+	font-size:10px;
+	color:#7A7A7A;
+}
+
+/* Control-Panel */
+.post_panel { text-align:right; }
+
+/* Text hervorheben bei Suchergebnissen */
+.highlight { color:red !important; font-weight:bold; }
+
+
+
+/************** HERVORHEBUNGEN IM TEXT **************/
+
+/* Überschriften über den Boxen */
+.inlinebox_headline {
+	margin:0px;
+	font-size:11px;
+	font-weight:bold;
+	display:block;
+	padding:0px 0px 2px 2px;
+}
+
+/* Zitat */
+.quote {
+	border:1px solid #C2C2C2;
+	background:#EBEBEB;
+	padding:3px;
+	font-weight:normal;
+}
+
+/* Rahmen um die Codebox mit Overflow-Eigenschaft */
+.code {
+	width:670px;
+	overflow:auto;
+	border:1px solid #C2C2C2;
+	margin-bottom:20px;
+}
+
+
+/* Inhalt der Codebox */
+.code td {
+	font-family:courier new,monospace;
+	font-size:12px;
+	background:#EBEBEB;
+	padding:3px;
+	vertical-align:top;
+	white-space:nowrap;
+}
+
+/* Zeilennummern */
+.codelines {
+	color:#1A2932 !important;
+	width:1px;
+	background:#FFFFFF !important;
+}
+
+
+
+/************** GLOSSAR HIGHLIGHTS **************/
+
+.glossar_highlight {
+	color:blue;
+	border-bottom:1px dotted blue;
+	cursor:help;
+}
+
+.glossar_highlight:hover {
+	border-bottom:1px solid blue;
+}
+
+.glossar_info_title {
+	font-size:12px;
+}
+
+.glossar_info_text {
+	font-size:10px;
+}
+
+.glossar_info_readmore {
+	text-align:right;
+	font-size:10px;
+}
+
+
+
+/************** BEITRÄGE ERSTELLEN UND BEARBEITEN **************/
+
+/* Kopfzeile mit Überschrift */
+.form_header {
+	height:23px;
+	padding-left:3px;
+	color:#f2f2f2;
+	border:1px solid #383838;
+	border-bottom:2px solid #212121;
+	background:#C2C2C2 url('header3.gif') top;
+	font-size:14px;
+	font-weight:bold;
+}
+
+/* Fuß einer Tabelle */
+.form_footer {
+	padding:3px;
+	text-align:center;
+	border:1px solid #C2C2C2;
+	background:#E0E0E0;
+}
+
+/* Foren-Auflistung Zeile 1 und Zeile 2 für
+wechselnde Hintergrundfarben */
+tr.cell1 td,
+tr.cell2 td,
+td.cell1,
+td.cell2 {
+	padding:3px;
+	border:1px solid #C2C2C2;
+}
+
+/* Farbe Zeile 1 */
+tr.cell1 td,
+td.cell1 {
+	background:#EDEDED;
+}
+
+/* Farbe Zeile 2 */
+tr.cell2 td,
+td.cell2 {
+	background:#F2F2F2;
+}
+
+
+
+/************** EDITOR-FELD **************/
+
+.editor {
+	width:98%;
+}
+
+/* Für die Hover-Effekte */
+.editor a:link img,
+.editor a:active img,
+.editor a:visited img {
+	background:none;
+	border:none;
+	padding:1px;
+}
+
+.editor a:hover img {
+	background:#D9D9D9;
+	border:1px solid #999999;
+	padding:0px;
+}
+
+/* Dropdown-Menüs */
+.editor select {
+	font-size:11px;
+	margin-bottom:3px;
+}
+
+/* Smilie-Liste neben dem Eingabefeld */
+.smileylist {
+	width:150px;
+	border:1px solid #999999;
+}
+
+.smileylist td {
+	width:25%;
+	text-align:center;
+	border:none !important;
+	background:#E0E0E0 !important;
+}
+
+
+
+/************** FARBIGE HERVORHEBUNGEN FÜR BESTIMMTE BENUTZER **************/
+
+/* Administratoren */
+.user_admin { color:#D6511D !important; }
+
+/* Team-Mitglieder */
+.user_team { color:#D6BA1D !important; }
+
+/* Foren-Betreuer */
+.user_moderator { color:#001CA7 !important; }
+
+/* Gäste */
+.user_guest { color:#8C8C8C !important; font-style:italic; }
+
+
+
+/************** FORMULARE **************/
+
+/* Standardstil für Formular-Elemente */
+input, select, textarea, optgroup {
+	font-family:tahoma, verdana, arial, sans-serif;
+	font-size:12px;
+	color:#2B2B2B;
+	vertical-align:middle;
+}
+
+optgroup {
+	font-style:normal;
+}
+
+/* Eingabefelder */
+textarea,
+.textbox {
+	border:1px solid #B3B3B3;
+	padding:2px;
+}
+
+/* Buttons */
+.button { 
+	color:#2B2B2B;
+	border-width:1px;
+	background-color:#B3B3B3;
+	background-image:url('bg_buttons.gif');
+}
+
+/* Kategorie-Foren im Dropdown hervorheben */
+option.category { background:#EAEAEA; }
+
+
+
+/***************************************/
+
+/* Die folgenden Definitionen sollten nicht verändert werden */
+table { border-collapse:collapse; }
+form { margin:0px; }
+.forum_toggle { float:right; margin-right:7px; }
+.space1 { font-size:0px; height:15px; }
+.space2 { font-size:0px; height:5px; }

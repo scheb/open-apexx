@@ -1,0 +1,28 @@
+{*
+
+Nachricht: Altersabfrage
+========================
+
+*}
+
+<p>{LANG[MSG_CHECKAGE]}</p>
+<p>
+<select name="birthday[day]"><option></option>{C=0}{repeat 31}{++C}<option value="{C}">{if C<10}0{/if}{C}</option>{/repeat}</select>. 
+<select name="birthday[month]"><option></option>
+<option value="1">{LANG[MONTH_JAN]}</option>
+<option value="2">{LANG[MONTH_FEB]}</option>
+<option value="3">{LANG[MONTH_MAR]}</option>
+<option value="4">{LANG[MONTH_APR]}</option>
+<option value="5">{LANG[MONTH_MAY]}</option>
+<option value="6">{LANG[MONTH_JUN]}</option>
+<option value="7">{LANG[MONTH_JUL]}</option>
+<option value="8">{LANG[MONTH_AUG]}</option>
+<option value="9">{LANG[MONTH_SEP]}</option>
+<option value="10">{LANG[MONTH_OCT]}</option>
+<option value="11">{LANG[MONTH_NOV]}</option>
+<option value="12">{LANG[MONTH_DEC]}</option>
+</select>. 
+<select name="birthday[year]"><option></option>{C=2001}{repeat 70}{--C}<option value="{C}">{C}</option>{/repeat}</select>
+<input type="submit" name="checkage" value="OK" class="button" />
+</p>
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}

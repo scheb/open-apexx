@@ -1,0 +1,30 @@
+{if CLOSED}
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<tr class="tableheader"><td>{LANG[ISCLOSED]}</td></tr>
+<tr><td>{MESSAGE}</td></tr>
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{LANG[OPEN]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="main.close" />
+<input type="hidden" name="send" value="2" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+{else}
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_MAIN_CLOSE]}</td></tr>
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[MESSAGE]}:</td>
+<td><textarea name="message" cols="100" rows="5" style="width:98%;">{MESSAGE}</textarea></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="main.close" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+{/if}

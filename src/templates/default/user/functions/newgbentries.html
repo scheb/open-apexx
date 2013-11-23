@@ -1,0 +1,10 @@
+{*
+
+Template-Funktion: "Neue Gästebucheinträge"-Anzeige
+===================================================
+
+COUNT = Anzahl neuer Gästebucheinträge
+
+*}
+
+<p align="center" style="margin:0px;"><a href="user.php?action=guestbook&amp;id={LOGGED_ID}{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">{COUNT} {LANG[NEWGBS]}</a></p>

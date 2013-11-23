@@ -1,0 +1,70 @@
+{*
+
+Template-Funktion: Neuste Links
+===============================
+
+Links
+-----
+LINK = Liste der enthaltenen Links
+LINK.ID = Link-ID
+LINK.TITLE = Titel
+LINK.URL = URL
+LINK.TEXT = Beschreibung
+LINK.PICTURE = Aufmacher-Bild
+LINK.PICTURE_POPUP = Link: "größe Version des Aufmacher-Bilds anzeigen"
+LINK.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+LINK.LINK = Link zur Detailansicht
+LINK.HITS = Klicks
+LINK.TIME = Zeit (Timestamp)
+LINK.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen Link)
+LINK.TOP = Top-Link?
+LINK.RESTRICTED = Altersabfrage aktiviert?
+LINK.NEW = Neuer Link?
+LINK.GOTO = Link: Diese Webseite besuchen
+LINK.USERID = Benutzer-ID des Autors
+LINK.USERNAME = Benutzername des Autors
+LINK.EMAIL = eMail-Adresse des Autors
+LINK.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+
+LINK.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+LINK.TAG = Liste aller Tags
+LINK.TAG.ID = ID des Tags
+LINK.TAG.NAME = Darstellbarer Name des Tags
+LINK.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+LINK.CATID = Kategorie-ID
+LINK.CATTITLE = Titel der Kategorie
+LINK.CATLINK = Link: Nur Inhalte aus dieser Kategorie
+LINK.CATTEXT = Beschreibung der Kategorie
+LINK.CATICON = Kategorie-Symbol
+
+
+Verknüpfte Galerie
+------------------
+LINK.GALLERY_ID = ID der Galerie
+LINK.GALLERY_TITLE = Titel der Galerie
+LINK.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+LINK.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+LINK.COMMENT_COUNT = Anzahl der Kommentare
+LINK.COMMENT_LINK = Link zur Kommentar-Seite
+LINK.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+LINK.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+LINK.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+LINK.DISPLAY_RATING = Bewerten ist erlaubt?
+LINK.RATING = durchschnittliche Bewertung
+LINK.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{list LINK}
+<a href="{LINK.LINK}">{LINK.TITLE}</a> <span class="small">({DATE('d.m.Y',LINK.TIME)})</span><br />
+{/list}

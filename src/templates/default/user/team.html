@@ -1,0 +1,73 @@
+{*
+
+Team-Seite
+==========
+
+Benutzergruppen
+---------------
+GROUP = Liste der Benutzergruppen
+GROUP.TITLE = Name der Benutzergruppe
+GROUP.ISADMIN = Handelt es sich um eine Benutzergruppe min Admin-Rechten? 
+
+Benutzer der Gruppe
+-------------------
+GROUP.USER = Liste der Buddies
+GROUP.USER.ID = Benutzer-ID
+GROUP.USER.USERNAME = Benutzername
+GROUP.USER.GROUPID = ID der Benutzergruppe
+GROUP.USER.EMAIL = eMail-Adresse des Buddy
+GROUP.USER.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+GROUP.USER.ONLINE = Ist der Buddy online?
+GROUP.USER.REALNAME = Echter Name
+GROUP.USER.GENDER = Geschlecht (1=m, 2=w)
+GROUP.USER.CITY = Stadt
+GROUP.USER.PLZ = Postleitzahl
+GROUP.USER.COUNTRY = Land
+GROUP.USER.REGTIME = Datum/Zeit der Registrierung (Timestamp)
+GROUP.USER.REGDAYS = Tage seit der Registrierung
+GROUP.USER.LASTACTIVE = Zuletzt aktiv (Timestamp)
+GROUP.USER.AVATAR = Pfad zum Avatar
+GROUP.USER.AVATAR_TITLE = Avatar-Titel
+GROUP.USER.BIRTHDAY = Geburtstag
+GROUP.USER.AGE = Alter
+GROUP.USER.ISBUDDY = Ist dieser Benutzer Freund des angemeldeten Benutzers?
+GROUP.USER.LINK_SENDEMAIL = Link: eMail an Buddy senden
+GROUP.USER.LINK_SENDPM = Link: PN an Buddy senden
+
+
+Benuterdefinierte Felder
+------------------------
+GROUP.USER.CUSTOM1_NAME -> GROUP.USER.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+GROUP.USER.CUSTOM1 -> GROUP.USER.CUSTOM10 = Wert des Eingabefelds
+
+*}
+
+{list GROUP}
+<table width="100%" style="margin-bottom:20px;">
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<tr>
+<td class="header1">{GROUP.TITLE}</td>
+<td class="header2">{LANG[LASTACTIVE]}</td>
+<td class="header2">&nbsp;</td>
+</tr>
+{list GROUP.USER}
+<tr>
+<td class="color">{if GROUP.USER.ISBUDDY}<span style="color:#FF6102;font-weight:bold;">{GROUP.USER.NAME}</span>{else}{GROUP.USER.NAME}{/if}</td>
+<td class="color" align="center">{DATE('H:i:s',GROUP.USER.LASTACTIVE)}</td>
+<td class="color" align="center">
+{if GROUP.USER.ID}<a href="{PROFILE(GROUP.USER.ID)}" target="_blank"><img src="modules/user/images/profile.gif" title="{LANG[ICON_PROFILE]}" alt="{LANG[ICON_PROFILE]}" /></a>{/if}
+{if LOGGED_ID}{* Wenn man angemeldet ist *}
+{if GROUP.USER.ID!=LOGGED_ID}
+<a href="{GROUP.USER.LINK_SENDEMAIL}"><img src="modules/user/images/sendmail.gif" title="{LANG[ICON_SENDMAIL]}" alt="{LANG[ICON_SENDMAIL]}" /></a>
+<a href="{GROUP.USER.LINK_SENDPM}"><img src="modules/user/images/sendpm.gif" title="{LANG[ICON_SENDPM]}" alt="{LANG[ICON_SENDPM]}" /></a>
+{/if}
+{/if}
+</td>
+</tr>
+{/list}
+</table>
+{/list}

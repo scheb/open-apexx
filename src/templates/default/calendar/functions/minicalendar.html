@@ -1,0 +1,91 @@
+{*
+
+Termine
+=======
+
+Tagesauswahl
+------------
+DAY = Liste der Tage im gewählten Monat
+DAY.LINK_SELECT = Link: Diesen Tag in der Eventübersicht auswählen
+DAY.TIME = Dieser Tages (Timestamp), Datum ausgeben mit {DATE('d.m.Y',DAY.TIME)}
+DAY.INMONTH = Gehört dieser Tag zum gewählten Monat? (ansonsten ausgrauen!)
+DAY.EVENT_COUNT = Anzahl der Termine an diesem Tag
+
+*}
+
+<style type="text/css">
+<!--
+
+.minicalendar table {
+	width:250px;
+	margin:auto;
+	text-align:left;
+}
+
+.minicalendar td {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+	vertical-align:top;
+	text-align:center;
+	font-size:10px;
+	color:#848484;
+}
+
+.minicalendar tr.head td {
+	font-weight:bold;
+	background:#CFCFCF;
+	font-size:11px;
+	color:#2B2B2B;
+}
+
+.minicalendar .disabled {
+	background:#E5E5E5;
+	font-size:10px;
+	font-style:italic;
+}
+
+.minicalendar .hasevent {
+	background:#FFFFFF;
+	border:2px outset #B0B0B0;
+}
+
+-->
+</style>
+
+<table width="100%" class="minicalendar">
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<tr class="head">
+<td>Mo.</td>
+<td>Di.</td>
+<td>Mi.</td>
+<td>Do.</td>
+<td>Fr.</td>
+<td>Sa.</td>
+<td>So.</td>
+</tr>
+{list DAY}
+
+{* Wochenzeile beginnen *}
+{if COUNTER%7==0}<tr>{/if}
+
+{* Tag ausgeben *}
+{++COUNTER}
+{if DAY.INMONTH}
+<td{if DAY.EVENT_COUNT} class="hasevent"{elseif DAY.TODAY} class="today"{/if}><a href="{DAY.LINK_SELECT}">{DATE('j',DAY.TIME)}</a></td>
+{else}
+<td class="disabled">{DATE('j',DAY.TIME)}</td>
+{/if}
+
+{* Wochenzeile beenden *}
+{if COUNTER%7==0}</tr>{/if}
+{/list}
+</table>

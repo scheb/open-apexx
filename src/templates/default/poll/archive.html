@@ -1,0 +1,33 @@
+{*
+
+Umfragen-Archiv
+===============
+
+ARCHIVE = Liste der archivierten Umfragen
+ARCHIVE.LINK = Link zu dieser Umfrage
+ARCHIVE.QUESTION = Frage der Umfrage
+ARCHIVE.STARTTIME = Beginn der Umfrage (Timestamp)
+ARCHIVE.ENDTIME = Ende der Umfrage (Timestamp)
+ARCHIVE.VOTES = Anzahl der abgegebenen Stimmen
+
+ARCHIVE.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+ARCHIVE.TAG = Liste aller Tags
+ARCHIVE.TAG.ID = ID des Tags
+ARCHIVE.TAG.NAME = Darstellbarer Name des Tags
+ARCHIVE.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+*}
+<table width="100%">
+<colgroup>
+<col width="70%" />
+<col width="20%" />
+<col width="10%" />
+</colgroup>
+{list ARCHIVE}
+<tr>
+<td>&raquo; <a href="{ARCHIVE.LINK}">{ARCHIVE.QUESTION|notags}</a></td>
+<td class="small">{DATE('d.m.Y',ARCHIVE.STARTTIME)} - {DATE('d.m.Y',ARCHIVE.ENDTIME)}</td>
+<td class="small">{ARCHIVE.VOTES} {LANG[VOTES]}</td>
+</tr>
+{/list}
+</table>

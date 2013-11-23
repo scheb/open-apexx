@@ -1,0 +1,5 @@
+{if DIR}<ul>
+{list DIR}
+<li{if DIR.LAST} class="last"{/if} id="dir:{DIR.PATH}"><img src="design/node_collapsed.gif" alt="" class="toggleIcon" /><a href="action.php?action=mediamanager.index&amp;module={SERVER_REQUEST_MODULE}&amp;dir={DIR.PATH}" target="frame_content">{DIR.NAME}</a><div class="subtree" style="display:none;"></div></li>
+{/list}
+</ul>{/if}

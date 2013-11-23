@@ -1,0 +1,21 @@
+{*
+
+Information: Keine ausreichenden Rechte
+=======================================
+
+ID = ID des Beitrags
+
+*}
+
+<p>{LANG[MSG_NORIGHT]}</p>
+
+{if !LOGGED_ID}
+<form action="{BASEREL}user.php?action=login" method="post">
+<table width="400" style="text-align:left;margin:0 auto;">
+<colgroup><col width="40%" /><col width="60%" /></colgroup>
+<tr><td>{LANG[USERNAME]}:</td><td><input type="text" name="login_user" class="input" size="38" /></td></tr>
+<tr><td>{LANG[PASSWORD]}:</td><td><input type="password" name="login_pwd" class="input" size="38" /></td></tr>
+<tr><td></td><td><input type="submit" name="send" value="{LANG[SUBMIT_LOGIN]}" class="button" /></td></tr>
+</table>
+</form>
+{/if}

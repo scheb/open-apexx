@@ -1,0 +1,95 @@
+<p style="margin-bottom:20px;">{LANG[TOTAL]}: <b>{TOTAL}</b> {LANG[VISITORS]}<br />
+{LANG[TODAY]}: <b>{TODAY}</b> {LANG[VISITORS]}<br />
+{if PROGNOSIS}{LANG[PROGNOSIS]}: <b>{PROGNOSIS}</b> {LANG[VISITORS]}<br />{/if}
+{LANG[RECORD]} {RECORD_DATE}: <b>{RECORD}</b> {LANG[VISITORS]}</p>
+
+<h2>{LANG[LAST50DAYS]}</h2>
+<div class="tablebox" style="margin-bottom:20px;">
+<table width="100%" cellpadding="0">
+<tr>
+<td align="right" class="stats_scale" valign="top">{LAST50_SCALE4}</td>
+{list LAST50}{++LAST50SPAN}
+<td rowspan="4" valign="bottom" class="stats_main"><img src="../modules/stats/images/statbar2.gif" width="8" height="{LAST50.HITS_HEIGHT}" alt="{LAST50.DATE|notags} - {LAST50.COUNT} {LANG[VISITORS]}, {LAST50.HITS_COUNT} {LANG[HITS]}" title="{LAST50.DATE|notags} - {LAST50.COUNT} {LANG[VISITORS]}, {LAST50.HITS_COUNT} {LANG[HITS]}" class="stats_main_bar2" /><br /><img src="../modules/stats/images/statbar.gif" width="8" height="{LAST50.HEIGHT}" alt="" title="{LAST50.DATE} - {LAST50.COUNT} {LANG[VISITORS]}, {LAST50.HITS_COUNT} {LANG[HITS]}" class="stats_main_bar1" /></td>
+{/list}
+<td width="100%" rowspan="4" class="stats_blank"><img src="design/1px.gif" width="1" height="300" alt="" /></td>
+</tr>
+
+<tr><td align="right" class="stats_scale" valign="top">{LAST50_SCALE3}</td></tr>
+<tr><td align="right" class="stats_scale" valign="top">{LAST50_SCALE2}</td></tr>
+<tr><td align="right" class="stats_scale" valign="top">{LAST50_SCALE1}</td></tr>
+
+<tr>
+<td align="right" class="stats_scalezero" valign="top">0</td>
+<td class="small" colspan="{LAST50SPAN+1}{LAST50SPAN}">&nbsp;</td>
+</tr>
+</table>
+</div>
+
+
+<h2>{LANG[LAST30WEEKS]}</h2>
+<div class="tablebox" style="margin-bottom:20px;">
+<table width="100%" cellpadding="0">
+<tr>
+<td align="right" class="stats_scale" valign="top">{WEEK_SCALE4}</td>
+{list WEEK}{++WEEKSPAN}
+<td rowspan="4" valign="bottom" class="stats_main"><img src="../modules/stats/images/statbar.gif" width="19" height="{WEEK.HEIGHT}" alt="{WEEK.WEEK}. {LANG[CALWEEK]} {WEEK.YEAR} - {WEEK.COUNT} {LANG[VISITORS]}" title="{WEEK.WEEK}. {LANG[CALWEEK]} {WEEK.YEAR} - {WEEK.COUNT} {LANG[VISITORS]}" class="stats_main_bar1" /></td>
+{/list}
+<td width="100%" rowspan="4" class="stats_blank"><img src="design/1px.gif" width="1" height="300" alt="" /></td>
+</tr>
+
+<tr><td align="right" class="stats_scale" valign="top">{WEEK_SCALE3}</td></tr>
+<tr><td align="right" class="stats_scale" valign="top">{WEEK_SCALE2}</td></tr>
+<tr><td align="right" class="stats_scale" valign="top">{WEEK_SCALE1}</td></tr>
+
+<tr>
+<td align="right" class="stats_scalezero" valign="top">0</td>
+<td class="small" colspan="{WEEKSPAN+1}{WEEKSPAN}">&nbsp;</td>
+</tr>
+</table>
+</div>
+
+
+<h2>{LANG[WEEKDAYVISITS]}</h2>
+<div class="tablebox" style="margin-bottom:20px;">
+<table width="100%" cellpadding="0">
+<tr>
+<td align="right" class="stats_scale" valign="top">{WEEKDAY_SCALE4}%</td>
+{list WEEKDAY}
+<td rowspan="4" valign="bottom" class="stats_main"><img src="../modules/stats/images/statbar.gif" width="75" height="{WEEKDAY.HEIGHT}" alt="{WEEKDAY.DAY} - {WEEKDAY.PERCENT}%" title="{WEEKDAY.DAY} - {WEEKDAY.PERCENT}%" class="stats_main_bar1" /></td>
+{/list}
+<td width="100%" rowspan="4" class="stats_blank"><img src="design/1px.gif" width="1" height="300" alt="" /></td>
+</tr>
+
+<tr><td align="right" class="stats_scale" valign="top">{WEEKDAY_SCALE3}%</td></tr>
+<tr><td align="right" class="stats_scale" valign="top">{WEEKDAY_SCALE2}%</td></tr>
+<tr><td align="right" class="stats_scale" valign="top">{WEEKDAY_SCALE1}%</td></tr>
+
+<tr>
+<td align="right" class="stats_scalezero" valign="top">&nbsp;</td>
+{list WEEKDAY}<td class="small" align="center">{WEEKDAY.DAY}</td>{/list}
+</tr>
+</table>
+</div>
+
+
+<h2>{LANG[HOURVISITS]}</h2>
+<div class="tablebox">
+<table width="100%" cellpadding="0">
+<tr>
+<td align="right" class="stats_scale" valign="top">{HOUR_SCALE4}%</td>
+{list HOUR}
+<td rowspan="4" valign="bottom" class="stats_main"><img src="../modules/stats/images/statbar.gif" width="25" height="{HOUR.HEIGHT}" alt="{HOUR.HOUR} {LANG[CORE_OCLOCK]} - {HOUR.PERCENT}%" title="{HOUR.HOUR} {LANG[CORE_OCLOCK]} - {HOUR.PERCENT}%" class="stats_main_bar1" /></td>
+{/list}
+<td width="100%" rowspan="4" class="stats_blank"><img src="design/1px.gif" width="1" height="300" alt="" /></td>
+</tr>
+
+<tr><td align="right" class="stats_scale" valign="top">{HOUR_SCALE3}%</td></tr>
+<tr><td align="right" class="stats_scale" valign="top">{HOUR_SCALE2}%</td></tr>
+<tr><td align="right" class="stats_scale" valign="top">{HOUR_SCALE1}%</td></tr>
+
+<tr>
+<td align="right" class="stats_scalezero" valign="top">&nbsp;</td>
+{list HOUR}<td class="small" align="center">{HOUR.BASE}</td>{/list}
+</tr>
+</table>
+</div>

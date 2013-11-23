@@ -1,0 +1,24 @@
+<form name="textform" action="action.php" method="post">
+<table width="100%" class="table">
+<colgroup>
+<col />
+<col width="20" />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_NEWSLETTER_ADDNEWS]}</td></tr>
+{list NEWS}
+<tr>
+<td><p style="margin:0px 0px 5px 0px;"><b>{NEWS.TITLE}</b>{if NEWS.SUBTITLE}<br /><small>{NEWS.SUBTITLE}</small>{/if}</p>{NEWS.TEXT}</td>
+<td><input type="checkbox" name="news[{NEWS.ID}]" value="{NEWS.ID}"{if NEWS.CHECKED} checked="checked"{/if} /></td>
+</tr>
+{/list}
+<tr class="submit"><td colspan="2">{if P>1}<input type="submit" name="previous" value="&laquo; {LANG[PREVIOUS]}" class="button" /> {/if}<input type="submit" name="finish" value="{LANG[FINISH]}" class="button" />{if P<MAXPAGE} <input type="submit" name="next" value="{LANG[NEXT]} &raquo;" class="button" />{/if}</td></tr>
+</table>
+<input type="hidden" name="p" value="{P}" />
+<input type="hidden" name="period" value="{PERIOD}" />
+<input type="hidden" name="action" value="newsletter.addnews" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+{CHECKEDNEWS}
+{list SECTION}
+<input type="hidden" name="secid[]" value="{SECTION.SECID}" />
+{/list}
+</form>

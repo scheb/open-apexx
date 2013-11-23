@@ -1,0 +1,21 @@
+{*
+
+Template-Funktion: Galerie auswählen
+====================================
+
+POSTTO = Formular senden an...
+
+GALLERY = Liste der Galerien in alphabetischer Reihenfolge
+GALLERY.ID = ID
+GALLERY.TITLE = Titel
+
+*}
+
+<form action="{POSTTO}" method="post">
+<select name="id" size="25" class="small" style="width:160px;">
+{list GALLERY}
+<option value="{GALLERY.ID}">{repeat GALLERY.LEVEL-1}&nbsp;&nbsp;{/repeat}{GALLERY.TITLE}</option>
+{/list}
+</select><br />
+<input type="submit" name="send" value="Go!" class="button" />
+</form>

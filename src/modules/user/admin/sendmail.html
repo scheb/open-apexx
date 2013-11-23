@@ -1,0 +1,25 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_USER_SENDMAIL]}</td></tr>
+<tr>
+<td>{LANG[GROUPS]}:</td>
+<td><select name="groupid[]" multiple="multiple" size="10">{GROUP}</select></td>
+</tr>
+<tr>
+<td>{LANG[SUBJECT]}:</td>
+<td><input type="text" name="subject" value="{SUBJECT}" class="input" size="30" maxlength="50" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:<br /><small>({LANG[PLACEHOLDERS]})</small></td>
+<td><textarea name="text" cols="80" rows="20" class="input" style="width:98%;">{TEXT}</textarea></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SEND]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="user.sendmail" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

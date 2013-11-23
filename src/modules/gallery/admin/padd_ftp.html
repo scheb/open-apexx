@@ -1,0 +1,93 @@
+<style type="text/css">
+
+.optionbox div {
+	width:50%;
+	float:left;
+}
+
+</style>
+
+<p class="hint">{LANG[FTPINFO]}<br />{LANG[INFOTEXT]}</p>
+<p style="margin-bottom:10px;"><img src="design/mm/folder_closed.gif" alt="" style="vertical-align:middle;" /> <a href="action.php?action=gallery.padd&amp;id={ID}&amp;what=ftp">uploads</a>{list PATH} / <a href="{PATH.LINK}">{PATH.NAME}</a>{/list}</p>
+<form action="action.php" method="post" target="postframe">
+
+{if DIR}
+<table width="100%" class="table" style="margin-bottom:10px;">
+<tr class="tableheader"><td colspan="2">{LANG[SUBDIRS]}</td></tr>
+{list DIR}
+<tr><td class="title"><img src="design/mm/folder_closed.gif" alt="" style="vertical-align:middle;" /> <a href="{DIR.LINK}">{DIR.NAME}</a></td></tr>
+{/list}
+</table>
+{/if}
+
+<table width="100%" class="table">
+<colgroup>
+<col />
+<col width="100%" />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[CHOOSEPICS]}</td></tr>
+{if FTP}
+<tr><td colspan="2"><input type="checkbox" name="delpics" id="ip_delpics" value="1" /><label for="ip_delpics"> {LANG[DELPICS]}</label></td></tr>
+
+<tr>
+<td align="center"><input type="checkbox" name="checkall_ftp" value="1" id="checkall_ftp" onclick="checkbox_toggle_name(this.form,this.checked,'ftp')" /></td>
+<td>
+
+<table width="100%" class="clear" style="max-width:700px;">
+<tr>
+<td width="20%"></td>
+<td width="80%"><div class="optionbox">
+{if SET_WATERMARK}<div><input type="checkbox" name="checkall_watermark" id="ip_checkall_watermark" value="1" id="checkall_watermark" onclick="checkbox_toggle_name(this.form,this.checked,'watermark')" onchange="checkbox_toggle_name(this.form,this.checked,'watermark')" checked="checked" style="vertical-align:middle;" /><label for="ip_checkall_watermark" onclick="var checkbox = yDom.get(this.htmlFor); checkbox_toggle_name(checkbox.form,checkbox.checked,'watermark')"> {LANG[WATERMARK]}</label></div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="checkall_noresize" id="ip_checkall_noresize" value="1" id="checkall_noresize" onclick="checkbox_toggle_name(this.form,this.checked,'noresize')" onchange="checkbox_toggle_name(this.form,this.checked,'noresize')" style="vertical-align:middle;" /><label for="ip_checkall_noresize" onclick="var checkbox = yDom.get(this.htmlFor); checkbox_toggle_name(checkbox.form,checkbox.checked,'noresize')"> {LANG[NORESIZE]}</label></div>{/if}
+{if SET_COMS}<div><input type="checkbox" name="checkall_allowcoms" id="ip_checkall_allowcoms" value="1" id="checkall_allowcoms" onclick="checkbox_toggle_name(this.form,this.checked,'allowcoms')" onchange="checkbox_toggle_name(this.form,this.checked,'allowcoms')" checked="checked" style="vertical-align:middle;" /><label for="ip_checkall_allowcoms" onclick="var checkbox = yDom.get(this.htmlFor); checkbox_toggle_name(checkbox.form,checkbox.checked,'allowcoms')"> {LANG[COMMENTS]}</label></div>{/if}
+{if SET_RATING}<div><input type="checkbox" name="checkall_allowrating" id="ip_checkall_allowrating" value="1" id="checkall_allowrating" onclick="checkbox_toggle_name(this.form,this.checked,'allowrating')" onchange="checkbox_toggle_name(this.form,this.checked,'allowrating')" checked="checked" style="vertical-align:middle;" /><label for="ip_checkall_allowrating" onclick="var checkbox = yDom.get(this.htmlFor); checkbox_toggle_name(checkbox.form,checkbox.checked,'allowrating')"> {LANG[RATINGS]}</label></div>{/if}
+</div></td>
+</tr>
+</table>
+
+</td></tr>
+{list FTP}{++NUMBER}
+<tr><td align="center"><input type="checkbox" name="ftp[{NUMBER}]" value="{FTP.FILEID}" /></td><td>
+
+<table width="100%" class="clear" style="max-width:700px;">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tr><td>{LANG[PIC]}:</td><td><a href="{FTP.LINK}" target="_blank">{FTP.FILE}</a></td></tr>
+<tr><td>{LANG[CAPTION]}:</td><td><input type="text" name="caption{NUMBER}" class="input" maxlength="255" style="width:350px;margin-top:3px;" /></td></tr>
+<tr>
+<td>{LANG[OPTIONS]}:</td>
+<td>
+<div class="optionbox">
+{if SET_WATERMARK}<div><input type="checkbox" name="watermark{NUMBER}" id="ip_watermark{NUMBER}" value="1" checked="checked" style="vertical-align:middle;" /><label for="ip_watermark{NUMBER}"> {LANG[WATERMARK]}</label></div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="noresize{NUMBER}" id="ip_noresize{NUMBER}" value="1" style="vertical-align:middle;" /><label for="ip_noresize{NUMBER}"> {LANG[NORESIZE]}</label></div>{/if}
+{if SET_COMS}<div><input type="checkbox" name="allowcoms{NUMBER}" id="ip_allowcoms{NUMBER}" value="1" checked="checked" style="vertical-align:middle;" /><label for="ip_allowcoms{NUMBER}"> {LANG[COMMENTS]}</label></div>{/if}
+{if SET_RATING}<div><input type="checkbox" name="allowrating{NUMBER}" id="ip_allowrating{NUMBER}" value="1" checked="checked" style="vertical-align:middle;" /><label for="ip_allowrating{NUMBER}"> {LANG[RATINGS]}</label></div>{/if}
+</div></td>
+</tr>
+</table>
+ 
+</td></tr>
+{/list}
+{/if}
+{if !FTP}<tr><td colspan="2">{LANG[NONE]}</td></tr>{/if}
+</table>
+
+{if FTP}
+<table width="100%" class="table" style="margin-top:10px;">
+<colgroup>
+<col />
+<col width="100%" />
+</colgroup>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_ADD]}" accesskey="s" class="button" /> <input type="submit" name="addnext" value="{LANG[SUBMIT_ADDNEXT]}" accesskey="s" class="button" /></td></tr>
+</table>
+{/if}
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="gallery.padd" />
+<input type="hidden" name="what" value="ftp" />
+<input type="hidden" name="updateparent" value="{UPDATEPARENT}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="dir" value="{SERVER_REQUEST_DIR}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

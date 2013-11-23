@@ -1,0 +1,99 @@
+{*
+
+Suchergebnisse
+==============
+
+Downloads
+---------
+DOWNLOAD = Liste der enthaltenen Downloads
+DOWNLOAD.ID = Download-ID
+DOWNLOAD.TITLE = Titel
+DOWNLOAD.TEXT = Beschreibung
+DOWNLOAD.LINK = Link zur Detailansicht
+DOWNLOAD.SIZE = Dateigröße
+DOWNLOAD.FORMAT = Dateiformat
+DOWNLOAD.HITS = Download-Klicks
+DOWNLOAD.TIME = Zeit (Timestamp)
+DOWNLOAD.TOP = Top-Download?
+DOWNLOAD.RESTRICTED = Altersabfrage aktiviert?
+DOWNLOAD.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+DOWNLOAD.NEW = Neuer Download?
+DOWNLOAD.DOWNLOADLINK = Link: Datei herunterladen
+DOWNLOAD.UPLOADER = Name des Uploaders
+DOWNLOAD.UPLOADER_ID = Benutzer-ID des Uploaders
+DOWNLOAD.UPLOADER_EMAIL = eMail-Adresse des Uploaders
+DOWNLOAD.UPLOADER_EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+DOWNLOAD.AUTHOR = Name des Autors
+DOWNLOAD.AUTHOR_LINK = Verlinkung des Autor-Namens (eMail-Adresse, URL, etc.)
+
+DOWNLOAD.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+DOWNLOAD.TAG = Liste aller Tags
+DOWNLOAD.TAG.ID = ID des Tags
+DOWNLOAD.TAG.NAME = Darstellbarer Name des Tags
+DOWNLOAD.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kategorie
+---------
+DOWNLOAD.CATID = Unterkategorie-ID
+DOWNLOAD.CATTITLE = Titel der Unterkategorie
+DOWNLOAD.CATTEXT = Beschreibung der Unterkategorie
+DOWNLOAD.CATICON = Symbol der Unterkategorie
+
+
+Verknüpfte Galerie
+------------------
+DOWNLOAD.GALLERY_ID = ID der Galerie
+DOWNLOAD.GALLERY_TITLE = Titel der Galerie
+DOWNLOAD.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Bilder
+------
+DOWNLOAD.PICTURE = Liste der Bilder
+DOWNLOAD.PICTURE.IMAGE = Pfad zum Vorschaubild
+DOWNLOAD.PICTURE.LINK = Link zur Großansicht
+
+
+Kommentare
+----------
+DOWNLOAD.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+DOWNLOAD.COMMENT_COUNT = Anzahl der Kommentare
+DOWNLOAD.COMMENT_LINK = Link zur Kommentar-Seite
+DOWNLOAD.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+DOWNLOAD.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+DOWNLOAD.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+DOWNLOAD.DISPLAY_RATING = Bewerten ist erlaubt?
+DOWNLOAD.RATING = durchschnittliche Bewertung
+DOWNLOAD.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{include ../pages.html}
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="15%" />
+<col width="45%" />
+</colgroup>
+<tr>
+<td class="header2">{LANG[COL_TITLE]}</td>
+<td class="header2">{LANG[COL_SIZE]}</td>
+<td class="header2">{LANG[COL_DATE]}</td>
+<td class="header2">{LANG[COL_TEXT]}</td>
+</tr>
+{list DOWNLOAD}
+<tr>
+<td class="color"><a href="{DOWNLOAD.LINK}">{DOWNLOAD.TITLE}</a>{if DOWNLOAD.NEW} <img src="modules/downloads/images/new.gif" alt="" />{/if}{if DOWNLOAD.TOP} <img src="modules/downloads/images/top.gif" alt="" />{/if}</td>
+<td class="color" align="center">{DOWNLOAD.SIZE}</td>
+<td class="color" align="center">{DATE('d.m.Y',DOWNLOAD.TIME)}</td>
+<td class="color">{SHORTTEXT(DOWNLOAD.TEXT,200)} ({DOWNLOAD.HITS} {LANG[HITS]})</td>
+</tr>
+{/list}
+</table>

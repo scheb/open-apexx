@@ -1,0 +1,97 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_POLL_ADD]}</td></tr>
+{if SECLIST}<tr>
+<td>{LANG[SECTION]}:<br /><small>({LANG[CTRLMULTI]})</small></td>
+<td><select name="secid[]" id="seclist" multiple="multiple">{SECLIST}</select></td>
+</tr>{/if}
+<tr>
+<td>{LANG[QUESTION]}:</td>
+<td><input type="text" name="question" value="{QUESTION}" class="input" maxlength="255" size="80" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[DAYS]}:</td>
+<td><input type="text" name="days" value="{if DAYS}{DAYS}{/if}" class="input" size="15" style="width:100px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TAGS]}:<br /><small>({LANG[OPTIONAL]}, {LANG[TAGSINFO]})</small></td>
+<td><input type="text" name="tags" value="{TAGS}" size="30" class="input" style="width:400px;" /><div id="taglist" class="taglist"></div></td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin:10px 0;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[POSSANS]}</td></tr>
+{list ANSWER}{++ACOUNT}
+<tr id="answer{ACOUNT}"{if ANSWER.DISPLAY}{++DISPLAY}{else}style="display:none;"{/if}>
+<td>{LANG[ANSWER]} {ACOUNT}:</td>
+<td>
+<select name="color{ACOUNT}" id="color{ACOUNT}" style="width:40px;" onchange="setcolor(this);">{list COLOR}<option value="{COLOR.ID}" style="background:{COLOR.ID};"{if COLOR.ID==ANSWER.COLOR} selected="selected"{/if}>&nbsp;</option>{/list}</select>
+<input type="text" name="a{ACOUNT}" value="{ANSWER.TEXT}" class="input" size="80" style="width:450px;" />
+</td>
+</tr>
+{/list}
+<tr class="submit"><td colspan="2" style="text-align:left;"><a href="javascript:addanswer();"><img src="design/add.gif" alt="{LANG[NEWLINE]}" title="{LANG[NEWLINE]}" style="vertical-align:middle;" /> {LANG[NEWLINE]}</a></td></tr>
+</table>
+
+<table width="100%" class="table" style="margin-bottom:10px;">
+<tr class="tableheader"><td colspan="2">{LANG[OPTIONS]}</td></tr>
+<tr>
+<td>
+<input type="checkbox" name="multiple" id="ip_multiple" value="1"{if MULTIPLE} checked="checked"{/if} /><label for="ip_multiple"> {LANG[MULTIPLE]}</label><br />
+{if SET_POLL_SEARCHABLE}<input type="checkbox" name="searchable" id="ip_searchable" value="1"{if SEARCHABLE} checked="checked"{/if} /><label for="ip_searchable"> {LANG[SEARCHABLE]}</label><br />{/if}
+{if MODULE_COMMENTS && SET_POLL_COMS}<input type="checkbox" name="allowcoms" id="ip_allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} /><label for="ip_allowcoms"> {LANG[ALLOWCOMS]}</label><br />{/if}
+{if RIGHT_POLL_ENABLE}<input type="checkbox" name="pubnow" id="ip_pubnow" value="1"{if PUBNOW} checked="checked"{/if} /> <label for="ip_pubnow">{LANG[PUBNOW]}</label>{/if}
+</td>
+</tr>
+</table>
+
+<table width="100%" class="table">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_ADD]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="poll.add" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/yui/datasource/datasource-min.js"></script>
+<script type="text/javascript" src="../lib/yui/autocomplete/autocomplete-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/tagsuggest.js"></script>
+<script type="text/javascript">
+
+answershown={DISPLAY};
+
+function addanswer() {
+	if ( answershown>=20 ) return;
+	++answershown;
+	obj=getobject('answer'+answershown);
+	obj.style.display='';
+}
+
+//Hintergrundfarbe der Select-Box ändern
+function setcolor(obj) {
+	obj.style.background=obj.options[obj.selectedIndex].value;
+}
+
+//Farben nach dem laden aktualisieren
+for ( i=1; i<=20; i++ ) {
+	setcolor(getobject('color'+i));
+}
+
+yEvent.onDOMReady(function() {
+	new TagSuggest(document.forms[0].tags, yDom.get('taglist'), 200);
+});
+
+</script>

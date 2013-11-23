@@ -1,0 +1,26 @@
+{*
+
+Forum: Themen mit neuen Beiträgen
+=================================
+
+THREAD = Liste der Themen
+THREAD.ID = ID
+THREAD.TITLE = Titel
+THREAD.PREFIX = Themen-Präfix
+THREAD.LINK = Link zum Thema
+THREAD.OPENER_USERID = Benutzer-ID des Themenstarters
+THREAD.OPENER_USERNAME = Benutzername des Themenstarters
+THREAD.OPENTIME = Zeitpunkt, zu dem das Thema erstellt wurde (Timestamp)
+THREAD.LASTPOST_USERID = Benutzer-ID des letzten Posters
+THREAD.LASTPOST_USERNAME = Benutzername des letzten Posters
+THREAD.LASTPOST_TIME = Zeitpunkt des letzten Posts (Timestamp)
+THREAD.POSTS = Anzahl der Postings
+THREAD.VIEWS = Klicks
+THREAD.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen Thema)
+
+*}
+<ul>
+{list THREAD}
+<li><a href="{THREAD.LINK}">{THREAD.TITLE}</a> ({DATE('date',THREAD.LASTPOST_TIME)})</li>
+{/list}
+</ul>

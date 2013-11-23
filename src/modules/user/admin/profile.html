@@ -1,0 +1,35 @@
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[PROFILEOF]} {USERNAME}</td></tr>
+<tr>
+<td>{LANG[USERID]}:</td>
+<td>#{USERID}</td>
+</tr>
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td>{USERNAME}</td>
+</tr>
+<tr>
+<td>{LANG[REGDATE]}:</td>
+<td>{REGDATE}</td>
+</tr>
+<tr>
+<td>{LANG[REGEMAIL]}:</td>
+<td>{if REGEMAIL}<a href="mailto:{REGEMAIL}">{REGEMAIL}</a>{else}&nbsp;{/if}</td>
+</tr>
+<tr>
+<td>{LANG[EMAIL]}:</td>
+<td>{if EMAIL}<a href="mailto:{EMAIL}">{EMAIL}</a>{else}&nbsp;{/if}</td>
+</tr>
+<tr>
+<td>{LANG[LASTACTIVE]}:</td>
+<td>{LASTACTIVE}</td>
+</tr>
+<tr>
+<td>{LANG[GROUPNAME]}:</td>
+<td>{if GROUPNAME}{GROUPNAME}{else}&nbsp;{/if}</td>
+</tr>
+</table>

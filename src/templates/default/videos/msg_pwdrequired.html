@@ -1,0 +1,16 @@
+{*
+
+Passworteingabe, wenn Video geschützt
+========================================
+
+ID = Video-ID
+SECHASH = Sicherheitscode
+
+*}
+
+<p>{LANG[MSG_PWDREQUIRED]}</p>
+<input type="password" name="password" size="30" class="input" /> <input type="submit" name="apxsubmit" value="{LANG[SUBMITPWD]}" class="button" />
+<input type="hidden" name="action" value="videofile" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="sechash" value="{SECHASH}" />
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}

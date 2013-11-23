@@ -1,0 +1,38 @@
+<form action="action.php" method="post" target="postframe" style="margin-top:20px;">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[BLOCKIP]}</td></tr>
+<tr>
+<td>
+<input type="radio" name="type" id="ip_type_1" value="1" checked="checked" onclick="refresh_ip(this);" onchange="refresh_ip(this);" /><label for="ip_type_1" onclick="refresh_ip(this);"> {LANG[ONEIP]}</label><br />
+<input type="radio" name="type" id="ip_type_2" value="2" onclick="refresh_ip(this);" onchange="refresh_ip(this);" /><label for="ip_type_2" onclick="refresh_ip(this);"> {LANG[IPRANGE]}</label></td>
+<td>
+<input type="text" name="startip_1" value="{IP_1}" size="3" maxlength="3" class="input" style="width:50px;" />.<input type="text" name="startip_2" value="{IP_2}" size="3" maxlength="3" class="input" style="width:50px;" />.<input type="text" name="startip_3" value="{IP_3}" size="3" maxlength="3" class="input" style="width:50px;" />.<input type="text" name="startip_4" value="{IP_4}" size="3" maxlength="3" class="input" style="width:50px;" />
+<span style="display:none;" id="iprange"> &#150; 
+<input type="text" name="endip_1" value="{IP_1}" size="3" maxlength="3" class="input" style="width:50px;" />.<input type="text" name="endip_2" value="{IP_2}" size="3" maxlength="3" class="input" style="width:50px;" />.<input type="text" name="endip_3" value="{IP_3}" size="3" maxlength="3" class="input" style="width:50px;" />.<input type="text" name="endip_4" value="{IP_4}" size="3" maxlength="3" class="input" style="width:50px;" />
+</span>
+</td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="comments.blockip" />
+<input type="hidden" name="do" value="add" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+<script type="text/javascript">
+<!--
+
+function refresh_ip(obj) {
+	if ( obj.value=='1' && obj.checked==true ) getobject('iprange').style.display='none';
+	if ( obj.value=='1' && obj.checked==false ) getobject('iprange').style.display='';
+	if ( obj.value=='2' && obj.checked==false ) getobject('iprange').style.display='none';
+	if ( obj.value=='2' && obj.checked==true ) getobject('iprange').style.display='';
+}
+
+//-->
+</script>
+

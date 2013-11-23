@@ -1,0 +1,84 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_GUESTBOOK_EDIT]}</td></tr>
+{if USERID}<tr>
+<td>{LANG[USERNAME]}:</td>
+<td>{USERNAME}</td>
+</tr>
+{else}
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td><input type="text" name="username" value="{USERNAME}" class="input" size="50" maxlength="50" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[EMAIL]}:{if !SET_REQ_EMAIL} <small>({LANG[OPTIONAL]})</small>{/if}</td>
+<td><input type="text" name="email" value="{EMAIL}" class="input" size="50" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[HOMEPAGE]}:{if !SET_REQ_HOMEPAGE} <small>({LANG[OPTIONAL]})</small>{/if}</td>
+<td><input type="text" name="homepage" value="{HOMEPAGE}" class="input" size="50" style="width:400px;" /></td>
+</tr>
+{/if}
+{if CUSTOM1_NAME}<tr>
+<td>{CUSTOM1_NAME}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="custom1" value="{CUSTOM1}" class="input" size="50" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSTOM2_NAME}<tr>
+<td>{CUSTOM2_NAME}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="custom2" value="{CUSTOM2}" class="input" size="50" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSTOM3_NAME}<tr>
+<td>{CUSTOM3_NAME}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="custom3" value="{CUSTOM3}" class="input" size="50" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSTOM4_NAME}<tr>
+<td>{CUSTOM4_NAME}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="custom4" value="{CUSTOM4}" class="input" size="50" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSTOM5_NAME}<tr>
+<td>{CUSTOM5_NAME}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="custom5" value="{CUSTOM5}" class="input" size="50" style="width:400px;" /></td>
+</tr>{/if}
+<tr>
+<td>{LANG[TITLE]}:{if !SET_REQ_TITLE} <small>({LANG[OPTIONAL]})</small>{/if}</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" size="80" maxlength="255" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td>
+<textarea name="text" id="text" cols="100" rows="7" class="input" style="width:98%;" onChange="text_maxlen(this);" onFocus="text_maxlen(this);" onKeyDown="text_maxlen(this);" onKeyUp="text_maxlen(this);">{TEXT}</textarea>
+<small>{LANG[CHARSLEFT]}: <span id="text_info"></span></small>
+</td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="guestbook.edit" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+<script type="text/javascript">
+
+var maxlen={SET_MAXLEN};
+
+function text_maxlen(obj) {
+	strlen=obj.value.length
+	
+	if( strlen > maxlen ) {
+		obj.value=obj.value.substring(0,maxlen)
+		charsleft=0
+	}
+	else {
+		charsleft=maxlen-strlen;
+	}
+	
+	yDom.get('text_info').innerHTML = charsleft;
+}
+
+text_maxlen(getobject('text'));
+
+</script>

@@ -1,0 +1,15 @@
+<table width="100%" style="text-align:left;">
+<colgroup>
+<col width="150" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[DESTINATION]}:</td>
+<td><select name="newgal">{GALLIST}</select></td>
+</tr>
+</table>
+<p class="buttons"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="parent.MessageOverlayManager.closeLayer();" class="button" /></p>
+{list MULTIID}<input type="hidden" name="multiid[]" value="{MULTIID.ID}" />{/list}
+<input type="hidden" name="gid" value="{GID}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+<input type="hidden" name="send" value="1" />

@@ -1,0 +1,52 @@
+{*
+
+Codes auflisten
+===============
+
+CHARSET = In der Konfiguration festgelegtes Charset
+CODE = Liste der verfügbaren Codes
+CODE.TAG = Code-Tag
+CODE.EXAMPLE = Beispiel
+CODE.ALLOWSIG = Code ist in der Signatur erlaubt?
+
+*}
+
+<?xml version="1.0" encoding="{CHARSET}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Code-Liste</title>
+<meta http-equiv="content-Type" content="text/html; charset={CHARSET}" />
+<link rel="stylesheet" href="{BASEREL}design/import.css" type="text/css" />
+</head>
+<body style="padding:10px;">
+<div style="margin:auto;text-align:left;">
+
+<table width="100%">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tr><td class="header1" colspan="2">{LANG[CODES]}</td></tr>
+{list CODE}
+<tr>
+<td class="color" align="center">[{CODE.TAG}]{if CODE.ALLOWSIG} *{/if}</td>
+<td class="color">{if CODE.EXAMPLE}{CODE.EXAMPLE}{else}&nbsp;{/if}</td>
+</tr>
+{/list}
+<!--<tr><td class="space1" colspan="2">&nbsp;</td></tr>
+<tr><td class="header1" colspan="2">{LANG[FORUM]}</td></tr>
+<tr class="color">
+<td align="center">[CODE]</td>
+<td>[CODE]&lt;html&gt;&lt;!-- CODE --&gt;&lt;/html&gt;[/CODE]</td>
+</tr>
+<tr class="color">
+<td align="center">[PHP]</td>
+<td>[PHP]&lt;?php echo 'Hello World!'; ?&gt;[/PHP]</td>
+</tr>-->
+<tr><td class="footer" colspan="2">* {LANG[SIGALLOWED]}<br />&raquo; <a href="javascript:window.close()">{LANG[CLOSE]}</a> &laquo;
+</table>
+
+</div>
+</body>
+</html>

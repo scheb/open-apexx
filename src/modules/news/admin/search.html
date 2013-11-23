@@ -1,0 +1,55 @@
+<form action="action.php" method="post" class="searchform">
+<p class="toggle"><a href="javascript:toggleSearchForm();"><img src="design/{if EXTENDED}collapse{else}extend{/if}.gif" id="searchtoggle" alt="" /></a></p>
+<table width="100%" class="dashed">
+<colgroup>
+<col width="100" />
+<col />
+</colgroup>
+<tbody>
+<tr>
+<td>{LANG[SEARCHTEXT]}:</td>
+<td>
+<input type="text" name="item" class="input" value="{ITEM}" size="70" style="width:300px;" /> <input type="submit" name="apxsubmit" value="{LANG[SEARCH]}" accesskey="s" class="button" /><br />
+<input type="checkbox" name="title" id="ip_title" value="1"{if STITLE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_title"> {LANG[STITLE]}</label> &nbsp;
+<input type="checkbox" name="subtitle" id="ip_subtitle" value="1"{if SSUBTITLE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_subtitle"> {LANG[SSUBTITLE]}</label> &nbsp;
+{if SET_TEASER}<input type="checkbox" id="ip_checkbox" name="teaser" value="1"{if STEASER} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_checkbox"> {LANG[STEASER]}</label> &nbsp;{/if}
+<input type="checkbox" name="text" id="ip_text" value="1"{if STEXT} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_text"> {LANG[STEXT]}</label>
+</td>
+</tr>
+</tbody>
+<tbody id="searchextend"{if !EXTENDED} style="display:none;"{/if}>
+{if SECLIST}
+<tr>
+<td>{LANG[SECTION]}:</td>
+<td><select name="secid"><option value=""></option>{SECLIST}</select></td>
+</tr>
+{/if}
+<tr>
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid"><option value=""></option>{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td><select name="userid"><option value=""></option>{USERLIST}</select></td>
+</tr>
+</tbody>
+</table>
+<input type="hidden" name="action" value="news.show" />
+<input type="hidden" name="what" value="{WHAT}" />
+</form>
+<script type="text/javascript">
+
+function toggleSearchForm() {
+	var expandable = yDom.get('searchextend');
+	var button = yDom.get('searchtoggle');
+	if ( expandable.style.display=='none' ) {
+		expandable.style.display = '';
+		button.src = 'design/collapse.gif';
+	}
+	else {
+		expandable.style.display = 'none';
+		button.src = 'design/extend.gif';
+	}
+}
+
+</script>

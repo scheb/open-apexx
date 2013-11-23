@@ -1,0 +1,62 @@
+{*
+
+Suchergebnisse (Hersteller)
+===========================
+
+Hersteller
+----------
+MANU = Liste der Hersteller
+MANU.ID = ID
+MANU.TYPE = Type ('company' = Firma, 'person' = Person)
+MANU.TITLE = Spiel-Titel
+MANU.LINK = Link zur Detailseite
+MANU.TYPE = Produkttyp (normal, game, music, movie, book)
+MANU.TEXT = Beschreibung
+MANU.PICTURE = Produkt-Bild
+MANU.PICTURE_POPUP = Link: Popup zur Großansicht des Produktbilds
+MANU.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+MANU.WEBSITE = Website
+MANU.FULLNAME = Vollständiger Name
+MANU.ADDRESS = Anschrift
+MANU.EMAIL = eMail-Adresse
+MANU.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+MANU.PHONE = Telefon
+
+
+Nur bei TYPE = 'company'
+------------------------
+MANU.FOUNDER = Gründer
+MANU.FOUNDER_YEAR = Gründungsjahr
+MANU.FOUNDER_COUNTRY = Gründungsland
+MANU.LEGALFORM = Unternehmensform
+MANU.HEADQUATERS = Unternehmenssitz
+MANU.EXECUTIVE = Unternehmensleitung
+MANU.EMPLOYEES = Mitarbeiter
+MANU.TURNOVER = Jahresumsatz
+MANU.SECTOR = Branche
+MANU.PRODUCTS = Produkte
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+*}
+
+{include ../pages.html}
+<table width="100%">
+<colgroup>
+<col width="75%" />
+<col width="25%" />
+</colgroup>
+<tr>
+<td class="header2">{LANG[TITLE]}</td>
+<td class="header2">{LANG[PRODUCTS]}</td>
+</tr>
+{list MANU}
+<tr class="color">
+<td><a href="{MANU.LINK}">{MANU.TITLE}</a></td>
+<td align="center">{MANU.PRODUCT_COUNT}</td>
+</tr>
+{/list}
+</table>

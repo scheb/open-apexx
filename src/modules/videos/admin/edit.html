@@ -1,0 +1,101 @@
+{if SOURCE=='apexx'}
+<table width="100%" class="table" style="margin-top:10px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[LOCALSOURCE]}</td></tr>
+<tr>
+<td>{LANG[FLVFILE]}:</td>
+<td><input type="text" name="select_flv" id="select_flv" value="{FLVFILE}" size="10" class="input" style="width:300px;" /> <input type="button" name="mediamanager" value="{LANG[CORE_MEDIAMANAGER]}" onclick="javascript:openmm('mediamanager.php?action=mediamanager.index&amp;module=videos')" class="button" /></td>
+</tr>
+<tr>
+<td>{LANG[ORIGINALFILE]}:<br /><small>({LANG[OPTIONAL]})</small></td>
+<td>
+<input type="text" name="select_file" value="{FILE}" size="10" class="input" style="width:300px;" /> <input type="button" name="mediamanager" value="{LANG[CORE_MEDIAMANAGER]}" onclick="javascript:openmm('mediamanager.php?action=mediamanager.index&amp;module=videos')" class="button" />
+{if SET_VIDEOS_REGONLY}<input type="hidden" name="select_regonly" value="1" />{else}<p style="margin-top:3px;"><input type="checkbox" name="select_regonly" id="ip_select_regonly" value="1"{if REGONLY} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_select_regonly"> {LANG[REGONLY]}</label></p>{/if}
+
+<table width="300" class="clear">
+<colgroup>
+<col width="150" />
+<col width="150" />
+</colgroup>
+<tr>
+<td>{LANG[LIMIT]}:</td>
+<td><input type="text" name="select_limit" value="{if LIMIT}{LIMIT}{/if}" size="10" maxlength="10" class="input" style="width:60px;" /></td>
+</tr>
+<tr>
+<td>{LANG[PASSWORD]}:</td>
+<td><input type="text" name="select_password" value="{PASSWORD}" size="20" maxlength="50" class="input" style="width:150px;" /></td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+{elseif SOURCE=='external'}
+<table width="100%" class="table" style="margin-top:10px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[EXTERNALSOURCE]}</td></tr>
+<tr>
+<td>{LANG[FLVFILE]}:</td>
+<td><input type="text" name="external_flv" id="external_flv" value="{FLVFILE}" size="10" class="input" style="width:300px;" /></td>
+</tr>
+<tr>
+<td>{LANG[ORIGINALFILE]}:<br /><small>({LANG[OPTIONAL]})</small></td>
+<td>
+<input type="text" name="external_file" value="{FILE}" size="10" class="input" style="width:300px;" />
+{if SET_VIDEOS_REGONLY}<input type="hidden" name="external_regonly" value="1" />{else}<p style="margin-top:3px;"><input type="checkbox" name="external_regonly" id="ip_external_regonly" value="1"{if REGONLY} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_external_regonly"> {LANG[REGONLY]}</label></p>{/if}
+
+<table width="400" class="clear">
+<colgroup>
+<col width="150" />
+<col width="250" />
+</colgroup>
+<tr>
+<td>{LANG[LIMIT]}:</td>
+<td><input type="text" name="external_limit" value="{if LIMIT}{LIMIT}{/if}" size="10" maxlength="10" class="input" style="width:60px;" /></td>
+</tr>
+<tr>
+<td>{LANG[PASSWORD]}:</td>
+<td><input type="text" name="external_password" value="{PASSWORD}" size="20" maxlength="50" class="input" style="width:150px;" /></td>
+</tr>
+<tr>
+<td>{LANG[FILESIZE]}:</td>
+<td><input type="text" name="external_filesize" value="{FILESIZE}" size="15" maxlength="20" class="input" style="width:100px;" /> <select name="external_filesize_format"><option value="byte"{if FILESIZE_FORMAT=='byte'} selected="selected"{/if}>Byte</option><option value="kb"{if FILESIZE_FORMAT=='kb'} selected="selected"{/if}>KB</option><option value="mb"{if FILESIZE_FORMAT=='mb'} selected="selected"{/if}>MB</option><option value="gb"{if FILESIZE_FORMAT=='gb'} selected="selected"{/if}>GB</option></select></td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+{else}
+<table width="100%" class="table" style="margin-top:10px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[EMBEDSOURCE]}</td></tr>
+<tr>
+<td>{LANG[CURRENTVIDEO]}:</td>
+<td>{SOURCE_NAME}: {FLVFILE}</td>
+</tr>
+<tr>
+<td>{LANG[NEWURL]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="embed_url" size="10" class="input" style="width:300px;" /><br /><small>{LANG[EMBED_EXAMPLE]}</small></td>
+</tr>
+</table>
+{/if}
+
+<input type="hidden" name="source" value="{SOURCE}" />
+
+<script type="text/javascript">
+
+function insert_file(path) {
+	document.forms[0].select_file.value = path;
+}
+
+</script>

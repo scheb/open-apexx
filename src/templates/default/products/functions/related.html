@@ -1,0 +1,178 @@
+{*
+
+Produkte, die mit einem anderen Produkt verknüpft sind
+======================================================
+
+Produkte
+--------
+PRODUCT = Liste der Spiele
+PRODUCT.ID = ID
+PRODUCT.TITLE = Spiel-Titel
+PRODUCT.LINK = Link zur Detailseite
+PRODUCT.TYPE = Produkttyp (normal, game, music, movie, book, software, hardware)
+PRODUCT.TEXT = Beschreibung
+PRODUCT.TIME = Zeitpunkt der Erstellung (Timestamp)
+PRODUCT.HITS = Anzahl Klicks
+PRODUCT.PICTURE = Produkt-Bild
+PRODUCT.PICTURE_POPUP = Link: Popup zur Großansicht des Produktbilds
+PRODUCT.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+PRODUCT.TEASERPIC = Teaser-Bild
+PRODUCT.TEASERPIC_POPUP = Link: Popup zur Großansicht des Teaserbilds
+PRODUCT.TEASERPIC_POPUPPATH = Pfad zur großen Version des Bilds
+PRODUCT.WEBSITE = Website
+PRODUCT.BUYLINK = "Kaufen"-Link
+PRODUCT.PRICE = Preis
+PRODUCT.RECOMMENDED_PRICE = Unverbindliche Preisempfehlung
+PRODUCT.GUARANTEE = Garantiedauer
+PRODUCT.PRODUCT_ID = ID des verknüpften Produkts (nicht die ID des Produkts selbst!)
+
+PRODUCT.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+PRODUCT.TAG = Liste aller Tags
+PRODUCT.TAG.ID = ID des Tags
+PRODUCT.TAG.NAME = Darstellbarer Name des Tags
+PRODUCT.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Meine Sammlung (nur für registrierte Benutzer)
+----------------------------------------------
+PRODUCT.LINK_COLLECTION_ADD = Link: zu meiner Sammlung hinzufügen (wenn noch nicht in der Sammlung)
+PRODUCT.LINK_COLLECTION_REMOVE = Link: aus meiner Sammlung entfernen (wenn bereits in der Sammlung)
+
+
+Veröffentlichung
+----------------
+Das Veröffentlichungs-Datum ist in Form einer Liste aufgebaut. In der Regel hat diese
+Liste jedoch nur einen Eintrag. Nur bei Videospielen kann es aufgrund der verschiedenen
+Systeme mehrere Release-Daten geben.
+PRODUCT.RELEASE = Liste der Release-Daten
+PRODUCT.RELEASE.SYSTEM = Titel des Systems (nur beim Typ "Videospiel")
+PRODUCT.RELEASE.SYSTEM_ICON = Pfad zum System-Symbol (nur beim Typ "Videospiel")
+PRODUCT.RELEASE.MEDIA = Titel des Systems (nur bei den Typen "Film", "Musik", "Literatur" und "Software")
+PRODUCT.RELEASE.MEDIA_ICON = Pfad zum System-Symbol (nur bei den Typen "Film", "Musik", "Literatur" und "Software")
+PRODUCT.RELEASE.DATE = Release-Datum
+
+
+Benuterdefinierte Felder
+------------------------
+PRODUCT.CUSTOM1_NAME -> PRODUCT.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+PRODUCT.CUSTOM1 -> PRODUCT.CUSTOM10 = Wert des Eingabefelds
+
+
+Platzhalter des Typs "Allgemein" (TYPE = normal)
+------------------------------------------------
+PRODUCT.MANUFACTURER = Hersteller Name
+PRODUCT.MANUFACTURER_WEBSITE = Webseite des Herstellers
+PRODUCT.MANUFACTURER_LINK = Link zur Herstellerseite
+
+
+Platzhalter des Typs "Videospiel" (TYPE = game)
+-----------------------------------------------
+PRODUCT.DEVELOPER = Entwickler Name
+PRODUCT.DEVELOPER_WEBSITE = Webseite des Entwicklers
+PRODUCT.DEVELOPER_LINK = Link zur Herstellerseite
+PRODUCT.PUBLISHER = Verlag Name
+PRODUCT.PUBLISHER_WEBSITE = Webseite des Verlags
+PRODUCT.PUBLISHER_LINK = Link zur Herstellerseite
+PRODUCT.GENRE = Genre
+PRODUCT.MEDIA = Liste der Medienformate des Produkts
+PRODUCT.MEDIA.TITLE = Titel des Medienformats
+PRODUCT.MEDIA.ICON = Pfad zum Medium-Symbol
+PRODUCT.SYSTEM = Liste der Systeme, für die dieses Spiel erscheint
+PRODUCT.SYSTEM.TITLE = Titel des Systems
+PRODUCT.SYSTEM.ICON = Pfad zum System-Icon
+PRODUCT.USK = Usk-Bewertung, Variable ist leer oder hat einen der Werte:
+      'all' (freigegeben für Alle)
+			'6' (ab 6 Jahren)
+			'12' (ab 12 Jahren)
+			'16' (ab 16 Jahren)
+			'18' (ab 18 Jahren bzw. keine Jugendfreigabe)
+			'none' (Indiziert)
+      => IF verwenden z.B: {if USK=='18'}keine Jugendfreigabe{/if}
+
+
+Platzhalter des Typs "Software" (TYPE = software)
+-------------------------------------------------
+PRODUCT.MANUFACTURER = Hersteller Name
+PRODUCT.MANUFACTURER_WEBSITE = Webseite des Herstellers
+PRODUCT.MANUFACTURER_LINK = Link zur Herstellerseite
+PRODUCT.OS = Betriebsysteme
+PRODUCT.LANGUAGES = Sprachen
+PRODUCT.REQUIREMENTS = Systemvoraussetungen
+PRODUCT.LICENSE = Lizenz ('commercial' = Kaufversion, 'freeware' = Freeware, 'shareware' = Shareware)
+PRODUCT.VERSION = Aktuelle Version
+
+
+Platzhalter des Typs "Hardware" (TYPE = hardware)
+-------------------------------------------------
+PRODUCT.MANUFACTURER = Hersteller Name
+PRODUCT.MANUFACTURER_WEBSITE = Webseite des Herstellers
+PRODUCT.MANUFACTURER_LINK = Link zur Herstellerseite
+PRODUCT.EQUIPMENT = Lieferumfang
+
+
+Platzhalter des Typs "Musik" (TYPE = music)
+-------------------------------------------
+PRODUCT.ARTIST = Künstler
+PRODUCT.ARTIST_WEBSITE = Webseite des Künstlers
+PRODUCT.ARTIST_LINK = Link zur Herstellerseite
+PRODUCT.LABEL = Label Name
+PRODUCT.LABEL_WEBSITE = Webseite des Labels
+PRODUCT.LABEL_LINK = Link zur Herstellerseite
+PRODUCT.GENRE = Genre
+PRODUCT.MEDIA = Liste der Medienformate des Produkts
+PRODUCT.MEDIA.TITLE = Titel des Medienformats
+PRODUCT.MEDIA.ICON = Pfad zum Medium-Symbol
+PRODUCT.FSK = Fsk-Bewertung (funktioniert wie der Platzhalter USK von Videospielen, Erklärung siehe oben)
+
+
+Platzhalter des Typs "Film" (TYPE = movie)
+------------------------------------------
+PRODUCT.REGISSEUR = Regisseur
+PRODUCT.ACTORS = Darsteller
+PRODUCT.STUDIO = Studio Name
+PRODUCT.STUDIO_WEBSITE = Webseites des Studios
+PRODUCT.STUDIO_LINK = Link zur Herstellerseite
+PRODUCT.LENGTH = Spieldauer
+PRODUCT.GENRE = Genre
+PRODUCT.MEDIA = Liste der Medienformate des Produkts
+PRODUCT.MEDIA.TITLE = Titel des Medienformats
+PRODUCT.MEDIA.ICON = Pfad zum Medium-Symbol
+PRODUCT.FSK = Fsk-Bewertung (funktioniert wie der Platzhalter USK von Videospielen, Erklärung siehe oben)
+
+
+Platzhalter des Typs "Literatur" (TYPE = book)
+----------------------------------------------
+PRODUCT.AUTHOR = Autor
+PRODUCT.AUTHOR_WEBSITE = Webseite des Autors
+PRODUCT.AUTHOR_LINK = Link zur Herstellerseite
+PRODUCT.PUBLISHER = Verlag Name
+PRODUCT.PUBLISHER_WEBSITE = Webseite des Verlags
+PRODUCT.PUBLISHER_LINK = Link zur Herstellerseite
+PRODUCT.GENRE = Genre
+PRODUCT.MEDIA = Liste der Medienformate des Produkts
+PRODUCT.MEDIA.TITLE = Titel des Medienformats
+PRODUCT.MEDIA.ICON = Pfad zum Medium-Symbol
+PRODUCT.ISBN = ISBN-Nummer
+
+
+Kommentare
+----------
+PRODUCT.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+PRODUCT.COMMENT_COUNT = Anzahl der Kommentare
+PRODUCT.COMMENT_LINK = Link zur Kommentar-Seite
+PRODUCT.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+PRODUCT.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+PRODUCT.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+PRODUCT.DISPLAY_RATING = Bewerten ist erlaubt?
+PRODUCT.RATING = durchschnittliche Bewertung
+PRODUCT.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{list PRODUCT}
+<a href="{PRODUCT.LINK}">{PRODUCT.TITLE}</a><br />
+{/list}

@@ -1,0 +1,125 @@
+{*
+
+Template-Funktion: Beste Test nach Gesamtwertung
+================================================
+
+Artikel
+-------
+ARTICLE = Liste der Artikel
+ARTICLE.ID = Artikel-ID
+ARTICLE.TYPE = Artikel-Typ ("normal" = normaler Artikel, "preview" = Vorschau, "review = Test)
+ARTICLE.TITLE = Titel
+ARTICLE.SUBTITLE = Untertitel
+ARTICLE.TEASER = Teaser-Text
+ARTICLE.TEXT = Text von Seite 1 des Artikels
+ARTICLE.LINK = Link zum Artikel
+ARTICLE.TIME = Zeit (Timestamp)
+ARTICLE.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen Artikel)
+ARTICLE.PICTURE = Artikel-Bild
+ARTICLE.PICTURE_POPUP = Link: "größe Version des Artikel-Bilds anzeigen"
+ARTICLE.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+ARTICLE.TOP = Top-Artikel?
+ARTICLE.RESTRICTED = Altersabfrage aktiviert?
+ARTICLE.HITS = Klicks
+ARTICLE.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+
+ARTICLE.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+ARTICLE.TAG = Liste aller Tags
+ARTICLE.TAG.ID = ID des Tags
+ARTICLE.TAG.NAME = Darstellbarer Name des Tags
+ARTICLE.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)#
+
+ARTICLE.USERID = Benutzer-ID des Autors
+ARTICLE.USERNAME = Benutzername des Autors
+ARTICLE.EMAIL = eMail-Adresse des Autors
+ARTICLE.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+
+ARTICLE.CATID = Kategorie-ID
+ARTICLE.CATTITLE = Kategorie-Titel
+ARTICLE.CATLINK = Link: Nur Inhalte aus dieser Kategorie
+ARTICLE.CATICON = Kategorie-Icon
+
+ARTICLE.RELATED = Liste der "Links zu diesem Artikel"
+ARTICLE.RELATED.TITLE = Vorangestellte Linkbezeichnung
+ARTICLE.RELATED.TEXT = Verlinkter Text
+ARTICLE.RELATED.URL = URL
+ARTICLE.RELATED.POPUP = Neues Fenster öffnen?
+
+ARTICLE.PICSERIES = Bilderserie, sofern vorhanden
+ARTICLE.PICSERIES.IMAGE = Pfad zum Thumbnail
+ARTICLE.PICSERIES.FULLSIZE = Pfad zur großen Version des Bilds
+ARTICLE.PICSERIES.LINK = Link zur Großansicht
+
+
+Artikel-Seiten
+--------------
+ARTICLE.INDEX = Liste der Artikelseiten
+ARTICLE.INDEX.NUMBER = Seitenzahl
+ARTICLE.INDEX.TITLE = Seitentitel
+ARTICLE.INDEX.LINK = Link zu dieser Seite
+
+
+Spezielle Variablen nur bei Tests
+---------------------------------
+ARTICLE.CUSTOM1_NAME ... ARTICLE.CUSTOM10_NAME = Bezeichnung der benutzerdefinierten Felder 1-10
+ARTICLE.CUSTOM1 ... ARTICLE.CUSTOM10 = Wert der benutzerdefinierten Felder 1-10, sofern verwendet
+ARTICLE.FINAL_RATING = Gesamtwertung
+ARTICLE.POSITIVE = Positives
+ARTICLE.NEGATIVE = Negatives
+ARTICLE.AWARD = Auszeichnung
+
+
+Spezielle Variablen nur bei Vorschauen
+--------------------------------------
+ARTICLE.CUSTOM1_NAME ... ARTICLE.CUSTOM10_NAME = Bezeichnung der benutzerdefinierten Felder 1-10
+ARTICLE.CUSTOM1 ... ARTICLE.CUSTOM10 = Wert der benutzerdefinierten Felder 1-10, sofern verwendet
+ARTICLE.IMPRESSION = Ersteindruck
+
+
+Spezielle Variablen nur bei Tests
+---------------------------------
+ARTICLE.CUSTOM1_NAME ... ARTICLE.CUSTOM10_NAME = Bezeichnung der benutzerdefinierten Felder 1-10
+ARTICLE.CUSTOM1 ... ARTICLE.CUSTOM10 = Wert der benutzerdefinierten Felder 1-10, sofern verwendet
+ARTICLE.FINAL_RATING = Gesamtwertung
+ARTICLE.POSITIVE = Positives
+ARTICLE.NEGATIVE = Negatives
+ARTICLE.AWARD = Auszeichnung
+
+
+Spezielle Variablen nur bei Vorschauen
+--------------------------------------
+ARTICLE.CUSTOM1_NAME ... ARTICLE.CUSTOM10_NAME = Bezeichnung der benutzerdefinierten Felder 1-10
+ARTICLE.CUSTOM1 ... ARTICLE.CUSTOM10 = Wert der benutzerdefinierten Felder 1-10, sofern verwendet
+ARTICLE.IMPRESSION = Ersteindruck
+
+
+Verknüpfte Galerie
+------------------
+ARTICLE.GALLERY_ID = ID der Galerie
+ARTICLE.GALLERY_TITLE = Titel der Galerie
+ARTICLE.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+ARTICLE.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+ARTICLE.COMMENT_COUNT = Anzahl der Kommentare
+ARTICLE.COMMENT_LINK = Link zur Kommentar-Seite
+ARTICLE.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+ARTICLE.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+ARTICLE.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+ARTICLE.DISPLAY_RATING = Bewerten ist erlaubt?
+ARTICLE.RATING = durchschnittliche Bewertung
+ARTICLE.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{list ARTICLE}
+{if ARTICLE.DATEHEAD}<!--<div>{DATE('d. M Y',ARTICLE.DATEHEAD)}</div>-->{/if}
+<a href="{ARTICLE.LINK}">{ARTICLE.TITLE}</a> <span class="small">({ARTICLE.FINAL_RATING})</span><br />
+{/list}

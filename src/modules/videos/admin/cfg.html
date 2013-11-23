@@ -1,0 +1,30 @@
+<p class="hint">{LANG[INFOTEXT]}</p>
+
+<form action="action.php" name="textform" method="post" target="postframe" enctype="multipart/form-data">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[CALLFOR]} FFmpeg:</td>
+<td><input type="text" name="ffmpeg" value="{FFMPEG}" size="80" maxlength="255" class="input" style="width:400px;" />{if FFMPEG} <img src="design/check.gif" alt="" />{/if}
+<br /><small>{LANG[FFMPEG_INFO]}</small></td>
+</tr>
+<tr>
+<td>{LANG[CALLFOR]} FLVTool2:</td>
+<td><input type="text" name="flvtool2" value="{FLVTOOL2}" size="80" maxlength="255" class="input" style="width:400px;" />{if FLVTOOL2} <img src="design/check.gif" alt="" />{/if}
+<br /><small>{LANG[FLVTOOL2_INFO]}</small></td>
+</tr>
+<tr>
+<td>{LANG[CALLFOR]} MEencoder: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="mencoder" value="{MENCODER}" size="80" maxlength="255" class="input" style="width:400px;" />{if MENCODER} <img src="design/check.gif" alt="" />{/if}
+<br /><small>{LANG[MENCODER_INFO]}</small></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+
+<input type="hidden" name="action" value="videos.cfg" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

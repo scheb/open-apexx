@@ -1,0 +1,18 @@
+{*
+
+Sicherheitsabfrage: Thema verschieben
+=====================================
+
+ID = ID des Themas
+
+FORUM = Liste der möglichen Zielforen
+FORUM.ID = ID des Forums
+FORUM.TITLE = Titel des Forums
+FORUM.ISCAT = Ist das Forum eine Kategorie? (als Ziel nicht geeignet!)
+FORUM.LEVEL = Untergliederungs-Level
+
+*}
+<p>{LANG[MSG_MOVETHREAD]}: <select name="moveto"><option value=""></option>{list FORUM}<option value="{FORUM.ID}"{if FORUM.ISCAT} style="background:#EAEAEA;"{/if}>{repeat FORUM.LEVEL-1}&nbsp;&nbsp;{/repeat}{FORUM.TITLE}</option>{/list}</select> <input type="submit" name="send" value="{LANG[MOVE]}" accesskey="s" id="count" class="button" /></p>
+<input type="checkbox" name="reference" value="1" checked="checked" style="vertical-align:middle;" /> {LANG[REFERENCE]}
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="movethread" />

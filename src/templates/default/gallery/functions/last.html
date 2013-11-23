@@ -1,0 +1,44 @@
+{*
+
+Template-Funktion: Neueste Galerien
+===================================
+
+Galerien
+--------
+GALLERY = Liste der Galerien
+GALLERY.ID = Galerie-ID
+GALLERY.TITLE = Galerie-Titel
+GALLERY.LINK = Link zur Galerie
+GALLERY.PREVIEW = Vorschau-Bild
+GALLERY.PREVIEW_FULLSIZE = Große Version des Vorschau-Bilds
+GALLERY.DESCRIPTION = Galerie-Beschreibung
+GALLERY.COUNT = Anzahl der enthaltenen Bilder
+GALLERY.TIME = Zeit (Timestamp)
+GALLERY.PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+GALLERY.UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+GALLERY.RESTRICTED = Altersabfrage aktiviert?
+GALLERY.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen Artikel)
+
+GALLERY.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+GALLERY.TAG = Liste aller Tags
+GALLERY.TAG.ID = ID des Tags
+GALLERY.TAG.NAME = Darstellbarer Name des Tags
+GALLERY.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kommentare zu den Galerien
+--------------------------
+GALLERY.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+GALLERY.COMMENT_COUNT = Anzahl der Kommentare
+GALLERY.COMMENT_LINK = Link zur Kommentar-Seite
+GALLERY.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+GALLERY.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+GALLERY.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+*}
+
+<ul>
+{list GALLERY}
+<li><a href="{GALLERY.LINK}">{GALLERY.TITLE}</a></li>
+{/list}
+</ul>

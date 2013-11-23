@@ -1,0 +1,19 @@
+<p class="hint">{LANG[INFO]}</p>
+<table width="100%" class="tablelist">
+<thead>
+<tr>
+<th width="25%">{LANG[BROWSER]}</th>
+<th width="60%">&nbsp;</th>
+<th width="15%">{LANG[PART]}</th>
+</tr>
+</thead>
+<tbody>
+{list BROWSER}
+<tr>
+<td>{BROWSER.ICON} {BROWSER.NAME}</td>
+<td><img src="../modules/stats/images/statbar_h.gif" width="{BROWSER.WIDTH}" height="12" alt="" class="stats_bar_h" /></td>
+<td>{BROWSER.PERCENT}% ({BROWSER.COUNT})</td>
+</tr>
+{/list}
+</tbody>
+</table>

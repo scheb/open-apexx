@@ -1,0 +1,55 @@
+{*
+
+IP-Statistik für ein Posting anzeigen
+=====================================
+
+THISIP = IP-Adresse des Postings
+USERID = Benutzer-ID
+USERNAME = Benutzername
+
+
+Beiträge von dieser IP
+----------------------
+FROMIP = Liste der Beiträge
+FROMIP.USERID = Benutzer-ID
+FROMIP.USERNAME = Benutzername
+FROMIP.POSTS = Anzahl der Beiträge
+
+
+Weiteres IPs des Benutzers
+--------------------------
+OTHER = Liste der IPs
+OTHER.IP = IP-Adresse
+OTHER.POSTS = Anzahl der Beiträge
+
+*}
+&raquo; <a href="javascript:history.back();">{LANG[GOBACK]}</a>
+
+<div style="height:20px;">&nbsp;</div>
+
+<table width="100%">
+<colgroup>
+<col width="70%" />
+<col width="30%" />
+</colgroup>
+<tr><td colspan="2" class="form_header">{LANG[THISIP]}</td></tr>
+<tr class="cell1"><td colspan="2">{THISIP} ({if USERID}<a href="{PROFILE(USERID)}">{USERNAME}</a>{else}{USERNAME}{/if})</td></tr>
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="form_header">{LANG[FROMIP]}</td></tr>
+{list FROMIP}{++COUNTER1}
+<tr class="cell{if COUNTER1%2}1{else}2{/if}">
+<td><a href="search.php?send=1&amp;author={FROMIP.USERNAME}"><img src="design/button_search.gif" alt="{LANG[SEARCHPOSTS]}" title="{LANG[SEARCHPOSTS]}" style="float:right;" /></a><div style="padding-top:3px;">{if FROMIP.USERID}<a href="{PROFILE(FROMIP.USERID)}">{FROMIP.USERNAME}</a>{else}{FROMIP.USERNAME}{/if}</div></td>
+<td style="text-align:center;">{FROMIP.POSTS} {if FROMIP.POSTS==1}{LANG[POST]}{else}{LANG[POSTS]}{/if}</td>
+</tr>
+{/list}
+{if OTHER}
+<tr><td colspan="2" class="space1">&nbsp;</td></tr>
+<tr><td colspan="2" class="form_header">{LANG[OTHERIPS]}</td></tr>
+{list OTHER}{++COUNTER2}
+<tr class="cell{if COUNTER2%2}1{else}2{/if}">
+<td>{OTHER.IP}</td>
+<td style="text-align:center;">{OTHER.POSTS} {if OTHER.POSTS==1}{LANG[POST]}{else}{LANG[POSTS]}{/if}</td>
+</tr>
+{/list}
+{/if}
+</table>

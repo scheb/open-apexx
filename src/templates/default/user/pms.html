@@ -1,0 +1,143 @@
+{*
+
+Nachrichten anzeigen
+====================
+
+Speicherplatz
+-------------
+SPACE = Speicherverbrauch
+SPACE_PERCENT = Freier Speicher in Prozent
+SPACE_WIDTH = Breite des "Verbrauch"-Balkens
+
+
+Nachrichten
+-----------
+LINK_NEWPM = Link: Neue Nachricht
+LINK_INBOX = Link: Posteingang anzeigen
+LINK_OUTBOX = Link: Postausgang anzeigen
+DIR = Gewählter Ordner (in=Posteingang, out=Postausgang)
+MESSAGE = Liste der Nachrichten
+MESSAGE.ID = ID der Nachricht
+MESSAGE.SUBJECT = Betreff
+MESSAGE.TIME = Zeit (Timestamp)
+MESSAGE.NEW = Ist die Nachricht ungelesen?
+MESSAGE.READPM = Link: Nachricht lesen
+
+
+Nur Posteingang
+---------------
+MESSAGE.SENDER = Benutzername des Absenders
+MESSAGE.SENDER_ID = Benutzer-ID des Absenders
+MESSAGE.MARKREAD = Link: Nachricht als gelesen markieren
+MESSAGE.MARKUNREAD = Link: Nachricht als ungelesen markieren
+
+
+Nur Postausgang
+---------------
+MESSAGE.RECIEVER = Benutzername des Empfängers
+MESSAGE.RECIEVER_ID = Benutzer-ID des Empfängers
+
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_SUBJECT = Link: Sortieren nach Betreff
+SORTBY_USERNAME = Link: Sortieren nach Benutzername
+SORTBY_TIME = Link: Sortieren nach Datum/Zeit
+
+*}
+
+<p class="slink">&raquo; <a href="{LINK_NEWPM}">{LANG[NEWPM]}</a></p>
+
+<!-- SPEICHERPLATZ START -->
+<table width="100%" cellpadding="0" style="margin:20px 0px;">
+<tr>
+<td nowrap="nowrap">{LANG[PMSPACE]}:&nbsp;</td>
+<td width="100%" class="color" style="padding:0px;height:18px;"><img src="modules/user/images/pmspace.gif" width="{SPACE_WIDTH}" height="18" alt="" /></td>
+<td nowrap="nowrap">&nbsp;{SPACE} &raquo; {SPACE_PERCENT} {LANG[FREE]}</td>
+</tr>
+</table>
+<!-- SPEICHERPLATZ ENDE -->
+
+
+<!-- ORDNERAUSWAHL START -->
+<div class="tabbar clearfix">
+<ul>
+<li{if DIR=='in'} class="selected"{/if}><a href="{LINK_INBOX}">{LANG[INBOX]}</a></li>
+<li{if DIR=='out'} class="selected"{/if}><a href="{LINK_OUTBOX}">{LANG[OUTBOX]}</a></li>
+</ul>
+</div>
+<!-- ORDNERAUSWAHL ENDE -->
+
+
+<div class="tabbody">
+
+<form action="{if DIR=='out'}{LINK_OUTBOX}{else}{LINK_INBOX}{/if}" method="post">
+<table width="639">
+<tr>
+<td width="50%" class="header2">{LANG[SUBJECT]}</td>
+<td width="27%" class="header2">{if DIR=='out'}{LANG[RECIEVER]}{else}{LANG[SENDER]}{/if}</td>
+<td width="20%" class="header2">{LANG[DATE]}</td>
+<td width="3%" class="header2"><input type="checkbox" name="checkall" value="1" onclick="pmsCheckAll(this.form,this.checked);" /></td>
+</tr>
+
+{if DIR=='out'}
+
+<!-- POSTAUSGANG START -->
+{list MESSAGE}
+<tr class="color">
+<td>{if MESSAGE.NEW}<img src="modules/user/images/isunread.gif" alt="" style="vertical-align:middle;" />{else}<img src="modules/user/images/isread.gif" alt="" style="vertical-align:middle;" />{/if} <a href="{MESSAGE.READPM}">{MESSAGE.SUBJECT}</a></td>
+<td align="center"><a href="{PROFILE(MESSAGE.RECIEVER_ID)}" target="_blank">{MESSAGE.RECIEVER}</a></td>
+<td align="center"><span class="small">{DATE('d.m.Y - H:i:s',MESSAGE.TIME)}</span></td>
+<td><input type="checkbox" name="multi[{MESSAGE.ID}]" value="1" /></td>
+</tr>
+{/list}
+<!-- POSTAUSGANG ENDE -->
+
+{else}
+
+<!-- POSTEINGANG START -->
+{list MESSAGE}
+<tr class="color">
+<td>{if MESSAGE.NEW}<a href="{MESSAGE.MARKREAD}"><img src="modules/user/images/isunread.gif" alt="" style="vertical-align:middle;" /></a>{else}<a href="{MESSAGE.MARKUNREAD}"><img src="modules/user/images/isread.gif" alt="" style="vertical-align:middle;" /></a>{/if} <a href="{MESSAGE.READPM}">{MESSAGE.SUBJECT}</a></td>
+<td align="center"><a href="{PROFILE(MESSAGE.SENDER_ID)}" target="_blank">{MESSAGE.SENDER}</a></td>
+<td align="center"><span class="small">{DATE('d.m.Y - H:i:s',MESSAGE.TIME)}</span></td>
+<td><input type="checkbox" name="multi[{MESSAGE.ID}]" value="1" /></td>
+</tr>
+{/list}
+<!-- POSTEINGANG ENDE -->
+
+{/if}
+
+{if !MESSAGE}
+<tr><td class="color" colspan="4" align="center">{LANG[NONE]}</td></tr>
+{else}
+<tr><td class="footer_tbl" colspan="4"><input type="submit" name="apxsubmit" value="{LANG[DELPMS]}" class="button" /> <img src="design/marrow.gif" alt="" style="vertical-align:middle;" /></td></tr>
+{/if}
+
+</table>
+<input type="hidden" name="sortby" value="{SORTBY}" />
+<input type="hidden" name="dir" value="{DIR}" />
+</form>
+
+<p class="sortby">{LANG[SORTBY]}: 
+<a href="{SORTBY_SUBJECT}">{LANG[SORT_SUBJECT]}</a>{if SORTBY=='subject.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='subject.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} |
+<a href="{SORTBY_USERNAME}">{LANG[SORT_USERNAME]}</a>{if SORTBY=='username.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='username.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+<a href="{SORTBY_TIME}">{LANG[SORT_TIME]}</a>{if SORTBY=='time.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='time.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} 
+</p>
+
+</div>
+
+<script type="text/javascript">
+
+//Funktion zum markieren aller Nachrichten
+function pmsCheckAll( form, checked ) {
+	for (var i=0; i<form.elements.length; i++) {
+	var element = form.elements[i];
+		if ( element.type=='checkbox' ) {
+			element.checked = checked;
+		}
+	}
+}
+
+</script>

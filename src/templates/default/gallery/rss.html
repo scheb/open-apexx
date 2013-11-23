@@ -1,0 +1,39 @@
+{*
+
+RSS-Feed für Galerien
+=====================
+
+WEBSITENAME = Titel der Website (in der Konfiguration eingestellt)
+
+ARTICLE = Liste der Galerien
+ARTICLE.TITLE = Titel
+ARTICLE.SUBTITLE = Untertitel
+ARTICLE.TEXT = Gekürzte Beschreibung
+ARTICLE.TIME = Zeit+Datum im RFC2822-Format
+ARTICLE.LINK = Link zur Galerie
+ARTICLE.USERNAME = Benutzername des Autors
+ARTICLE.EMAIL = eMail-Adresse des Autors
+ARTICLE.CATTITLE = Kategorie-Titel
+
+*}
+<?xml version="1.0" encoding="{CHARSET}" ?>
+<rss version="2.0">
+<channel>
+<title>{WEBSITENAME} Galerie</title>
+<link>{SERVER_HTTPHOST}</link>
+<description></description>
+<language>de</language>
+
+{list GALLERY}
+<item>
+<guid>{GALLERY.LINK}</guid>
+<title><![CDATA[ {GALLERY.TITLE} ]]></title>
+<link>{GALLERY.LINK}</link>
+{if GALLERY.DESCRIPTION}<description><![CDATA[ {GALLERY.DESCRIPTION} ]]></description>{/if}
+<pubDate>{GALLERY.TIME}</pubDate>
+</item>
+
+{/list}
+
+</channel>
+</rss>

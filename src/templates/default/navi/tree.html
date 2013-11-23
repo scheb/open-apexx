@@ -1,0 +1,29 @@
+{*
+
+Template-Funktion: Navigation in Baumstruktur
+=============================================
+
+NAVI = Liste der Navigationspunkte
+NAVI.LEVEL = Grad der Untergliederung (beginnend mit 1)
+NAVI.TEXT = Bezeichnung des Navigationspunkts
+NAVI.SELECTED = Link ist ausgewählt
+
+Entsprechend der Auswahl im Adminbereich ist bei jedem Navigationspunkt entweder
+keiner, oder einer der folgenden Variablen-Blöcke gesetzt:
+
+NAVI.LINK = zu verlinkende URL
+NAVI.POPUP = Soll dieser Link in einem neuen Fenster geöffnet werden?
+
+oder:
+
+NAVI.CODE = anzuzeigender HTML-Code
+
+*}
+
+{list NAVI}
+{if NAVI.LEVEL==1}
+<div class="navi_level1">{NAVI.TEXT}</div>
+{else}
+{if NAVI.CODE}<div class="navi_level2">{NAVI.CODE}</div>{else}<div class="navi_level2">{repeat NAVI.LEVEL}-{/repeat} <a href="{NAVI.LINK}"{if NAVI.POPUP} target="_blank"{/if}>{NAVI.TEXT}</a></div>{/if}
+{/if}
+{/list}

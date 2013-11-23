@@ -1,0 +1,104 @@
+{*
+
+Benutzerliste
+=============
+
+LINK_SEARCH = Link zur Benutzersuche
+
+USERCOUNT = Anzahl der registrierten Benutzer
+TODAYCOUNT = Anzahl der heute neu registrierten Benutzer
+
+Benutzer
+--------
+USER = Liste der Benutzer
+USER.ID = Benutzer-ID
+USER.USERNAME = Benutzername
+USER.GROUPID = ID der Benutzergruppe
+USER.EMAIL = eMail-Adresse des Buddy
+USER.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+USER.ONLINE = Ist der Buddy online?
+USER.REALNAME = Echter Name
+USER.GENDER = Geschlecht (1=m, 2=w)
+USER.CITY = Stadt
+USER.PLZ = Postleitzahl
+USER.COUNTRY = Land
+USER.REGTIME = Datum/Zeit der Registrierung (Timestamp)
+USER.REGDAYS = Tage seit der Registrierung
+USER.LASTACTIVE = Zuletzt aktiv (Timestamp)
+USER.AVATAR = Pfad zum Avatar
+USER.AVATAR_TITLE = Avatar-Titel
+USER.BIRTHDAY = Geburtstag
+USER.AGE = Alter
+USER.ISBUDDY = Ist dieser Benutzer Freund des angemeldeten Benutzers?
+USER.LINK_SENDEMAIL = Link: eMail an Buddy senden
+USER.LINK_SENDPM = Link: PN an Buddy senden
+USER.LINK_BUDDY = Link: In die Buddyliste aufnehmen
+
+
+Benuterdefinierte Felder
+------------------------
+USER.CUSTOM1_NAME -> USER.CUSTOM10_NAME = Bezeichnung des Eingabefelds
+USER.CUSTOM1 -> USER.CUSTOM10 = Wert des Eingabefelds
+
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+
+Seitenzahlen
+------------
+Alle Platzhalter finden Sie in der Datei templates/default/pages.html
+
+
+Sortierung
+----------
+SORTBY = Aktuelle Sortierung
+SORTBY_USERNAME = Link: Sortieren nach Benutzername
+SORTBY_REGDATE = Link: Sortieren nach Registrierung
+SORTBY_FORUMPOSTS = Link: Sortieren nach Forenbeiträgen
+
+*}
+<p>&raquo; <a href="{LINK_SEARCH}">{LANG[SEARCHUSER]}</a></p>
+<p>{LANG[USERCOUNT]}: {USERCOUNT}<br />{LANG[TODAYNEW]}: {TODAYCOUNT}</p>
+
+{include ../letters.html}
+{include ../pages.html}
+<table width="100%">
+<tr>
+<td width="*" class="header2">{LANG[USERNAME]}</td>
+<td width="15%" class="header2">{LANG[FORUMPOSTS]}</td>
+<td width="20%" class="header2">{LANG[REGSINCE]}</td>
+<td width="15%" class="header2">{LANG[OPTIONS]}</td>
+</tr>
+{list USER}
+<tr>
+<td class="color">{USER.NAME}</td>
+<td class="color" align="center">{USER.FORUMPOSTS}</td>
+<td class="color" align="center"><span class="small">{DATE('d.m.Y',USER.REGTIME)} ({USER.REGDAYS} {LANG[DAYS]})</span></td>
+<td class="color" align="center">
+{if USER.ID}<a href="{PROFILE(USER.ID)}" target="_blank"><img src="modules/user/images/profile.gif" title="{LANG[ICON_PROFILE]}" alt="{LANG[ICON_PROFILE]}" /></a>{/if}
+{if USER.ID!=LOGGED_ID}
+
+{if USER.LINK_SENDEMAIL}
+<a href="{USER.LINK_SENDEMAIL}"><img src="modules/user/images/sendmail.gif" title="{LANG[ICON_SENDMAIL]}" alt="{LANG[ICON_SENDMAIL]}" /></a>
+{elseif USER.EMAIL}
+<a href="mailto:{USER.EMAIL}"><img src="modules/user/images/sendmail.gif" title="{LANG[ICON_SENDMAIL]}" alt="{LANG[ICON_SENDMAIL]}" /></a>
+{/if}
+{if USER.LINK_SENDPM}<a href="{USER.LINK_SENDPM}"><img src="modules/user/images/sendpm.gif" title="{LANG[ICON_SENDPM]}" alt="{LANG[ICON_SENDPM]}" /></a>{/if}
+
+{/if}
+{if USER.LINK_BUDDY} <a href="{USER.LINK_BUDDY}"><img src="modules/user/images/buddy.gif" title="{LANG[ICON_ADDBUDDY]}" alt="{LANG[ICON_ADDBUDDY]}" /></a>{/if}
+</td>
+</tr>
+{/list}
+{if !USER}<tr><td class="color" colspan="3" align="center">{LANG[NONE]}</td></tr>{/if}
+</table>
+<p class="sortby">{LANG[SORTBY]}: 
+<a href="{SORTBY_USERNAME}">{LANG[SORT_USERNAME]}</a>{if SORTBY=='username.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='username.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | 
+{if MODULE_FORUM}<a href="{SORTBY_FORUMPOSTS}">{LANG[FORUMPOSTS]}</a>{if SORTBY=='forumposts.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='forumposts.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if} | {/if}
+<a href="{SORTBY_REGDATE}">{LANG[SORT_REGDATE]}</a>{if SORTBY=='regdate.ASC'} <img src="design/asc.gif" alt="" style="vertical-align:middle;" />{elseif SORTBY=='regdate.DESC'} <img src="design/desc.gif" alt="" style="vertical-align:middle;" />{/if}
+</p>
+
+<br />&nbsp;
+{SEARCH('user')}

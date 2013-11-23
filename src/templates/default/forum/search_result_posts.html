@@ -1,0 +1,97 @@
+{*
+
+Suchergebnis als Beiträge
+=========================
+
+IGNORED = Suchbegriffe, die ignoriert wurden
+SEARCHTIME = Suchdauer
+HOT_POSTS = Anzahl der Antworten, ab denen ein Thema "hot" ist
+HOT_VIEWS = Anzahl der Klicks, ab denen ein Thema "hot" ist
+
+
+Beiträge
+--------
+POST = Liste der Beiträge
+POST.ID = ID
+POST.TITLE = Titel
+POST.TEXT = Text
+POST.LINK = Link: zum Beitrag springen
+POST.TIME = Zeotpunkt (Timestamp)
+POST.USERID = Benutzer-ID des Autors
+POST.USERNAME = Benutzername des Autors
+POST.NEW = Ist der Beitrag neu?
+
+Themen-Informationen
+--------------------
+POST.THREAD_ID = ID des Themas
+POST.THREAD_TITLE = Themen-Titel
+POST.THREAD_PREFIX = Themen-Präfix
+POST.THREAD_LINK = Link zum Thema
+POST.THREAD_POSTS = Beiträge im Thema
+POST.THREAD_VIEWS = Klicks
+POST.THREAD_STICKY = Titel-Präfix bei Ankündigungen
+POST.THREAD_NEWPOSTS = Enthält das Thema neue Beiträge?
+POST.THREAD_CLOSED = Thema geschlossen?
+
+Forum-Informationen
+-------------------
+POST.FORUM_ID = ID des Forums
+POST.FORUM_TITLE = Forum-Titel
+POST.FORUM_LINK = Link zum Forum
+
+*}
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-bottom:5px;">
+<tr>
+<td width="100%" class="pages">{include pages.html}</td>
+<td style="white-space:nowrap;text-align:right;">{LANG[SEARCHTIME]}: {SEARCHTIME} {LANG[SECONDS]}{if IGNORED}<br />{LANG[IGNORED]}: {IGNORED}{/if}</td>
+</tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+<!-- THEMEN START -->
+{list POST}{++COUNTER}
+
+{if COUNTER>1}<div class="space2">&nbsp;</div>{/if}
+
+<a name="p{POST.ID}" id="p{POST.ID}"></a>
+<table width="100%" class="post">
+<tr><td class="post_date" colspan="2"><div style="float:right;">{LANG[FORUM]}: <a href="{POST.FORUM_LINK}">{POST.FORUM_TITLE}</a></div>{if POST.NEW}<img src="design/post_new.gif" alt="{LANG[NEW]}" title="{LANG[NEW]}" style="vertical-align:bottom;" />{else}<img src="design/post_old.gif" alt="{LANG[OLD]}" title="{LANG[OLD]}" style="vertical-align:bottom;" />{/if} {DATE('date',POST.TIME)} - {DATE('time',POST.TIME)} {LANG[CORE_OCLOCK]}</td></tr>
+<tr><td class="col2" colspan="2">
+
+<table width="100%">
+<tr>
+<td style="white-space:nowrap;">{if POST.THREAD_CLOSED}<img src="design/thread_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" style="vertical-align:middle;" />{elseif POST.THREAD_NEWPOSTS}<img src="design/thread_new{if POST.THREAD_POSTS>=HOT_POSTS || POST.THREAD_VIEWS>=HOT_VIEWS}_hot{/if}.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" style="vertical-align:middle;" />{else}<img src="design/thread_nonew{if POST.THREAD_POSTS>=HOT_POSTS || POST.THREAD_VIEWS>=HOT_VIEWS}_hot{/if}.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" style="vertical-align:middle;" />{/if}&nbsp;</td>
+<td width="70%" style="padding:5px 0px;">
+<div class="thread_title">{LANG[THREAD]}: <a href="{POST.THREAD_LINK}">{if POST.THREAD_STICKY}{POST.THREAD_STICKY}: {/if}{if POST.THREAD_PREFIX}<span class="thread_prefix">{POST.THREAD_PREFIX}</span> {/if}{POST.THREAD_TITLE}</a></div>
+<div class="thread_creator">{LANG[POST]} {LANG[BY]} {if POST.USERID}<a href="{PROFILE(POST.USERID)}" target="_blank">{POST.USERNAME}</a>{else}<span class="user_guest">{POST.USERNAME}</span>{/if}</div>
+</td>
+<td width="30%" style="text-align:right;" class="post_infos">{LANG[POSTS]}: {POST.THREAD_POSTS}<br />{LANG[VIEWS]}: {POST.THREAD_VIEWS}</td>
+</tr>
+</table>
+
+<div class="col1">
+<div class="post_title"><a href="{POST.LINK}">{if POST.TITLE}{POST.TITLE}{else}{SHORTTEXT(POST.TEXT,30)}{/if}</a></div>
+<div class="post_text">{SHORTTEXT(POST.TEXT,200)}</div>
+</div>
+
+</td></tr>
+</table>
+{/list}
+<!-- THEMEN ENDE -->
+
+
+<!-- SEITENZAHLEN START -->
+<table width="100%" style="margin-top:5px;">
+<tr><td width="100%" class="pages">{include pages.html}</td></tr>
+</table>
+<!-- SEITENZAHLEN ENDE -->
+
+<div class="legend">
+<img src="design/thread_new.gif" alt="{LANG[NEWPOSTS]}" title="{LANG[NEWPOSTS]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[NEWPOSTS]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_nonew.gif" alt="{LANG[NONEWPOSTS]}" title="{LANG[NONEWPOSTS]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[NONEWPOSTS]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_nonew_hot.gif" alt="{LANG[HOTTHREAD]}" title="{LANG[HOTTHREAD]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[HOTTHREAD]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_closed.gif" alt="{LANG[CLOSED]}" title="{LANG[CLOSED]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[CLOSED]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="design/thread_pinned.gif" alt="{LANG[PINNED]}" title="{LANG[PINNED]}" style="vertical-align:middle;" />&nbsp;&nbsp;{LANG[PINNED]}
+</div>

@@ -1,0 +1,77 @@
+{*
+
+Kontaktformular
+===============
+
+CONTACT = Liste der verfügbaren Kontaktmöglichkeiten
+CONTACT.ID = Kontakt-ID
+CONTACT.TITLE = Bezeichnung
+CONTACT.SELECTED = Option wurde ausgewählt
+
+CAPTCHA = HTML-Code, um das Bild für die visuelle Bestätigung auszugeben
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+*}
+
+<form action="{POSTTO}" method="post" enctype="multipart/form-data">
+<table width="100%">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+
+<tr><td colspan="2" class="header1">{LANG[SENDEMAIL]}</td></tr>
+<tr class="color">
+<td>{LANG[NAME]}:</td>
+<td><input type="text" name="name" value="{LOGGED_USERNAME}" maxlength="30" size="40" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[EMAIL]}:</td>
+<td><input type="text" name="email" value="{LOGGED_EMAIL|replace}" maxlength="100" size="40" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[SENDTO]}:</td>
+<td><select name="sendto"><option value=""></option>{list CONTACT}<option value="{CONTACT.ID}"{if CONTACT.SELECTED} selected="selected"{/if}>{CONTACT.TITLE}</option>{/list}</select></td>
+</tr>
+<tr class="color">
+<td>{LANG[SUBJECT]}:</td>
+<td><input type="text" name="subject" maxlength="255" size="80" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[TEXT]}:</td>
+<td><textarea name="text" class="input" cols="80" rows="10"></textarea></td>
+</tr>
+<tr class="color">
+<td>{LANG[ATTACHMENT]} 1:</td>
+<td><input type="file" name="attach1" size="60" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[ATTACHMENT]} 2:</td>
+<td><input type="file" name="attach2" size="60" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[ATTACHMENT]} 3:</td>
+<td><input type="file" name="attach3" size="60" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[ATTACHMENT]} 4:</td>
+<td><input type="file" name="attach4" size="60" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[ATTACHMENT]} 5:</td>
+<td><input type="file" name="attach5" size="60" class="input" /></td>
+</tr>
+<tr class="color">
+<td>{LANG[COPYTOME]}:</td>
+<td><input type="checkbox" name="copytome" value="1" /></td>
+</tr>
+{if CAPTCHA}<tr class="color">
+<td>{LANG[CAPTCHA]}:</td>
+<td>{CAPTCHA} =&gt; <input type="text" name="captcha" size="15" class="input" /></td>
+</tr>{/if}
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>

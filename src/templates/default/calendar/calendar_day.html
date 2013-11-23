@@ -1,0 +1,160 @@
+{*
+
+Kalender: Tagesansicht
+======================
+
+MODE = Aktueller Modus (public = öffentlich, private = privat)
+SELECTED_DAY = Gewählter Tag (1-31)
+SELECTED_MONTH = Gewählter Monat (1-12)
+SELECTED_YEAR = Gewähltes Jahr
+
+
+Navigation
+----------
+TIME_PREVIOUSDAY = Vorheriger Tag (Timestamp)
+TIME_THISDAY = Gewählter Tag (Timestamp)
+TIME_NEXTDAY = Nächster Tag (Timestamp)
+LINK_PREVIOUSDAY = Link: vorheriger Tag
+LINK_NEXTDAY = Link: nächster Tag
+LINK_SHOWTODAY = Link: In die aktuelle Tagesansicht wechseln
+LINK_SHOWWEEK = Link: In die Wochenansicht wechseln
+LINK_SHOWMONTH = Link: In die Monatsansicht wechseln
+LINK_SHOWYEAR = Link: In die Jahresansicht wechseln
+
+
+Gewählter Tag
+-------------
+LINK = Link zur Tages-Detailansicht
+LINK_ADDEVENT = Link: Neuen Termin hinzufügen (nur wenn angemeldet)
+TODAY = Entspricht dieser Tag dem heutigen?
+BIRTHDAY_COUNT = Anzahl der Geburtstage an diesem Tag
+EVENT_COUNT = Anzahl der Termine an diesem Tag
+
+
+Geburtstage
+-----------
+BIRTHDAY = Liste der Geburtstage
+BIRTHDAY.USERID = Benutzer-ID
+BIRTHDAY.USERNAME = Benutzername
+BIRTHDAY.AGE = Alter (wenn Jahrgang angegeben)
+
+
+Termine
+-------
+EVENT = Liste der Termine
+EVENT.ID = ID
+EVENT.LINK = Link zur Detailansicht
+EVENT.TITLE = Titel
+EVENT.TEXT = Informations-Text
+EVENT.LOCATION = Ort der Veranstaltung
+EVENT.LOCATION_LINK = Link zum Ort
+EVENT.PICTURE = Aufmacher-Bild
+EVENT.PICTURE_POPUP = Link: Großansicht des Aufmacher-Bilds
+EVENT.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+EVENT.USERID = Benutzer-ID des Autors
+EVENT.USERNAME = Benutzername des Autors
+EVENT.CATID = Kategorie-ID
+EVENT.CATTITLE = Kategorie-Titel
+EVENT.CATICON = Pfad zum Kategorie-Symbol
+EVENT.HITS = Klicks
+EVENT.PRIORITY = Priorität (1=hoch, 2=normal, 3=niedrig)
+EVENT.RESTRICTED = Altersabfrage aktiviert?
+EVENT.STARTDAY = Beginn dieses Termins. Ausgabe des Datums mit {DATE('d.m.Y',EVENT.STARTDAY)}
+EVENT.STARTTIME = Hat einen Wert, wenn eine konkrete Zeit angegeben wurde. Ausgabe mit {DATE('H:i',EVENT.STARTTIME)}
+EVENT.ENDDAY = Hat einen Wert, wenn der Termin mehrtägig ist. Gibt den letzten Tag des Termins an. Ausgabe mit {DATE('d.m.Y',EVENT.ENDDAY)}
+EVENT.ENDTIME = Hat einen Wert, wenn der Termin mehrtägig ist und zu einem bestimmten Zeitpunkt endet. Ausgabe mit {DATE('H:i',EVENT.ENDTIME)}
+
+EVENT.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+EVENT.TAG = Liste aller Tags
+EVENT.TAG.ID = ID des Tags
+EVENT.TAG.NAME = Darstellbarer Name des Tags
+EVENT.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Angehängte Links
+----------------
+EVENT.RELATED = Liste der "Links zu dieser News"
+EVENT.RELATED.TITLE = Vorangestellte Linkbezeichnung
+EVENT.RELATED.TEXT = Verlinkter Text
+EVENT.RELATED.URL = URL
+EVENT.RELATED.POPUP = Neues Fenster öffnen?
+
+*}
+<style type="text/css">
+<!--
+
+.thisday {
+	font-size:18px;
+	font-weight:bold;
+}
+
+.head {
+	font-size:14px;
+	font-weight:bold;
+	border-bottom:1px solid #B3B3B3;
+	padding-bottom:2px;
+	margin-bottom:5px;
+}
+
+.event {
+	margin-bottom:5px;
+}
+
+.eventtext {
+	font-size:11px;
+	color:#6A6A6A;
+}
+
+
+-->
+</style>
+
+<table width="100%">
+<tr>
+<td width="20%" align="left">{if LINK_PREVIOUSDAY}<a href="{LINK_PREVIOUSDAY}">&laquo; {DATE('j.n.Y',TIME_PREVIOUSDAY)}</a>{/if}</td>
+<td width="60%" align="center" class="thisday">{DATE('l, j. F Y',TIME_THISDAY)}</td>
+<td width="20%" align="right">{if LINK_NEXTDAY}<a href="{LINK_NEXTDAY}">{DATE('j.n.Y',TIME_NEXTDAY)} &raquo;</a>{/if}</td>
+</tr>
+</table>
+
+&nbsp;
+
+<div class="head">{LANG[BIRTHDAYS]}</div>
+{if BIRTHDAY}
+<ul>
+{list BIRTHDAY}<li><a href="{PROFILE(BIRTHDAY.USERID)}">{BIRTHDAY.USERNAME}</a>{if BIRTHDAY.AGE} ({BIRTHDAY.AGE}){/if}</li>{/list}
+</ul>
+{else}
+<div>{LANG[NOBIRTHDAYS]}</div>
+{/if}
+
+&nbsp;
+
+<div class="head">{LANG[EVENTS]}</div>
+{if EVENT}
+<ul>
+{list EVENT}
+<li class="event">
+<a href="{EVENT.LINK}">{EVENT.TITLE}</a>
+({DATE('d.m.Y',EVENT.STARTDAY)}{if EVENT.STARTTIME}, {DATE('H:i',EVENT.STARTTIME)} {LANG[CORE_OCLOCK]}{/if}{if EVENT.ENDDAY} - {DATE('d.m.Y',EVENT.ENDDAY)}{if EVENT.ENDTIME}, {DATE('H:i',EVENT.ENDTIME)} {LANG[CORE_OCLOCK]}{/if}{/if})<br />
+<span class="eventtext">{SHORTTEXT(EVENT.TEXT,200)}</span>
+</li>
+{/list}
+</ul>
+{else}
+<div>{LANG[NOEVENTS]}</div>
+{/if}
+
+&nbsp;
+
+<div style="text-align:right;">
+
+{* Moduswechsel nur wenn angemeldet *}
+{if LOGGED_ID}{LANG[SWITCHMODE]}: {if MODE=='public'}<a href="{LINK_SHOWPRIVATE}">{LANG[MODE_PRIVATE]}</a>{else}<a href="{LINK_SHOWPUBLIC}">{LANG[MODE_PUBLIC]}</a>{/if}<br />{/if}
+
+{* Ansichtwechsel *}
+<a href="{LINK_SHOWTODAY}">{LANG[TODAY]}</a> | 
+<a href="{LINK_SHOWWEEK}">{LANG[SHOWWEEK]}</a> | 
+<a href="{LINK_SHOWMONTH}">{LANG[SHOWMONTH]}</a>
+
+</div>

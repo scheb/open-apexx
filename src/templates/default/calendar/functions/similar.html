@@ -1,0 +1,79 @@
+{*
+
+Template-Funktion: Ähnliche Termine
+===================================
+
+Termine
+-------
+EVENT = Liste der Events an diesem Tag
+EVENT.ID = ID
+EVENT.LINK = Link zur Detailansicht
+EVENT.TITLE = Titel
+EVENT.TEXT = Informations-Text
+EVENT.LOCATION = Ort der Veranstaltung
+EVENT.LOCATION_LINK = Link zum Ort
+EVENT.PICTURE = Aufmacher-Bild
+EVENT.PICTURE_POPUP = Link: Großansicht des Aufmacher-Bilds
+EVENT.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+EVENT.USERID = Benutzer-ID des Autors
+EVENT.USERNAME = Benutzername des Autors
+EVENT.DATEHEAD = Zeit (Timestamp; nur gesetzt, wenn anderer Tag im Vergleich zum vorherigen News)
+EVENT.CATID = Kategorie-ID
+EVENT.CATTITLE = Kategorie-Titel
+EVENT.CATICON = Pfad zum Kategorie-Symbol
+EVENT.HITS = Klicks
+EVENT.PRIORITY = Priorität (1=hoch, 2=normal, 3=niedrig)
+EVENT.RESTRICTED = Altersabfrage aktiviert?
+EVENT.PRIVATE = Privater Termin?
+EVENT.STARTDAY = Beginn dieses Termins. Ausgabe des Datums mit {DATE('d.m.Y',EVENT.STARTDAY)}
+EVENT.STARTTIME = Hat einen Wert, wenn eine konkrete Zeit angegeben wurde. Ausgabe mit {DATE('H:i',EVENT.STARTTIME)}
+EVENT.ENDDAY = Hat einen Wert, wenn der Termin mehrtägig ist. Gibt den letzten Tag des Termins an. Ausgabe mit {DATE('d.m.Y',EVENT.ENDDAY)}
+EVENT.ENDTIME = Hat einen Wert, wenn der Termin mehrtägig ist und zu einem bestimmten Zeitpunkt endet. Ausgabe mit {DATE('H:i',EVENT.ENDTIME)}
+
+EVENT.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+EVENT.TAG = Liste aller Tags
+EVENT.TAG.ID = ID des Tags
+EVENT.TAG.NAME = Darstellbarer Name des Tags
+EVENT.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Angehängte Links
+----------------
+EVENT.RELATED = Liste der "Links zu dieser News"
+EVENT.RELATED.TITLE = Vorangestellte Linkbezeichnung
+EVENT.RELATED.TEXT = Verlinkter Text
+EVENT.RELATED.URL = URL
+EVENT.RELATED.POPUP = Neues Fenster öffnen?
+
+
+Kategorie
+---------
+Kategorie-Informationen stehen bei privaten Terminen nicht zur Verfügung!
+EVENT.CATID = Kategorie-ID
+EVENT.CATTITLE = Kategorie-Titel
+EVENT.CATICON = Pfad zum Kategorie-Symbol
+
+
+Verknüpfte Galerie
+------------------
+Galerie-Verknüpfungen sind bei privaten Terminen nicht möglich!
+EVENT.GALLERY_ID = ID der Galerie
+EVENT.GALLERY_TITLE = Titel der Galerie
+EVENT.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+Kommentare stehen bei privaten Terminen nicht zur Verfügung!
+DAY.EVENT.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+DAY.EVENT.COMMENT_COUNT = Anzahl der Kommentare
+DAY.EVENT.COMMENT_LINK = Link zur Kommentar-Seite
+DAY.EVENT.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+DAY.EVENT.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+DAY.EVENT.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+*}
+{list EVENT}
+<div><a href="{EVENT.LINK}">{EVENT.TITLE}</a> <span class="small">{DATE('d.m.Y',EVENT.STARTDAY)}</span></div>
+{/list}

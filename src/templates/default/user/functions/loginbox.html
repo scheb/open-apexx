@@ -1,0 +1,21 @@
+{*
+
+Template-Funktion: Anmelden
+===========================
+
+POSTTO = Formular senden an...
+
+LOGGED_ID = ID des angemeldeten Benutzers
+LOGGED_USERNAME = Benutzername des angemeldeten Benutzers
+LOGGED_EMAIL = eMail-Adresse des angemeldeten Benutzers
+
+*}
+
+{if LOGGED_ID}
+<b>{LOGGED_USERNAME}</b>
+{else}
+<form action="{POSTTO}" method="post">
+<input type="text" name="login_user" class="input" size="23" style="font-size:11px;" /><br />
+<input type="password" name="login_pwd" class="input" size="15" style="font-size:11px;" /> <input type="submit" name="send" value="Go!" class="button" style="font-size:11px;" /><br />
+</form>
+{/if}

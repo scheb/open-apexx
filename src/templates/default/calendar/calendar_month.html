@@ -1,0 +1,263 @@
+{*
+
+Kalender: Monatsansicht
+=======================
+
+MODE = Aktueller Modus (public = öffentlich, private = privat)
+SELECTED_MONTH = Gewählter Monat (1-12)
+SELECTED_YEAR = Gewähltes Jahr
+
+
+Navigation
+----------
+TIME_PREVIOUSMONTH = Erster Tag des vorherigen Monats (Timestamp)
+TIME_THISMONTH = Erster Tag des gewählten Monats (Timestamp)
+TIME_NEXTMONTH = Erster Tag des nächsten Monats (Timestamp)
+LINK_PREVIOUSMONTH = Link: vorheriger Monat
+LINK_NEXTMONTH = Link: nächster Monat
+LINK_SHOWTODAY = Link: In die aktuelle Tagesansicht wechseln
+LINK_SHOWWEEK = Link: In die Wochenansicht wechseln
+LINK_SHOWMONTH = Link: In die Monatsansicht wechseln
+LINK_SHOWYEAR = Link: In die Jahresansicht wechseln
+LINK_SHOWPRIVATE = Link: In den privaten Modus wechseln
+LINK_SHOWPUBLIC = Link: In den öffentlichen Modus wechseln
+
+
+Tage des gewählten Monats
+-------------------------
+DAY = Liste der Tage dieses Monats
+DAY.LINK = Link zur Tages-Detailansicht
+DAY.LINK_SHOWWEEK = Link: Woche zeigen, zu der dieser Tag gehört
+DAY.LINK_ADDEVENT = Link: Neuen Termin hinzufügen (nur wenn angemeldet)
+DAY.TIME = Dieser Tages (Timestamp), Datum ausgeben mit {DATE('d.m.Y',DAY.TIME)}
+DAY.TODAY = Entspricht dieser Tag dem heutigen?
+DAY.INMONTH = Gehört dieser Tag zum gewählten Monat? (ansonsten ausgrauen!)
+DAY.BIRTHDAY_COUNT = Anzahl der Geburtstage an diesem Tag
+DAY.EVENT_COUNT = Anzahl der Termine an diesem Tag
+
+
+Geburtstage
+-----------
+DAY.BIRTHDAY = Liste der Geburtstage
+DAY.BIRTHDAY.USERID = Benutzer-ID
+DAY.BIRTHDAY.USERNAME = Benutzername
+DAY.BIRTHDAY.AGE = Alter (wenn Jahrgang angegeben)
+
+
+Termine
+-------
+DAY.EVENT = Liste der Termine
+DAY.EVENT.ID = ID
+DAY.EVENT.LINK = Link zur Detailansicht
+DAY.EVENT.TITLE = Titel
+DAY.EVENT.TEXT = Informations-Text
+DAY.EVENT.LOCATION = Ort der Veranstaltung
+DAY.EVENT.LOCATION_LINK = Link zum Ort
+DAY.EVENT.PICTURE = Aufmacher-Bild
+DAY.EVENT.PICTURE_POPUP = Link: Großansicht des Aufmacher-Bilds
+DAY.EVENT.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+DAY.EVENT.USERID = Benutzer-ID des Autors
+DAY.EVENT.USERNAME = Benutzername des Autors
+DAY.EVENT.CATID = Kategorie-ID
+DAY.EVENT.CATTITLE = Kategorie-Titel
+DAY.EVENT.CATICON = Pfad zum Kategorie-Symbol
+DAY.EVENT.HITS = Klicks
+DAY.EVENT.PRIORITY = Priorität (1=hoch, 2=normal, 3=niedrig)
+DAY.EVENT.RESTRICTED = Altersabfrage aktiviert?
+DAY.EVENT.STARTDAY = Beginn dieses Termins. Ausgabe des Datums mit {DATE('d.m.Y',DAY.EVENT.STARTDAY)}
+DAY.EVENT.STARTTIME = Hat einen Wert, wenn eine konkrete Zeit angegeben wurde. Ausgabe mit {DATE('H:i',DAY.EVENT.STARTTIME)}
+DAY.EVENT.ENDDAY = Hat einen Wert, wenn der Termin mehrtägig ist. Gibt den letzten Tag des Termins an. Ausgabe mit {DATE('d.m.Y',DAY.EVENT.ENDDAY)}
+DAY.EVENT.ENDTIME = Hat einen Wert, wenn der Termin mehrtägig ist und zu einem bestimmten Zeitpunkt endet. Ausgabe mit {DATE('H:i',DAY.EVENT.ENDTIME)}
+
+DAY.EVENT.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+DAY.EVENT.TAG = Liste aller Tags
+DAY.EVENT.TAG.ID = ID des Tags
+DAY.EVENT.TAG.NAME = Darstellbarer Name des Tags
+DAY.EVENT.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+Angehängte Links
+----------------
+DAY.EVENT.RELATED = Liste der "Links zu dieser News"
+DAY.EVENT.RELATED.TITLE = Vorangestellte Linkbezeichnung
+DAY.EVENT.RELATED.TEXT = Verlinkter Text
+DAY.EVENT.RELATED.URL = URL
+DAY.EVENT.RELATED.POPUP = Neues Fenster öffnen?
+
+*}
+<style type="text/css">
+<!--
+
+.thismonth {
+	font-size:18px;
+	font-weight:bold;
+}
+
+.calendar td {
+	padding:3px;
+	border:1px solid #C2C2C2;
+	background:#F0F0F0;
+	vertical-align:top;
+	font-size:10px;
+	color:#848484;
+}
+
+.calendar tr.head td {
+	font-weight:bold;
+	text-align:center;
+	background:#CFCFCF;
+	font-size:14px;
+	color:#2B2B2B;
+}
+
+.calendar .disabled {
+	background:#E5E5E5;
+	font-size:11px;
+	font-style:italic;
+}
+
+.calendar .today {
+	background:#FFFFFF;
+	border:2px outset #B0B0B0;
+}
+
+.calendar .selectmonth a:link,
+.calendar .selectmonth a:active,
+.calendar .selectmonth a:visited {
+	font-size:12px;
+	color:#969696;
+	font-weight:bold;
+}
+
+.calendar .selectmonth a:hover {
+	color:#2B2B2B;
+	text-decoration:none;
+}
+
+.calendar .daynumber {
+	font-size:14px;
+	padding-bottom:3px;
+}
+
+.calendar .addevent {
+	float:right;
+}
+
+-->
+</style>
+
+<table width="100%">
+<tr>
+<td width="20%" align="left">{if LINK_PREVIOUSMONTH}<a href="{LINK_PREVIOUSMONTH}">&laquo; {DATE('F Y',TIME_PREVIOUSMONTH)}</a>{/if}</td>
+<td width="60%" align="center" class="thismonth">{DATE('F Y',TIME_THISMONTH)}</td>
+<td width="20%" align="right">{if LINK_NEXTMONTH}<a href="{LINK_NEXTMONTH}">{DATE('F Y',TIME_NEXTMONTH)} &raquo;</a>{/if}</td>
+</tr>
+</table>
+
+&nbsp;
+
+<table width="100%" class="calendar">
+<colgroup>
+<col width="2%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<tr class="head">
+<td>&nbsp;</td>
+<td>{LANG[WEEKDAY_MON]}</td>
+<td>{LANG[WEEKDAY_TUE]}</td>
+<td>{LANG[WEEKDAY_WED]}</td>
+<td>{LANG[WEEKDAY_THU]}</td>
+<td>{LANG[WEEKDAY_FRI]}</td>
+<td>{LANG[WEEKDAY_SAT]}</td>
+<td>{LANG[WEEKDAY_SUN]}</td>
+</tr>
+{list DAY}
+
+{* Wochenzeile beginnen *}
+{if COUNTER%7==0}
+<tr>
+<td class="selectmonth"><a href="{DAY.LINK_SHOWWEEK}" title="{LANG[SELECTWEEK]}">&gt;<br />&gt;<br />&gt;<br />&gt;</a></td>
+{/if}
+
+{* Tag ausgeben *}
+{++COUNTER}
+{if DAY.INMONTH}
+<td{if DAY.TODAY} class="today"{/if}>
+{if DAY.LINK_ADDEVENT}<div class="addevent"><a href="{DAY.LINK_ADDEVENT}"><img src="modules/calendar/images/addevent.gif" alt="{LANG[ADDEVENT]}" title="{LANG[ADDEVENT]}" /></a></div>{/if}
+<div class="daynumber"><a href="{DAY.LINK}">{DATE('j',DAY.TIME)}</a></div>
+{if DAY.BIRTHDAY_COUNT}<div>{LANG[BIRTHDAYS]}: {DAY.BIRTHDAY_COUNT}</div>{/if}{* Anzahl Geburtstage *}
+{if DAY.EVENT_COUNT}<div>{LANG[EVENTS]}: {DAY.EVENT_COUNT}</div>{/if}{* Anzahl Termine *}
+</td>
+{else}
+<td class="disabled">{DATE('j',DAY.TIME)}</td>
+{/if}
+
+{* Wochenzeile beenden *}
+{if COUNTER%7==0}</tr>{/if}
+{/list}
+</table>
+
+&nbsp;
+
+<table width="100%"><tr><td>
+
+{* Direktauswahl *}
+<form action="calendar.php" method="get">
+<b>{LANG[SELECTMONTH]}:</b><br />
+<select name="month">
+<option value="1"{if SELECTED_MONTH==1} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if SELECTED_MONTH==2} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if SELECTED_MONTH==3} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if SELECTED_MONTH==4} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if SELECTED_MONTH==5} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if SELECTED_MONTH==6} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if SELECTED_MONTH==7} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if SELECTED_MONTH==8} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if SELECTED_MONTH==9} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if SELECTED_MONTH==10} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if SELECTED_MONTH==11} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if SELECTED_MONTH==12} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select>
+<select name="year">
+<option value="2000"{if SELECTED_YEAR==2000} selected="selected"{/if}>2000</option>
+<option value="2001"{if SELECTED_YEAR==2001} selected="selected"{/if}>2001</option>
+<option value="2002"{if SELECTED_YEAR==2002} selected="selected"{/if}>2002</option>
+<option value="2003"{if SELECTED_YEAR==2003} selected="selected"{/if}>2003</option>
+<option value="2004"{if SELECTED_YEAR==2004} selected="selected"{/if}>2004</option>
+<option value="2005"{if SELECTED_YEAR==2005} selected="selected"{/if}>2005</option>
+<option value="2006"{if SELECTED_YEAR==2006} selected="selected"{/if}>2006</option>
+<option value="2007"{if SELECTED_YEAR==2007} selected="selected"{/if}>2007</option>
+<option value="2008"{if SELECTED_YEAR==2008} selected="selected"{/if}>2008</option>
+<option value="2009"{if SELECTED_YEAR==2009} selected="selected"{/if}>2009</option>
+<option value="2010"{if SELECTED_YEAR==2010} selected="selected"{/if}>2010</option>
+<option value="2011"{if SELECTED_YEAR==2011} selected="selected"{/if}>2011</option>
+<option value="2012"{if SELECTED_YEAR==2012} selected="selected"{/if}>2012</option>
+<option value="2013"{if SELECTED_YEAR==2013} selected="selected"{/if}>2013</option>
+<option value="2014"{if SELECTED_YEAR==2014} selected="selected"{/if}>2014</option>
+<option value="2015"{if SELECTED_YEAR==2015} selected="selected"{/if}>2015</option>
+<option value="2016"{if SELECTED_YEAR==2016} selected="selected"{/if}>2016</option>
+<option value="2017"{if SELECTED_YEAR==2017} selected="selected"{/if}>2017</option>
+<option value="2018"{if SELECTED_YEAR==2018} selected="selected"{/if}>2018</option>
+<option value="2019"{if SELECTED_YEAR==2019} selected="selected"{/if}>2019</option>
+<option value="2020"{if SELECTED_YEAR==2020} selected="selected"{/if}>2020</option>
+</select>
+<input type="submit" value="Go!" class="button" />
+<input type="hidden" name="mode" value="{MODE}" />
+</form>
+
+</td><td align="right">
+
+{* Moduswechsel nur wenn angemeldet *}
+{if LOGGED_ID}{LANG[SWITCHMODE]}: {if MODE=='public'}<a href="{LINK_SHOWPRIVATE}">{LANG[MODE_PRIVATE]}</a>{else}<a href="{LINK_SHOWPUBLIC}">{LANG[MODE_PUBLIC]}</a>{/if}<br />{/if}
+
+{* Ansichtwechsel *}
+<a href="{LINK_SHOWTODAY}">{LANG[TODAY]}</a> | 
+<a href="{LINK_SHOWWEEK}">{LANG[SHOWWEEK]}</a> | 
+<a href="{LINK_SHOWYEAR}">{LANG[SHOWYEAR]}</a>
+
+</td></tr></table>

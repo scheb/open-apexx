@@ -1,0 +1,37 @@
+{*
+
+Template-Funktion: Zufallsbild aus Benutzer-Galerien
+====================================================
+
+Bild
+----
+IMAGE = Pfad zum Thumbnail
+FULLSIZE = Pfad zur Großansicht des Bilds
+LINK = Link zum Bild
+CAPTION = Bildunterschift
+TIME = Hinzugefügt am (Timestamp)
+
+
+Galerie, in der das Bild enthalten ist
+--------------------------------------
+GALLERY_ID = Galerie-ID
+GALLERY_TITLE = Titel
+GALLERY_DESCRIPTION = Beschreibung
+GALLERY_LINK = Link zur Galerie
+GALLERY_TIME = Zeit (Timestamp)
+GALLERY_UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+GALLERY_COUNT = Anzahl der enthaltenen Bilder
+
+
+Autor der Galerie
+-----------------
+USERID = Benutzer-ID des Autors
+USERNAME = Benutzername
+REALNAME = Echter Name
+AVATAR = Avatar des Autors
+AVATER_TITLE = Avatar-Titel
+
+*}
+
+<a href="{LINK}"><img src="{IMAGE}" alt="{CAPTION|notags}" title="{CAPTION|notags}" /></a><br />
+<span class="small">{CAPTION}</span>

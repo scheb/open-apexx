@@ -1,0 +1,57 @@
+<table width="100%" class="table" style="margin-top:10px;">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<tbody>
+<tr class="tableheader"><td colspan="4">{LANG[RIGHTS]} <small>({LANG[CTRLMULTI]})</small></td></tr>
+{if PARENTID || ID}
+<tr>
+<td colspan="4"><input type="checkbox" name="inherit" id="ip_inherit" value="1"{if INHERIT} checked="checked"{/if} style="vertical-align:middle;" onchange="update_rights(this.checked);" onclick="update_rights(this.checked);" /><label for="ip_inherit" onclick="update_rights(yDom.get('ip_inherit').checked);"> {LANG[INHERIT]}</label></td>
+</tr>
+{/if}
+</tbody>
+</table>
+
+<div id="rights" style="{if INHERIT}display:none;{/if}">
+
+<table width="100%" class="table" style="margin-top:0px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[PASSWORD]}:</td>
+<td colspan="3"><input type="text" name="password" value="{PASSWORD}" size="20" class="input" style="width:200px;" /></td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin-top:10px;">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<tr>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_VISIBLE]}:</div><select name="right_visible[]" multiple="multiple" size="8" style="width:98%">{RIGHT_VISIBLE}</select></td>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_READ]}:</div><select name="right_read[]" multiple="multiple" size="8" style="width:98%">{RIGHT_READ}</select></td>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_OPEN]}:</div><select name="right_open[]" multiple="multiple" size="8" style="width:98%">{RIGHT_OPEN}</select></td>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_ANNOUNCE]}:</div><select name="right_announce[]" multiple="multiple" size="8" style="width:98%">{RIGHT_ANNOUNCE}</select></td>
+</tr>
+<tr>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_POST]}:</div><select name="right_post[]" multiple="multiple" size="8" style="width:98%">{RIGHT_POST}</select></td>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_EDITPOST]}:</div><select name="right_editpost[]" multiple="multiple" size="8" style="width:98%">{RIGHT_EDITPOST}</select></td>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_DELPOST]}:</div><select name="right_delpost[]" multiple="multiple" size="8" style="width:98%">{RIGHT_DELPOST}</select></td>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_DELTHREAD]}:</div><select name="right_delthread[]" multiple="multiple" size="8" style="width:98%">{RIGHT_DELTHREAD}</select></td>
+</tr>
+<tr>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_ADDATTACHMENT]}:</div><select name="right_addattachment[]" multiple="multiple" size="8" style="width:98%">{RIGHT_ADDATTACHMENT}</select></td>
+<td><div style="margin-bottom:5px;font-weight:bold;">{LANG[RIGHT_READATTACHMENT]}:</div><select name="right_readattachment[]" multiple="multiple" size="8" style="width:98%">{RIGHT_READATTACHMENT}</select></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+</div>

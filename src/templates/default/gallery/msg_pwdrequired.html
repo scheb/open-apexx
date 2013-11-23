@@ -1,0 +1,15 @@
+{*
+
+Passworteingabe, wenn Galerie geschützt
+=======================================
+
+ID = Galerie-ID
+PIC = Bild-ID
+
+*}
+
+<p>{LANG[MSG_PWDREQUIRED]}</p>
+<input type="password" name="password" size="30" class="input" /> <input type="submit" name="apxsubmit" value="{LANG[SUBMITPWD]}" class="button" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="pic" value="{PIC}" />
+{if SECTION_ID}<input type="hidden" name="sec" value="{SECTION_ID}" />{/if}

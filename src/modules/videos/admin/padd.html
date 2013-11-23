@@ -1,0 +1,42 @@
+<style type="text/css">
+<!--
+
+.optionbox div {
+	width:50%;
+	float:left;
+}
+
+-->
+</style>
+
+<p class="hint">{LANG[INFOTEXT]} ({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</p>
+<form action="action.php" method="post" target="postframe" enctype="multipart/form-data">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[CHOOSEPICS]}</td></tr>
+<tr><td>{LANG[GLOBALOPTIONS]}:</td><td>
+<div class="optionbox" style="width:400px;">
+{if SET_WATERMARK}<div><input type="checkbox" name="checkall_watermark" value="1" id="checkall_watermark" onclick="checkbox_toggle_name(this.form,this.checked,'watermark')" onchange="checkbox_toggle_name(this.form,this.checked,'watermark')" checked="checked" style="vertical-align:middle;" /><label for="checkall_watermark" onclick="checkbox_toggle_name(yDom.get('checkall_watermark').form,yDom.get('checkall_watermark').checked,'watermark')"> {LANG[WATERMARK]}</label></div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="checkall_noresize" value="1" id="checkall_noresize" onclick="checkbox_toggle_name(this.form,this.checked,'noresize')" onchange="checkbox_toggle_name(this.form,this.checked,'noresize')" style="vertical-align:middle;" /><label for="checkall_noresize" onclick="checkbox_toggle_name(yDom.get('checkall_noresize').form,yDom.get('checkall_noresize').checked,'noresize')"> {LANG[NORESIZE]}</label></div>{/if}
+</div>
+</td></tr>
+{list UPLOAD}{++NUMBER}
+<tr><td>{LANG[PIC]} {NUMBER}:</td><td>
+
+<div><input type="file" name="upload{NUMBER}" class="input" size="60" /></div>
+<div class="optionbox" style="width:400px;">
+{if SET_WATERMARK}<div><input type="checkbox" name="watermark{NUMBER}" id="ip_watermark{NUMBER}" value="1"{if UPLOAD.WATERMARK} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_watermark{NUMBER}"> {LANG[WATERMARK]}</label></div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="noresize{NUMBER}" id="ip_noresize{NUMBER}" value="1"{if UPLOAD.NORESIZE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_noresize{NUMBER}"> {LANG[NORESIZE]}</div></label>{/if}
+</div>
+ 
+</td></tr>
+{/list}
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="videos.padd" />
+<input type="hidden" name="send" value="1" />
+</form>

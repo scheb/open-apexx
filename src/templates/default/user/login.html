@@ -1,0 +1,22 @@
+{*
+
+Anmelden
+========
+
+POSTTO = Formular senden an...
+
+*}
+
+<p class="slink">&raquo; <a href="user.php?action=register{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">{LANG[REGISTER]}</a></p>
+
+<form action="{POSTTO}" method="post">
+<table width="400" align="center">
+<colgroup><col width="40%" /><col width="60%" /></colgroup>
+<tr><td colspan="2" class="header1">{LANG[HEADLINE_LOGIN]}</td></tr>
+<tr><td class="color">{LANG[USER]}:</td><td class="color"><input type="text" name="login_user" class="input" size="38" /></td></tr>
+<tr><td class="color">{LANG[PWD]}:</td><td class="color"><input type="password" name="login_pwd" class="input" size="38" /></td></tr>
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[SUBMIT]}" class="button" /></td></tr>
+</table>
+</form>
+
+<p align="center"><a href="user.php?action=getpwd{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">{LANG[GETPWD]}</a> | <a href="user.php?action=getregkey{if SECTION_ID}&amp;sec={SECTION_ID}{/if}">{LANG[GETKEY]}</a></p>

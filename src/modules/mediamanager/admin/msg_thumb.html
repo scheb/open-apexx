@@ -1,0 +1,77 @@
+{if INFO}<p class="info">{INFO}</p>{/if}
+<table width="100%" style="text-align:left;">
+<colgroup>
+<col width="150" />
+<col width="1" />
+<col />
+</colgroup>
+<tr>
+<td>{LANG[NEWNAME]}:</td>
+<td colspan="2"><input type="text" name="newname" value="{NEWNAME}" class="input" size="50" maxlength="50" style="width:350px;" />.{EXT}<br />{LANG[INFO]}</td>
+</tr>
+<tr>
+<td>{LANG[WIDTH]}:</td>
+<td><input type="text" name="width" id="width" value="{WIDTH}" class="input" size="10" style="width:100px;" onchange="refresh('wtoh',this);" onfocus="refresh('wtoh',this);" onkeyup="refresh('wtoh',this);" onkeydown="refresh('wtoh',this);" /></td>
+<td rowspan="2"><img src="design/mm/conn.gif" alt="" id="connimg" style="vertical-align:middle;" /><input type="checkbox" name="keepratio" id="keepratio" value="1"{if KEEPRATIO}checked="checked"{/if} onclick="setkeepratio(this);" onchange="setkeepratio(this);" style="vertical-align:middle;" /><label for="keepratio" onclick="setkeepratio(yDom.get('keepratio'));"> {LANG[KEEPRATIO]}</label></td>
+</tr>
+<tr>
+<td>{LANG[HEIGHT]}:</td>
+<td><input type="text" name="height" id="height" value="{HEIGHT}" class="input" size="10" style="width:100px;" onchange="refresh('htow',this);" onfocus="refresh('htow',this);" onkeyup="refresh('htow',this);" onkeydown="refresh('htow',this);" /></td>
+</tr>
+</table>
+<p class="buttons"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT]}" accesskey="s" class="button" /> <input type="button" name="backbutton" value="{LANG[CORE_GOBACK]}" onclick="parent.MessageOverlayManager.closeLayer();" class="button" /></p>
+<input type="hidden" name="file" value="{FILE}" />
+<input type="hidden" name="module" value="{MODULE}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+
+<script type="text/javascript">
+
+var img_x={SIZE_X};
+var img_y={SIZE_Y};
+var ratio=img_x/img_y;
+var keepratio=getobject('keepratio').checked;
+var lastfield=false;
+
+
+function setkeepratio(obj) {
+	keepratio=obj.checked;
+	changeimg();
+	if ( keepratio==false ) return;
+	
+	
+	if ( lastfield=='width' ) {
+		value=obj.form.width.value;
+		if ( isNaN(value) ) return;
+		obj.form.height.value=Math.round(value/ratio);
+	}
+	else if ( lastfield=='height' ) {
+		value=obj.form.height.value;
+		if ( isNaN(value) ) return;
+		obj.form.width.value=Math.round(value*ratio);
+	}
+}
+
+
+function refresh(rtype,obj) {
+	value=parseInt(obj.value);
+	if ( isNaN(value) ) return;
+	
+	if ( rtype=='wtoh' ) {
+		lastfield='width';
+		if ( keepratio==true ) obj.form.height.value=Math.round(value/ratio);
+	}
+	else if ( rtype=='htow' ) {
+		lastfield='height';
+		if ( keepratio==true ) obj.form.width.value=Math.round(value*ratio);
+	}
+}
+
+
+function changeimg() {
+	if ( keepratio==true ) getobject('connimg').src='design/mm/conn.gif';
+	else getobject('connimg').src='design/mm/conn_none.gif';
+}
+
+changeimg();
+
+</script>

@@ -1,0 +1,48 @@
+<p class="hint">{LANG[FILEINFO]}</p>
+<form name="form" action="action.php" method="post" target="postframe" style="margin-bottom:20px;">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[ADDICONS]}</td></tr>
+<tr>
+<td>{LANG[FILE]} 1:</td>
+<td><input type="text" name="file1" class="input" size="90" maxlength="255" style="width:320px;" onchange="spreview(this.value,'preview1');" /> {LANG[PREVIEW]}: <img src="design/nopic.gif" alt="" id="preview1" style="vertical-align:middle;" /></td>
+</tr>
+<tr>
+<td>{LANG[FILE]} 2:</td>
+<td><input type="text" name="file2" class="input" size="90" maxlength="255" style="width:320px;" onchange="spreview(this.value,'preview2');" /> {LANG[PREVIEW]}: <img src="design/nopic.gif" alt="" id="preview2" style="vertical-align:middle;" /></td>
+</tr>
+<tr>
+<td>{LANG[FILE]} 3:</td>
+<td><input type="text" name="file3" class="input" size="90" maxlength="255" style="width:320px;" onchange="spreview(this.value,'preview3');" /> {LANG[PREVIEW]}: <img src="design/nopic.gif" alt="" id="preview3" style="vertical-align:middle;" /></td>
+</tr>
+<tr>
+<td>{LANG[FILE]} 4:</td>
+<td><input type="text" name="file4" class="input" size="90" maxlength="255" style="width:320px;" onchange="spreview(this.value,'preview4');" /> {LANG[PREVIEW]}: <img src="design/nopic.gif" alt="" id="preview4" style="vertical-align:middle;" /></td>
+</tr>
+<tr>
+<td>{LANG[FILE]} 5:</td>
+<td><input type="text" name="file5" class="input" size="90" maxlength="255" style="width:320px;" onchange="spreview(this.value,'preview5');" /> {LANG[PREVIEW]}: <img src="design/nopic.gif" alt="" id="preview5" style="vertical-align:middle;" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[ADDICONS]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="forum.icons" />
+<input type="hidden" name="do" value="add" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+<script type="text/javascript">
+
+function spreview(file,imageid) {
+	if ( file.substr(0,1)=="/" ) {
+		getobject(imageid).src=file;
+	}
+	else {
+		getobject(imageid).src="../forum/"+file;
+	}
+}
+
+</script>
+
+<p class="hint">{LANG[USEDND]}</p>

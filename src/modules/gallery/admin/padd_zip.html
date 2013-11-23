@@ -1,0 +1,48 @@
+<style type="text/css">
+
+.optionbox {
+	max-width:500px;
+}
+
+.optionbox div {
+	width:50%;
+	float:left;
+}
+
+</style>
+
+<p class="hint">{LANG[INFOTEXT]} ({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</p>
+<form action="action.php" method="post" enctype="multipart/form-data" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[PROCESSZIP]}</td></tr>
+<tr>
+<td>{LANG[ZIP]}:</td>
+<td><input type="file" name="zip" class="input" size="45" /></td>
+</tr>
+{if SET_OPTIONS}<tr>
+<td>{LANG[GLOBALOPTIONS]}:</td>
+<td>
+<div class="optionbox">
+{if SET_WATERMARK}<div><input type="checkbox" name="watermark" id="ip_watermark" value="1" checked="checked" style="vertical-align:middle;" /><label for="ip_watermark"> {LANG[WATERMARK]}</label></div>{/if}
+{if SET_NORESIZE}<div><input type="checkbox" name="noresize" id="ip_noresize" value="1" style="vertical-align:middle;" /><label for="ip_noresize"> {LANG[NORESIZE]}</label></div>{/if}
+{if SET_COMS}<div><input type="checkbox" name="allowcoms" id="ip_allowcoms" value="1" checked="checked" style="vertical-align:middle;" /><label for="ip_allowcoms"> {LANG[COMMENTS]}</label></div>{/if}
+{if SET_RATING}<div><input type="checkbox" name="allowrating" id="ip_allowrating" value="1" checked="checked" style="vertical-align:middle;" /><label for="ip_allowrating"> {LANG[RATINGS]}</label></div>{/if}
+</div></td>
+</tr>{/if}
+<tr>
+<td>{LANG[CAPTION]}:</td>
+<td><input type="text" name="caption{NUMBER}" class="input" maxlength="255" style="width:350px;margin-top:3px;" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_ADD]}" accesskey="s" class="button" /> <input type="submit" name="addnext" value="{LANG[SUBMIT_ADDNEXT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="action" value="gallery.padd" />
+<input type="hidden" name="what" value="zip" />
+<input type="hidden" name="updateparent" value="{UPDATEPARENT}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>

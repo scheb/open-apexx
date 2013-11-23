@@ -1,0 +1,457 @@
+{*
+
+Produkt-Details
+===============
+Bitte beachten Sie, dass die verschiedenen Produkttypen jeweils eigene Platzhalter
+besitzen
+
+
+Allgemeine Informationen (existieren bei jedem Produkttyp)
+----------------------------------------------------------
+ID = ID
+TYPE = Produkttyp (normal, game, music, movie, book, software, hardware)
+TITLE = Spiel-Titel
+LINK = Link zur Detailseite
+TEXT = Beschreibung
+TIME = Zeitpunkt der Erstellung (Timestamp)
+HITS = Anzahl Klicks
+PICTURE = Produkt-Bild
+PICTURE_POPUP = Link: Popup zur Großansicht des Produktbilds
+PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+TEASERPIC = Teaser-Bild
+TEASERPIC_POPUP = Link: Popup zur Großansicht des Teaserbilds
+TEASERPIC_POPUPPATH = Pfad zur großen Version des Bilds
+WEBSITE = Website
+BUYLINK = "Kaufen"-Link
+PRICE = Preis
+RECOMMENDED_PRICE = Unverbindliche Preisempfehlung
+GUARANTEE = Garantiedauer
+PRODUCT_ID = ID des verknüpften Produkts (nicht die ID des Produkts selbst!)
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar 
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Meine Sammlung (nur für registrierte Benutzer)
+----------------------------------------------
+LINK_COLLECTION_ADD = Link: zu meiner Sammlung hinzufügen (wenn noch nicht in der Sammlung)
+LINK_COLLECTION_REMOVE = Link: aus meiner Sammlung entfernen (wenn bereits in der Sammlung)
+
+
+Veröffentlichung
+----------------
+Das Veröffentlichungs-Datum ist in Form einer Liste aufgebaut. In der Regel hat diese
+Liste jedoch nur einen Eintrag. Nur bei Videospielen kann es aufgrund der verschiedenen
+Systeme mehrere Release-Daten geben.
+RELEASE = Liste der Release-Daten
+RELEASE.SYSTEM = Titel des Systems (nur beim Typ "Videospiel")
+RELEASE.SYSTEM_ICON = Pfad zum System-Symbol (nur beim Typ "Videospiel")
+RELEASE.MEDIA = Titel des Systems (nur beim Typ "Film")
+RELEASE.MEDIA_ICON = Pfad zum System-Symbol (nur beim Typ "Film")
+RELEASE.DATE = Release-Datum
+
+
+Benuterdefinierte Felder
+------------------------
+CUSTOM1_NAME -> CUSTOM10_NAME = Bezeichnung des Eingabefelds
+CUSTOM1 -> CUSTOM10 = Wert des Eingabefelds
+
+
+Im folgenden werden die Platzhalter aufgelistet, die nur bei einem bestimmten
+Produkttyp existieren. Verwenden Sie IF, um zu prüfen um welchen Produkttyp es
+sich handelt, z.B. für Videospiele:
+{if TYPE=='game'} ... {/if}
+
+
+Platzhalter des Typs "Allgemein" (TYPE = normal)
+------------------------------------------------
+MANUFACTURER = Hersteller Name
+MANUFACTURER_WEBSITE = Webseite des Herstellers
+MANUFACTURER_LINK = Link zur Herstellerseite
+
+
+Platzhalter des Typs "Videospiel" (TYPE = game)
+-----------------------------------------------
+DEVELOPER = Entwickler Name
+DEVELOPER_WEBSITE = Webseite des Entwicklers
+DEVELOPER_LINK = Link zur Herstellerseite
+PUBLISHER = Verlag Name
+PUBLISHER_WEBSITE = Webseite des Verlags
+PUBLISHER_LINK = Link zur Herstellerseite
+REQUIREMENTS = Systemvoraussetzungen
+GENRE = Genre
+MEDIA = Liste der Medienformate des Produkts
+MEDIA.TITLE = Titel des Medienformats
+MEDIA.ICON = Pfad zum Medium-Symbol
+SYSTEM = Liste der Systeme, für die dieses Spiel erscheint
+SYSTEM.TITLE = Titel des Systems
+SYSTEM.ICON = Pfad zum System-Icon
+USK = Usk-Bewertung, Variable ist leer oder hat einen der Werte:
+      'all' (freigegeben für Alle)
+			'6' (ab 6 Jahren)
+			'12' (ab 12 Jahren)
+			'16' (ab 16 Jahren)
+			'18' (ab 18 Jahren bzw. keine Jugendfreigabe)
+			'none' (Indiziert)
+      => IF verwenden z.B: {if USK=='18'}keine Jugendfreigabe{/if}
+
+
+Platzhalter des Typs "Musik" (TYPE = music)
+-------------------------------------------
+ARTIST = Künstler
+ARTIST_WEBSITE = Webseite des Künstlers
+ARTIST_LINK = Link zur Herstellerseite
+LABEL = Label Name
+LABEL_WEBSITE = Webseite des Labels
+LABEL_LINK = Link zur Herstellerseite
+GENRE = Genre
+MEDIA = Liste der Medienformate des Produkts
+MEDIA.TITLE = Titel des Medienformats
+MEDIA.ICON = Pfad zum Medium-Symbol
+FSK = Fsk-Bewertung (funktioniert wie der Platzhalter USK von Videospielen, Erklärung siehe oben)
+
+
+Platzhalter des Typs "Software" (TYPE = software)
+-------------------------------------------------
+MANUFACTURER = Hersteller Name
+MANUFACTURER_WEBSITE = Webseite des Herstellers
+MANUFACTURER_LINK = Link zur Herstellerseite
+OS = Betriebsysteme
+LANGUAGES = Sprachen
+REQUIREMENTS = Systemvoraussetungen
+LICENSE = Lizenz ('commercial' = Kaufversion, 'freeware' = Freeware, 'shareware' = Shareware)
+VERSION = Aktuelle Version
+
+
+Platzhalter des Typs "Hardware" (TYPE = hardware)
+-------------------------------------------------
+MANUFACTURER = Hersteller Name
+MANUFACTURER_WEBSITE = Webseite des Herstellers
+MANUFACTURER_LINK = Link zur Herstellerseite
+EQUIPMENT = Lieferumfang
+
+
+Platzhalter des Typs "Film" (TYPE = movie)
+------------------------------------------
+REGISSEUR = Regisseur
+ACTORS = Darsteller
+STUDIO = Studio Name
+STUDIO_WEBSITE = Webseites des Studios
+STUDIO_LINK = Link zur Herstellerseite
+LENGTH = Spieldauer
+GENRE = Genre
+MEDIA = Liste der Medienformate des Produkts
+MEDIA.TITLE = Titel des Medienformats
+MEDIA.ICON = Pfad zum Medium-Symbol
+FSK = Fsk-Bewertung (funktioniert wie der Platzhalter USK von Videospielen, Erklärung siehe oben)
+
+
+Platzhalter des Typs "Literatur" (TYPE = book)
+----------------------------------------------
+AUTHOR = Autor
+AUTHOR_WEBSITE = Webseite des Autors
+AUTHOR_LINK = Link zur Herstellerseite
+PUBLISHER = Verlag Name
+PUBLISHER_WEBSITE = Webseite des Verlags
+PUBLISHER_LINK = Link zur Herstellerseite
+GENRE = Genre
+MEDIA = Liste der Medienformate des Produkts
+MEDIA.TITLE = Titel des Medienformats
+MEDIA.ICON = Pfad zum Medium-Symbol
+ISBN = ISBN-Nummer
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Kommentare
+----------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Bewertung (Template includen?)
+------------------------------
+DISPLAY_RATING = Bewerten ist erlaubt?
+Alle Platzhalter finden Sie in der Datei templates/default/ratings/rating.html
+
+*}
+
+<style type="text/css">
+<!--
+
+.product {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+}
+
+.product_title {
+	font-size:16px;
+}
+
+.product_text {
+	padding-bottom:20px;
+}
+
+.product_footer td {
+	font-size:11px;
+	padding:10px 0px 0px 0px;
+}
+
+.product_pub {
+	margin-top:10px;
+}
+
+.product_buy {
+	text-align:right;
+	font-size:16px;
+	font-weight:bold;
+	margin-top:10px;
+}
+
+-->
+</style>
+
+<div class="product">
+<div class="product_title"><a href="{LINK}">{TITLE}</a></div>
+<div class="product_text">
+{if PICTURE}{if PICTURE_POPUP}<a href="{PICTURE_POPUP}">{/if}<img src="{PICTURE}" alt="" style="float:right;" />{if PICTURE_POPUP}</a>{/if}{/if}
+{TEXT}
+<div style="clear:both;"></div>
+</div>
+
+{* Allgemeines Produkt *}
+{if TYPE=='normal'}
+<table width="100%">
+<colgroup><col width="15%" /><col width="85%" /></colgroup>
+<tr>
+<td>{LANG[MANUFACTURER]}:</td>
+<td><a href="{MANUFACTURER_LINK}" target="_blank">{MANUFACTURER}</a></td>
+</tr>
+<tr>
+<td>{LANG[WEBSITE]}:</td>
+<td>{if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{* Videospiel *}
+{elseif TYPE=='game'}
+<table width="100%">
+<colgroup><col width="15%" /><col width="30%" /><col width="10%" /><col width="15%" /><col width="30%" /></colgroup>
+<tr>
+<td>{LANG[DEVELOPER]}:</td>
+<td><a href="{DEVELOPER_LINK}" target="_blank">{DEVELOPER}</a></td>
+<td>&nbsp;</td>
+<td>{LANG[PUBLISHER]}:</td>
+<td><a href="{PUBLISHER_LINK}" target="_blank">{PUBLISHER}</a></td>
+</tr>
+<tr>
+<td>{LANG[GENRE]}:</td>
+<td>{GENRE}</td>
+<td>&nbsp;</td>
+<td>{LANG[SYSTEMS]}:</td>
+<td>{list SYSTEM}{++SC}{if SC>1}, {/if}{if SYSTEM.ICON}<img src="{SYSTEM.ICON}" alt="" /> {/if}{SYSTEM.TITLE}{/list}</td>
+</tr>
+<tr>
+<td>{LANG[MEDIA]}:</td>
+<td>{list MEDIA}{++MC}{if MC>1}, {/if}{if MEDIA.ICON}<img src="{MEDIA.ICON}" alt="" /> {/if}{MEDIA.TITLE}{/list}</td>
+<td>&nbsp;</td>
+<td>USK:</td>
+<td>{if !USK}{LANG[USK_NONE]}{elseif USK=='all'}{LANG[USK_ALL]}{elseif USK=='6'}{LANG[USK_6]}{elseif USK=='12'}{LANG[USK_12]}{elseif USK=='16'}{LANG[USK_16]}{elseif USK=='18'}{LANG[USK_18]}{elseif USK=='none'}{LANG[USK_IND]}{/if}</td>
+</tr>
+<tr>
+<td>{LANG[WEBSITE]}:</td>
+<td colspan="4">{if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{* Software *}
+{elseif TYPE=='software'}
+<table width="100%">
+<colgroup><col width="15%" /><col width="30%" /><col width="10%" /><col width="15%" /><col width="30%" /></colgroup>
+<tr>
+<td>{LANG[MANUFACTURER]}:</td>
+<td><a href="{MANUFACTURER_LINK}" target="_blank">{MANUFACTURER}</a></td>
+<td>&nbsp;</td>
+<td>{LANG[OS]}:</td>
+<td>{OS}</td>
+</tr>
+<tr>
+<td>{LANG[LICENSE]}:</td>
+<td>{LICENSE}</td>
+<td>&nbsp;</td>
+<td>{LANG[VERSION]}:</td>
+<td>{VERSION}</td>
+</tr>
+<tr>
+<td>{LANG[LANGUAGES]}:</td>
+<td>{LANGUAGES}</td>
+<td>&nbsp;</td>
+<td>{LANG[WEBSITE]}:</td>
+<td>{if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+<tr>
+<td>{LANG[MEDIA]}:</td>
+<td>{list MEDIA}{++MC}{if MC>1}, {/if}{if MEDIA.ICON}<img src="{MEDIA.ICON}" alt="" /> {/if}{MEDIA.TITLE}{/list}</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td colspan="5">{LANG[SYSTEMREQUIREMENTS]}: {REQUIREMENTS}</td>
+</tr>
+</table>
+
+{* Hardware *}
+{elseif TYPE=='hardware'}
+<table width="100%">
+<colgroup><col width="15%" /><col width="30%" /><col width="10%" /><col width="15%" /><col width="30%" /></colgroup>
+<tr>
+<td>{LANG[MANUFACTURER]}:</td>
+<td><a href="{MANUFACTURER_LINK}" target="_blank">{MANUFACTURER}</a></td>
+<td>&nbsp;</td>
+<td>{LANG[WEBSITE]}:</td>
+<td>{if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+<tr>
+<td colspan="5">{LANG[EQUIPMENT]}: {EQUIPMENT}</td>
+</tr>
+</table>
+
+{* Musik *}
+{elseif TYPE=='music'}
+<table width="100%">
+<colgroup><col width="15%" /><col width="30%" /><col width="10%" /><col width="15%" /><col width="30%" /></colgroup>
+<tr>
+<td>{LANG[ARTIST]}:</td>
+<td><a href="{ARTIST_LINK}" target="_blank">{ARTIST}</a></td>
+<td>&nbsp;</td>
+<td>{LANG[LABEL]}:</td>
+<td><a href="{LABEL_LINK}" target="_blank">{LABEL}</a></td>
+</tr>
+<tr>
+<td>{LANG[GENRE]}:</td>
+<td>{GENRE}</td>
+<td>&nbsp;</td>
+<td>{LANG[MEDIA]}:</td>
+<td>{list MEDIA}{++MC}{if MC>1}, {/if}{if MEDIA.ICON}<img src="{MEDIA.ICON}" alt="" /> {/if}{MEDIA.TITLE}{/list}</td>
+</tr>
+<tr>
+<td>FSK:</td>
+<td>{if !USK}{LANG[USK_NONE]}{elseif USK=='all'}{LANG[USK_ALL]}{elseif USK=='6'}{LANG[USK_6]}{elseif USK=='12'}{LANG[USK_12]}{elseif USK=='16'}{LANG[USK_16]}{elseif USK=='18'}{LANG[USK_18]}{/if}</td>
+<td>&nbsp;</td>
+<td>{LANG[WEBSITE]}:</td>
+<td>{if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{* Film *}
+{elseif TYPE=='movie'}
+<table width="100%">
+<colgroup><col width="15%" /><col width="30%" /><col width="10%" /><col width="15%" /><col width="30%" /></colgroup>
+<tr>
+<td>{LANG[REGISSEUR]}:</td>
+<td>{REGISSEUR}</td>
+<td>&nbsp;</td>
+<td>{LANG[ACTORS]}:</td>
+<td>{ACTORS}</td>
+</tr>
+<tr>
+<td>{LANG[STUDIO]}:</td>
+<td><a href="{STUDIO_LINK}" target="_blank">{STUDIO}</a></td>
+<td>&nbsp;</td>
+<td>{LANG[GENRE]}:</td>
+<td>{GENRE}</td>
+</tr>
+<tr>
+<td>{LANG[MEDIA]}:</td>
+<td>{list MEDIA}{++MC}{if MC>1}, {/if}{if MEDIA.ICON}<img src="{MEDIA.ICON}" alt="" /> {/if}{MEDIA.TITLE}{/list}</td>
+<td>&nbsp;</td>
+<td>{LANG[LENGTH]}:</td>
+<td>{LENGTH}</td>
+</tr>
+<tr>
+<td>FSK:</td>
+<td>{if !USK}{LANG[USK_NONE]}{elseif USK=='all'}{LANG[USK_ALL]}{elseif USK=='6'}{LANG[USK_6]}{elseif USK=='12'}{LANG[USK_12]}{elseif USK=='16'}{LANG[USK_16]}{elseif USK=='18'}{LANG[USK_18]}{/if}</td>
+<td>&nbsp;</td>
+<td>{LANG[WEBSITE]}:</td>
+<td>{if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{* Literatur *}
+{elseif TYPE=='book'}
+<table width="100%">
+<colgroup><col width="15%" /><col width="30%" /><col width="10%" /><col width="15%" /><col width="30%" /></colgroup>
+<tr>
+<td>{LANG[AUTHOR]}:</td>
+<td><a href="{AUTHOR_LINK}" target="_blank">{AUTHOR}</a></td>
+<td>&nbsp;</td>
+<td>{LANG[PUBLISHER]}:</td>
+<td><a href="{PUBLISHER_LINK}" target="_blank">{PUBLISHER}</a></td>
+</tr>
+<tr>
+<td>{LANG[GENRE]}:</td>
+<td>{GENRE}</td>
+<td>&nbsp;</td>
+<td>{LANG[MEDIA]}:</td>
+<td>{list MEDIA}{++MC}{if MC>1}, {/if}{if MEDIA.ICON}<img src="{MEDIA.ICON}" alt="" /> {/if}{MEDIA.TITLE}{/list}</td>
+</tr>
+<tr>
+<td>ISBN:</td>
+<td>{ISBN}</td>
+<td>&nbsp;</td>
+<td>{LANG[WEBSITE]}:</td>
+<td>{if WEBSITE}<a href="{WEBSITE}" target="_blank">{WEBSITE}</a>{/if}</td>
+</tr>
+</table>
+
+{/if}
+
+{* Veröffentlichung *}
+{if RELEASE}<div class="product_pub"><u>{LANG[RELEASE]}</u><br>{list RELEASE}{if RELEASE.SYSTEM}{if RELEASE.SYSTEM_ICON}<img src="{RELEASE.SYSTEM_ICON}" alt="" /> {/if}{RELEASE.SYSTEM}: {elseif RELEASE.MEDIA}{if RELEASE.MEDIA_ICON}<img src="{RELEASE.MEDIA_ICON}" alt="" /> {/if}{RELEASE.MEDIA}: {/if}<b>{RELEASE.DATE}</b><br>{/list}</div>{/if}
+
+{* Preis anzeigen *}
+{if PRICE}<div class="product_buy">
+{LANG[PRICE]}: {PRICE} {if BUYLINK && PRICE}&raquo; <a href="{BUYLINK}" target="_blank">{LANG[BUYIT]}</a>{/if}
+{if RECOMMENDED_PRICE}<br />{LANG[RECOMMENDED_PRICE]}: {RECOMMENDED_PRICE}{/if}
+</div>{/if}
+
+{* Meine Sammlung *}
+{if LINK_COLLECTION_ADD || LINK_COLLECTION_REMOVE}
+<p>
+{if LINK_COLLECTION_ADD}
+<a href="{LINK_COLLECTION_ADD}">{LANG[ADD_COLLECTION]}</a>
+{elseif LINK_COLLECTION_REMOVE}
+<a href="{LINK_COLLECTION_REMOVE}">{LANG[REMOVE_COLLECTION]}</a>
+{/if}
+</p>
+{/if}
+
+<table width="100%" class="product_footer">
+<tr>
+<td nowrap="nowrap">{if DISPLAY_RATING}{include ../ratings/rating.html}{/if}</td>
+<td width="100%" align="right">{if DISPLAY_COMMENTS}<a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a>{/if}</td>
+</tr>
+</table>
+
+</div>
+
+<div class="tags" style="margin-top:10px;">{list TAG} <a href="products.php?action=search&amp;tag={TAG.NAME|urlencode}" style="{TAGSIZE=50+50*TAG.WEIGHT}font-size:{TAGSIZE}%;">{TAG.NAME}</a>{/list}</div>
+
+{if DISPLAY_COMMENTS}<br />&nbsp;{include ../comments/comments.html}{/if}

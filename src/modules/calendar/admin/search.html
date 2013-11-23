@@ -1,0 +1,169 @@
+<form action="action.php" method="post" class="searchform">
+<p class="toggle"><a href="javascript:toggleSearchForm();"><img src="design/{if EXTENDED}collapse{else}extend{/if}.gif" id="searchtoggle" alt="" /></a></p>
+<table width="100%" class="dashed">
+<colgroup>
+<col width="100" />
+<col />
+</colgroup>
+<tbody>
+<tr>
+<td>{LANG[SEARCHTEXT]}:</td>
+<td>
+<input type="text" name="item" class="input" value="{ITEM}" size="70" style="width:300px;" /><br />
+<input type="checkbox" name="title" id="ip_title" value="1"{if STITLE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_title"> {LANG[STITLE]}</label> &nbsp;
+<input type="checkbox" name="text" id="ip_text" value="1"{if STEXT} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_text"> {LANG[STEXT]}</label>
+</td>
+</tr>
+</tbody>
+<tbody id="searchextend"{if !EXTENDED} style="display:none;"{/if}>
+<tr>
+<td>{LANG[PERIOD]}:</td>
+<td><select name="start_day">
+<option value=""></option>
+<option value="1"{if START_DAY=='1'} selected="selected"{/if}>01</option>
+<option value="2"{if START_DAY=='2'} selected="selected"{/if}>02</option>
+<option value="3"{if START_DAY=='3'} selected="selected"{/if}>03</option>
+<option value="4"{if START_DAY=='4'} selected="selected"{/if}>04</option>
+<option value="5"{if START_DAY=='5'} selected="selected"{/if}>05</option>
+<option value="6"{if START_DAY=='6'} selected="selected"{/if}>06</option>
+<option value="7"{if START_DAY=='7'} selected="selected"{/if}>07</option>
+<option value="8"{if START_DAY=='8'} selected="selected"{/if}>08</option>
+<option value="9"{if START_DAY=='9'} selected="selected"{/if}>09</option>
+<option value="10"{if START_DAY=='10'} selected="selected"{/if}>10</option>
+<option value="11"{if START_DAY=='11'} selected="selected"{/if}>11</option>
+<option value="12"{if START_DAY=='12'} selected="selected"{/if}>12</option>
+<option value="13"{if START_DAY=='13'} selected="selected"{/if}>13</option>
+<option value="14"{if START_DAY=='14'} selected="selected"{/if}>14</option>
+<option value="15"{if START_DAY=='15'} selected="selected"{/if}>15</option>
+<option value="16"{if START_DAY=='16'} selected="selected"{/if}>16</option>
+<option value="17"{if START_DAY=='17'} selected="selected"{/if}>17</option>
+<option value="18"{if START_DAY=='18'} selected="selected"{/if}>18</option>
+<option value="19"{if START_DAY=='19'} selected="selected"{/if}>19</option>
+<option value="20"{if START_DAY=='20'} selected="selected"{/if}>20</option>
+<option value="21"{if START_DAY=='21'} selected="selected"{/if}>21</option>
+<option value="22"{if START_DAY=='22'} selected="selected"{/if}>22</option>
+<option value="23"{if START_DAY=='23'} selected="selected"{/if}>23</option>
+<option value="24"{if START_DAY=='24'} selected="selected"{/if}>24</option>
+<option value="25"{if START_DAY=='25'} selected="selected"{/if}>25</option>
+<option value="26"{if START_DAY=='26'} selected="selected"{/if}>26</option>
+<option value="27"{if START_DAY=='27'} selected="selected"{/if}>27</option>
+<option value="28"{if START_DAY=='28'} selected="selected"{/if}>28</option>
+<option value="29"{if START_DAY=='29'} selected="selected"{/if}>29</option>
+<option value="30"{if START_DAY=='30'} selected="selected"{/if}>30</option>
+<option value="31"{if START_DAY=='31'} selected="selected"{/if}>31</option>
+</select>. 
+<select name="start_month">
+<option value=""></option>
+<option value="1"{if START_MONTH=='1'} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if START_MONTH=='2'} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if START_MONTH=='3'} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if START_MONTH=='4'} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if START_MONTH=='5'} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if START_MONTH=='6'} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if START_MONTH=='7'} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if START_MONTH=='8'} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if START_MONTH=='9'} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if START_MONTH=='10'} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if START_MONTH=='11'} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if START_MONTH=='12'} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select>
+<input type="text" name="start_year" value="{if END_YEAR}{START_YEAR}{/if}" maxlength="4" size="4" class="input" style="width:50px;" />
+&nbsp;&#150;&nbsp;
+<select name="end_day">
+<option value=""></option>
+<option value="1"{if END_DAY=='1'} selected="selected"{/if}>01</option>
+<option value="2"{if END_DAY=='2'} selected="selected"{/if}>02</option>
+<option value="3"{if END_DAY=='3'} selected="selected"{/if}>03</option>
+<option value="4"{if END_DAY=='4'} selected="selected"{/if}>04</option>
+<option value="5"{if END_DAY=='5'} selected="selected"{/if}>05</option>
+<option value="6"{if END_DAY=='6'} selected="selected"{/if}>06</option>
+<option value="7"{if END_DAY=='7'} selected="selected"{/if}>07</option>
+<option value="8"{if END_DAY=='8'} selected="selected"{/if}>08</option>
+<option value="9"{if END_DAY=='9'} selected="selected"{/if}>09</option>
+<option value="10"{if END_DAY=='10'} selected="selected"{/if}>10</option>
+<option value="11"{if END_DAY=='11'} selected="selected"{/if}>11</option>
+<option value="12"{if END_DAY=='12'} selected="selected"{/if}>12</option>
+<option value="13"{if END_DAY=='13'} selected="selected"{/if}>13</option>
+<option value="14"{if END_DAY=='14'} selected="selected"{/if}>14</option>
+<option value="15"{if END_DAY=='15'} selected="selected"{/if}>15</option>
+<option value="16"{if END_DAY=='16'} selected="selected"{/if}>16</option>
+<option value="17"{if END_DAY=='17'} selected="selected"{/if}>17</option>
+<option value="18"{if END_DAY=='18'} selected="selected"{/if}>18</option>
+<option value="19"{if END_DAY=='19'} selected="selected"{/if}>19</option>
+<option value="20"{if END_DAY=='20'} selected="selected"{/if}>20</option>
+<option value="21"{if END_DAY=='21'} selected="selected"{/if}>21</option>
+<option value="22"{if END_DAY=='22'} selected="selected"{/if}>22</option>
+<option value="23"{if END_DAY=='23'} selected="selected"{/if}>23</option>
+<option value="24"{if END_DAY=='24'} selected="selected"{/if}>24</option>
+<option value="25"{if END_DAY=='25'} selected="selected"{/if}>25</option>
+<option value="26"{if END_DAY=='26'} selected="selected"{/if}>26</option>
+<option value="27"{if END_DAY=='27'} selected="selected"{/if}>27</option>
+<option value="28"{if END_DAY=='28'} selected="selected"{/if}>28</option>
+<option value="29"{if END_DAY=='29'} selected="selected"{/if}>29</option>
+<option value="30"{if END_DAY=='30'} selected="selected"{/if}>30</option>
+<option value="31"{if END_DAY=='31'} selected="selected"{/if}>31</option>
+</select>. 
+<select name="end_month">
+<option value=""></option>
+<option value="1"{if END_MONTH=='1'} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if END_MONTH=='2'} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if END_MONTH=='3'} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if END_MONTH=='4'} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if END_MONTH=='5'} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if END_MONTH=='6'} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if END_MONTH=='7'} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if END_MONTH=='8'} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if END_MONTH=='9'} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if END_MONTH=='10'} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if END_MONTH=='11'} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if END_MONTH=='12'} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select> 
+<input type="text" name="end_year" value="{if END_YEAR}{END_YEAR}{/if}" maxlength="4" size="4" class="input" style="width:50px;" />
+</td>
+</tr>
+{if SECLIST}
+<tr>
+<td>{LANG[SECTION]}:</td>
+<td><select name="secid"><option value=""></option>{SECLIST}</select></td>
+</tr>
+{/if}
+<tr>
+<td>{LANG[CATEGORY]}:</td>
+<td><select name="catid"><option value="">{LANG[ALL]}</option>{CATLIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[USERNAME]}:</td>
+<td><select name="userid"><option value=""></option>{USERLIST}</select> <input type="submit" name="apxsubmit" value="{LANG[SEARCH]}" accesskey="s" class="button" /></td>
+</tr>
+</tbody>
+</table>
+<input type="hidden" name="action" value="calendar.show" />
+<input type="hidden" name="what" value="{WHAT}" />
+</form>
+
+<script type="text/javascript" src="../lib/yui/calendar/calendar-min.js"></script>
+<script type="text/javascript" src="../lib/yui/container/container_core-min.js"></script>
+<script type="text/javascript" src="../lib/yui/element/element-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/calendarselection.js"></script>
+<script type="text/javascript">
+
+function toggleSearchForm() {
+	var expandable = yDom.get('searchextend');
+	var button = yDom.get('searchtoggle');
+	if ( expandable.style.display=='none' ) {
+		expandable.style.display = '';
+		button.src = 'design/collapse.gif';
+	}
+	else {
+		expandable.style.display = 'none';
+		button.src = 'design/extend.gif';
+	}
+}
+
+yEvent.onDOMReady(function() {
+	var form = document.forms[0];
+	new CalendarSelection({day: form.start_day, month: form.start_month, year: form.start_year}, 'start');
+	new CalendarSelection({day: form.end_day, month: form.end_month, year: form.end_year}, 'end');
+});
+
+</script>

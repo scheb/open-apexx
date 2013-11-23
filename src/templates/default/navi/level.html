@@ -1,0 +1,23 @@
+{*
+
+Template-Funktion: Navigation mit verschiedenen Leisten
+=======================================================
+
+ID = Navigations-ID
+LEVEL = Aktuell angezeigtes Level der Navigation
+
+NAVI = Liste der Navigationspunkte
+NAVI.TEXT = Bezeichnung des Navigationspunkts
+NAVI.LINK = zu verlinkende URL
+NAVI.POPUP = Soll der Link in einem neuen Fenster geöffnet werden?
+NAVI.CODE = anzuzeigender HTML-Code
+NAVI.SELECTED = Link ist ausgewählt
+
+*}
+{list NAVI}
+{if NAVI.CODE}
+{NAVI.CODE} 
+{else}
+<a href="{NAVI.LINK}"{if NAVI.POPUP} target="_blank"{/if}>{NAVI.TEXT}</a> 
+{/if}
+{/list}

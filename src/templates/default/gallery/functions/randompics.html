@@ -1,0 +1,56 @@
+{*
+
+Template-Funktion: Zufällige Bilder (aus einer Galerie)
+=======================================================
+
+Bilder
+------
+PICTURE = Liste der Bilder
+PICTURE.IMAGE = Pfad zum Thumbnail
+PICTURE.FULLSIZE = Pfad zum Bild in voller Größe
+PICTURE.LINK = Link zum Bild
+PICTURE.CAPTION = Bildunterschift
+PICTURE.HITS = Klicks
+PICTURE.NEW = Ist das Bild neu?
+
+
+Galerie, in der das Bild enthalten ist
+--------------------------------------
+PICTURE.GALLERY_ID = Galerie-ID
+PICTURE.GALLERY_TITLE = Titel
+PICTURE.GALLERY_DESCRIPTION = Beschreibung
+PICTURE.GALLERY_LINK = Link zur Galerie
+PICTURE.GALLERY_TIME = Zeit (Timestamp)
+PICTURE.GALLERY_UPDATETIME = Zeitpunkt der letzten Aktualisierung (Timestamp)
+PICTURE.GALLERY_COUNT = Anzahl der enthaltenen Bilder
+PICTURE.GALLERY_RESTRICTED = Altersabfrage aktiviert?
+PICTURE.GALLERY_PRODUCT_ID = Verknüpftes Produkt (=> Informationen mit {PRODUCT_INFO()} auslesen
+
+PICTURE.GALLERY_TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+PICTURE.GALLERY_TAG = Liste aller Tags
+PICTURE.GALLERY_TAG.ID = ID des Tags
+PICTURE.GALLERY_TAG.NAME = Darstellbarer Name des Tags
+PICTURE.GALLERY_TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kommentare
+----------
+PICTURE.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+PICTURE.COMMENT_COUNT = Anzahl der Kommentare
+PICTURE.COMMENT_LINK = Link zur Kommentar-Seite
+PICTURE.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+PICTURE.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+PICTURE.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+PICTURE.DISPLAY_RATING = Bewerten ist erlaubt?
+PICTURE.RATING = durchschnittliche Bewertung
+PICTURE.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{list PICTURE}
+<a href="{PICTURE.LINK}"><img src="{PICTURE.IMAGE}" alt="{PICTURE.CAPTION|notags}" title="{PICTURE.CAPTION|notags}" /></a><br />
+{/list}

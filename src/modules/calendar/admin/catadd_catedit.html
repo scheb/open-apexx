@@ -1,0 +1,28 @@
+<form action="action.php" method="post" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_CALENDAR_CATADD]}{else}{LANG[TITLE_CALENDAR_CATEDIT]}{/if}</td></tr>
+{if SET_CALENDAR_SUBCATS}<tr>
+<td>{LANG[CREATEIN]}:</td>
+<td><select name="parent">{CATLIST}</select></td>
+</tr>{/if}
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" maxlength="255" size="80" style="width:400px;" /></td>
+</tr>
+<tr>
+<td>{LANG[ICON]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><input type="text" name="icon" value="{ICON}" class="input" maxlength="255" size="80" style="width:400px;" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="calendar.cat{ACTION}" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="updateparent" value="{UPDATEPARENT}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+{if !SET_CALENDAR_SUBCATS}<input type="hidden" name="parent" value="root" />{/if}
+</form>

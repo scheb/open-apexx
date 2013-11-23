@@ -1,0 +1,312 @@
+<form action="action.php" method="post" enctype="multipart/form-data" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{if ACTION=='add'}{LANG[TITLE_PRODUCTS_ADD]}{else}{LANG[TITLE_PRODUCTS_EDIT]}{/if}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" class="input" maxlength="255" size="60" style="width:300px" /></td>
+</tr>
+<tr>
+<td>{LANG[INLINESCREENS]}:</td>
+<td>{INLINE('text')}</td>
+</tr>
+<tr>
+<td>{LANG[TEXT]}:</td>
+<td>{TEXTAREA('text',15,TEXT)}</td>
+</tr>
+</table>
+
+<table width="100%" class="table" style="margin:10px 0;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[OPTIONAL]}</td></tr>
+<tr>
+<td>{LANG[LINKPRODUCT]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><select name="prodid">{PRODUCTS(PRODID,ID)}</select></td>
+</tr>
+<tr>
+<td>{LANG[PICTURE]}:<br /><small>({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</small></td>
+<td>
+<table width="100%" class="clear">
+<colgroup>
+<col width="100" />
+<col />
+</colgroup>
+{if PICTURE}
+<tr><td nowrap="nowrap" style="padding-bottom:3px;"><a href="{PICTURE}" target="_blank">{LANG[SHOWPIC]}</a> &nbsp;&raquo;</td><td style="padding-bottom:3px;"><input type="checkbox" name="delpic" id="ip_delpic" value="1" /><label for="ip_delpic"> {LANG[DELPIC]}</label></td></tr>
+{/if}
+<tr><td nowrap="nowrap">{LANG[PICTURE_UPLOAD]}:</td><td><input type="file" name="pic_upload" size="60" /></td></tr>
+<tr><td nowrap="nowrap" style="padding-top:3px;">{LANG[PICTURE_PATH]}:</td><td style="padding-top:3px;"><input type="text" name="pic_copy" id="pic_copy" value="{PIC_COPY}" class="input" size="53" style="width:260px;" /> <input type="button" name="mediamanager" value="{LANG[CORE_MEDIAMANAGER]}" onclick="javascript:openmm('mediamanager.php?action=mediamanager.index&amp;module=products')" class="button" /></td></tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>{LANG[TEASERPIC]}:<br /><small>({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</small></td>
+<td>
+<table width="100%" class="clear">
+<colgroup>
+<col width="100" />
+<col />
+</colgroup>
+{if TEASERPIC}
+<tr><td nowrap="nowrap" style="padding-bottom:3px;"><a href="{TEASERPIC}" target="_blank">{LANG[SHOWPIC]}</a> &nbsp;&raquo;</td><td style="padding-bottom:3px;"><input type="checkbox" name="delteaserpic" id="ip_delteaserpic" value="1" /><label for="ip_delteaserpic"> {LANG[DELPIC]}</label></td></tr>
+{/if}
+<tr><td nowrap="nowrap">{LANG[PICTURE_UPLOAD]}:</td><td><input type="file" name="teaserpic_upload" size="60" /></td></tr>
+<tr><td nowrap="nowrap" style="padding-top:3px;">{LANG[PICTURE_PATH]}:</td><td style="padding-top:3px;"><input type="text" name="teaserpic_copy" id="teaserpic_copy" value="{TEASERPIC_COPY}" class="input" size="53" style="width:260px;" /> <input type="button" name="mediamanager" value="{LANG[CORE_MEDIAMANAGER]}" onclick="javascript:openmm('mediamanager.php?action=mediamanager.index&amp;module=products')" class="button" /></td></tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>{LANG[TAGS]}:<br /><small>({LANG[OPTIONAL]}, {LANG[TAGSINFO]})</small></td>
+<td><input type="text" name="tags" value="{TAGS}" size="30" class="input" style="width:400px;" /><div id="taglist" class="taglist"></div></td>
+</tr>
+<tr>
+<td>{LANG[META_DESCRIPTION]}: <small>({LANG[OPTIONAL]})</small></td>
+<td><textarea name="meta_description" rows="2" style="width:98%;">{META_DESCRIPTION}</textarea></td>
+</tr>
+<tr>
+<td>{LANG[OFFICIALWEBSITE]}:</td>
+<td><input type="text" name="website" value="{WEBSITE}" class="input" size="80" style="width:400px" /></td>
+</tr>
+<tr>
+<td>{LANG[MANUFACTURER]}:</td>
+<td><select name="manufacturer">{MANUFACTURER}</select></td>
+</tr>
+<tr>
+<td>{LANG[MEDIA]}:<br /><small>({LANG[CTRLMULTI]})</small></td>
+<td><select name="media[]" multiple="multiple" size="5">{MEDIALIST}</select></td>
+</tr>
+<tr>
+<td>{LANG[OS]}:</td>
+<td><input type="text" name="os" value="{OS}" class="input" size="80" style="width:400px" /></td>
+</tr>
+<tr>
+<td>{LANG[LANGUAGES]}:</td>
+<td><input type="text" name="languages" value="{LANGUAGES}" class="input" size="80" style="width:400px" /></td>
+</tr>
+<tr>
+<td>{LANG[SYSTEMREQUIREMENTS]}:</td>
+<td><textarea name="requirements" cols="60" rows="3" class="input" style="width:98%;">{REQUIREMENTS}</textarea></td>
+</tr>
+<tr>
+<td>{LANG[LICENSE]}:</td>
+<td>
+<input type="radio" name="license" id="ip_license_freeware" value="freeware"{if LICENSE=='freeware'} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_license_freeware"> {LANG[LICENSE_FREEWARE]}</label> &nbsp;&nbsp;
+<input type="radio" name="license" id="ip_license_shareware" value="shareware"{if LICENSE=='shareware'} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_license_shareware"> {LANG[LICENSE_SHAREWARE]}</label> &nbsp;&nbsp;
+<input type="radio" name="license" id="ip_license_commercial" value="commercial"{if LICENSE=='commercial'} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_license_commercial"> {LANG[LICENSE_COMMERCIAL]}</label>
+</td>
+</tr>
+<tr>
+<td>{LANG[VERSION]}:</td>
+<td><input type="text" name="version" value="{VERSION}" class="input" size="80" style="width:100px" /></td>
+</tr>
+<tr>
+<td>{LANG[RELEASE]}:<br /><small>({LANG[RELEASE_FORMATS]})</small></td>
+<td style="line-height:22px;">
+{COUNTER=0}{list RELEASE}{++COUNTER}
+<div id="release{COUNTER}" style="{if RELEASE.DISPLAY}{++DISPLAY}{else}display:none;{/if}">
+<select name="release[{COUNTER}][system]">{RELEASE.MEDIA}</select> &nbsp;&raquo;&nbsp; 
+<select name="release[{COUNTER}][quater]">
+<option value=""></option>
+<option value="1"{if RELEASE.QUATER=='1'} selected="selected"{/if}>1. {LANG[CORE_QUATER]}</option>
+<option value="2"{if RELEASE.QUATER=='2'} selected="selected"{/if}>2. {LANG[CORE_QUATER]}</option>
+<option value="3"{if RELEASE.QUATER=='3'} selected="selected"{/if}>3. {LANG[CORE_QUATER]}</option>
+<option value="4"{if RELEASE.QUATER=='4'} selected="selected"{/if}>4. {LANG[CORE_QUATER]}</option>
+</select> 
+ / 
+<select name="release[{COUNTER}][day]">
+<option value=""></option>
+<option value="1"{if RELEASE.DAY=='1'} selected="selected"{/if}>01</option>
+<option value="2"{if RELEASE.DAY=='2'} selected="selected"{/if}>02</option>
+<option value="3"{if RELEASE.DAY=='3'} selected="selected"{/if}>03</option>
+<option value="4"{if RELEASE.DAY=='4'} selected="selected"{/if}>04</option>
+<option value="5"{if RELEASE.DAY=='5'} selected="selected"{/if}>05</option>
+<option value="6"{if RELEASE.DAY=='6'} selected="selected"{/if}>06</option>
+<option value="7"{if RELEASE.DAY=='7'} selected="selected"{/if}>07</option>
+<option value="8"{if RELEASE.DAY=='8'} selected="selected"{/if}>08</option>
+<option value="9"{if RELEASE.DAY=='9'} selected="selected"{/if}>09</option>
+<option value="10"{if RELEASE.DAY=='10'} selected="selected"{/if}>10</option>
+<option value="11"{if RELEASE.DAY=='11'} selected="selected"{/if}>11</option>
+<option value="12"{if RELEASE.DAY=='12'} selected="selected"{/if}>12</option>
+<option value="13"{if RELEASE.DAY=='13'} selected="selected"{/if}>13</option>
+<option value="14"{if RELEASE.DAY=='14'} selected="selected"{/if}>14</option>
+<option value="15"{if RELEASE.DAY=='15'} selected="selected"{/if}>15</option>
+<option value="16"{if RELEASE.DAY=='16'} selected="selected"{/if}>16</option>
+<option value="17"{if RELEASE.DAY=='17'} selected="selected"{/if}>17</option>
+<option value="18"{if RELEASE.DAY=='18'} selected="selected"{/if}>18</option>
+<option value="19"{if RELEASE.DAY=='19'} selected="selected"{/if}>19</option>
+<option value="20"{if RELEASE.DAY=='20'} selected="selected"{/if}>20</option>
+<option value="21"{if RELEASE.DAY=='21'} selected="selected"{/if}>21</option>
+<option value="22"{if RELEASE.DAY=='22'} selected="selected"{/if}>22</option>
+<option value="23"{if RELEASE.DAY=='23'} selected="selected"{/if}>23</option>
+<option value="24"{if RELEASE.DAY=='24'} selected="selected"{/if}>24</option>
+<option value="25"{if RELEASE.DAY=='25'} selected="selected"{/if}>25</option>
+<option value="26"{if RELEASE.DAY=='26'} selected="selected"{/if}>26</option>
+<option value="27"{if RELEASE.DAY=='27'} selected="selected"{/if}>27</option>
+<option value="28"{if RELEASE.DAY=='28'} selected="selected"{/if}>28</option>
+<option value="29"{if RELEASE.DAY=='29'} selected="selected"{/if}>29</option>
+<option value="30"{if RELEASE.DAY=='30'} selected="selected"{/if}>30</option>
+<option value="31"{if RELEASE.DAY=='31'} selected="selected"{/if}>31</option>
+</select>. 
+<select name="release[{COUNTER}][month]">
+<option value=""></option>
+<option value="1"{if RELEASE.MONTH=='1'} selected="selected"{/if}>{LANG[MONTH_JAN]}</option>
+<option value="2"{if RELEASE.MONTH=='2'} selected="selected"{/if}>{LANG[MONTH_FEB]}</option>
+<option value="3"{if RELEASE.MONTH=='3'} selected="selected"{/if}>{LANG[MONTH_MAR]}</option>
+<option value="4"{if RELEASE.MONTH=='4'} selected="selected"{/if}>{LANG[MONTH_APR]}</option>
+<option value="5"{if RELEASE.MONTH=='5'} selected="selected"{/if}>{LANG[MONTH_MAY]}</option>
+<option value="6"{if RELEASE.MONTH=='6'} selected="selected"{/if}>{LANG[MONTH_JUN]}</option>
+<option value="7"{if RELEASE.MONTH=='7'} selected="selected"{/if}>{LANG[MONTH_JUL]}</option>
+<option value="8"{if RELEASE.MONTH=='8'} selected="selected"{/if}>{LANG[MONTH_AUG]}</option>
+<option value="9"{if RELEASE.MONTH=='9'} selected="selected"{/if}>{LANG[MONTH_SEP]}</option>
+<option value="10"{if RELEASE.MONTH=='10'} selected="selected"{/if}>{LANG[MONTH_OCT]}</option>
+<option value="11"{if RELEASE.MONTH=='11'} selected="selected"{/if}>{LANG[MONTH_NOV]}</option>
+<option value="12"{if RELEASE.MONTH=='12'} selected="selected"{/if}>{LANG[MONTH_DEC]}</option>
+</select> 
+<input type="text" name="release[{COUNTER}][year]" value="{if RELEASE.YEAR}{RELEASE.YEAR}{/if}" maxlength="4" class="input" style="width:50px;" />
+</div>
+{/list}
+<div><a href="javascript:add();"><img src="design/add.gif" title="{LANG[ADDLINE]}" alt="{LANG[ADDLINE]}" /> {LANG[ADDLINE]}</a></div>
+</td>
+</tr>
+</table>
+
+{if CUSFIELD1_NAME}
+<table width="100%" class="table" style="margin-bottom:10px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[CUSTOM]}</td></tr>
+<tr>
+<td>{CUSFIELD1_NAME}:</td>
+<td><input type="text" name="custom1" value="{CUSTOM1}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>
+{if CUSFIELD2_NAME}<tr>
+<td>{CUSFIELD2_NAME}:</td>
+<td><input type="text" name="custom2" value="{CUSTOM2}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD3_NAME}<tr>
+<td>{CUSFIELD3_NAME}:</td>
+<td><input type="text" name="custom3" value="{CUSTOM3}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD4_NAME}<tr>
+<td>{CUSFIELD4_NAME}:</td>
+<td><input type="text" name="custom4" value="{CUSTOM4}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD5_NAME}<tr>
+<td>{CUSFIELD5_NAME}:</td>
+<td><input type="text" name="custom5" value="{CUSTOM5}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD6_NAME}<tr>
+<td>{CUSFIELD6_NAME}:</td>
+<td><input type="text" name="custom6" value="{CUSTOM6}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD7_NAME}<tr>
+<td>{CUSFIELD7_NAME}:</td>
+<td><input type="text" name="custom7" value="{CUSTOM7}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD8_NAME}<tr>
+<td>{CUSFIELD8_NAME}:</td>
+<td><input type="text" name="custom8" value="{CUSTOM8}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD9_NAME}<tr>
+<td>{CUSFIELD9_NAME}:</td>
+<td><input type="text" name="custom9" value="{CUSTOM9}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+{if CUSFIELD10_NAME}<tr>
+<td>{CUSFIELD10_NAME}:</td>
+<td><input type="text" name="custom10" value="{CUSTOM10}" class="input" size="60" maxlength="255" style="width:400px;" /></td>
+</tr>{/if}
+</table>
+{/if}
+
+<table width="100%" class="table" style="margin-bottom:10px;">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[SHOPPING]}</td></tr>
+<tr>
+<td>{LANG[BUYLINK]}:</td>
+<td><input type="text" name="buylink" value="{BUYLINK}" class="input" size="80" style="width:400px" /></td>
+</tr>
+<tr>
+<td>{LANG[PRICE]}:</td>
+<td><input type="text" name="price" value="{if PRICE}{PRICE}{/if}" class="input" size="10" style="width:100px" /></td>
+</tr>
+<tr>
+<td>{LANG[RECPRICE]}:</td>
+<td><input type="text" name="recprice" value="{if RECPRICE}{RECPRICE}{/if}" class="input" size="10" style="width:100px" /></td>
+</tr>
+<tr>
+<td>{LANG[GUARANTEE]}:</td>
+<td><input type="text" name="guarantee" value="{if GUARANTEE}{GUARANTEE}{/if}" class="input" size="10" style="width:200px" /></td>
+</tr>
+
+{if SET_PRODUCTS_SEARCHABLE || ( MODULE_COMMENTS && SET_PRODUCTS_COMS ) || ( MODULE_RATINGS && SET_PRODUCTS_RATINGS )}
+<table width="100%" class="table" style="margin-bottom:10px;">
+<tr class="tableheader"><td colspan="2">{LANG[OPTIONS]}</td></tr>
+<tr><td colspan="2">
+{if SET_PRODUCTS_SEARCHABLE}<input type="checkbox" name="searchable" id="ip_searchable" value="1"{if SEARCHABLE} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_searchable"> {LANG[SEARCHABLE]}</label><br />{/if}
+{if MODULE_COMMENTS && SET_PRODUCTS_COMS}<input type="checkbox" name="allowcoms" id="ip_allowcoms" value="1"{if ALLOWCOMS} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_allowcoms"> {LANG[ALLOWCOMS]}</label><br />{/if}
+{if MODULE_RATINGS && SET_PRODUCTS_RATINGS}<input type="checkbox" name="allowrating" id="ip_allowrating" value="1"{if ALLOWRATING} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_allowrating"> {LANG[ALLOWRATING]}</label><br />{/if}
+<input type="checkbox" name="restricted" id="ip_restricted" value="1"{if RESTRICTED} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_restricted"> {LANG[RESTRICTED]}</label><br />
+<input type="checkbox" name="top" id="ip_top" value="1"{if TOP} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_top"> {LANG[TOPPRODUCT]}</label><br />
+{if ACTION=='add' && RIGHT_PRODUCTS_ENABLE}<input type="checkbox" name="pubnow" id="ip_pubnow" value="1"{if PUBNOW} checked="checked"{/if} style="vertical-align:middle;" /><label for="ip_pubnow"> {LANG[PUBNOW]}</label><br />{/if}
+</td></tr>{/if}
+</table>
+
+<table width="100%" class="table">
+<tr class="submit"><td><input type="submit" name="apxsubmit" value="{if ACTION=='add'}{LANG[SUBMIT_ADD]}{else}{LANG[SUBMIT_EDIT]}{/if}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="products.{ACTION}" />
+<input type="hidden" name="type" value="software" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="2" />
+<input type="hidden" name="ignore" value="0" />
+<input type="hidden" name="updateparent" value="{UPDATEPARENT}" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
+
+<script type="text/javascript" src="../lib/yui/calendar/calendar-min.js"></script>
+<script type="text/javascript" src="../lib/yui/container/container_core-min.js"></script>
+<script type="text/javascript" src="../lib/yui/element/element-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/calendarselection.js"></script>
+
+<script type="text/javascript" src="../lib/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="../lib/yui/datasource/datasource-min.js"></script>
+<script type="text/javascript" src="../lib/yui/autocomplete/autocomplete-min.js"></script>
+<script type="text/javascript" src="../lib/javascript/tagsuggest.js"></script>
+
+<script type="text/javascript" src="../lib/javascript/objecttoolbox.js"></script>
+
+<script type="text/javascript">
+
+shown={DISPLAY};
+
+function add() {
+	if ( shown>=10 ) return;
+	++shown;
+	obj=getobject('release'+shown);
+	obj.style.display='';
+	var form = document.forms[0];
+	new CalendarSelection({day: form['release['+shown+'][day]'], month: form['release['+shown+'][month]'], year: form['release['+shown+'][year]']}, 'release'+shown);
+}
+
+yEvent.onDOMReady(function() {
+	var form = document.forms[0];
+	for ( var i=1; i<={DISPLAY}; i++ ) {
+		new CalendarSelection({day: form['release['+i+'][day]'], month: form['release['+i+'][month]'], year: form['release['+i+'][year]']}, 'release'+i);
+	}
+	new TagSuggest(document.forms[0].tags, yDom.get('taglist'), 200);
+	{if RIGHT_PRODUCTS_UADD}new ObjectToolbox(document.forms[0].manufacturer, 'products.uadd');{/if}
+	{if RIGHT_PRODUCTS_ADD}new ObjectToolbox(document.forms[0].prodid, 'products.add');{/if}
+});
+
+</script>

@@ -1,0 +1,18 @@
+{*
+
+Freischaltung-Code anfordern
+============================
+
+POSTTO = Formular senden an...
+
+*}
+
+<form action="{POSTTO}" method="post">
+<table width="400" align="center">
+<colgroup><col width="40%" /><col width="60%" /></colgroup>
+<tr><td colspan="2" class="header1">{LANG[HEADLINE_GETREGKEY]}</td></tr>
+<tr><td class="color">{LANG[USERNAME]}:</td><td class="color"><input type="text" name="username" class="input" size="38" /></td></tr>
+<tr><td class="color">{LANG[EMAIL]}:</td><td class="color"><input type="text" name="email" class="input" size="38" /></td></tr>
+<tr><td colspan="2" class="footer"><input type="submit" name="send" value="{LANG[SUBMIT_REGKEY]}" class="button" /></td></tr>
+</table>
+</form>

@@ -1,0 +1,88 @@
+{*
+
+Suchergebnisse
+==============
+
+Links
+-----
+LINK = Liste der enthaltenen Links
+LINK.ID = Link-ID
+LINK.TITLE = Titel
+LINK.URL = URL
+LINK.TEXT = Beschreibung
+LINK.PICTURE = Aufmacher-Bild
+LINK.PICTURE_POPUP = Link: "größe Version des Aufmacher-Bilds anzeigen"
+LINK.PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+LINK.LINK = Link zur Detailansicht
+LINK.HITS = Klicks
+LINK.TIME = Zeit (Timestamp)
+LINK.TOP = Top-Link?
+LINK.RESTRICTED = Altersabfrage aktiviert?
+LINK.NEW = Neuer Link?
+LINK.USERID = Benutzer-ID des Autors
+LINK.USERNAME = Benutzername des Autors
+LINK.EMAIL = eMail-Adresse des Autors
+LINK.EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+LINK.GOTO = Link: Diese Webseite besuchen
+
+LINK.TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+LINK.TAG = Liste aller Tags
+LINK.TAG.ID = ID des Tags
+LINK.TAG.NAME = Darstellbarer Name des Tags
+LINK.TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Kategorie
+---------
+LINK.CATID = Unterkategorie-ID
+LINK.CATTITLE = Titel der Unterkategorie
+LINK.CATTEXT = Beschreibung der Unterkategorie
+LINK.CATICON = Symbol der Unterkategorie
+
+
+Verknüpfte Galerie
+------------------
+LINK.GALLERY_ID = ID der Galerie
+LINK.GALLERY_TITLE = Titel der Galerie
+LINK.GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare
+----------
+LINK.DISPLAY_COMMENTS = Kommentare sind erlaubt?
+LINK.COMMENT_COUNT = Anzahl der Kommentare
+LINK.COMMENT_LINK = Link zur Kommentar-Seite
+LINK.COMMENT_LAST_USERID = Benutzer-ID des letzten Kommentar-Schreibers
+LINK.COMMENT_LAST_NAME = Name des letzten Kommentar-Schreibers
+LINK.COMMENT_LAST_TIME = Zeitpunkt des letzten Kommentars (Timestamp)
+
+
+Besucher-Bewertung
+------------------
+LINK.DISPLAY_RATING = Bewerten ist erlaubt?
+LINK.RATING = durchschnittliche Bewertung
+LINK.RATING_VOTES = Anzahl der Stimmen
+
+*}
+
+{include ../pages.html}
+<table width="100%">
+<colgroup>
+<col width="40%" />
+<col width="15%" />
+<col width="45%" />
+</colgroup>
+<tr>
+<td class="header2">{LANG[COL_TITLE]}</td>
+<td class="header2">{LANG[COL_DATE]}</td>
+<td class="header2">{LANG[COL_TEXT]}</td>
+</tr>
+{list LINK}
+<tr>
+<td class="color"><a href="{LINK.LINK}">{LINK.TITLE}</a>{if LINK.NEW} <img src="modules/links/images/new.gif" alt="" />{/if}{if LINK.TOP} <img src="modules/downloads/images/top.gif" alt="" />{/if}</td>
+<td class="color" align="center">{DATE('d.m.Y',LINK.TIME)}</td>
+<td class="color">{SHORTTEXT(LINK.TEXT,200)} ({LINK.HITS} {LANG[HITS]})</td>
+</tr>
+{/list}
+</table>

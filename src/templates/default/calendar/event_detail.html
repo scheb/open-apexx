@@ -1,0 +1,153 @@
+{*
+
+Termin-Detailansicht
+====================
+
+Temin
+-----
+ID = ID
+LINK = Link zur Detailansicht
+TITLE = Titel
+TEXT = Informations-Text
+LOCATION = Ort der Veranstaltung
+LOCATION_LINK = Link zum Ort
+PICTURE = Aufmacher-Bild
+PICTURE_POPUP = Link: Großansicht des Aufmacher-Bilds
+PICTURE_POPUPPATH = Pfad zur großen Version des Bilds
+USERID = Benutzer-ID des Autors
+USERNAME = Benutzername des Autors
+EMAIL = eMail-Adresse des Autors
+EMAIL_ENCRYPTED = Verschlüsselter mailto-Link zur eMail-Adresse
+HITS = Klicks
+PRIORITY = Priorität (1=hoch, 2=normal, 3=niedrig)
+RESTRICTED = Altersabfrage aktiviert?
+PRIVATE = Privater Termin?
+STARTDAY = Beginn dieses Termins. Ausgabe des Datums mit {DATE('d.m.Y',STARTDAY)}
+STARTTIME = Hat einen Wert, wenn eine konkrete Zeit angegeben wurde. Ausgabe mit {DATE('H:i',STARTTIME)}
+ENDDAY = Hat einen Wert, wenn der Termin mehrtägig ist. Gibt den letzten Tag des Termins an. Ausgabe mit {DATE('d.m.Y',ENDDAY)}
+ENDTIME = Hat einen Wert, wenn der Termin mehrtägig ist und zu einem bestimmten Zeitpunkt endet. Ausgabe mit {DATE('H:i',ENDTIME)}
+META_DESCRIPTION = Meta-Description der Seite, globale Variable somit auch im Design-Template verfügbar
+
+TAG_IDS = Diese Variable ist dafür gedacht an die SIMILAR-Funktionen übergeben zu werden
+TAG = Liste aller Tags
+TAG.ID = ID des Tags
+TAG.NAME = Darstellbarer Name des Tags
+TAG.WEIGHT = Gewicht des Tags, Zahl zwischen 0 (geringes Gewicht) und 1 (hohes Gewicht)
+
+
+Angehängte Links
+----------------
+RELATED = Liste der "Links zu dieser News"
+RELATED.TITLE = Vorangestellte Linkbezeichnung
+RELATED.TEXT = Verlinkter Text
+RELATED.URL = URL
+RELATED.POPUP = Neues Fenster öffnen?
+
+
+Kategorie
+---------
+Kategorie-Informationen stehen bei privaten Terminen nicht zur Verfügung!
+CATID = Kategorie-ID
+CATTITLE = Kategorie-Titel
+CATICON = Pfad zum Kategorie-Symbol
+
+
+Verknüpfte Galerie
+------------------
+Galerie-Verknüpfungen sind bei privaten Terminen nicht möglich!
+GALLERY_ID = ID der Galerie
+GALLERY_TITLE = Titel der Galerie
+GALLERY_LINK = Link zur Galerie
+-> Bilder aus dieser Galerie können mit {GALLERY([ANZAHL],[GALERIE-ID])} ausgegeben werden
+
+
+Kommentare (Template includen?)
+-------------------------------
+DISPLAY_COMMENTS = Kommentare sind erlaubt?
+COMMENT_COUNT = Anzahl der Kommentare
+COMMENT_LINK = Link zur Kommentar-Seite
+Alle Platzhalter finden Sie in der Datei templates/default/comments/comments.html
+
+
+Teilnehmerliste
+---------------
+DISPLAY_PART = Teilnehmerliste erlaubt
+LINK_PART_ADD = Link: Teilnehmen (wenn noch nicht angemeldet)
+LINK_PART_REMOVE = Link: Abmelden (wenn bereits angemeldet)
+PARTICIPANT_COUNT = Anzahl Teilnehmer
+PARTICIPANT = Liste der Teilnehmer
+PARTICIPANT.USERID = Benutzer-ID
+PARTICIPANT.USERNAME = Benutzername
+
+
+Optionen nur bei eigenen, privaten Terminen
+-------------------------------------------
+LINK_EDITEVENT = Link: Termin bearbeiten
+LINK_DELEVENT = Link: Termin löschen
+
+*}
+
+<style type="text/css">
+<!--
+
+.event_list {
+	border-top:1px solid #DEDEDE;
+	border-bottom:1px solid #DEDEDE;
+	padding:5px;
+	background:#FAFAFA;
+	margin:10px 0px;
+}
+
+.event_title {
+	font-size:16px;
+	margin:0px;
+}
+
+.event_info {
+	font-size:11px;
+	margin:0px 0px 10px 0px;
+}
+
+.event_footer {
+	font-size:11px;
+	text-align:right;
+	clear:both;
+}
+
+.event_part {
+	font-size:11px;
+	margin:10px 0px 5px 0px;
+}
+
+-->
+</style>
+
+<div class="event_list">
+
+<p class="event_title"> <a href="{LINK}">{TITLE}</a></p>
+<p class="event_info">{if CATID}<!--{CATICON}<a href="events.php?catid={CATID}">-->{CATTITLE}<!--</a>--> | {/if}{LANG[EVENTSTART]}: {DATE('d.m.Y',STARTDAY)} {if STARTTIME}{DATE('H:i',STARTTIME)} {LANG[CORE_OCLOCK]}{/if}{if ENDDAY} | {LANG[EVENTEND]}: {DATE('d.m.Y',ENDDAY)} {if ENDTIME}{DATE('H:i',ENDTIME)} {LANG[CORE_OCLOCK]}{/if}{/if}</p>
+
+<div style="text-align:justify;">
+{if PICTURE}{if PICTURE_POPUP}<a href="{PICTURE_POPUP}">{/if}<img src="{PICTURE}" alt="" style="float:left; margin:0px 10px 10px 0px;" />{if PICTURE_POPUP}</a>{/if}{/if}
+{TEXT}
+
+{* Teilnehmerliste, wenn erlaubt *}
+{if DISPLAY_PART}
+<div class="event_part">{LANG[PARTICIPANTS]}: {list PARTICIPANT}{++PCOUNT}{if PCOUNT>1}, {/if}<a href="{PROFILE(PARTICIPANT.USERID)}">{PARTICIPANT.USERNAME}</a>{/list}{if !PARTICIPANT}{LANG[PART_NONE]}{/if}
+{if LINK_PART_ADD} &raquo; <a href="{LINK_PART_ADD}">{LANG[PART_ADD]}</a>{elseif LINK_PART_REMOVE} &raquo; <a href="{LINK_PART_REMOVE}">{LANG[PART_REMOVE]}</a>{/if}</div>
+{/if}
+
+</div>
+
+<div class="event_footer">{if DISPLAY_COMMENTS}<a href="{COMMENT_LINK}">{LANG[COMMENTS]} ({COMMENT_COUNT})</a> | {/if} {HITS} {LANG[HITS]} | {if USERID}<a href="{PROFILE(USERID)}" target="_blank">{/if}{USERNAME}{if USERID}</a>{/if} {if EMAIL}({EMAIL}){/if}</div>
+</div>
+
+{* Spezielle Optionen bei privaten Terminen, die nur dem Besitzer angezeigt werden *}
+{if PRIVATE && USERID==LOGGED_ID}
+<img src="design/edit.gif" alt="" style="vertical-align:middle;" /> <a href="{LINK_EDITEVENT}">{LANG[EDITEVENT]}</a>&nbsp;&nbsp;&nbsp;
+<img src="design/delete.gif" alt="" style="vertical-align:middle;" /> <a href="{LINK_DELEVENT}">{LANG[DELEVENT]}</a>
+{/if}
+
+<div class="tags">{list TAG} <a href="events.php?search=1&amp;tag={TAG.NAME|urlencode}" style="{TAGSIZE=50+50*TAG.WEIGHT}font-size:{TAGSIZE}%;">{TAG.NAME}</a>{/list}</div>
+
+{if DISPLAY_COMMENTS}<br />&nbsp;{include ../comments/comments.html}{/if}

@@ -1,0 +1,30 @@
+<form action="action.php" method="post" enctype="multipart/form-data" target="postframe">
+<table width="100%" class="table">
+<colgroup>
+<col width="200" />
+<col />
+</colgroup>
+<tr class="tableheader"><td colspan="2">{LANG[TITLE_AFFILIATES_EDIT]}</td></tr>
+<tr>
+<td>{LANG[TITLE]}:</td>
+<td><input type="text" name="title" value="{TITLE}" maxlength="255" style="width:400px" class="input" /></td>
+</tr>
+<tr>
+<td>{LANG[LINK]}:</td>
+<td><input type="text" name="link" value="{LINK}" maxlength="255" style="width:400px" class="input" /></td>
+</tr>
+{if IMAGE}<tr>
+<td>{LANG[CURRENT]}:</td>
+<td><img src="../{IMAGE}" alt="" width="{IMAGE_WIDTH}" /><br /><input type="checkbox" name="delimage" value="1"{if DELIMAGE} checked="checked"{/if} style="vertical-align:middle;" /> {LANG[DELIMAGE]}</td>
+</tr>{/if}
+<tr>
+<td>{LANG[NEWIMAGE]}: <small>({LANG[OPTIONAL]})<br />({LANG[CORE_MAXUPLOAD]}: {SET_MAXUPLOAD})</small></td>
+<td><input type="file" name="image" class="input" size="60" /></td>
+</tr>
+<tr class="submit"><td colspan="2"><input type="submit" name="apxsubmit" value="{LANG[SUBMIT_EDIT]}" accesskey="s" class="button" /></td></tr>
+</table>
+<input type="hidden" name="action" value="affiliates.edit" />
+<input type="hidden" name="id" value="{ID}" />
+<input type="hidden" name="send" value="1" />
+<input type="hidden" name="sectoken" value="{SECTOKEN}" />
+</form>
