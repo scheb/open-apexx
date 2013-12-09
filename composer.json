@@ -1,0 +1,16 @@
+{
+    "name": "scheb/open-apexx",
+    "description": "The open apexx CMS",
+    "keywords": ["apexx", "cms"],
+    "homepage": "https://github.com/scheb/open-apexx",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Christian Scheb",
+            "email": "info@stylemotion.de"
+        }
+    ],
+    "require": {
+        "php": ">=4.3.2"
+    }
+}
