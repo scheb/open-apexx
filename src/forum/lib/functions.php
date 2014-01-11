@@ -1013,7 +1013,7 @@ function get_rank($userinfo) {
 	}
 	
 	//Kein Rang? :(
-	return '';
+	return array();
 }
 
 
