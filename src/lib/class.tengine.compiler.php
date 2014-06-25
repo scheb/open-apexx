@@ -59,7 +59,7 @@ function tengine_compiler($filename) {
 
 
 //Symbolische Zeichen "../", "./" und "//" entfernen
-//Für include-Pfade!
+//FÃ¼r include-Pfade!
 function cleanpath($path) {
 	$result=array();
 	$pp=explode('/',$path);
@@ -105,13 +105,13 @@ function get_compiled_content($content) {
 
 /*********************** COMPILER ***********************/
 
-/*** Datei-Code prüfen ***/
+/*** Datei-Code prÃ¼fen ***/
 function validate($content) {
 	$openelement=array();
 	$level=0;
 	$lines=explode("\n",$content);
 	
-	//Zeile für Zeile durchlaufen
+	//Zeile fÃ¼r Zeile durchlaufen
 	foreach ( $lines AS $line ) {
 		++$linenumber;
 		$found=array();
@@ -230,19 +230,19 @@ function validate_error($element,$linenumber,$openelement) {
 /*** Template kompilieren ***/
 function compile($content) {
 	
-	//PHP löschen
+	//PHP lÃ¶schen
 	if ( $this->nophp ) {
-		$content=preg_replace('#<\?php(.*?)\?>#si','',$content);
+		$content=preg_replace_callback('#<\?php(.*?)\?>#s',function($m) {return " ";},$content);
 	}
 	
-	//Erwünschtes PHP
-	$content=preg_replace('#{php}(.*?){/php}#si','<?php \\1 ?>',$content);
+	//ErwÃ¼nschtes PHP
+	$content=preg_replace_callback('#{php}(.*?){/php}#s',function($m) {return '<?php'.$m[1].'?>';},$content);
 	
-	//XML schützen
-	$content=preg_replace('#<\?xml(.*?)\?>#si','<?php echo "<?xml"; ?>\\1<?php echo "?>\n"; ?>',$content);
+	//XML schÃ¼tzen
+	$content=preg_replace_callback('#<\?xml(.*?)\?>#s',function($m) {return '<?php echo "<?xml"; ?>'.$m[1].'<?php echo "?>\n"; ?>' ;},$content);
 	
 	//Kommentare entfernen
-	$content=preg_replace('#{\*(.*?)\*}#s','',$content);
+	$content=preg_replace_callback('#{\*(.*?)\*}#s',function($m) {return "";},$content);
 	
 	//Variable mit Wert belegen
 	$content=preg_replace_callback('#{(static *)?('.$this->pattern_vars.') *= *('.$this->pattern_all.')}#s',array(&$this,'compile_set'),$content);
@@ -250,8 +250,8 @@ function compile($content) {
 	
 	//Mathematische Funktionen
 	$content=preg_replace_callback('#{('.$this->pattern_vars.') *('.$this->pattern_operator.') *(.*?)}#s',array(&$this,'compile_calculate'),$content);
-	$content=preg_replace('#{(\+\+|--) *('.$this->pattern_vars.')}#se','$this->compile_calculate_addsub("\\1","\\2")',$content); //Nur Variablennamen => ungefährlich
-	$content=preg_replace('#{('.$this->pattern_vars.') *(\+\+|--)}#se','$this->compile_calculate_addsub("\\3","\\1")',$content); //Nur Variablennamen => ungefährlich
+	$content=preg_replace_callback('#{(\+\+|--) *('.$this->pattern_vars.')}#s',function($m) {return $this->compile_calculate_addsub($m[1],$m[2]);},$content); //Nur Variablennamen => ungefÃ¤hrlich
+	$content=preg_replace_callback('#{('.$this->pattern_vars.') *(\+\+|--)}#s',function($m) {return $this->compile_calculate_addsub($m[3],$m[1]);},$content); //Nur Variablennamen => ungefÃ¤hrlich
 	
 	//IFs
 	$content=preg_replace_callback('#{(else)?if +(.*?)}#s',array(&$this,'compile_if'),$content);
@@ -277,26 +277,28 @@ function compile($content) {
 	$content=preg_replace_callback('#{([A-Z0-9_-]+)\((.*?)\)}#s',array(&$this,'compile_function'),$content);
 	
 	//Variablen ausgeben
-	$content=preg_replace('#{('.$this->pattern_vars.')}#se','$this->compile_echo("\\1")',$content); //Nur Variablennamen => ungefährlich
-	$content=preg_replace('#{LANG\[([A-Z0-9_-]+)\]}#s','<?php echo $this->get_langvar(\'\\1\'); ?>',$content); //Nur Array-Keys => ungefährlich
+	$content=preg_replace_callback('#{('.$this->pattern_vars.')}#s',function($m) {return $this->compile_echo($m[1]);},$content); //Nur Variablennamen => ungefÃ¤hrlich
+	$content=preg_replace_callback('#{LANG\[([A-Z0-9_-]+)\]}#s',function($m) {return '<?php echo $this->get_langvar( \''.$m[1].'\'); ?>' ;},$content); //Nur Array-Keys => ungefÃ¤hrlich
 	
 	//Variablen mit Modifikatoren
 	foreach ( $this->mod AS $modid => $func ) {
-		$content=preg_replace('#{('.$this->pattern_vars.')\|'.$modid.'}#se','$this->compile_echo("\\1","'.$func.'")',$content); //Nur Variablennamen => ungefährlich
+		$content=preg_replace_callback('#{('.$this->pattern_vars.')\|'.$modid.'}#s',function($m) {return $this->compile_echo($m[1],"$func") ;},$content); //Nur Variablennamen => ungefÃ¤hrlich
+	
+	//$content=preg_replace('#{('.$this->pattern_vars.')\|'.$modid.'}#se','$this->compile_echo("\\1","'.$func.'")',$content); //Nur Variablennamen => ungefÃ¤hrlich
 	}
 	
-	//Informationen anfügen
+	//Informationen anfÃ¼gen
 	$content=$this->add_header($content);
 	
 	//Clean Code
-	$content=preg_replace("#\?>([ 	]*\r?\n[ 	]*)*<\?php#",'\\1',$content);
+	$content=preg_replace_callback("#\?>([ 	]*\r?\n[ 	]*)*<\?php#",function($m) {return $m[1] ;},$content);
 	
 	return $content;
 }
 
 
 
-/*** Info-Header hinzufügen ***/
+/*** Info-Header hinzufÃ¼gen ***/
 function add_header($content) {
 	$date=date('r');
 	
@@ -390,19 +392,19 @@ function compile_expression($expression,$isboole=false) {
 		$prev='OPERATOR'; //OPERATOR, ELEMENT
 	}
 	
-	//Prüfen, ob der Ausdruck komplett eingelesen wurde
+	//PrÃ¼fen, ob der Ausdruck komplett eingelesen wurde
 	foreach ( $match AS $part ) {
 		$check.=$part[0];
 	}
 	if ( strlen($check)!=strlen($expression) ) return false;
 	
-	//Elemente durchlaufen und auf Richtigkeit prüfen
+	//Elemente durchlaufen und auf Richtigkeit prÃ¼fen
 	foreach ( $match AS $key => $part ) {
 		++$i;
 		list($string)=$part;
 		$string=trim($string); //Whitespace entfernen
 		
-		//Whitespace überspringen
+		//Whitespace Ã¼berspringen
 		if ( $string=='' ) continue;
 		
 		//Verneinung
@@ -413,16 +415,16 @@ function compile_expression($expression,$isboole=false) {
 		
 		/*********** KLAMMERN ***********/
 		
-		//Klammer öffnen
+		//Klammer Ã¶ffnen
 		if ( $string=='(' ) {
-			if ( $prev!='BOOLE' && $prev!='OPERATOR' ) { $errcode=2; break; } //Vorgänger muss ein Boole-Operator sein!
+			if ( $prev!='BOOLE' && $prev!='OPERATOR' ) { $errcode=2; break; } //VorgÃ¤nger muss ein Boole-Operator sein!
 			++$openbrak;
 		}
 		
-		//Klammer schließen
+		//Klammer schlieÃŸen
 		elseif ( $string==')' ) {
-			if ( $openbrak==0 ) { $errcode=3; break; } //Klammern müssen geöffnet sein!
-			if ( $prev!='ELEMENT' ) { $errcode=4; break; } //Vorgänger muss ein Element sein
+			if ( $openbrak==0 ) { $errcode=3; break; } //Klammern mÃ¼ssen geÃ¶ffnet sein!
+			if ( $prev!='ELEMENT' ) { $errcode=4; break; } //VorgÃ¤nger muss ein Element sein
 			--$openbrak;
 		}
 		
@@ -476,8 +478,8 @@ function compile_expression($expression,$isboole=false) {
 	/* 
 	 Abbrechen, wenn ein Fehler aufgetreten ist d.h.
 	 - die Schleife vor Ende abgebrochen wurde
-	 - das letzte Teilstück ein "!" war
-	 - das letzte Teilstück kein Element war
+	 - das letzte TeilstÃ¼ck ein "!" war
+	 - das letzte TeilstÃ¼ck kein Element war
 	*/
 	if ( $i!=count($match) || $isnot===true || $prev!='ELEMENT' ) {
 		return false;
@@ -500,7 +502,7 @@ function compile_set($match) {
 	$isStatic=$match[1];
 	
 	//Variable
-	$value=preg_replace('#^('.$this->pattern_vars.')$#e','$this->get_compiled_var("\\1")',$value);
+	$value=preg_replace_callback('#^('.$this->pattern_vars.')$#',function($m) {return $this->get_compiled_var($m[1]);},$value);
 	
 	//Maskierungen entfernen
 	if ( substr($value,0,2)=="\'" && substr($value,-2)=="\'" ) {
@@ -592,7 +594,7 @@ function compile_if($match) {
 		return $error;
 	}
 	
-	return '<?php '.iif($elseif,'else').'if ( '.$compiled_expr.' ): ?>';
+	return  '<?php '.iif($elseif,'else').'if ( '.$compiled_expr.' ): ?>';
 }
 
 
@@ -602,7 +604,7 @@ function compile_list($match) {
 	$varname=$match[1];
 	$varname=trim($varname);
 	
-	//Variablenname auf Richtigkeit prüfen
+	//Variablenname auf Richtigkeit prÃ¼fen
 	if ( !preg_match('#^'.$this->pattern_vars.'$#',$varname) ) {
 		$error='<br /><b>parse error:</b> &#123;list "'.strtr($varname,array('{'=>'&#123;','}'=>'&#125;')).'&#125; is not a valid list!"<br />';
 		$error.='<?php if ( false ): foreach ( array() AS $none ): ?>'; //Dummy, damit PHP korrekt bleibt
@@ -626,15 +628,15 @@ function compile_repeat($match) {
 	$expression=$match[1];
 	$expression=trim($expression);
 	
-	//Expression auf Richtigkeit prüfen
+	//Expression auf Richtigkeit prÃ¼fen
 	if ( !preg_match('#^(('.$this->pattern_vars.'|'.$this->pattern_number.')( *('.$this->pattern_operator.') *('.$this->pattern_vars.'|'.$this->pattern_number.'))*)$#',$expression) ) {
 		return '<br /><b>parse error:</b> &#123;repeat '.strtr($expression,array('{'=>'&#123;','}'=>'&#125;')).'&#125; is not a valid repeat!<br />';
 	}
 	
 	//Variablen ersetzen, Rest bleibt gleich
-	//Strings können nicht vorkommen (durch vorherige Prüfung ausgeschlossen)
-	//Es können nur Variablennamen übergeben werden => ungefährlich
-	$expression=preg_replace('#('.$this->pattern_vars.')#se','$this->get_compiled_var("\\1");',$expression);
+	//Strings kÃ¶nnen nicht vorkommen (durch vorherige PrÃ¼fung ausgeschlossen)
+	//Es kÃ¶nnen nur Variablennamen Ã¼bergeben werden => ungefÃ¤hrlich
+	$expression=preg_replace_callback('#('.$this->pattern_vars.')#s',function($m) {return $this->get_compiled_var($m[1]);},$expression);
 	
 	return '<?php for ( $counter=1; $counter<=('.$expression.'); $counter++ ) : ?>';
 }
@@ -648,7 +650,7 @@ function compile_function($match) {
 	$funcname=$match[1];
 	$params=$match[2];
 	
-	//Funktionenliste auswählen
+	//Funktionenliste auswÃ¤hlen
 	if ( MODE=='admin' ) $functions=$apx->functions_admin;
 	else $functions=$apx->functions;
 	
@@ -670,7 +672,7 @@ function compile_function($match) {
 	$check=implode('',$match[0]);
 	unset($match);
 	
-	//Prüfen, ob der Ausdruck korrekt ist
+	//PrÃ¼fen, ob der Ausdruck korrekt ist
 	if ( $check!=$params ) {
 		$term=strtr($params,array('{'=>'&#123;','}'=>'&#125;'));
 		return '<br /><b>parse error:</b> "'.$term.'" is not a valid parameter-set!<br />';
@@ -707,10 +709,10 @@ function compile_static($match) {
 function compile_include($match) {
 	$incfile=$match[1];
 	$incfile=trim($incfile);
-	$incfile=preg_replace('#/{2,}#','/',$incfile);
-	$incfile=preg_replace('#\\+#','/',$incfile);
+	$incfile=preg_replace_callback('#/{2,}#',function($m) {return '/';},$incfile);
+	$incfile=preg_replace_callback('#\\+#',function($m) {return '/';},$incfile);
 	
-	//Korrekten Dateipfad prüfen
+	//Korrekten Dateipfad prÃ¼fen
 	if ( !preg_match('#/?([A-Z0-9_-]+/)*[A-Z0-9_-]+.html#si',$incfile) ) {
 		return '<br /><b>parse error:</b> invalid inclusion of "'.$param.'<br />';
 	}
@@ -732,7 +734,7 @@ function compile_echo($varname,$func=false) {
 	$varname=trim($varname);
 	$compiled_var=$this->get_compiled_var($varname);
 	
-	//Prüfen ob die Variable korrekt umgesetzt wurde
+	//PrÃ¼fen ob die Variable korrekt umgesetzt wurde
 	if ( $compiled_var===false ) {
 		return '<br /><b>parse error:</b> &#123;'.$varname.'&#125; is not a valid VAR!<br />';
 	}
