@@ -22,7 +22,7 @@ if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly
 //Seite sperren
 if ( $set['main']['closed'] ) {
 	
-	//Prüfen ob Admin
+	//PrÃ¼fen ob Admin
 	if ( isset($user) && $user->info['groupid'] ) {
 		list($gtype)=$db->first("SELECT gtype FROM ".PRE."_user_groups WHERE groupid='".$user->info['groupid']."' LIMIT 1");
 	}
@@ -43,8 +43,9 @@ function main_filter_url($params=array()) {
 	$url=$_SERVER['REQUEST_URI'];
 	
 	foreach ( $params AS $param ) {
-		$url=preg_replace('#\?'.$param.'=(.*)(&|$)#siUe',"'\\2'=='&' ? '?' : ''",$url);
-		$url=preg_replace('#\&'.$param.'=(.*)(&|$)#siU','\\2',$url);
+		$url=preg_replace_callback('#\?'.$param.'=(.*)(&|$)#siU',function($m) {return   $m[2] == '&' ? '?' : '' ;},$url);
+		$url=preg_replace_callback('#\&'.$param.'=(.*)(&|$)#siU',function($m) {return $m[2] ;},$url);
+		
 	}
 	
 	return HTTP_HOST.str_replace('&','&amp;',$url);
@@ -75,7 +76,7 @@ if ( $_REQUEST['tell']=='1' && $set['main']['tell'] ) {
 	
 	if ( $_POST['send'] ) {
 		
-		//Captcha prüfen
+		//Captcha prÃ¼fen
 		if ( $set['main']['tellcaptcha'] && !$user->info['userid'] ) {
 			require(BASEDIR.'lib/class.captcha.php');
 			$captcha=new captcha;
@@ -87,7 +88,7 @@ if ( $_REQUEST['tell']=='1' && $set['main']['tell'] ) {
 		elseif ( !checkmail($_POST['email']) || !checkmail($_POST['toemail']) ) message($apx->lang->get('MSG_MAILNOTVALID'),'back');
 		else {
 			
-			//Captcha löschen
+			//Captcha lÃ¶schen
 			if ( $set['main']['tellcaptcha'] && !$user->info['userid'] ) {
 				$captcha->remove();
 			}
