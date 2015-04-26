@@ -8,6 +8,10 @@
         {
             "name": "Christian Scheb",
             "email": "info@stylemotion.de"
+        },
+        {
+        	"name": "Fatih Tekin",
+        	"email": "support@techonview.com"
         }
     ],
     "require": {
