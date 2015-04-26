@@ -35,6 +35,10 @@ function stats_weekstamp($time) {
 //Betriebsystem holen 
 function stats_os($info) {
 	if ( strpos(strtolower($info), 'windows nt 5.1')!==false || strpos(strtolower($info), 'windows xp')!==false ) return 'Windows XP';
+	elseif ( strpos(strtolower($info), 'windows nt 10')!==false || strpos(strtolower($info), 'windows 10')!==false ) return 'Windows 10';
+	elseif ( strpos(strtolower($info), 'windows nt 6.4')!==false || strpos(strtolower($info), 'windows 10')!==false ) return 'Windows 10';
+	elseif ( strpos(strtolower($info), 'windows nt 6.3')!==false || strpos(strtolower($info), 'windows 8.1')!==false ) return 'Windows 8.1';
+	elseif ( strpos(strtolower($info), 'windows nt 6.2')!==false || strpos(strtolower($info), 'windows 8')!==false ) return 'Windows 8';
 	elseif ( strpos(strtolower($info), 'windows nt 6.1')!==false || strpos(strtolower($info), 'windows 7')!==false ) return 'Windows 7';
 	elseif ( strpos(strtolower($info), 'windows nt 6.0')!==false || strpos(strtolower($info), 'windows vista')!==false ) return 'Windows Vista';
 	elseif ( strpos(strtolower($info), 'windows nt 5.2')!==false ) return 'Windows 2003 Server';

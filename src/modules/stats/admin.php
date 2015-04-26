@@ -397,6 +397,9 @@ function os() {
 	global $set,$db,$apx;
 
 	$icons=array(
+	    'Windows 10' => 'os_windows.gif',
+	    'Windows 8.1' => 'os_windows.gif',
+	    'Windows 8' => 'os_windows.gif',
 		'Windows 7' => 'os_windows.gif',
 		'Windows Vista' => 'os_windows.gif',
 		'Windows XP' => 'os_windows.gif',
