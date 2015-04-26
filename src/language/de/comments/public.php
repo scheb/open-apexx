@@ -34,7 +34,8 @@ $lang['comments'] = array (
 'CAPTCHA' => 'Visuelle Bestätigung',
 'COMMENT_REGONLY' => 'Um Kommentare zu schreiben, müssen Sie angemeldet sein!',
 'COMMENT_REPORT' => 'Kommentar melden',
-'SUBMITCOMMENT' => 'Absenden'
+'SUBMITCOMMENT' => 'Absenden',
+'QUOTECOMMENT' => 'Zitieren'
 );
 
 //ADDCOM

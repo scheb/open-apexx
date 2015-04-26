@@ -165,6 +165,7 @@ class comments {
 			
 			//Text
 			$text=$res['text'];
+			$textquote=$text;
 			if ( $this->set['badwords'] ) $text=badwords($text);
 			$text=replace($text,1);
 			if ( $this->set['breakline'] ) $text=wordwrapHTML($text,$this->set['breakline'],"\n");
@@ -191,6 +192,8 @@ class comments {
 			//Melden
 			$link_report = "javascript:popupwin('misc.php?action=comments_report&amp;id=".$res['id']."&amp;url='+escape(window.location.href),500,300);";
 			$tabledata[$i]['REPORTLINK']=$link_report;
+			$quote_comment = "javascript:quote('textinput','QUOTE','{COMMENT.NAME}');javascript:quote_insertion('textinput','','','".$textquote."');";
+			$tabledata[$i]['QUOTELINK']=$quote_comment;
 			
 			//Kommentarnummer
 			if ( $this->set['order']==0 ) --$entrynumber;

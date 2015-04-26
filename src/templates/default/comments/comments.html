@@ -63,6 +63,7 @@ MODULE = Modul (für "hidden"-Feld)
 MID = ID (für "hidden"-Feld)
 
 *}
+<script type="text/javascript" src="lib/javascript/quote.js"></script>
 <style type="text/css">
 <!--
 
@@ -101,7 +102,7 @@ MID = ID (für "hidden"-Feld)
 <td valign="top">
 <p class="com_title">{COMMENT.TITLE}</p>
 <p>{COMMENT.TEXT}{if COMMENT.SIGNATURE}<br />_________________<br />{COMMENT.SIGNATURE}{/if}</p>
-<p class="com_date"><a href="{COMMENT.REPORTLINK}">{LANG[COMMENT_REPORT]}</a> | {DATE('d.m.Y - H:i:s',COMMENT.TIME)}</p>
+<p class="com_date"><a   href="{COMMENT.QUOTELINK}">{LANG[QUOTECOMMENT]}</a>  | <a href="{COMMENT.REPORTLINK}">{LANG[COMMENT_REPORT]}</a> | {DATE('d.m.Y - H:i:s',COMMENT.TIME)}</p>
 </td>
 </tr>
 {/list}
