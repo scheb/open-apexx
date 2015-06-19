@@ -90,7 +90,7 @@ if ( $_POST['send']
 	&& $_COOKIE[$set['main']['cookie_pre'].'_voted'][$_REQUEST['id']]!='1'
 	&& !$ipblock
 ) {
-	
+	$_POST['vote'] = (int)$_POST['vote'];
 	//Mehrere
 	if ( $pollinfo['multiple'] ) {
 		$cset=array();
