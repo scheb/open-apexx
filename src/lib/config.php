@@ -74,4 +74,9 @@ $set['rendertime'] = false;
 // 2 = sichtbare Rahmen
 $set['tmplwhois'] = 0;
 
+// Ab PHP 5.6 muss das Charset ISO-8859-1 erzwungen werden
+if (version_compare(PHP_VERSION, '5.6.0') >= 0) {
+	ini_set("default_charset", "ISO-8859-1");
+}
+
 ?>
