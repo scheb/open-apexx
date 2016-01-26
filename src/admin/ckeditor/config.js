@@ -1,52 +1,51 @@
 /*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
 CKEDITOR.editorConfig = function( config )
 {
-	//Resize disabled
+
+	//Resize
 	config.resize_enabled = false;
-	
+
 	//Paste
 	config.forcePasteAsPlainText = true;
-	config.pasteFromWordIgnoreFontFace = true;
-	config.pasteFromWordKeepsStructure = false;
-	config.pasteFromWordRemoveStyle = false;
-	
+	config.pasteFromWordRemoveFontStyles = true;
+	config.pasteFromWordRemoveStyles = true;
+
 	//Sonderzeichen
-	config.entities_latin = false;
-	
+	config.entities = false;
+
 	//Dateibrowser
 	config.filebrowserImageBrowseUrl = 'mediamanager.php?module=mediamanager:1';
 	config.filebrowserFlashBrowseUrl = 'mediamanager.php?module=mediamanager:2';
-	
-	//Enter-Modus
+
+	//Entermodus
 	config.enterMode = CKEDITOR.ENTER_P;
 	config.shiftEnterMode = CKEDITOR.ENTER_BR;
-	//config.ignoreEmptyParagraph = false;
-	
-	//Spell-Checker
-	config.scayt_autoStartup = false;
+
+	//Sprache
+	config.language = 'de';
+	config.defaultLanguage = 'de';
+	config.scayt_autoStartup = true;
 	config.scayt_sLang = 'de_DE';
-	
+
 	//Toolbar
-	config.toolbar = 'apexx';
+	config.toolbar = 'apexx'
 	config.toolbar_apexx =
 	[
-	    ['Source','-','NewPage','Preview','-','Templates','-','SpellChecker'],
-	    ['Cut','Copy','Paste','PasteText','PasteFromWord'],
-	    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-	    '/',
-	    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-	    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-	    ['Link','Unlink','Anchor'],
-	    ['Image','Flash','Table','HorizontalRule','SpecialChar'],
-	    ['Maximize', 'ShowBlocks'],
-	    '/',
-	    ['Format','Font','FontSize'],
-	    ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-	    ['TextColor','BGColor'],
-	    ['About']
+		{ name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview', 'Print' ] },
+		{ name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+		{ name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+		{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+		{ name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+		'/',
+		{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+		{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+		{ name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe' ] },
+		{ name: 'about', items: [ 'About' ] },
 	];
+
 };

@@ -357,9 +357,13 @@ function agents() {
 		'Mozilla' => 'browser_mozilla.gif',
 		'Chrome' => 'browser_chrome.gif',
 		'MSIE' => 'browser_msie.gif',
+		'MSIE 6.0' => 'browser_msie.gif',
 		'MSIE 7.0' => 'browser_msie.gif',
 		'MSIE 8.0' => 'browser_msie.gif',
 		'MSIE 9.0' => 'browser_msie.gif',
+		'MSIE 10.0' => 'browser_msie.gif',
+		'MSIE 11.0' => 'browser_msie.gif',
+		'Edge' => 'browser_msie.gif',
 		'Opera' => 'browser_opera.gif',
 		'Konqueror' => 'browser_konqueror.gif',
 		'Netscape' => 'browser_netscape.gif',
@@ -416,6 +420,8 @@ function os() {
 		'BeOS' => 'os_beos.gif',
 		'OS/2' => 'os_os2.gif',
 		'AIX' => 'os_aix.gif',
+		'iOS' => 'os_macos.gif',
+		'Android' => 'os_linux.gif',
 		'SEARCHENGINE' => 'searchengine.gif',
 		'UNKNOWN' => 'unknown.gif'
 	);
