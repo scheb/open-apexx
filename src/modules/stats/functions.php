@@ -22,7 +22,7 @@ if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly
 //Kalenderwoche berechnen
 function stats_weekstamp($time) {
 	//Wenn Kalenderwoche >= 52 und wir uns im Januar befinden
-	//-> Kalenderwoche gehört zum vorherigen Jahr!
+	//-> Kalenderwoche gehÃ¶rt zum vorherigen Jahr!
 	if ( intval(date('W',$time-TIMEDIFF))>=52 && intval(date('n',$time-TIMEDIFF))==1 ) {
 		return (date('Y',$time-TIMEDIFF)-1).sprintf('%02d',date('W',$time-TIMEDIFF));
 	}
@@ -46,8 +46,10 @@ function stats_os($info) {
 	elseif ( strpos(strtolower($info), 'windows nt 5.0')!==false || strpos(strtolower($info), 'windows 2000')!==false ) return 'Windows 2000';
 	elseif ( strpos(strtolower($info), 'win 9x 4.90')!==false || strpos(strtolower($info), 'windows me')!==false ) return 'Windows ME';
 	elseif ( strpos(strtolower($info), 'windows 98')!==false || strpos(strtolower($info), 'windows 95')!==false ) return 'Windows 98/95';
-	elseif ( strpos(strtolower($info), 'linux')!==false ) return 'Linux';
-	elseif ( strpos(strtolower($info), 'mac')!==false || strpos(strtolower($info), 'ppc')!==false ) return 'Mac OS';
+	elseif ( strpos(strtolower($info), 'android')!==false ) return 'Android';
+	elseif ( strpos(strtolower($info), 'linux')!==false && strpos(strtolower($info), 'android')!==true) return 'Linux';
+	elseif ( strpos(strtolower($info), 'iphone')!==false || strpos(strtolower($info), 'ipad')!==false || strpos(strtolower($info), 'ipod')!==false ) return 'iOS';
+	elseif (( strpos(strtolower($info), 'mac')!==false || strpos(strtolower($info), 'ppc')!==false ) && strpos(strtolower($info), 'iphone')!==true && strpos(strtolower($info), 'ipad')!==true && strpos(strtolower($info), 'ipod')!==true ) return 'Mac OS';
 	elseif ( strpos(strtolower($info), 'freebsd')!==false ) return 'FreeBSD';
 	elseif ( strpos(strtolower($info), 'sunos')!==false ) return 'Sun OS';
 	elseif ( strpos(strtolower($info), 'irix')!==false ) return 'IRIX';
@@ -62,6 +64,7 @@ function stats_os($info) {
 	|| strpos(strtolower($info), 'spider')!==false
 	|| strpos(strtolower($info), 'crawler')!==false
 	|| strpos(strtolower($info), 'infoseek')!==false
+	|| strpos(strtolower($info), 'bing')!==false
 	) return 'SEARCHENGINE';
 	
 	return 'UNKNOWN';
@@ -79,13 +82,17 @@ function stats_browser($info) {
 	|| strpos(strtolower($info), 'spider')!==false
 	|| strpos(strtolower($info), 'crawler')!==false
 	|| strpos(strtolower($info), 'infoseek')!==false
+	|| strpos(strtolower($info), 'bing')!==false
 	) return 'SEARCHENGINE';
 	elseif( strpos(strtolower($info), 'opera')!==false ) return 'Opera';
+	elseif( strpos(strtolower($info), 'edge')!==false ) return 'Edge';
 	elseif( strpos(strtolower($info), 'chrome')!==false ) return 'Chrome';
+	elseif( strpos(strtolower($info), '11.0')!==false ) return 'MSIE 11.0';
+	elseif( strpos(strtolower($info), 'msie 10.0')!==false ) return 'MSIE 10.0';
 	elseif( strpos(strtolower($info), 'msie 9.0')!==false ) return 'MSIE 9.0';
 	elseif( strpos(strtolower($info), 'msie 8.0')!==false ) return 'MSIE 8.0';
 	elseif( strpos(strtolower($info), 'msie 7.0')!==false ) return 'MSIE 7.0';
-	elseif( strpos(strtolower($info), 'msie')!==false ) return 'MSIE';
+	elseif( strpos(strtolower($info), 'msie 6.0')!==false ) return 'MSIE 6.0';
 	elseif( strpos(strtolower($info), 'konqueror')!==false ) return 'Konqueror';
 	elseif( strpos(strtolower($info), 'lynx')!==false ) return 'Lynx';
 	elseif( strpos(strtolower($info), 'safari')!==false ) return 'Safari';
