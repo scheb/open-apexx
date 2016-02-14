@@ -282,9 +282,7 @@ function compile($content) {
 	
 	//Variablen mit Modifikatoren
 	foreach ( $this->mod AS $modid => $func ) {
-		$content=preg_replace_callback('#{('.$this->pattern_vars.')\|'.$modid.'}#s',function($m) {return $this->compile_echo($m[1],"$func") ;},$content); //Nur Variablennamen => ungefährlich
-	
-	//$content=preg_replace('#{('.$this->pattern_vars.')\|'.$modid.'}#se','$this->compile_echo("\\1","'.$func.'")',$content); //Nur Variablennamen => ungefährlich
+		$content=preg_replace_callback('#{('.$this->pattern_vars.')\|'.$modid.'}#s',function($m) use ($func) {return $this->compile_echo($m[1], $func); }, $content); //Nur Variablennamen => ungefährlich
 	}
 	
 	//Informationen anfügen
