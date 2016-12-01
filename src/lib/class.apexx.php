@@ -48,7 +48,7 @@ var $coremodules=array('main','mediamanager','user');
 function apexx() {
 	global $set;
 	
-	error_reporting(E_ALL ^ E_NOTICE);
+	error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT ^ E_DEPRECATED);
 	
 	$version=file(BASEDIR.'lib/version.info');
 	define('VERSION',array_shift($version));
@@ -86,7 +86,9 @@ function prepare_vars() {
 	if ( isset($_GET) && is_array($_GET) ) $_GET=$this->strpsl($_GET);
 	if ( isset($_COOKIE) && is_array($_COOKIE) ) $_COOKIE=$this->strpsl($_COOKIE);
 	if ( isset($_SESSION) && is_array($_SESSION) ) $_SESSION=$this->strpsl($_SESSION);
-	@set_magic_quotes_runtime(0);
+	if (version_compare(PHP_VERSION, '6.0.0', '<')) {
+		@set_magic_quotes_runtime(0);
+	}
 	
 	//Fehlendes REQUEST_URI auf IIS-Server fixen
 	if( !isset($_SERVER['REQUEST_URI']) ) {
