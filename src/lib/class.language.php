@@ -99,7 +99,7 @@ function getpack($pack) {
 	}
 	
 	//Merge
-	$lang = array_merge_recursive($langSystem, $langUser);
+	$lang = array_replace_recursive($langSystem, $langUser);
 	
 	/*else {
 		//Paket der Standard-Sprache laden
