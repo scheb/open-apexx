@@ -910,7 +910,7 @@ function text_highlight($text) {
 	foreach ( $words AS $word ) {
 		$word=trim($word);
 		if ( !$word ) continue;
-		$text=preg_replace('#((<[^>]*)|'.preg_quote($word).')#ie', '"\2"=="\1"? "\1":"<span class=\"highlight\">\1</span>"', $text);
+		$text=preg_replace_callback('#((<[^>]*)|'.preg_quote($word).')#i', function($m) {return $m[2] == $m[1] ? $m[1] : '<span class="highlight">' . $m[1] . '</span>';}, $text);
 		//$text=preg_replace('#>[^<]*('.preg_quote($word).')[^<]*<[^>]*#i','<span class="highlight">$1</span>',$text);
 	}
 	
