@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /***************************************************************\
 |                                                               |
@@ -26,7 +26,7 @@ function navi_tree($nid=1,$nodeid=0,$template='tree') {
 	$nid=(int)$nid;
 	$nodeid=(int)$nodeid;
 	$tmpl=new tengine;
-	
+
 	if ( $nodeid ) {
 		require_once(BASEDIR.'lib/class.recursivetree.php');
 		$tree = new RecursiveTree(PRE.'_navi', 'id');
@@ -37,21 +37,21 @@ function navi_tree($nid=1,$nodeid=0,$template='tree') {
 		$tree = new RecursiveTree(PRE.'_navi', 'id');
 		$data = $tree->getTree(array('*'), null, "nid='".$nid."'");
 	}
-	
+
 	if ( count($data) ) {
 		$selected = navi_get_selected($data);
 		$jump=99;
 		foreach ( $data AS $res ) {
 			++$i;
-			
+
 			if ( $jump<$res['level'] ) continue;
 			if ( $jump>=$res['level'] ) $jump=99;
-			
+
 			if ( in_array($res['id'],$selected) ) $issel=true;
 			else $issel=false;
-			
+
 			if ( !$res['staticsub'] && !$issel ) $jump=$res['level'];
-			
+
 			$tabledata[$i]['ID']=$res['id'];
 			$tabledata[$i]['LEVEL']=$res['level'];
 			$tabledata[$i]['CHILDREN']=$res['children'];
@@ -62,7 +62,7 @@ function navi_tree($nid=1,$nodeid=0,$template='tree') {
 			$tabledata[$i]['SELECTED']=$issel;
 		}
 	}
-	
+
 	$tmpl->assign('SUBTREE_ID',$nodeid);
 	$tmpl->assign('NAVI',$tabledata);
 	$tmpl->parse($template,'navi');
@@ -70,21 +70,21 @@ function navi_tree($nid=1,$nodeid=0,$template='tree') {
 
 
 
-//Ausgewählte Navigationspunkte bestimmen
+//Ausgewï¿½hlte Navigationspunkte bestimmen
 function navi_get_selected($data) {
 	global $set,$db,$apx;
-	
+
 	$levellast=array();
 	$mother=array();
 	$selected=array();
-	
+
 	//Mutterelemente auflisten
 	foreach ( $data AS $res ) {
 		$levellast[$res['level']]=$res['id'];
 		if ( !isset($levellast[($res['level']-1)]) ) continue;
 		$mother[$res['id']]=$levellast[($res['level']-1)];
 	}
-	
+
 	//Selektierte Elemente
 	$currentquality = 0;
 	foreach ( $data AS $res ) {
@@ -99,7 +99,7 @@ function navi_get_selected($data) {
 			$selected[] = $res['id'];
 		}
 	}
-	
+
 	//Selektierte Pfade
 	foreach ( $selected AS $sel ) {
 		while ( isset($mother[$sel]) ) {
@@ -107,7 +107,7 @@ function navi_get_selected($data) {
 			$selected[]=$sel;
 		}
 	}
-	
+
 	return $selected;
 }
 
@@ -120,14 +120,14 @@ function navi_level($nid=1,$level=1,$template='level') {
 	$nid=(int)$nid;
 	$level=(int)$level;
 	$tmpl=new tengine;
-	
+
 	//Wenn Navigation bereits generiert
 	if ( isset($cache[$nid]) ) {
-		
+
 		$leveldata=$cache[$nid];
 		if ( is_array($leveldata[$level]) ) $newdata=$leveldata[$level];
 		else $newdata=array();
-		
+
 		foreach ( $newdata AS $res ) {
 			++$i;
 			$tabledata[$i]['ID']=$res['id'];
@@ -138,33 +138,33 @@ function navi_level($nid=1,$level=1,$template='level') {
 			$tabledata[$i]['CODE']=$res['code'];
 			$tabledata[$i]['SELECTED']=$res['selected'];
 		}
-		
+
 		$tmpl->assign('NAVI',$tabledata);
 		$tmpl->assign('ID',$nid);
 		$tmpl->assign('LEVEL',$level);
-		
+
 		$tmpl->parse($template,'navi');
 		return;
 	}
-	
+
 	//Ansonsten Daten auslesen
 	$levellast=array();
 	$mother=array();
 	$selected=array();
 	$leveldata=array();
-	
+
 	require_once(BASEDIR.'lib/class.recursivetree.php');
 	$tree = new RecursiveTree(PRE.'_navi', 'id');
 	$data = $tree->getTree(array('*'), null, "nid='".$nid."'");
 	if ( count($data) ) {
-		
+
 		//Mutterelemente auflisten
 		foreach ( $data AS $res ) {
 			$levellast[$res['level']]=$res['id'];
 			if ( !isset($levellast[($res['level']-1)]) ) continue;
 			$mother[$res['id']]=$levellast[($res['level']-1)];
 		}
-		
+
 		//Selektiertes Element mit der besten Match-Quality
 		$currentquality = 0;
 		foreach ( $data AS $res ) {
@@ -179,13 +179,13 @@ function navi_level($nid=1,$level=1,$template='level') {
 				$selected[]=$sel;
 			}
 		}
-		
+
 		//Mutterelemente selektieren
 		while ( isset($mother[$sel]) ) {
 			$sel=$mother[$sel];
 			$selected[]=$sel;
 		}
-		
+
 		//Elemente de einzelnen Level herausfiltern
 		foreach ( $data AS $res ) {
 			$motherelement=$mother[$res['id']];
@@ -196,14 +196,14 @@ function navi_level($nid=1,$level=1,$template='level') {
 			$leveldata[$res['level']][$ei]=$res;
 			$leveldata[$res['level']][$ei]['selected']=$issel;
 		}
-		
+
 		$cache[$nid]=$leveldata;
 	}
-	
+
 	//Navigation generieren
 	if ( is_array($leveldata[$level]) ) $newdata=$leveldata[$level];
 	else $newdata=array();
-	
+
 	foreach ( $newdata AS $res ) {
 		++$i;
 		$tabledata[$i]['TEXT']=$res['text'];
@@ -212,22 +212,22 @@ function navi_level($nid=1,$level=1,$template='level') {
 		$tabledata[$i]['CODE']=$res['code'];
 		$tabledata[$i]['SELECTED']=$res['selected'];
 	}
-	
+
 	$tmpl->assign('NAVI',$tabledata);
 	$tmpl->assign('ID',$nid);
 	$tmpl->assign('LEVEL',$level);
-	
+
 	$tmpl->parse($template,'navi');
 }
 
 
 
-//URL ist gewählt?
+//URL ist gewï¿½hlt?
 function navi_match_url($url) {
 	global $set,$db,$apx;
 	static $current, $predir;
 	if ( !isset($current) ) $current = navi_current_url();
-	
+
 	//Aktueller Ordner
 	if ( !isset($predir) ) {
 		if ( preg_match('#\.[a-z0-9]+$#i',$current['path']) ) {
@@ -238,11 +238,15 @@ function navi_match_url($url) {
 			$predir = $current['path'];
 		}
 	}
-	
+
 	$url=trim(str_replace('&amp;','&',$url));
 	if ( substr($url,0,1)!='/' && !preg_match('#^[A-Za-z]{3,}://#',$url) ) $url=$predir.$url;
 	$parsed=@parse_url($url);
-	
+
+	if ($parsed['host'] && strtolower($parsed['host']) != strtolower($_SERVER['HTTP_HOST'])) {
+		return false;
+	}
+
 	//Link = "downloads.html", URL = "downloads,*.html" => selektiert
 	if ( !$parsed['query'] && preg_match('#^(/([^/]+/)*[a-z0-9_-]+)\.(html|php)$#si',$parsed['path'],$matches) ) {
 		$pageid = $matches[1];
@@ -250,15 +254,15 @@ function navi_match_url($url) {
 			return 2;
 		}
 	}
-	
-	
+
+
 	if ( !$parsed['query'] && preg_match('#^(/([^/]+/)*)([a-z0-9_-]+)\.(html|php)$#si',$parsed['path'],$matches) ) {
 		$pageid = $matches[3];
 		if ( preg_match('#'.preg_quote($matches[1]).preg_quote($pageid).',#',$current['path']) ) {
 			return 2;
 		}
 	}
-	
+
 	//Link = "/ordner/", URL = "/ordner/whatever.html" => selektiert
 	if ( preg_match('#^/([^/]+/)+(index\.(html|php))?$#',$parsed['path'],$matches) ) {
 		$dirname = $matches[1];
@@ -266,27 +270,27 @@ function navi_match_url($url) {
 			return 1;
 		}
 	}
-	
-	//Dateipfade stimmen nicht überein
+
+	//Dateipfade stimmen nicht ï¿½berein
 	if ( $parsed['path']!=$current['path'] ) return false;
-	
+
 	//Dateipfade sind gleich. Wenn der Link keine Parameter hat, die URL aber ist der Link selektiert
 	if ( !$parsed['query'] /*&& !$current['query']*/ ) return 3;
-	
+
 	//Ansonsten Abgleich der Query-Parameter
 	$query=explode('&',$parsed['query']);
 	$vars=array();
-	
+
 	foreach ( $query AS $one ) {
 		$pp=explode('=',$one,2);
 		$vars[$pp[0]]=$pp[1];
 	}
-	
+
 	foreach ( $vars AS $varname => $value ) {
 		if ( !isset($current['vars'][$varname]) ) return false;
 		if ( $current['vars'][$varname]!=$value ) return false;
 	}
-	
+
 	return 4;
 }
 
@@ -296,7 +300,7 @@ function navi_match_url($url) {
 function navi_current_url() {
 	$parsed=@parse_url($_SERVER['REQUEST_URI']);
 	$parsed['vars']=array();
-	
+
 	if ( $parsed['query'] ) {
 		$query=explode('&',$parsed['query']);
 		foreach ( $query AS $one ) {
@@ -305,7 +309,7 @@ function navi_current_url() {
 		}
 		$parsed['vars']=$vars;
 	}
-	
+
 	return $parsed;
 }
 
@@ -317,11 +321,11 @@ function navi_node($nodeid=0,$template='node') {
 	$nodeid=(int)$nodeid;
 	if ( !$nodeid ) return;
 	$tmpl=new tengine;
-	
+
 	require_once(BASEDIR.'lib/class.recursivetree.php');
 	$tree = new RecursiveTree(PRE.'_navi', 'id');
 	$res = $tree->getNode($nodeid, array('*'));
-	
+
 	$tmpl->assign('ID', $res['id']);
 	$tmpl->assign('LEVEL', $res['level']);
 	$tmpl->assign('CHILDREN', $res['children']);
@@ -329,7 +333,7 @@ function navi_node($nodeid=0,$template='node') {
 	$tmpl->assign('LINK', $res['link']);
 	$tmpl->assign('POPUP', $res['link_popup']);
 	$tmpl->assign('CODE', $res['code']);
-	
+
 	$tmpl->parse($template,'navi');
 }
 
@@ -341,37 +345,37 @@ function navi_breadcrumb($nid=1,$template='breadcrumb') {
 	$nid=(int)$nid;
 	if ( !$nid ) return;
 	$tmpl=new tengine;
-	
+
 	require_once(BASEDIR.'lib/class.recursivetree.php');
 	$tree = new RecursiveTree(PRE.'_navi', 'id');
 	$data = $tree->getTree(array('*'), null, "nid='".$nid."'");
 	$selected = navi_get_selected($data);
-	
+
 	$selectedPath = null;
 	$path = array();
 	$selectedNodeLevel = 0;
-	
+
 	foreach ( $data AS $res ) {
 		if ( in_array($res['id'], $selected) ) {
-			
+
 			//Tiefere Pfadteile entfernen
 			$dellevel = $res['level'];
 			while ( isset($path[$dellevel]) ) {
 				unset($path[$dellevel]);
 				++$dellevel;
 			}
-			
-			//Node zum Pfad hinzufügen
+
+			//Node zum Pfad hinzufï¿½gen
 			$path[$res['level']] = $res;
-			
-			//Dieser Pfad ist länger als der bisherige längste
+
+			//Dieser Pfad ist lï¿½nger als der bisherige lï¿½ngste
 			if ( $res['level']>$selectedNodeLevel ) {
 				$selectedPath = $path;
 				$selectedNodeLevel = $res['level'];
 			}
 		}
 	}
-	
+
 	if ( count($selectedPath) ) {
 		foreach ( $selectedPath AS $res ) {
 			++$i;
@@ -385,7 +389,7 @@ function navi_breadcrumb($nid=1,$template='breadcrumb') {
 			$tabledata[$i]['SELECTED']=true;
 		}
 	}
-	
+
 	$tmpl->assign('NAVI', $tabledata);
 	$tmpl->parse($template,'navi');
 }
