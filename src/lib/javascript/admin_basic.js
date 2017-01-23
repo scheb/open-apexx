@@ -30,15 +30,15 @@ function roll_out(obj, name) {
 function save_menu() {
 	display = new Array();
 	di=0;
-	
+
 	for ( var i=0; i<menu.length; i++ ) {
 		obj=getobject(menu[i]);
 		if ( obj.style.display!='none' ) {
-			document.cookie="apx_savedmenu["+menu[i]+"]=true; path=/; expires=Thu, 1 Jan 2015 00:00:00 GMT;";
+			document.cookie="apx_savedmenu["+menu[i]+"]=true; path=/; expires=Thu, 1 Jan 2020 00:00:00 GMT;";
 		}
 		else {
 			document.cookie="apx_savedmenu["+menu[i]+"]=false; path=/; expires=Thu, 1 Jan 1970 00:00:00 GMT;";
-		}	
+		}
 	}
 }
 
@@ -73,7 +73,7 @@ function getcookie(a_name) {
 
 //***************** INFOBOX AUFKLAPPEN ******************
 
-function infobox(print,sid) { 
+function infobox(print,sid) {
 	var positionx=(screen.availWidth-400)/2;
 	var positiony=(screen.availHeight-300)/2;
 	fenster = window.open("infobox.php?print="+print+"&"+sid,"infobox","toolbar=no,scrollbars=no,resizable=no,width=400,height=300,screenx="+positionx+",screeny="+positiony+",left="+positionx+",top="+positiony);
@@ -87,7 +87,7 @@ var setit=form.checkall.checked;
 
 	for (var i=0; i<form.elements.length; i++) {
 	var element=form.elements[i];
-	
+
 		if ( element.type=='checkbox' ) {
 		element.checked=setit;
 		}
@@ -100,7 +100,7 @@ function checkbox_toggle_name(form,setit,findname) {
 
 	for (var i=0; i<form.elements.length; i++) {
 	var element=form.elements[i];
-	
+
 		if ( element.type=='checkbox' && element.name.match(findname)!=null ) {
 		element.checked=setit;
 		}
@@ -113,7 +113,7 @@ function text_toggle_name(form,setit,findname) {
 
 	for (var i=0; i<form.elements.length; i++) {
 	var element=form.elements[i];
-	
+
 		if ( element.type=='text' && element.name.match(findname)!=null ) {
 		element.value=setit;
 		}
