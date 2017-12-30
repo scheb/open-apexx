@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /***************************************************************\
 |                                                               |
@@ -47,39 +47,39 @@ var $coremodules=array('main','mediamanager','user');
 //System starten
 function apexx() {
 	global $set;
-	
+
 	error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT ^ E_DEPRECATED);
-	
+
 	$version=file(BASEDIR.'lib/version.info');
 	define('VERSION',array_shift($version));
 	define('HTTP_HOST',$this->get_http());
 	define('HTTPDIR',$this->get_dir());
 	define('HTTP',HTTP_HOST.HTTPDIR);
-	
+
 	//Variablen vorbereiten
 	$this->prepare_vars();
-	
+
 	//Module auslesen
 	$this->get_modules();
 	$this->get_config();
-	
+
 	//Sprachpakete
 	$this->get_languages();
-	
+
 	//Sektionen auslesen
 	$this->get_sections();
-	
+
 	//Module + Actions sortieren
 	$this->sort_modules();
 	$this->sort_actions();
-	
+
 	//Zeitzone
 	define('TIMEDIFF',(date('Z')/3600-$set['main']['timezone']-date('I'))*3600);
 }
 
 
 
-//Übergebene Variable vorbereiten
+//ï¿½bergebene Variable vorbereiten
 function prepare_vars() {
 	if ( isset($_REQUEST) && is_array($_REQUEST) ) $_REQUEST=$this->strpsl($_REQUEST);
 	if ( isset($_POST) && is_array($_POST) ) $_POST=$this->strpsl($_POST);
@@ -89,7 +89,7 @@ function prepare_vars() {
 	if (version_compare(PHP_VERSION, '6.0.0', '<')) {
 		@set_magic_quotes_runtime(0);
 	}
-	
+
 	//Fehlendes REQUEST_URI auf IIS-Server fixen
 	if( !isset($_SERVER['REQUEST_URI']) ) {
 		$_SERVER['REQUEST_URI']=$_SERVER['PHP_SELF'];
@@ -109,13 +109,13 @@ function strpsl($array) {
 	static $trimvars,$magicquotes;
 	if ( !isset($trimvars) ) $trimvars=iif((int)$_REQUEST['apx_notrim'] && MODE=='admin',0,1);
 	if ( !isset($magicquotes) ) $magicquotes=get_magic_quotes_gpc();
-	
+
 	foreach($array AS $key => $val) {
 		if( is_array($val) ) {
 			$array[$key]=$this->strpsl($val);
 			continue;
 		}
-		
+
 		if ( $trimvars ) $val=trim($val);
 		if ( $magicquotes ) $val=stripslashes($val);
 		if ( is_string($val) ) {
@@ -125,7 +125,7 @@ function strpsl($array) {
 		}
 		$array[$key]=$val;
 	}
-	
+
 	return $array;
 }
 
@@ -133,36 +133,47 @@ function strpsl($array) {
 
 //HTTP-URL
 function get_http() {
-  $port = iif($_SERVER['SERVER_PORT']!=80,':'.$_SERVER['SERVER_PORT']);
-  $host = preg_replace('#:.*$#','',$_SERVER['HTTP_HOST']); //Port entfernen
-  return 'http://'.$host.$port;
+	if ($this->is_https()) {
+		$port = iif($_SERVER['SERVER_PORT']!=443,':'.$_SERVER['SERVER_PORT']);
+		$host = preg_replace('#:.*$#','',$_SERVER['HTTP_HOST']); //Port entfernen
+		return 'https://'.$host.$port;
+	} else {
+		$port = iif($_SERVER['SERVER_PORT']!=80,':'.$_SERVER['SERVER_PORT']);
+		$host = preg_replace('#:.*$#','',$_SERVER['HTTP_HOST']); //Port entfernen
+		return 'http://'.$host.$port;
+	}
 }
 
 
 
+function is_https() {
+    return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
+}
+
+
 //Ordner
 function get_dir() {
-	
-	//Quellvariable auswählen
+
+	//Quellvariable auswï¿½hlen
 	if ( isset($_SERVER['SCRIPT_NAME']) ) $source=$_SERVER['SCRIPT_NAME'];
 	else {
 		$source=$_SERVER['PHP_SELF'];
 	}
 	if ( substr($source,-1)=='/' ) $source .= 'file.php'; //Dateiname fehlt im Pfad (=> Fehler abfangen)
 	$dir=dirname($source).'/';
-	
+
 	//Relation zur Basis
 	if ( defined('BASEREL') ) {
 		$dir.=BASEREL;
 	}
-	
+
 	$dir=str_replace('\\','/',$dir);
 	$dir=preg_replace('#/{2,}#','/',$dir);
 	while( preg_match('#/[A-Za-z0-9%_-]+/\.\.#im',$dir) ) {
 		$dir=preg_replace('#/[A-Za-z0-9%_-]+/\.\.#im','',$dir);
 	}
 	$dir=str_replace('./','',$dir);
-	
+
 	return $dir;
 }
 
@@ -173,23 +184,23 @@ function get_dir() {
 //Modul-Informationen holen
 function get_modules() {
   global $db;
-  
+
   $data=$db->fetch("SELECT * FROM ".PRE."_modules WHERE active='1'");
-  
+
 	if ( count($data) ) {
 	  foreach ( $data AS $res ) {
   		$module=$action=$modset=array();
   		list($modulename)=$res;
-	  	
+
 	  	if ( !is_dir(BASEDIR.getmodulepath($modulename)) ) continue;
-  		
+
   		//Modul-INIT
 	  	require(BASEDIR.getmodulepath($modulename).'init.php');
   		$this->register_module($modulename,$module);
 	  	$this->register_actions($modulename,$action);
   		$this->register_functions($modulename,$func);
 			$this->register_functions($modulename,$afunc,'admin');
-  		
+
 	  	unset($module,$action,$func);
   	}
 	}
@@ -226,49 +237,49 @@ function register_functions($modulename,$info,$in='public') {
 //Modul-Konfiguration auslesen
 function get_config() {
 	global $set,$db;
-	
+
 	$data=$db->fetch("SELECT * FROM ".PRE."_config");
 	if ( !count($data) ) return;
-	
+
 	foreach ( $data AS $res ) {
 		$modulename=$res['module'];
 		$varname=$res['varname'];
-		
+
 		//Switch
 		if ( $res['type']=='switch' ) {
 			$thevalue=iif($res['value'],1,0);
 		}
-		
+
 		//String
 		elseif ( $res['type']=='string' ) {
 			$thevalue=$res['value'];
 		}
-		
+
 		//Multiline
 		elseif ( $res['type']=='multiline' ) {
 			$thevalue=$res['value'];
 		}
-		
+
 		//Arrays
 		elseif ( $res['type']=='array' || $res['type']=='array_keys' ) {
 			$thevalue=unserialize($res['value']);
 			if ( !is_array($thevalue) ) $thevalue=array();
 		}
-		
+
 		//Integer
 		elseif ( $res['type']=='int' ) {
 			$thevalue=(int)$res['value'];
 		}
-		
+
 		//Float
 		elseif ( $res['type']=='float' ) {
 			$thevalue=(float)$res['value'];
 		}
-		
+
 		//Select
 		elseif ( $res['type']=='select' ) {
 			$possible=unserialize($res['addnl']);
-			
+
 			foreach ( $possible AS $value => $descr ) {
 				if ( $value==$res['value'] ) {
 				$thevalue=$value;
@@ -276,13 +287,13 @@ function get_config() {
 				}
 			}
 		}
-		
+
 		if ( !isset($thevalue) ) continue;
 		$set[$modulename][$varname]=$thevalue;
 		unset($thevalue);
 	}
-	
-	
+
+
 }
 
 
@@ -320,15 +331,15 @@ function do_sort_actions($a,$b) {
 //Sprachpakete registrieren
 function get_languages() {
 	global $set;
-	
+
 	$langinfo=&$set['main']['languages'];
 	if ( !is_array($langinfo) || !count($langinfo) ) die('no langpack registered!');
-	
+
 	foreach ( $langinfo AS $dir => $res ) {
 		if ( $res['default'] ) $this->language_default=$dir;
 		$this->languages[$dir]=$res['title'];
 	}
-	
+
 	if ( !isset($this->language_default) ) {
 		reset($this->languages);
 		list($key,$val)=each($this->languages);
@@ -345,12 +356,12 @@ function get_sections() {
 	global $db;
 	$data=$db->fetch("SELECT * FROM ".PRE."_sections ORDER BY title ASC",1);
 	if ( !count($data) ) return;
-	
+
 	foreach ( $data AS $res ) {
 		$this->sections[$res['id']]=$res;
 		if ( $res['default'] ) $this->section_default=$res['id'];
 	}
-	
+
 	if ( !$this->section_default ) {
 		reset($this->sections);
 		list($key,$val)=each($this->sections);
@@ -362,7 +373,7 @@ function get_sections() {
 //Aktuelle Sektion
 function section_id($id=false) {
 	if ( $id===false ) return $this->section['id'];
-	
+
 	$id=(int)$id;
 	$this->section=$this->sections[$id];
 }
