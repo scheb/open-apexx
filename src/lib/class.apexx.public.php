@@ -32,12 +32,12 @@ function apexx_public() {
 }
 
 
-//Sektion wählen
+//Sektion wÃ¤hlen
 function init_section() {
 	global $set;
 	$_REQUEST['sec']=(int)$_REQUEST['sec'];
 	
-	//Sektion auswählen
+	//Sektion auswÃ¤hlen
 	if ( $_REQUEST['sec'] && isset($this->sections[$_REQUEST['sec']]) && $this->sections[$_REQUEST['sec']]['active'] ) {
 		$this->section_check($_REQUEST['sec']);
 		$this->section_id($_REQUEST['sec']);
@@ -56,6 +56,7 @@ function init_section() {
 		$this->lang->langid($this->section['lang']);
 	}
 	
+	$this->tmpl->assign_static('WEBSITE_NAME',$set['main']['websitename']); 
 	$this->tmpl->assign_static('SECTION_ID',$this->section_id());
 	$this->tmpl->assign_static('SECTION_TITLE',$this->section['title']);
 	$this->tmpl->assign_static('SECTION_LANG',$this->section['lang']);
@@ -75,7 +76,7 @@ function section_check($id) {
 		if ( !is_array($secacc) ) $secacc=array();
 	}
 	
-	//Beschränkung durch Benutzergruppe
+	//BeschrÃ¤nkung durch Benutzergruppe
 	if ( $secacc!='all' && !in_array($id,$secacc) && $id!=$this->section_default ) {
 		$this->lang->init(); //Sprachpaket ist noch nicht initialisiert!
 		$indexpage=mklink('index.php','index.html',$this->section_default);
