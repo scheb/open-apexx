@@ -208,14 +208,14 @@ function getweekday($string) {
 function mklink($link1,$link2,$secid=false) {
 	global $set,$apx;
 	
-	//Wenn keine Sektion übergeben, auwgewählte Sektion verwenden
+	//Wenn keine Sektion Ã¼bergeben, auwgewÃ¤hlte Sektion verwenden
 	if ( $secid===false ) $secid=$apx->section_id();
 	
-	//Link auswählen
+	//Link auswÃ¤hlen
 	if ( $set['main']['staticsites'] ) $link=$link2;
 	else $link=$link1;
 	
-	//Sektion gewählt
+	//Sektion gewÃ¤hlt
 	if ( $secid ) {
 		if ( $set['main']['staticsites'] ) {
 			if ( $set['main']['staticsites_virtual']==1 && isset($apx->sections[$secid]['virtual']) ) $virtual=$apx->sections[$secid]['virtual'].'/';
@@ -229,7 +229,7 @@ function mklink($link1,$link2,$secid=false) {
 		}	
 	}
 	
-	//Keine Sektion gewählt
+	//Keine Sektion gewÃ¤hlt
 	else $link=HTTPDIR.$link;
 	
 	if ( $set['main']['staticsites_separator'] ) $link=str_replace(',',$set['main']['staticsites_separator'],$link);
@@ -242,7 +242,7 @@ function mklink($link1,$link2,$secid=false) {
 function mkrellink($link1,$link2,$secid=false) {
 	global $set,$apx;
 	
-	//Link auswählen
+	//Link auswÃ¤hlen
 	if ( $set['main']['staticsites'] ) $link=$link2;
 	else $link=$link1;
 	
@@ -295,7 +295,7 @@ function replace($text,$br=false) {
 	
 	$text=compatible_hsc($text, ENT_COMPAT | ENT_HTML401, "ISO8859-1");
 	
-	//Maskierte Sonderzeichen zurücksetzen
+	//Maskierte Sonderzeichen zurÃ¼cksetzen
 	$text = preg_replace('#&amp;([\#0-9a-z]+);#', '&$1;', $text);
 	
 	if ( $br ) $text=nl2br($text);
@@ -306,7 +306,7 @@ function replace($text,$br=false) {
 
 
 
-//Addslashes für MYSQL-Like
+//Addslashes fÃ¼r MYSQL-Like
 function addslashes_like($text) {
 	$text = addslashes($text);
 	$text = str_replace('%','\\%',$text);
@@ -325,7 +325,7 @@ function random_string($len=10,$keyspace='ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
 
 
 
-//Text kürzen
+//Text kÃ¼rzen
 function shorttext($text,$count) {
 	$count=(int)$count;
 	$rankey=random_string();
@@ -349,7 +349,7 @@ function shorttext($text,$count) {
 
 
 
-//Syntax einer eMail Adresse prüfen
+//Syntax einer eMail Adresse prÃ¼fen
 function checkmail($string) {
 	if ( preg_match('#^([_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-z0-9-]+)*(\.[a-z]{2,4})$#i',$string) ) return true;
 	else return false;
@@ -357,11 +357,11 @@ function checkmail($string) {
 
 
 
-//Email verschlüsseln
+//Email verschlÃ¼sseln
 function cryptMail($mail) {
 	$n = 0;
 	$r = '';
-	$s = 'mailto:'.$mail;
+	$s = $mail;
 	for ( $i=0; $i<strlen($s); $i++ ) {
 		$n = ord($s[$i]);
 		if ( $n>=8364 ) {
@@ -383,12 +383,12 @@ function urlformat($text,$connector=',') {
 	$text=strtolower(trim(strip_tags($text)));
 	
 	$replace=array(
-		'¢' => ' cent',
-/*		'£' => ' pound',*/
-		'£' => ' pfund',
-		'¥' => ' yen',
+		'Â¢' => ' cent',
+/*		'Â£' => ' pound',*/
+		'Â£' => ' pfund',
+		'Â¥' => ' yen',
 		'$' => ' dollar',
-		'€' => ' euro',
+		'Â€' => ' euro',
 /*		'%' => ' percent',*/
 		'%' => ' prozent',
 		'#' => '',
@@ -399,7 +399,7 @@ function urlformat($text,$connector=',') {
 		'!' => '',
 		'?' => '',
 		'&' => ' ',
-		'§' => '',
+		'Â§' => '',
 		'-' => ' ',
 		'+' => ' ',
 		'_' => ' ',
@@ -410,7 +410,7 @@ function urlformat($text,$connector=',') {
 		'\'' => '',
 		'"' => '',
 		'`' => '',
-		'´' => '',
+		'Â´' => '',
 		'~' => ' ',
 		'(' => '',
 		')' => '',
@@ -419,69 +419,69 @@ function urlformat($text,$connector=',') {
 		'{' => '',
 		'}' => '',
 		'^' => ' ',
-		'°' => '',
+		'Â°' => '',
 		'<' => ' ',
 		'>' => ' ',
 		'|' => ' ',
-		'¡' => 'i',
-		'À' => 'a',
-		'Á' => 'a',
-		'Â' => 'a',
-		'Ã' => 'a',
-		'Ä' => 'ae',
-		'Å' => 'a',
-		'Æ' => 'ae',
-		'Ç' => 'c',
-		'È' => 'e',
-		'É' => 'e',
-		'Ê' => 'e',
-		'Ë' => 'e',
-		'Ì' => 'i',
-		'Í' => 'i',
-		'Î' => 'i',
-		'Ï' => 'i',
-		'Ñ' => 'n',
-		'Ò' => 'o',
-		'Ó' => 'o',
-		'Ô' => 'o',
-		'Õ' => 'o',
-		'Ö' => 'oe',
-		'Ø' => 'o',
-		'Ù' => 'u',
-		'Ú' => 'u',
-		'Û' => 'u',
-		'Ü' => 'ue',
-		'Ý' => 'Y',
-		'ß' => 'ss',
-		'à' => 'a',
-		'á' => 'a',
-		'â' => 'a',
-		'ã' => 'a',
-		'ä' => 'ae',
-		'å' => 'a',
-		'æ' => 'a',
-		'ç' => 'c',
-		'è' => 'e',
-		'é' => 'e',
-		'ê' => 'e',
-		'ë' => 'e',
-		'ì' => 'i',
-		'í' => 'i',
-		'î' => 'i',
-		'ï' => 'i',
-		'ñ' => 'n',
-		'ò' => 'o',
-		'ó' => 'o',
-		'ô' => 'o',
-		'õ' => 'o',
-		'ö' => 'oe',
-		'ø' => 'o',
-		'ù' => 'u',
-		'ú' => 'u',
-		'û' => 'u',
-		'ü' => 'ue',
-		'ý' => 'y',
-		'ÿ' => 'y'
+		'Â¡' => 'i',
+		'Ã€' => 'a',
+		'Ã' => 'a',
+		'Ã‚' => 'a',
+		'Ãƒ' => 'a',
+		'Ã„' => 'ae',
+		'Ã…' => 'a',
+		'Ã†' => 'ae',
+		'Ã‡' => 'c',
+		'Ãˆ' => 'e',
+		'Ã‰' => 'e',
+		'ÃŠ' => 'e',
+		'Ã‹' => 'e',
+		'ÃŒ' => 'i',
+		'Ã' => 'i',
+		'ÃŽ' => 'i',
+		'Ã' => 'i',
+		'Ã‘' => 'n',
+		'Ã’' => 'o',
+		'Ã“' => 'o',
+		'Ã”' => 'o',
+		'Ã•' => 'o',
+		'Ã–' => 'oe',
+		'Ã˜' => 'o',
+		'Ã™' => 'u',
+		'Ãš' => 'u',
+		'Ã›' => 'u',
+		'Ãœ' => 'ue',
+		'Ã' => 'Y',
+		'ÃŸ' => 'ss',
+		'Ã ' => 'a',
+		'Ã¡' => 'a',
+		'Ã¢' => 'a',
+		'Ã£' => 'a',
+		'Ã¤' => 'ae',
+		'Ã¥' => 'a',
+		'Ã¦' => 'a',
+		'Ã§' => 'c',
+		'Ã¨' => 'e',
+		'Ã©' => 'e',
+		'Ãª' => 'e',
+		'Ã«' => 'e',
+		'Ã¬' => 'i',
+		'Ã­' => 'i',
+		'Ã®' => 'i',
+		'Ã¯' => 'i',
+		'Ã±' => 'n',
+		'Ã²' => 'o',
+		'Ã³' => 'o',
+		'Ã´' => 'o',
+		'Ãµ' => 'o',
+		'Ã¶' => 'oe',
+		'Ã¸' => 'o',
+		'Ã¹' => 'u',
+		'Ãº' => 'u',
+		'Ã»' => 'u',
+		'Ã¼' => 'ue',
+		'Ã½' => 'y',
+		'Ã¿' => 'y'
 	);
 	
 	$remove=array(
@@ -492,7 +492,7 @@ function urlformat($text,$connector=',') {
 	//Sonderzeichen ersetzen
 	$text=strtr($text,$replace);
 	
-	//Wörter aussortieren
+	//WÃ¶rter aussortieren
 	$text=preg_replace('#( ){2,}#',' ',trim($text));
 	$words=explode(' ',$text);
 	foreach ( $words AS $key => $word ) {
@@ -509,14 +509,14 @@ function urlformat($text,$connector=',') {
 
 
 
-//Wörter aus einem Text filtern
+//WÃ¶rter aus einem Text filtern
 function extract_words($text) {
 	
 	$text = strip_tags($text); //HTML-Tags entfernen
 	$text=preg_replace('#\s+#si',' ',$text); //Whitespace zu Spaces
-	$text=preg_replace('#[.,;:?!={}<>§%~+*°\^\|/_"\'\(\)\[\]\\&\#\-\$]+#s',' ',$text); //Zeichen zu Spaces
+	$text=preg_replace('#[.,;:?!={}<>Â§%~+*Â°\^\|/_"\'\(\)\[\]\\&\#\-\$]+#s',' ',$text); //Zeichen zu Spaces
 	
-	//Wörter trennen
+	//WÃ¶rter trennen
 	$text=preg_replace('#[\s]{2,}#',' ',$text); //Whitespace auf 1 Zeichen reduzieren
 	$words=preg_split('#[\s]+#',$text); //An Spaces teilen
 	
@@ -561,7 +561,7 @@ function ip2integer($ipaddress) {
 
 
 
-//Wordwrap für HTML
+//Wordwrap fÃ¼r HTML
 function wordwrapHTML($str, $cols = 75, $break = "\n") {
 	$len = strlen($str);
 	$tag = 0;
@@ -600,7 +600,7 @@ function wordwrapHTML($str, $cols = 75, $break = "\n") {
 function sendmail($email,$langid,$input=array(),$title='',$text='',$sender=array()) {
 	global $apx,$set;
 	
-	//Überschreiben mit Langpack
+	//Ãœberschreiben mit Langpack
 	if ( $langid ) {
 		$title=$apx->lang->get('MAIL_'.strtoupper($langid).'_TITLE');
 		$text=$apx->lang->get('MAIL_'.strtoupper($langid).'_TEXT');
@@ -734,7 +734,7 @@ function get_ids($array,$key='id') {
 }
 
 
-//Höchster Key
+//HÃ¶chster Key
 function array_key_max($array) {
 	if ( !is_array($array) ) return false;
 	
@@ -907,7 +907,7 @@ function error($text,$die=false) {
 
 ////////////////////////////////////////////////////////////////////////////////// -> SHELL
 
-//Programm auf Konsole ausführen
+//Programm auf Konsole ausfÃ¼hren
 function exec_shell($command) {
 	exec($command, $output, $returnval);
 	if ( is_array($output) ) {
