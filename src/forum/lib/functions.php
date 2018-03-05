@@ -21,7 +21,7 @@ if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly
 
 //Forum-Codes
 //Codestamp => Find, Replace, Call, Repeatable
-//ACHTUNG: Bei allen Ausdrücken wird die "greedy"-Eigenschaft umgedreht!
+//ACHTUNG: Bei allen AusdrÃ¼cken wird die "greedy"-Eigenschaft umgedreht!
 $forumcodes=array(
 'B#1' => array('\[B\](.*)\[/B\]','<b>$1</b>','',false),
 'I#1' => array('\[I\](.*)\[/I\]','<i>$1</i>','',false),
@@ -245,7 +245,7 @@ function thread_readtime($threadid) {
 
 
 
-//Alle gelesenen Threads zurückgeben
+//Alle gelesenen Threads zurÃ¼ckgeben
 function threads_get_read() {
 	if ( $cached_thread_readtime==false ) {
 		$cached_thread_readtime=get_cookie_keyarray('forum_threadview');
@@ -255,7 +255,7 @@ function threads_get_read() {
 
 
 
-/////////////////////////////////////////////////////////////////////////////// BEITRÄGE
+/////////////////////////////////////////////////////////////////////////////// BEITRÃ„GE
 
 //Posting-Infos
 function post_info($postid) {
@@ -271,11 +271,11 @@ function post_info($postid) {
 
 
 
-/////////////////////////////////////////////////////////////////////////////// ANKÜNDIGUNGEN
+/////////////////////////////////////////////////////////////////////////////// ANKÃœNDIGUNGEN
 
 $cached_announcement_readtime=false;
 
-//Ankündigung als gelesen speichern
+//AnkÃ¼ndigung als gelesen speichern
 function announcement_isread($announcementid) {
 	global $cached_announcement_readtime;
 	$announcementid=(string)$announcementid;
@@ -291,7 +291,7 @@ function announcement_isread($announcementid) {
 
 
 
-//Wann wurde ein Ankündigung zuletzt gelesen?
+//Wann wurde ein AnkÃ¼ndigung zuletzt gelesen?
 function announcement_readtime($announcementid) {
 	global $cached_announcement_readtime;
 	$announcementid=(string)$announcementid;
@@ -307,7 +307,7 @@ function announcement_readtime($announcementid) {
 
 
 
-//Alle gelesenen Ankündigungen zurückgeben
+//Alle gelesenen AnkÃ¼ndigungen zurÃ¼ckgeben
 function announcements_get_read() {
 	if ( $cached_announcement_readtime==false ) {
 		$cached_announcement_readtime=get_cookie_keyarray('forum_announcementview');
@@ -319,8 +319,8 @@ function announcements_get_read() {
 
 /////////////////////////////////////////////////////////////////////////////// COOKIE-ARRAY
 
-//Einen Cookie-Array mit Schlüsselwerten erzeugen
-function set_cookie_keyarray($name,$array,$linesep='|',$valsep='§') {
+//Einen Cookie-Array mit SchlÃ¼sselwerten erzeugen
+function set_cookie_keyarray($name,$array,$linesep='|',$valsep='Â§') {
 	global $set;
 	$lines=array();
 	foreach ( $array AS $key => $value ) {
@@ -332,8 +332,8 @@ function set_cookie_keyarray($name,$array,$linesep='|',$valsep='§') {
 
 
 
-// Einen Cookie-Array mit Schlüsselwerten auslesen
-function get_cookie_keyarray($name,$linesep='|',$valsep='§') {
+// Einen Cookie-Array mit SchlÃ¼sselwerten auslesen
+function get_cookie_keyarray($name,$linesep='|',$valsep='Â§') {
 	global $set;
 	$data=array();
 	$value=$_COOKIE[$set['main']['cookie_pre'].'_'.$name];
@@ -348,9 +348,9 @@ function get_cookie_keyarray($name,$linesep='|',$valsep='§') {
 
 
 
-/////////////////////////////////////////////////////////////////////////////// AKTIVITÄT
+/////////////////////////////////////////////////////////////////////////////// AKTIVITÃ„T
 
-//Aktivität speichern
+//AktivitÃ¤t speichern
 function forum_activity($type, $id) {
 	global $apx, $db, $set, $user;
 	
@@ -367,7 +367,7 @@ function forum_activity($type, $id) {
 
 
 
-//Aktivität auslesen
+//AktivitÃ¤t auslesen
 function forum_get_activity($type, $id, $moderators=array()) {
 	global $apx, $db, $set, $user;
 	
@@ -418,7 +418,7 @@ function forum_get_activity($type, $id, $moderators=array()) {
 
 /////////////////////////////////////////////////////////////////////////////// REPLACEMENT
 
-//Anhang-Größe
+//Anhang-GrÃ¶ÃŸe
 function forum_getsize($fsize,$digits=1) {
 	$fsize=(float)$fsize;
 	if ( $fsize<1024 ) return $fsize.' Byte';
@@ -440,7 +440,7 @@ function clear_codes($text) {
 
 
 
-//Alle Codes außer Quotes entfernen
+//Alle Codes auÃŸer Quotes entfernen
 function clear_codes_replace_quotes($text) {
 	global $set,$forumcodes;
 	static $readout;
@@ -473,10 +473,10 @@ function clear_codes_replace_quotes($text) {
 		}
 	}
 	
-	//Zeilenumbrüche
+	//ZeilenumbrÃ¼che
 	$text = nl2br($text);
 	
-	//Restliche Codes löschen
+	//Restliche Codes lÃ¶schen
 	while ( preg_match('#\[([a-z0-9]+)(=.*?)?\](.*?)\[/\\1\]#si',$text) ) {
 		$text=preg_replace('#\[([a-z0-9]+)(=.*?)?\](.*?)\[/\\1\]#si','\\3',$text);
 	}
@@ -516,7 +516,7 @@ function forum_replace($text,$codes=true,$smilies=true) {
 		$text=dbsmilies($text);
 	}
 	
-	//Code und PHP einfügen
+	//Code und PHP einfÃ¼gen
 	if ( $set['forum']['codes'] && $codes ) {
 		$text=strtr($text,$codecache);
 	}
@@ -585,7 +585,7 @@ function forum_codes($text,$sig=false) {
 		}
 	}
 	
-	//Zeilenumbrüche
+	//ZeilenumbrÃ¼che
 	$text=nl2br($text);
 	
 	return $text;
@@ -613,7 +613,7 @@ function replace_quote($textinfo) {
 
 //URL
 function replace_url($urlinfo) {
-	if ( substr($urlinfo[1],0,4)=='www.' ) $urlinfo[1]='http://'.$urlinfo[1]; //URL vervollständigen
+	if ( substr($urlinfo[1],0,4)=='www.' ) $urlinfo[1]='http://'.$urlinfo[1]; //URL vervollstÃ¤ndigen
 	
 	if ( strtoupper(substr($urlinfo[0],0,5))=='[URL=' ) {
 		return '<a href="'.$urlinfo[1].'" target="_blank">'.$urlinfo[2].'</a>';
@@ -673,7 +673,7 @@ function save_code($textinfo) {
 			$phpcode=str_replace('?&gt;</font>'."\n".'</font>','</font></font>',$phpcode);
 		}
 		
-		//PHP-Highlight fügt nur &nbsp; am Anfang der Zeile an
+		//PHP-Highlight fÃ¼gt nur &nbsp; am Anfang der Zeile an
 		//create_whitespace() ist daher nicht notwendig!
 		
 		$marker='[PHP_'.$count.'_'.$hash.']';
@@ -713,12 +713,12 @@ function save_code($textinfo) {
 
 
 
-//Einrückung am Zeilenanfang erzeugen
+//EinrÃ¼ckung am Zeilenanfang erzeugen
 function create_whitespace($code) {
 	$lines=explode("\n",str_replace("\r",'',$code));
 	foreach ( $lines AS $key => $line ) {
 		$whitespace='';
-		for ( $i=0; i<strlen($line); $i++ ) {
+		for ( $i=0; $i<strlen($line); $i++ ) {
 			if ( $line[$i]==' ' ) $whitespace.='&nbsp;';
 			elseif ( $line[$i]=="\t" ) $whitespace.='&nbsp;&nbsp;';
 			else break;
@@ -730,7 +730,7 @@ function create_whitespace($code) {
 
 
 
-//Codes unverändert zwischenspeichern
+//Codes unverÃ¤ndert zwischenspeichern
 function save_code_blank($textinfo) {
 	global $codecache;
 	static $count;
@@ -769,7 +769,7 @@ function highlight_html($text) {
 	$inatt=false; //In einem Attribut
 	$incomment=false; //In einem Kommentar
 	
-	//Zeichen für Zeichen durchlaufen
+	//Zeichen fÃ¼r Zeichen durchlaufen
 	for ( $i=0; $i<strlen($text); $i++ ) {
 		$char=$text[$i];
 		
@@ -804,7 +804,7 @@ function highlight_html($text) {
 			$code.='<font color="'.$color['doctype'].'">'.compatible_hsc($char);
 		}
 		
-		//String mit normalen Anführungszeichen beginnt
+		//String mit normalen AnfÃ¼hrungszeichen beginnt
 		elseif ( $inhtml && !$inatt && preg_match('#^[a-z]="$#i',substr($text,$i,3)) ) {
 			$inatt='"';
 			$code.=compatible_hsc($char).'=<font color="'.$color['attribute'].'">&quot;';
@@ -870,19 +870,19 @@ function highlight_html($text) {
 			$inatt=false;
 		}
 		
-		//Attribut ohne Anführungszeichen Ende
+		//Attribut ohne AnfÃ¼hrungszeichen Ende
 		elseif ( is_string($inatt) && $inatt && $char==$inatt ) {
 			$code.=compatible_hsc($char).'</font>';
 			$inatt=false;
 		}
 		
-		//Attribut ohne Anführungszeichen Ende
+		//Attribut ohne AnfÃ¼hrungszeichen Ende
 		elseif ( is_bool($inatt) && $inatt && preg_match('#\s#',$char) ) {
 			$code.=compatible_hsc($char).'</font>';
 			$inatt=false;
 		}
 		
-		//Zeichen einfach anfügen (Text)
+		//Zeichen einfach anfÃ¼gen (Text)
 		else {
 			$char=compatible_hsc($char);
 			//$char=str_replace(' ','&nbsp;',str_replace("\t",'&nbsp;&nbsp;',$char));
@@ -930,7 +930,7 @@ function transform_urls($text) {
 	$text=preg_replace('#(^|[\n ])((www|ftp)\.[^ "\t\n\r<]*)#is','\\1[URL]http://\\2[/URL]', $text);
 	$text=preg_replace('#(^|[\n ])([a-z0-9&\-_.]+?)@([A-Za-z0-9_\-]+\.([A-Za-z0-9_\-\.]+\.)*[A-Za-z0-9_]+)#i','\\1[EMAIL]\\2@\\3[/EMAIL]',$text);
 	
-	//Codes einfügen
+	//Codes einfÃ¼gen
 	$text=strtr($text,$codecache);
 	
 	return $text;
@@ -961,14 +961,14 @@ function get_modlist() {
 
 
 
-/////////////////////////////////////////////////////////////////////////////// RÄNGE
+/////////////////////////////////////////////////////////////////////////////// RÃ„NGE
 
-//Rank eines Benutzers zurückgeben
+//Rank eines Benutzers zurÃ¼ckgeben
 function get_rank($userinfo) {
 	global $set,$db,$apx;
 	static $rankinfo;
 	
-	//Ränge beim ersten Mal auslesen
+	//RÃ¤nge beim ersten Mal auslesen
 	if ( !isset($rankinfo) ) {
 		$rankinfo=array(
 			'user' => array(),
@@ -1002,11 +1002,11 @@ function get_rank($userinfo) {
 	$posts=(int)$userinfo['forum_posts'];
 	if ( !$groupid ) $groupid=3; //Keine Benutzergruppe => Gast
 	
-	//Spezialränge
+	//SpezialrÃ¤nge
 	if ( isset($rankinfo['user'][$userid]) ) return $rankinfo['user'][$userid];
 	if ( isset($rankinfo['group'][$groupid]) ) return $rankinfo['group'][$groupid];
 	
-	//Posting-Ränge
+	//Posting-RÃ¤nge
 	foreach ( $rankinfo['posts'] AS $minposts => $rank ) {
 		if ( $posts<$minposts ) continue;
 		return $rank;
@@ -1051,7 +1051,7 @@ function update_index($text,$threadid,$postid,$title=false) {
 	if ( !$threadid ) return false;
 	if ( !$postid ) return false;
 	
-	//Posting bearbeitet => Einträge löschen
+	//Posting bearbeitet => EintrÃ¤ge lÃ¶schen
 	if ( $postid ) {
 		$db->query("DELETE FROM ".PRE."_forum_index WHERE postid='".$postid."' AND istitle='".iif($title,'1','0')."'");
 	}
@@ -1059,20 +1059,20 @@ function update_index($text,$threadid,$postid,$title=false) {
 	//Codes entfernen
 	$text = clear_codes($text);
 	
-	//Wörter trennen
+	//WÃ¶rter trennen
 	$text = strtolower($text);
 	$words = extract_words($text);
 	$words = array_unique($words);
 	
-	//Wörter filtern
+	//WÃ¶rter filtern
 	include(dirname(__FILE__).'/stopwords.php');
 	$values='';
 	foreach ( $words AS $word ) {
 		$word=trim($word);
-		if ( !$word ) continue; //Leere Wörter überspringen
-		if ( strlen($word)<3 ) continue; //Wörter kürzer als 3 Zeichen überspringen
-		if ( strlen($word)>50 ) continue; //Wörter länger als 50 Zeichen überspringen
-		if ( in_array($word,$stopwords) ) continue; //Stopwörter überspringen
+		if ( !$word ) continue; //Leere WÃ¶rter Ã¼berspringen
+		if ( strlen($word)<3 ) continue; //WÃ¶rter kÃ¼rzer als 3 Zeichen Ã¼berspringen
+		if ( strlen($word)>50 ) continue; //WÃ¶rter lÃ¤nger als 50 Zeichen Ã¼berspringen
+		if ( in_array($word,$stopwords) ) continue; //StopwÃ¶rter Ã¼berspringen
 		$values.=iif($values,',')."('".addslashes(strtolower($word))."','".$threadid."','".$postid."','".$title."')";
 	}
 	
@@ -1086,22 +1086,22 @@ function update_index($text,$threadid,$postid,$title=false) {
 
 
 
-//Wörter aus Suchstring
+//WÃ¶rter aus Suchstring
 function searchstring_to_array($text) {
 	
 	//Codes entfernen
 	$text = clear_codes($text);
 	
-	//Wörter trennen
+	//WÃ¶rter trennen
 	$words = extract_words($text);
 	$words = array_unique($words);
 	
-	//Stopwörter löschen
+	//StopwÃ¶rter lÃ¶schen
 	include('lib/stopwords.php');
 	$filteredwords=array_diff($words,$stopwords);
 	$ignored=array_intersect($words,$stopwords);
 	
-	//Wörter filtern
+	//WÃ¶rter filtern
 	foreach ( $filteredwords AS $key => $word ) {
 		$word=trim($word);
 		if ( !$word || strlen($word)<3 || strlen($word)>50 ) {
@@ -1110,14 +1110,14 @@ function searchstring_to_array($text) {
 		}
 	}
 	
-	$filteredwords=array_map('strtolower',$filteredwords); //Kleinschreibung für Suchbegriffe
+	$filteredwords=array_map('strtolower',$filteredwords); //Kleinschreibung fÃ¼r Suchbegriffe
 	
 	return array(array_unique($filteredwords),array_unique($ignored));
 }
 
 
 
-//Aus einem Array mit Wörtern eine SQL-Abfrage machen
+//Aus einem Array mit WÃ¶rtern eine SQL-Abfrage machen
 function array_to_searchsql($list) {
 	$list=array_map('addslashes',$list);
 	return "'".implode("','",$list)."'";
