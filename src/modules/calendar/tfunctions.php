@@ -49,7 +49,7 @@ function calendar_events_last($count=5,$start=0,$catid=false,$mode=false,$templa
 
 
 
-//Zufällige Termine
+//ZufÃ¤llige Termine
 function calendar_events_random($count=5,$start=0,$catid=false,$mode=false,$template='random') {
 	global $set,$db,$apx,$user;
 	$count=(int)$count;
@@ -101,7 +101,7 @@ function calendar_events_recent($count=5,$start=0,$catid=false,$mode=false,$temp
 
 
 
-//Termine der nächsten X Tage
+//Termine der nÃ¤chsten X Tage
 function calendar_events_nextdays($days=6,$catid=false,$mode=false,$template='nextdays') {
 	global $set,$db,$apx,$user;
 	$days=(int)$days;
@@ -200,7 +200,7 @@ function calendar_events_participate($userid=0,$count=5,$start=0,$catid=false,$t
 
 
 
-//Ähnliche Termine
+//Ã„hnliche Termine
 function calendar_events_similar($tagids=array(),$count=5,$start=0,$catid=false,$mode=false,$template='similar') {
 	global $set,$db,$apx,$user;
 	$count=(int)$count;
@@ -281,7 +281,7 @@ function calendar_print($data,$template) {
 				}
 			}
 			
-			//Ende berechnen (falls nötig)
+			//Ende berechnen (falls nÃ¶tig)
 			if ( in_template(array('EVENT.ENDDAY','EVENT.ENDTIME'),$parse) ) {
 				if ( $res['endday']!=$res['startday'] || $res['endtime']!=-1 ) {
 					$endday = calendar_stamp2time($res['endday']);
@@ -465,19 +465,19 @@ function calendar_mini($month = 0, $year = 0, $template='minicalendar') {
 	$parse = $apx->tmpl->used_vars('functions/'.$template, 'calendar');
 	
 	
-	//Tage des vorherigen Monats auffüllen
+	//Tage des vorherigen Monats auffÃ¼llen
 	$startday = 1;
 	$timestamp = mktime(0,0,0,$month,1,$year)+TIMEDIFF;
 	$subday = (date('w',$timestamp-TIMEDIFF)+6)%7;
 	
-	//Tage des nächsten Monats auffüllen
+	//Tage des nÃ¤chsten Monats auffÃ¼llen
 	$monthdays = (int)date('t',$timestamp-TIMEDIFF);
 	$timestamp = mktime(0,0,0,$month,$monthdays,$year)+TIMEDIFF;
 	$weekday = date('w',$timestamp-TIMEDIFF);
 	$adddays = (7-$weekday)%7;
 	
 	
-	//Tage des gewählten Monats durchlaufen
+	//Tage des gewÃ¤hlten Monats durchlaufen
 	$monthdata = array();
 	for ( $cday=1-$subday; $cday<=$monthdays+$adddays; $cday++ ) {
 		++$i;
@@ -485,7 +485,7 @@ function calendar_mini($month = 0, $year = 0, $template='minicalendar') {
 		$timestamp = mktime(0,0,0,$month,$cday,$year)+TIMEDIFF;
 		$thisdaystamp = (int)date('Ymd',$timestamp-TIMEDIFF);
 		
-		//Tag auswählen
+		//Tag auswÃ¤hlen
 		$link = mklink(
 			'events.php?day='.date('j',$timestamp-TIMEDIFF).'&amp;month='.date('n',$timestamp-TIMEDIFF).'&amp;year='.date('Y',$timestamp-TIMEDIFF),
 			'events,public,day'.date('dmY',$timestamp-TIMEDIFF).'.html'
@@ -495,7 +495,7 @@ function calendar_mini($month = 0, $year = 0, $template='minicalendar') {
 		$monthdata[$i]['TIME'] = $timestamp;
 		$monthdata[$i]['LINK_SELECT'] = $link;
 		
-		//Tag gehört nicht zum Monat => keine weiteren Informationen
+		//Tag gehÃ¶rt nicht zum Monat => keine weiteren Informationen
 		if (  $cday>=1 && $cday<=$monthdays ) {
 			$monthdata[$i]['INMONTH'] = 1;
 			
@@ -526,7 +526,7 @@ function calendar_tagcloud($count=10, $random=false, $template='tagcloud') {
 		$orderby = "weight DESC";
 	}
 	
-	//Sektion gewählt
+	//Sektion gewÃ¤hlt
 	if ( $apx->section_id() ) {
 		$data = $db->fetch("
 			SELECT t.tagid, t.tag, count(nt.id) AS weight
@@ -541,7 +541,7 @@ function calendar_tagcloud($count=10, $random=false, $template='tagcloud') {
 		");
 	}
 	
-	//Keine Sektion gewählt
+	//Keine Sektion gewÃ¤hlt
 	else {
 		$data = $db->fetch("
 			SELECT t.tagid, t.tag, count(nt.id) AS weight
@@ -586,9 +586,9 @@ function calendar_stats($template='stats') {
 	$parse = $tmpl->used_vars('functions/'.$template,'calendar');
 	$apx->lang->drop('func_stats', 'calendar');
 	
-	if ( in_array('COUNT_CATGEORIES', $parse) ) {
+	if ( in_array('COUNT_CATEGORIES', $parse) ) {
 		list($count) = $db->first("SELECT count(id) FROM ".PRE."_calendar_cat");
-		$tmpl->assign('COUNT_CATGEORIES', $count);
+		$tmpl->assign('COUNT_CATEGORIES', $count);
 	}
 	if ( in_template(array('COUNT_EVENTS', 'AVG_HITS'), $parse) ) {
 		list($count, $hits) = $db->first("
