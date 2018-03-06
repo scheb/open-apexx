@@ -24,7 +24,7 @@ require_once(BASEDIR.getmodulepath('articles').'functions.php');
 
 
 
-//Artikel w‰hlen-Box
+//Artikel w√§hlen-Box
 function articles_choose($catid=0,$type=false) {
 	global $set,$db,$apx,$user;
 	$catid=(int)$catid;
@@ -71,7 +71,7 @@ function articles_last($count=5,$start=0,$catid=false,$type=false,$template='las
 
 
 
-//Zuf‰llige Artikel ausgeben
+//Zuf√§llige Artikel ausgeben
 function articles_random($count=5,$start=0,$catid=false,$type=false,$template='random') {
 	global $set,$db,$apx,$user;
 	$count=(int)$count;
@@ -157,7 +157,7 @@ function articles_best_rating($count=5,$start=0,$catid=false,$type=false,$templa
 
 
 
-//ƒhnliche Artikel ausgeben
+//√Ñhnliche Artikel ausgeben
 function articles_similar($tagids=array(),$count=5,$start=0,$catid=false,$type=false,$template='similar') {
 	global $set,$db,$apx,$user;
 	$count=(int)$count;
@@ -188,7 +188,7 @@ function articles_reviews($sortway=2,$count=5,$start=0,$catid=false,$template='b
 	$start=(int)$start;
 	$catid=(int)$catid;
 	$sortway=(int)$sortway;
-	if ( $sortway!=1 && $sortway!=2 ) $sortway=2; //Standardm‰ﬂige Sortierrichtung
+	if ( $sortway!=1 && $sortway!=2 ) $sortway=2; //Standardm√§√üige Sortierrichtung
 	
 	$cattree=articles_tree($catid);
 	
@@ -332,7 +332,7 @@ function articles_print($data,$template,$bestreviews=false) {
 			//Produkt
 			$tabledata[$i]['PRODUCT_ID']=$res['prodid'];
 			
-			//Zus‰tzliche Felder: PREVIEWS
+			//Zus√§tzliche Felder: PREVIEWS
 			if ( $res['type']=='preview' ) {
 				for ( $ii=1; $ii<=10; $ii++ ) {
 					if ( !$set['articles']['custom_preview'][$ii-1] ) continue;
@@ -342,7 +342,7 @@ function articles_print($data,$template,$bestreviews=false) {
 				$tabledata[$i]['IMPRESSION']=$res['impression'];
 			}
 			
-			//Zus‰tzliche Felder: REVIEWS
+			//Zus√§tzliche Felder: REVIEWS
 			elseif ( $res['type']=='review' ) {
 				for ( $ii=1; $ii<=10; $ii++ ) {
 					if ( !$set['articles']['custom_review'][$ii-1] ) continue;
@@ -462,7 +462,7 @@ function articles_tagcloud($count=10, $type=false, $random=false, $template='tag
 		$orderby = "weight DESC";
 	}
 	
-	//Sektion gew‰hlt
+	//Sektion gew√§hlt
 	if ( $apx->section_id() || in_array($type, array('normal', 'review', 'preview')) ) {
 		$data = $db->fetch("
 			SELECT t.tagid, t.tag, count(nt.id) AS weight
@@ -477,7 +477,7 @@ function articles_tagcloud($count=10, $type=false, $random=false, $template='tag
 		");
 	}
 	
-	//Keine Sektion gew‰hlt
+	//Keine Sektion gew√§hlt
 	else {
 		$data = $db->fetch("
 			SELECT t.tagid, t.tag, count(nt.id) AS weight
@@ -523,9 +523,9 @@ function articles_stats($template='stats') {
 	
 	$apx->lang->drop('func_stats', 'articles');
 	
-	if ( in_array('COUNT_CATGEORIES', $parse) ) {
+	if ( in_array('COUNT_CATEGORIES', $parse) ) {
 		list($count) = $db->first("SELECT count(id) FROM ".PRE."_articles_cat");
-		$tmpl->assign('COUNT_CATGEORIES', $count);
+		$tmpl->assign('COUNT_CATEGORIES', $count);
 	}
 	if ( in_template(array('COUNT_ARTICLES', 'AVG_HITS'), $parse) ) {
 		list($count, $hits) = $db->first("
