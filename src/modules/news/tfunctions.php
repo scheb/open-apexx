@@ -39,7 +39,7 @@ function news_last($count=5,$start=0,$catid=false,$template='last') {
 
 
 
-//Zufällige News
+//ZufÃ¤llige News
 function news_random($count=5,$start=0,$catid=false,$template='random') {
 	global $set,$db,$apx,$user;
 	$count=(int)$count;
@@ -115,7 +115,7 @@ function news_best_rating($count=5,$start=0,$catid=false,$template='best_rating'
 
 
 
-//Ähnliche News
+//Ã„hnliche News
 function news_similar($tagids=array(),$count=5,$start=0,$catid=false,$template='similar') {
 	global $set,$db,$apx,$user;
 	$count=(int)$count;
@@ -364,7 +364,7 @@ function news_tagcloud($count=10, $random=false, $template='tagcloud') {
 		$orderby = "weight DESC";
 	}
 	
-	//Sektion gewählt
+	//Sektion gewÃ¤hlt
 	if ( $apx->section_id() ) {
 		$data = $db->fetch("
 			SELECT t.tagid, t.tag, count(nt.id) AS weight
@@ -379,7 +379,7 @@ function news_tagcloud($count=10, $random=false, $template='tagcloud') {
 		");
 	}
 	
-	//Keine Sektion gewählt
+	//Keine Sektion gewÃ¤hlt
 	else {
 		$data = $db->fetch("
 			SELECT t.tagid, t.tag, count(nt.id) AS weight
@@ -425,9 +425,9 @@ function news_stats($template='stats') {
 	
 	$apx->lang->drop('func_stats', 'news');
 	
-	if ( in_array('COUNT_CATGEORIES', $parse) ) {
+	if ( in_array('COUNT_CATEGORIES', $parse) ) {
 		list($count) = $db->first("SELECT count(id) FROM ".PRE."_news_cat");
-		$tmpl->assign('COUNT_CATGEORIES', $count);
+		$tmpl->assign('COUNT_CATEGORIES', $count);
 	}
 	if ( in_template(array('COUNT_NEWS', 'AVG_HITS'), $parse) ) {
 		list($count, $hits) = $db->first("
