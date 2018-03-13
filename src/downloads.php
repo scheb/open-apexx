@@ -121,7 +121,7 @@ if ( $_REQUEST['id'] ) {
 		list($picture,$picture_popup,$picture_popuppath)=downloads_teaserpic($res['teaserpic']);
 	}
 	
-	//Dateigröße auslesen
+	//DateigrÃ¶ÃŸe auslesen
 	$thefsize=downloads_filesize($res);
 	
 	//Download-Link
@@ -224,8 +224,8 @@ if ( $_REQUEST['id'] ) {
 	$apx->tmpl->assign('CATICON',$catinfo['icon']);
 	$apx->tmpl->assign('CATCOUNT',$catcount);
 	$apx->tmpl->assign('CATLINK',mklink(
-		'downloads.php?catid='.$catinfo['catid'],
-		'downloads,'.$catinfo['catid'].',1'.urlformat($catinfo['title']).'.html'
+		'downloads.php?catid='.$catinfo['id'],
+		'downloads,'.$catinfo['id'].',1'.urlformat($catinfo['title']).'.html'
 	));
 	
 	//Pfad
@@ -285,7 +285,7 @@ if ( $_REQUEST['action']=='search' ) {
 			require('lib/_end.php');
 		}
 		
-		//SUCHE AUSFÜHREN
+		//SUCHE AUSFÃœHREN
 		$parse=$apx->tmpl->used_vars('search_result');
 		
 		//Seitenzahlen generieren
@@ -332,7 +332,7 @@ if ( $_REQUEST['action']=='search' ) {
 					list($picture,$picture_popup,$picture_popuppath)=downloads_teaserpic($res['teaserpic']);
 				}
 				
-				//Dateigröße auslesen
+				//DateigrÃ¶ÃŸe auslesen
 				if ( in_array('DOWNLOAD.SIZE',$parse) ) {
 					$thefsize=downloads_filesize($res);
 				}
@@ -466,7 +466,7 @@ if ( $_REQUEST['action']=='search' ) {
 		$apx->tmpl->parse('search_result');
 	}
 	
-	//SUCHE DURCHFÜHREN
+	//SUCHE DURCHFÃœHREN
 	else {
 		$where='';
 		
@@ -531,7 +531,7 @@ if ( $_REQUEST['action']=='search' ) {
 			require('lib/_end.php');
 		}
 		
-		//SUCHE AUSFÜHREN
+		//SUCHE AUSFÃœHREN
 		else {
 			$data = $db->fetch("SELECT id FROM ".PRE."_downloads WHERE ".$where);
 			$resultIds = get_ids($data, 'id');
@@ -618,8 +618,8 @@ $apx->tmpl->assign('CATTITLE',$catinfo['title']);
 $apx->tmpl->assign('CATTEXT',$catinfo['text']);
 $apx->tmpl->assign('CATICON',$catinfo['icon']);
 $apx->tmpl->assign('CATLINK',mklink(
-	'downloads.php?catid='.$catinfo['catid'],
-	'downloads,'.$catinfo['catid'].',1'.urlformat($catinfo['title']).'.html'
+	'downloads.php?catid='.$catinfo['id'],
+	'downloads,'.$catinfo['id'].',1'.urlformat($catinfo['title']).'.html'
 ));
 
 //Pfad
@@ -649,7 +649,7 @@ $apx->tmpl->assign('SEARCH_CATEGORY',$catdata);
 
 
 ///////////////////////////////////////////////////
-//Parings ausführen, wenn keine Kategorie gewählt//
+//Parings ausfÃ¼hren, wenn keine Kategorie gewÃ¤hlt//
 ///////////////////////////////////////////////////
 if ( !$_REQUEST['catid'] && $set['downloads']['catonly'] ) {
 	$apx->tmpl->parse('index');
@@ -716,7 +716,7 @@ if ( count($data) ) {
 			list($picture,$picture_popup,$picture_popuppath)=downloads_teaserpic($res['teaserpic']);
 		}
 		
-		//Dateigröße auslesen
+		//DateigrÃ¶ÃŸe auslesen
 		if ( in_array('DOWNLOAD.SIZE',$parse) ) {
 			$thefsize=downloads_filesize($res);
 		}
