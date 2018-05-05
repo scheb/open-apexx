@@ -56,6 +56,7 @@ R = Rechte für Alle
 //Template-Funktionen     F           V
 //$func['']=array('',true);
 $func['CONTENT_STATS']=array('content_stats',true);
+$func['CONTENT_SHOW'] =array('content_show',true);
 
 /*
 F = Funktions-Name
