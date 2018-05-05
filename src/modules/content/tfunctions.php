@@ -43,4 +43,30 @@ function content_stats($template='stats') {
 }
 
 
+function content_show($id='0', $template='inline')
+{
+	global $set, $db, $apx, $user;
+	
+	$tmpl=new tengine;
+	
+	$data = $db->first("SELECT * FROM ".PRE."_content WHERE id=".$id.";");
+	if( $data["active"] )
+	{
+		$tmpl->assign('PAGE', $data["text"]);
+
+		$tmpl->assign('TITLE', $data["title"]);		
+		$tmpl->assign('ID', $id);
+		$tmpl->assign('ANKER', "CONTENT_".$id);
+	}
+	else
+	{		
+		$tmpl->assign('ID', $id);
+		$tmpl->assign('PAGE', "Dieser Teil der Webseite (".$data["title"].") wird zurzeit überarbeitet! Bitte haben Sie etwas Geduld. Danke!");
+		$tmpl->assign('TITLE', "Wartungsarbeiten" );
+		$tmpl->assign('ANKER', "CONTENT_".$id);
+	}
+	
+	$tmpl->parse('functions/'.$template,'content');
+}
+
 ?>
