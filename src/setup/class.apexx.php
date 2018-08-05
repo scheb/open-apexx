@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /***************************************************************\
 |                                                               |
@@ -43,22 +43,22 @@ var $coremodules=array('main','mediamanager','user');
 //System starten
 function apexx() {
 	global $set;
-	
+
 	error_reporting(E_ALL ^ E_NOTICE);
-	
+
 	$version=file(BASEDIR.'lib/version.info');
 	define('VERSION',array_shift($version));
 	define('HTTP_HOST',$this->get_http());
   define('HTTPDIR',$this->get_dir());
 	define('HTTP',HTTP_HOST.HTTPDIR);
-	
+
 	//Variablen vorbereiten
 	$this->prepare_vars();
-	
+
 	//Sprachpakete
 	$this->languages=array('de'=>'Deutsch');
 	$this->language_default='de';
-	
+
 	//Zeitzone
 	define('TIMEDIFF',(date('Z')/3600-$set['main']['timezone']-date('I'))*3600);
 }
@@ -72,8 +72,10 @@ function prepare_vars() {
 	if ( isset($_GET) && is_array($_GET) ) $_GET=$this->strpsl($_GET);
 	if ( isset($_COOKIE) && is_array($_COOKIE) ) $_COOKIE=$this->strpsl($_COOKIE);
 	if ( isset($_SESSION) && is_array($_SESSION) ) $_COOKIE=$this->strpsl($_SESSION);
-	
-	@set_magic_quotes_runtime(0);
+
+    if (version_compare(PHP_VERSION, '6.0.0', '<')) {
+        @set_magic_quotes_runtime(0);
+    }
 }
 
 
@@ -83,18 +85,18 @@ function strpsl($array) {
 	static $trimvars,$magicquotes;
 	if ( !isset($trimvars) ) $trimvars=iif((int)$_REQUEST['apx_notrim'] && MODE=='admin',0,1);
 	if ( !isset($magicquotes) ) $magicquotes=get_magic_quotes_gpc();
-	
+
 	foreach($array AS $key => $val) {
 		if( is_array($val) ) {
 			$array[$key]=$this->strpsl($val);
 			continue;
 		}
-		
+
 		if ( $trimvars ) $val=trim($val);
 		if ( $magicquotes ) $val=stripslashes($val);
 		$array[$key]=$val;
 	}
-	
+
 	return $array;
 }
 
@@ -112,19 +114,19 @@ function get_http() {
 //Ordner
 function get_dir() {
 	$dir=dirname($_SERVER['PHP_SELF']).'/';
-	
+
 	//Relation zur Basis
 	if ( defined('BASEREL') ) {
 		$dir.=BASEREL;
 	}
-	
+
 	$dir=str_replace('\\','/',$dir);
 	$dir=preg_replace('#/{2,}#','/',$dir);
 	while( preg_match('#/[A-Za-z0-9%_-]+/\.\.#im',$dir) ) {
 		$dir=preg_replace('#/[A-Za-z0-9%_-]+/\.\.#im','',$dir);
 	}
 	$dir=str_replace('./','',$dir);
-	
+
 	return $dir;
 }
 
@@ -135,22 +137,22 @@ function get_dir() {
 //Modul-Informationen holen
 function get_modules() {
   global $db;
-  
+
   $data=$db->fetch("SELECT * FROM ".PRE."_modules WHERE active='1'");
-  
+
 	if ( count($data) ) {
 	  foreach ( $data AS $res ) {
   		$module=$action=$modset=array();
   		list($modulename)=$res;
-	  	
+
 	  	if ( !is_dir(BASEDIR.getmodulepath($modulename)) ) continue;
-  		
+
   		//Modul-INIT
 	  	require(BASEDIR.getmodulepath($modulename).'init.php');
   		$this->register_module($modulename,$module);
 	  	$this->register_actions($modulename,$action);
   		$this->register_functions($modulename,$func);
-  		
+
 	  	unset($module,$action,$func);
   	}
 	}
@@ -186,44 +188,44 @@ function register_functions($modulename,$info) {
 //Modul-Konfiguration auslesen
 function get_config() {
 	global $set,$db;
-	
+
 	$data=$db->fetch("SELECT * FROM ".PRE."_config");
 	if ( !count($data) ) return;
-	
+
 	foreach ( $data AS $res ) {
 		$modulename=$res['module'];
 		$varname=$res['varname'];
-		
+
 		//Switch
 		if ( $res['type']=='switch' ) {
 			$thevalue=iif($res['value'],1,0);
 		}
-		
+
 		//String
 		elseif ( $res['type']=='string' ) {
 			$thevalue=addslashes($res['value']);
 		}
-		
+
 		//Arrays
 		elseif ( $res['type']=='array' || $res['type']=='array_keys' ) {
 			$thevalue=unserialize($res['value']);
 			if ( !is_array($thevalue) ) $thevalue=array();
 		}
-		
+
 		//Integer
 		elseif ( $res['type']=='int' ) {
 			$thevalue=(int)$res['value'];
 		}
-		
+
 		//Float
 		elseif ( $res['type']=='float' ) {
 			$thevalue=(float)$res['value'];
 		}
-		
+
 		//Select
 		elseif ( $res['type']=='select' ) {
 			$possible=unserialize($res['addnl']);
-			
+
 			foreach ( $possible AS $value => $descr ) {
 				if ( $value==$res['value'] ) {
 				$thevalue=$value;
@@ -231,13 +233,13 @@ function get_config() {
 				}
 			}
 		}
-		
+
 		if ( !isset($thevalue) ) continue;
 		$set[$modulename][$varname]=$thevalue;
 		unset($thevalue);
 	}
-	
-	
+
+
 }
 
 
@@ -275,15 +277,15 @@ function do_sort_actions($a,$b) {
 //Sprachpakete registrieren
 function get_languages() {
 	global $set;
-	
+
 	$langinfo=&$set['main']['languages'];
 	if ( !is_array($langinfo) || !count($langinfo) ) die('no langpack registered!');
-	
+
 	foreach ( $langinfo AS $dir => $res ) {
 		if ( $res['default'] ) $this->language_default=$dir;
 		$this->languages[$dir]=$res['title'];
 	}
-	
+
 	if ( !isset($this->language_default) ) {
 		reset($this->languages);
 		list($key,$val)=each($this->languages);
@@ -300,12 +302,12 @@ function get_sections() {
 	global $db;
 	$data=$db->fetch("SELECT * FROM ".PRE."_sections ORDER BY title ASC",1);
 	if ( !count($data) ) return;
-	
+
 	foreach ( $data AS $res ) {
 		$this->sections[$res['id']]=$res;
 		if ( $res['default'] ) $this->section_default=$res['id'];
 	}
-	
+
 	if ( !$this->section_default ) {
 		reset($this->sections);
 		list($key,$val)=each($this->sections);
@@ -317,7 +319,7 @@ function get_sections() {
 //Aktuelle Sektion
 function section_id($id=false) {
 	if ( $id===false ) return $this->section['id'];
-	
+
 	$id=(int)$id;
 	$this->section=$this->sections[$id];
 }
