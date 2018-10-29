@@ -1,33 +1,39 @@
 README
 ======
 
-What is "Open Apexx"?
+Was ist "Open Apexx"?
 ---------------------
-apexx is a CMS written in PHP, which was originally created and distributed by Christian Scheb on http://www.stylemotion.de as a commercial software. Nearly 8 years after the first release the end of development has come and he decided to publish it under an open source license.
+apexx ist ein CM in PHP, das ursprünglich von Christian Scheb entwickelt und auf http://www.stylemotion.de als
+kommerzielle Software vertrieben wurde.
 
-The CMS is suitable for a wide range of website, e.g. a simple company page or a website for your club. The main focus is on websites driven by editorial content with a community around it.
+Fast 8 Jahre nach dem ursprünglichen Release wurde die Weiterentwicklung beendet und er entschied die Software unter
+einer Open-Source-Lizenz bereitzustellen.
 
-The system is only available in German language, but has support for localization.
+Das CMS eignet sich für unterschiedlichen Arten von Webseiten, z.B. einfache Firmen-Seite oder Vereins-Seiten. Am besten
+funktioniert Apexx für Seiten mit einem großen Anteil redaktioneller Inhalte, die darum herum eine Community-Platform
+betreiben möglichen.
 
-Requirements
-------------
+Das System ist nur auf Deutsch verfügbar, es besitzt jedoch Funktionen zur Lokalisierung.
 
-Please check requirements before you install the software:
+Systemanforderung
+-----------------
 
- * At least 25MB disc space
+Bitte prüfen Sie die Systemanforderungen, bevor Sie die Software installieren:
+
+ * 25MB Festplattenspeicher
  * PHP 4.3.0+
  * PHP Safe-Mode = OFF
- * PHP extension gd
- * PHP extension curl
- * PHP extension zip (optional)
+ * PHP Erweiterung gd
+ * PHP Erweiterung curl
+ * PHP Erweiterung zip (optional)
  * MySQL 4.0+
 
-Documentation
+Dokumentation
 -------------
 
-The original documentation can be found in the **doc** directory. 
+Die original Dokumentation befindet sich im **doc** Ordner. 
 
-Contributing
-------------
+Weiterentwickeln
+----------------
 
-If you want to contribute to this project, simply fork the repository and create a pull request.
+Wenn Sie dabei helfen möchten, Apexx weiterzuentwickeln, es werden Pull Requests akzeptiert.
