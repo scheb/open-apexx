@@ -28,6 +28,12 @@ Bitte prüfen Sie die Systemanforderungen, bevor Sie die Software installieren:
  * PHP Erweiterung zip (optional)
  * MySQL 4.0+
 
+Software aktualisieren
+----------------------
+
+Siehe [UPGRADE.md](UPGRADE.md).
+
+
 Dokumentation
 -------------
 
