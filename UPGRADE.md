@@ -25,7 +25,7 @@ Apexx aktualisieren
 
 Wenn die Seite PHP-Fehler vom Typ "Notice" oder "Warning" anzeigt, in die Config einfügen:
 ```php
-error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_USER_DEPRECATED);
+error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE ^ E_DEPRECATED ^ E_USER_DEPRECATED);
 ```
 
 Wenn die Sonderzeichen nicht richtig angezeigt werden, in die Config einfügen:
