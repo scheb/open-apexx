@@ -1,0 +1,23 @@
+<?php
+
+$rules = [
+    '@PSR1' => true,
+    '@PSR2' => true,
+    '@PhpCsFixer' => true,
+    'phpdoc_to_comment' => false,
+    'phpdoc_align' => false,
+];
+
+$finder = PhpCsFixer\Finder::create()
+    ->in([
+        __DIR__.'/src',
+        __DIR__.'/extra',
+    ])
+;
+
+return PhpCsFixer\Config::create()
+    ->setFinder($finder)
+    ->setRiskyAllowed(false)
+    ->setRules($rules)
+    ->setUsingCache(true)
+;
