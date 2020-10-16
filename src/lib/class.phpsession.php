@@ -1,19 +1,5 @@
 <?php 
 
-/***************************************************************\
-|                                                               |
-|                   apexx CMS & Portalsystem                    |
-|                 ============================                  |
-|             (c) Copyright 2005, Christian Scheb               |
-|                  http://www.stylemotion.de                    |
-|                                                               |
-|---------------------------------------------------------------|
-| DO NOT REMOVE ANY COPYRIGHTS WITHOUT PERMISSION!              |
-| SOFTWARE BELONGS TO ITS AUTHORS!                              |
-\***************************************************************/
-
-
-
 class session {
 	
 	var $varname;
