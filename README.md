@@ -3,7 +3,7 @@ README
 
 Was ist "Open Apexx"?
 ---------------------
-apexx ist ein CM in PHP, das ursprünglich von Christian Scheb entwickelt und auf http://www.stylemotion.de als
+apexx ist ein CMS in PHP, das ursprünglich von Christian Scheb entwickelt und auf http://www.stylemotion.de als
 kommerzielle Software vertrieben wurde.
 
 Fast 8 Jahre nach dem ursprünglichen Release wurde die Weiterentwicklung beendet und er entschied die Software unter
