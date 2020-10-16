@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_guestbook` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `userid` int(11) unsigned NOT NULL default '0',
@@ -50,57 +51,64 @@ if ( SETUPMODE=='install' ) {
 		('guestbook', 'mod', 'switch', '', '1', 'OPTIONS', 1241809127, 10000),
 		('guestbook', 'mailonnew', 'string', '', '', 'OPTIONS', 1241809127, 11000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
-
 
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_guestbook`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('guestbook', 'blockstring', 'array', 'BLOCK', 'a:0:{}', '0', '0');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('guestbook', 'captcha', 'switch', '', '0', '0', '1150');
 				INSERT INTO `apx_config` VALUES ('guestbook', 'mailonnew', 'string', '', '', '0', '1300');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.0.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = "
 				UPDATE `apx_config` SET varname = 'captcha' WHERE module = 'guestbook' AND varname = 'capcha';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_guestbook');
-			
-			//config Update
-			updateConfig('guestbook', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_guestbook');
+
+            //config Update
+            updateConfig('guestbook', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('guestbook', 'blockip', 'array', 'BLOCK', 'a:0:{}', '', 0, 0),
 				('guestbook', 'blockstring', 'array', 'BLOCK', 'a:0:{}', '', 0, 0),
@@ -121,15 +129,15 @@ elseif ( SETUPMODE=='update' ) {
 				('guestbook', 'mod', 'switch', '', '1', 'OPTIONS', 1241809127, 10000),
 				('guestbook', 'mailonnew', 'string', '', '', 'OPTIONS', 1241809127, 11000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				ALTER TABLE `apx_guestbook` CHANGE `ip` `ip` VARCHAR( 15 ) NOT NULL ;
 				
 				ALTER TABLE `apx_guestbook` ADD INDEX ( `active` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-	}
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
 }
-
-?>

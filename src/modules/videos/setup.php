@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_videos` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `secid` tinytext NOT NULL,
@@ -122,64 +123,68 @@ if ( SETUPMODE=='install' ) {
 		('videos', 'embed_width', 'int', '', '320', 'VIEW', '0', '6000'),
 		('videos', 'embed_height', 'int', '', '240', 'VIEW', '0', '7000');
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('videos');
-	$mm->createdir('flv','videos');
-	$mm->createdir('logs','videos');
-	$mm->createdir('pics','videos');
-	$mm->createdir('screens','videos');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('videos');
+    $mm->createdir('flv', 'videos');
+    $mm->createdir('logs', 'videos');
+    $mm->createdir('pics', 'videos');
+    $mm->createdir('screens', 'videos');
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_videos`;
 		DROP TABLE `apx_videos_cat`;
 		DROP TABLE `apx_videos_screens`;
 		DROP TABLE `apx_videos_stats`;
 		DROP TABLE `apx_videos_tags`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				ALTER TABLE `apx_videos` ADD `filesize` BIGINT UNSIGNED NOT NULL AFTER `file` ;
 				INSERT INTO `apx_config` VALUES ('videos', 'exttraffic', 'switch', '', '1', 'OPTIONS', 1251291273, 3500);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				UPDATE `apx_videos` SET downloads=hits, hits=0;
 				INSERT INTO `apx_config` VALUES ('videos', 'embed_width', 'int', '', '320', 'VIEW', '0', '6000');
 				INSERT INTO `apx_config` VALUES ('videos', 'embed_height', 'int', '', '240', 'VIEW', '0', '7000');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.0.3
-			$mysql="
-				ALTER TABLE `apx_videos` ADD `meta_description` TEXT NOT NULL AFTER `teaserpic` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-	}
-}
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
 
-?>
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = '
+				ALTER TABLE `apx_videos` ADD `meta_description` TEXT NOT NULL AFTER `teaserpic` ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
+}

@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 // MYSQL ///////////////////////////////////////////////////////////////////////////////////
 
@@ -28,8 +29,6 @@ $set['mysql_pre'] = 'apx';
 // Wird UTF8 als Zeichencodierung in der Datenbank verwenden?
 // (Standardmäßig auf false lassen, außer Sie wissen was Sie tun)
 $set['mysql_utf8'] = false;
-
-
 
 // MYSQL FORUM /////////////////////////////////////////////////////////////////////////////
 
@@ -74,16 +73,12 @@ $set['forum_cookiename_userid'] = 'bbuserid';
 $set['forum_cookiename_password'] = 'bbpassword';
 $set['forum_cookiename_session'] = 'bbsessionhash';
 
-
-
 // SESSION ///////////////////////////////////////////////////////////////////////////////////
 
 // Session-Management
 // Standardmäßig werden die Sessions von PHP verwaltet ("php"), sollte dies nicht problemlos
 // funktionieren, versuchen sie es mit der Einstellung "db"
 $set['session_api'] = 'php';
-
-
 
 // DEBUG ///////////////////////////////////////////////////////////////////////////////////
 
@@ -104,5 +99,3 @@ $set['rendertime'] = false;
 // 1 = durch HTML-Kommentare
 // 2 = sichtbare Rahmen
 $set['tmplwhois'] = 0;
-
-?>

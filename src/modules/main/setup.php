@@ -1,13 +1,14 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$crypt = random_string();
-	$mysql="
+if (SETUPMODE == 'install') {
+    $crypt = random_string();
+    $mysql = "
 		CREATE TABLE `apx_captcha` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `code` VARCHAR( 5 ) NOT NULL,
@@ -147,23 +148,23 @@ if ( SETUPMODE=='install' ) {
 		('main', 'keywords', 'switch', '', '0', 'SEO', 1247520057, 3000),
 		('main', 'keywords_separator', 'string', '', '_', 'SEO', 1247520057, 4000);
 	";
-	
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Temp-DIR
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('temp');
+
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Temp-DIR
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('temp');
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				CREATE TABLE `apx_capcha` (
 				  `id` int(11) unsigned NOT NULL auto_increment,
 				  `code` int(5) unsigned NOT NULL default '0',
@@ -173,28 +174,32 @@ elseif ( SETUPMODE=='update' ) {
 				) ENGINE=MyISAM ;
 				INSERT INTO `apx_config` VALUES ('main', 'textboxwidth', 'int', '', '', '0', '650');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			//Temp-DIR
-			require_once(BASEDIR.'lib/class.mediamanager.php');
-			$mm=new mediamanager;
-			$mm->createdir('temp');
-		
-		
-		case 102: //Zu 1.0.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            //Temp-DIR
+            require_once BASEDIR.'lib/class.mediamanager.php';
+            $mm = new mediamanager();
+            $mm->createdir('temp');
+
+            // no break
+        case 102: //Zu 1.0.3
+            $mysql = "
 				ALTER TABLE `apx_capcha` RENAME `apx_captcha` ;
 				DELETE FROM `apx_config` WHERE varname='capcha';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //Zu 1.0.4
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //Zu 1.0.4
+            $mysql = "
 				CREATE TABLE `apx_cron` (
 				  `funcname` varchar(50) NOT NULL default '',
 				  `module` varchar(50) NOT NULL default '',
@@ -207,43 +212,51 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_sections` ADD `lang` VARCHAR( 20 ) NOT NULL AFTER `theme`;
 				INSERT INTO `apx_config` VALUES ('main', 'tellcaptcha', 'switch', '', '1', '0', '1700');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 104: //Zu 1.0.5
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 104: //Zu 1.0.5
+            $mysql = '
 				CREATE TABLE `apx_snippets` (
 				  `id` int(11) unsigned NOT NULL auto_increment,
 				  `title` tinytext NOT NULL,
 				  `code` longtext NOT NULL,
 				  PRIMARY KEY  (`id`)
 				) ENGINE=MyISAM;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 105: //Zu 1.0.6
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 105: //Zu 1.0.6
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('main', 'staticsites_virtual', 'switch', 'BLOCK', '1', '0', '0');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 106: //Zu 1.0.7
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 106: //Zu 1.0.7
+            $mysql = "
 				INSERT INTO `apx_cron` VALUES ('optimize_database', 'main', 86400, 1190070000, '');
 				INSERT INTO `apx_cron` VALUES ('clear_cache', 'main', 86400, 1190070000, '');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 107: //Zu 1.1.0
-			$crypt = random_string();
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 107: //Zu 1.1.0
+            $crypt = random_string();
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('main', 'crypt', 'string', 'BLOCK', '{$crypt}', '0', '0');
 				CREATE TABLE `apx_search` (
 				  `searchid` varchar(32) NOT NULL,
@@ -254,21 +267,23 @@ elseif ( SETUPMODE=='update' ) {
 				  KEY `searchid` (`searchid`,`object`)
 				) ENGINE=MyISAM;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 110: //Zu 1.2.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_config');
-			clearIndices(PRE.'_captcha');
-			clearIndices(PRE.'_loginfailed');
-			clearIndices(PRE.'_search');
-			
-			//config Update
-			$db->query("ALTER TABLE ".PRE."_config ADD `tab` VARCHAR( 30 ) NOT NULL AFTER `value`");
-			updateConfig('main', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 110: //Zu 1.2.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_config');
+            clearIndices(PRE.'_captcha');
+            clearIndices(PRE.'_loginfailed');
+            clearIndices(PRE.'_search');
+
+            //config Update
+            $db->query('ALTER TABLE '.PRE.'_config ADD `tab` VARCHAR( 30 ) NOT NULL AFTER `value`');
+            updateConfig('main', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('main', 'languages', 'array', 'BLOCK', 'a:1:{s:2:\"de\";a:2:{s:5:\"title\";s:7:\"Deutsch\";s:7:\"default\";b:1;}}', '', 0, 0),
 				('main', 'smilies', 'array', 'BLOCK', 'a:22:{i:1;a:3:{s:4:\"code\";s:2:\":)\";s:4:\"file\";s:24:\"design/smilies/smile.gif\";s:11:\"description\";s:14:\"Normaler Smile\";}i:2;a:3:{s:4:\"code\";s:2:\"8)\";s:4:\"file\";s:23:\"design/smilies/cool.gif\";s:11:\"description\";s:13:\"Cooler Smilie\";}i:3;a:3:{s:4:\"code\";s:8:\"*wütend*\";s:4:\"file\";s:28:\"design/smilies/angryfire.gif\";s:11:\"description\";s:15:\"Wütender Smilie\";}i:4;a:3:{s:4:\"code\";s:5:\"*!!!*\";s:4:\"file\";s:25:\"design/smilies/ausruf.gif\";s:11:\"description\";s:14:\"Ausrufezeichen\";}i:5;a:3:{s:4:\"code\";s:2:\":D\";s:4:\"file\";s:26:\"design/smilies/biggrin.gif\";s:11:\"description\";s:15:\"Breites Grinsen\";}i:6;a:3:{s:4:\"code\";s:5:\"*gut*\";s:4:\"file\";s:30:\"design/smilies/biggthumpup.gif\";s:11:\"description\";s:9:\"Sehr gut!\";}i:7;a:3:{s:4:\"code\";s:10:\"*verwirrt*\";s:4:\"file\";s:27:\"design/smilies/confused.gif\";s:11:\"description\";s:17:\"Verwirrter Smilie\";}i:8;a:3:{s:4:\"code\";s:10:\"*verrückt*\";s:4:\"file\";s:24:\"design/smilies/crazy.gif\";s:11:\"description\";s:9:\"Verrückt!\";}i:9;a:3:{s:4:\"code\";s:5:\"*hmm*\";s:4:\"file\";s:24:\"design/smilies/dozey.gif\";s:11:\"description\";s:6:\"Hmm...\";}i:10;a:3:{s:4:\"code\";s:5:\"*eek*\";s:4:\"file\";s:22:\"design/smilies/eek.gif\";s:11:\"description\";s:6:\"Wooow!\";}i:11;a:3:{s:4:\"code\";s:6:\"*hmm2*\";s:4:\"file\";s:23:\"design/smilies/eek2.gif\";s:11:\"description\";s:6:\"Hmm...\";}i:12;a:3:{s:4:\"code\";s:5:\"*???*\";s:4:\"file\";s:24:\"design/smilies/frage.gif\";s:11:\"description\";s:12:\"Fragezeichen\";}i:13;a:3:{s:4:\"code\";s:2:\":(\";s:4:\"file\";s:24:\"design/smilies/frown.gif\";s:11:\"description\";s:16:\"Trauriger Smilie\";}i:14;a:3:{s:4:\"code\";s:2:\";(\";s:4:\"file\";s:23:\"design/smilies/heul.gif\";s:11:\"description\";s:16:\"Weinender Smilie\";}i:15;a:3:{s:4:\"code\";s:5:\"*lol*\";s:4:\"file\";s:24:\"design/smilies/laugh.gif\";s:11:\"description\";s:16:\"Lachender Smilie\";}i:16;a:3:{s:4:\"code\";s:6:\"*fies*\";s:4:\"file\";s:26:\"design/smilies/naughty.gif\";s:11:\"description\";s:13:\"Fieser Smilie\";}i:17;a:3:{s:4:\"code\";s:7:\"*angst*\";s:4:\"file\";s:24:\"design/smilies/sconf.gif\";s:11:\"description\";s:18:\"Ängstlicher Smilie\";}i:18;a:3:{s:4:\"code\";s:8:\"*schrei*\";s:4:\"file\";s:25:\"design/smilies/scream.gif\";s:11:\"description\";s:18:\"Schreiender Smilie\";}i:19;a:3:{s:4:\"code\";s:8:\"*autsch*\";s:4:\"file\";s:26:\"design/smilies/shinner.gif\";s:11:\"description\";s:11:\"Blaues Auge\";}i:20;a:3:{s:4:\"code\";s:2:\":P\";s:4:\"file\";s:25:\"design/smilies/tongue.gif\";s:11:\"description\";s:6:\"Ätsch!\";}i:21;a:3:{s:4:\"code\";s:5:\"*ugh*\";s:4:\"file\";s:22:\"design/smilies/ugh.gif\";s:11:\"description\";s:6:\"Ugh...\";}i:22;a:3:{s:4:\"code\";s:2:\";)\";s:4:\"file\";s:26:\"design/smilies/zwinker.gif\";s:11:\"description\";s:7:\"Zwinker\";}}', '', 0, 0),
@@ -300,8 +315,8 @@ elseif ( SETUPMODE=='update' ) {
 				('main', 'keywords', 'switch', '', '0', 'SEO', 1247520057, 3000),
 				('main', 'keywords_separator', 'string', '', '_', 'SEO', 1247520057, 4000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				CREATE TABLE IF NOT EXISTS `apx_sessions` (
 				  `id` varchar(32) NOT NULL,
 				  `ownerid` varchar(32) NOT NULL,
@@ -329,21 +344,25 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_config` ADD INDEX ( `tab` , `ord` ) ;
 				ALTER TABLE `apx_captcha` ADD INDEX ( `hash` ) ;
 				ALTER TABLE `apx_search` ADD INDEX ( `searchid` , `object` , `time` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 120: //Zu 1.2.1
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 120: //Zu 1.2.1
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('main', 'entermode', 'select', 'a:2:{s:2:\"br\";s:10:\"&lt;br&gt;\";s:1:\"p\";s:9:\"&lt;p&gt;\";}', 'p', 'OPTIONS', '0', '11000');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 121: //Zu 1.2.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 121: //Zu 1.2.2
+            $mysql = "
 				INSERT INTO `apx_config` VALUES
 				('main', 'tell', 'switch', '', '1', 'OPTIONS', '0', '7500'),
 				('main', 'old_captcha', 'switch', '', '0', 'OPTIONS', '0', '12000') ;
@@ -355,9 +374,9 @@ elseif ( SETUPMODE=='update' ) {
 				  `time` int(10) unsigned NOT NULL
 				) ENGINE=MyISAM ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-	}
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
 }
-
-?>

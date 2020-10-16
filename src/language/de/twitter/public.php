@@ -1,15 +1,11 @@
-<?php 
+<?php
 
-#
-# German Language Pack
-# ====================
-#
+//
+// German Language Pack
+// ====================
+//
 
-
-$lang['twitter'] = array(
-	'ALL' => 'Alle',
-	'MULTI' => 'Diverses'
-);
-
-
-?>
+$lang['twitter'] = [
+    'ALL' => 'Alle',
+    'MULTI' => 'Diverses',
+];

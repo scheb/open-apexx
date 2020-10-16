@@ -1,13 +1,9 @@
-<?php 
+<?php
 
-#
-# German Language Pack
-# ====================
-#
+//
+// German Language Pack
+// ====================
+//
 
-$lang[''] = array (
-
-);
-
-
-?>
+$lang[''] = [
+];

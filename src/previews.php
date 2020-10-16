@@ -1,9 +1,7 @@
-<?php 
+<?php
 
 //Type = Previews
-$arttype='preview';
+$arttype = 'preview';
 
 //Forward zu articles.php
-require('articles.php');
-
-?>
+require 'articles.php';

@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_comments` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `module` varchar(50) NOT NULL default '',
@@ -50,70 +51,78 @@ if ( SETUPMODE=='install' ) {
 		('comments', 'reportmail', 'string', '', '', 'OPTIONS', 1241811530, 12000),
 		('comments', 'mailonnew', 'string', '', '', 'OPTIONS', 1241811530, 13000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
-
 
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	
+elseif (SETUPMODE == 'uninstall') {
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('comments', 'blockip', 'array', 'BLOCK', 'a:0:{}', 0, 0);
 				INSERT INTO `apx_config` VALUES ('comments', 'blockstring', 'array', 'BLOCK', 'a:0:{}', '0', '0');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('comments', 'capcha', 'switch', '', '0', '0', '1550');
 				INSERT INTO `apx_config` VALUES ('comments', 'mailonnew', 'string', '', '', '0', '1250');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-		case 102: //zu 1.0.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = "
 				UPDATE `apx_config` SET varname = 'captcha' WHERE module = 'comments' AND varname = 'capcha';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-		case 103: //zu 1.0.4
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.0.4
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('comments', 'order', 'select', 'a:2:{i:0;s:10:\"{NEWFIRST}\";i:1;s:10:\"{OLDFIRST}\";}', '0', '0', '150');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //zu 1.0.4
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.0.4
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('comments', 'reportmail', 'string', '', '', '0', '1225');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-		case 105: //zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_comments');
-			
-			//config Update
-			updateConfig('comments', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 105: //zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_comments');
+
+            //config Update
+            updateConfig('comments', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('comments', 'blockip', 'array', 'BLOCK', 'a:0:{}', '', 0, 0),
 				('comments', 'blockstring', 'array', 'BLOCK', 'a:0:{}', '', 0, 0),
@@ -139,15 +148,13 @@ elseif ( SETUPMODE=='update' ) {
 				('comments', 'reportmail', 'string', '', '', 'OPTIONS', 1241811530, 12000),
 				('comments', 'mailonnew', 'string', '', '', 'OPTIONS', 1241811530, 13000);
 			");
-			
-			$mysql="
-				ALTER TABLE `apx_comments` ADD INDEX ( `module` , `mid` , `active` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-	}
-}
 
-?>
+            $mysql = '
+				ALTER TABLE `apx_comments` ADD INDEX ( `module` , `mid` , `active` ) ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
+}

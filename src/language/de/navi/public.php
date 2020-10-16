@@ -1,10 +1,6 @@
-<?php 
+<?php
 
-#
-# German Language Pack
-# ====================
-#
-
-
-
-?>
+//
+// German Language Pack
+// ====================
+//

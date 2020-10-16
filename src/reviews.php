@@ -1,9 +1,7 @@
-<?php 
+<?php
 
 //Type = Reviews
-$arttype='review';
+$arttype = 'review';
 
 //Forward zu articles.php
-require('articles.php');
-
-?>
+require 'articles.php';

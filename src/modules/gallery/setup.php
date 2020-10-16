@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_gallery` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `secid` tinytext NOT NULL,
@@ -84,82 +85,91 @@ if ( SETUPMODE=='install' ) {
 		('gallery', 'popup_addheight', 'int', '', '150', 'IMAGES', 1249816805, 13000),
 		('gallery', 'popup_resizeable', 'switch', '', '1', 'IMAGES', 1249816805, 14000);
 	";
-	
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('gallery');
-	$mm->createdir('uploads','gallery');
+
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('gallery');
+    $mm->createdir('uploads', 'gallery');
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_gallery`;
 		DROP TABLE `apx_gallery_pics`;
 		DROP TABLE `apx_gallery_tags`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				ALTER TABLE `apx_gallery` ADD `endtime` INT( 11 ) UNSIGNED NOT NULL AFTER `starttime`;
 				UPDATE `apx_gallery` SET endtime='3000000000' WHERE starttime!='0';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				INSERT INTO `apx_config` ( `module` , `varname` , `type` , `addnl` , `value` , `lastchange` , `ord` ) VALUES ('gallery', 'searchable', 'switch', '', '1', '0', '50');
 				ALTER TABLE `apx_gallery` ADD `searchable` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `endtime` ;
 				ALTER TABLE `apx_gallery` ADD `keywords` TINYTEXT NOT NULL AFTER `description` ;
 				UPDATE `apx_gallery` SET searchable='1';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.0.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = '
 				ALTER TABLE `apx_gallery` ADD `prodid` INT( 11 ) UNSIGNED NOT NULL AFTER `secid` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //zu 1.0.4
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.0.4
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('gallery', 'galcoms', 'switch', '', '0', '1152120685', '2050');
 				ALTER TABLE `apx_gallery` ADD `allowcoms` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `searchable` ;
 				UPDATE `apx_gallery` SET allowcoms=1;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 104: //zu 1.0.4
-		
-			//Indizes entfernen
-			clearIndices(PRE.'_gallery');
-			clearIndices(PRE.'_gallery_pics');
-			
-			//Tabellenformat ändern
-			convertRecursiveTable(PRE.'_gallery');
-			
-			//config Update
-			updateConfig('gallery', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 104: //zu 1.0.4
+
+            //Indizes entfernen
+            clearIndices(PRE.'_gallery');
+            clearIndices(PRE.'_gallery_pics');
+
+            //Tabellenformat ändern
+            convertRecursiveTable(PRE.'_gallery');
+
+            //config Update
+            updateConfig('gallery', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('gallery', 'potw_time', 'int', 'BLOCK', '1249981414', '', 0, 0),
 				
@@ -190,8 +200,8 @@ elseif ( SETUPMODE=='update' ) {
 				('gallery', 'popup_addheight', 'int', '', '150', 'IMAGES', 1249816805, 13000),
 				('gallery', 'popup_resizeable', 'switch', '', '1', 'IMAGES', 1249816805, 14000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				CREATE TABLE `apx_gallery_tags` (
 					`id` INT( 11 ) UNSIGNED NOT NULL ,
 					`tagid` INT( 11 ) UNSIGNED NOT NULL ,
@@ -204,31 +214,33 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_gallery` ADD INDEX ( `starttime` , `endtime` , `parents` ) ;
 				ALTER TABLE `apx_gallery_pics` ADD INDEX ( `galid`, `active` ) ;
 				ALTER TABLE `apx_gallery_pics` ADD INDEX ( `active` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Tags erzeugen
-			transformKeywords(PRE.'_gallery', PRE.'_gallery_tags');
-		
-		
-		case 110: //zu 1.1.1
-			$mysql="
-				ALTER TABLE `apx_gallery` ADD `meta_description` TEXT NOT NULL AFTER `description` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 111: //zu 1.1.2
-			$mysql="
-				ALTER TABLE `apx_gallery` ADD `lastupdate` INT( 10 ) UNSIGNED NOT NULL AFTER `endtime` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-	}
-}
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
 
-?>
+            //Tags erzeugen
+            transformKeywords(PRE.'_gallery', PRE.'_gallery_tags');
+
+            // no break
+        case 110: //zu 1.1.1
+            $mysql = '
+				ALTER TABLE `apx_gallery` ADD `meta_description` TEXT NOT NULL AFTER `description` ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 111: //zu 1.1.2
+            $mysql = '
+				ALTER TABLE `apx_gallery` ADD `lastupdate` INT( 10 ) UNSIGNED NOT NULL AFTER `endtime` ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
+}

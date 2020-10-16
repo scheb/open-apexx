@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_calendar_cat` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `title` tinytext NOT NULL,
@@ -87,35 +88,36 @@ if ( SETUPMODE=='install' ) {
 		('calendar', 'pic_popup_height', 'int', '', '480', 'IMAGES', 1219685244, 5000),
 		('calendar', 'pic_quality', 'switch', '', '1', 'IMAGES', 1219685244, 6000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Bilder-Ordner
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('calendar');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Bilder-Ordner
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('calendar');
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_calendar_cat`;
 		DROP TABLE `apx_calendar_events`;
 		DROP TABLE `apx_calendar_parts`;
 		DROP TABLE `apx_calendar_tags`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-	
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				ALTER TABLE `apx_calendar_events` ADD `location` TINYTEXT NOT NULL AFTER `text` ;
 				ALTER TABLE `apx_calendar_events` ADD `send_username` TINYTEXT NOT NULL AFTER `userid` , ADD `send_email` TINYTEXT NOT NULL AFTER `send_username` , ADD `send_ip` TINYTEXT NOT NULL AFTER `send_email` ;
 				ALTER TABLE `apx_calendar_events` ADD `secid` TINYTEXT NOT NULL AFTER `id` ;
@@ -127,41 +129,45 @@ elseif ( SETUPMODE=='update' ) {
 				INSERT INTO `apx_config` VALUES ('calendar', 'sortby', 'select', 'a:2:{i:1;s:13:\"{SORTBY_TIME}\";i:2;s:14:\"{SORTBY_TITLE}\";}', '1', '0', '250');
 				INSERT INTO `apx_config` VALUES ('calendar', 'captcha', 'switch', '', '1', '0', '1050');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//LFT und RGT anpassen
-			$lft = 1;
-			$data = $db->fetch("SELECT id FROM ".PRE."_calendar_cat ORDER BY title ASC");
-			if ( count($data) ) {
-				foreach ( $data AS $res ) {
-					$db->query("UPDATE ".PRE."_calendar_cat SET lft='".$lft."', rgt='".($lft+1)."' WHERE id='".$res['id']."' LIMIT 1");
-					$lft += 2;
-				}
-			}
-			
-			
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //LFT und RGT anpassen
+            $lft = 1;
+            $data = $db->fetch('SELECT id FROM '.PRE.'_calendar_cat ORDER BY title ASC');
+            if (count($data)) {
+                foreach ($data as $res) {
+                    $db->query('UPDATE '.PRE."_calendar_cat SET lft='".$lft."', rgt='".($lft + 1)."' WHERE id='".$res['id']."' LIMIT 1");
+                    $lft += 2;
+                }
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('calendar', 'searchepp', 'int', '', '20', '0', '150');
 				ALTER TABLE `apx_calendar_events` ADD `location_link` TINYTEXT NOT NULL AFTER `location` ;
 				ALTER TABLE `apx_calendar_events` ADD `links` TEXT NOT NULL AFTER `galid` ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_calendar_cat');
-			clearIndices(PRE.'_calendar_events');
-			
-			//Tabellenformat ändern
-			convertRecursiveTable(PRE.'_calendar_cat');
-			
-			//config Update
-			updateConfig('calendar', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_calendar_cat');
+            clearIndices(PRE.'_calendar_events');
+
+            //Tabellenformat ändern
+            convertRecursiveTable(PRE.'_calendar_cat');
+
+            //config Update
+            updateConfig('calendar', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('calendar', 'eventdays', 'int', '', '7', 'VIEW', 1219685244, 1000),
 				('calendar', 'searchepp', 'int', '', '20', 'VIEW', 1219685244, 2000),
@@ -182,8 +188,8 @@ elseif ( SETUPMODE=='update' ) {
 				('calendar', 'pic_popup_height', 'int', '', '480', 'IMAGES', 1219685244, 5000),
 				('calendar', 'pic_quality', 'switch', '', '1', 'IMAGES', 1219685244, 6000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				CREATE TABLE `apx_calendar_tags` (
 					`id` INT( 11 ) UNSIGNED NOT NULL ,
 					`tagid` INT( 11 ) UNSIGNED NOT NULL ,
@@ -197,38 +203,43 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_calendar_events` ADD INDEX ( `userid` ) ;
 				ALTER TABLE `apx_calendar_events` ADD INDEX ( `active` ) ;
 				ALTER TABLE `apx_calendar_events` ADD INDEX ( `startday` , `endday`, `starttime`,`endtime` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Tags erzeugen
-			transformKeywords(PRE.'_calendar_events', PRE.'_calendar_tags');
-		
-		
-		case 110: //zu 1.1.1
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Tags erzeugen
+            transformKeywords(PRE.'_calendar_events', PRE.'_calendar_tags');
+
+            // no break
+        case 110: //zu 1.1.1
+            $mysql = '
 				ALTER TABLE `apx_calendar_events` CHANGE `active` `active` INT( 11 ) UNSIGNED NOT NULL ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 111: //zu 1.1.2
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 111: //zu 1.1.2
+            $mysql = '
 				ALTER TABLE `apx_calendar_events` ADD `meta_description` TEXT NOT NULL AFTER `text` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 112: //zu 1.1.3
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 112: //zu 1.1.3
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('calendar', 'start', 'select', 'a:3:{s:3:\"day\";s:11:\"{START_DAY}\";s:4:\"week\";s:12:\"{START_WEEK}\";s:5:\"month\";s:13:\"{START_MONTH}\";}', 'month', 'VIEW', '0', '4000');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-	}
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
 }
-
-?>

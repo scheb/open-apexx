@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_links` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `secid` tinytext NOT NULL,
@@ -78,61 +79,66 @@ if ( SETUPMODE=='install' ) {
 		('links', 'linkpic_popup_height', 'int', '', '480', 'IMAGES', 1249981968, 5000),
 		('links', 'linkpic_quality', 'switch', '', '1', 'IMAGES', 1249981968, 6000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Links-DIR
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('links');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Links-DIR
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('links');
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_links`;
 		DROP TABLE `apx_links_cat`;
 		DROP TABLE `apx_links_tags`;
-	";
-	
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //Zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //Zu 1.0.1
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('links', 'mailonnew', 'string', '', '', 0, 1800);
 				INSERT INTO `apx_config` VALUES ('links', 'captcha', 'switch', '', '0', 0, 1350);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //Zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //Zu 1.0.2
+            $mysql = '
 				ALTER TABLE `apx_links` ADD `broken` INT( 11 ) UNSIGNED NOT NULL AFTER `endtime` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //Zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_links');
-			clearIndices(PRE.'_links_cat');
-			
-			//Tabellenformat ändern
-			convertRecursiveTable(PRE.'_links_cat');
-			
-			//config Update
-			updateConfig('links', "
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //Zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_links');
+            clearIndices(PRE.'_links_cat');
+
+            //Tabellenformat ändern
+            convertRecursiveTable(PRE.'_links_cat');
+
+            //config Update
+            updateConfig('links', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('links', 'epp', 'int', '', '20', 'VIEW', 1249981968, 1000),
 				('links', 'searchepp', 'string', '', '20', 'VIEW', 1249981881, 2000),
@@ -155,8 +161,8 @@ elseif ( SETUPMODE=='update' ) {
 				('links', 'linkpic_popup_height', 'int', '', '480', 'IMAGES', 1249981968, 5000),
 				('links', 'linkpic_quality', 'switch', '', '1', 'IMAGES', 1249981968, 6000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				CREATE TABLE `apx_links_tags` (
 					`id` INT( 11 ) UNSIGNED NOT NULL ,
 					`tagid` INT( 11 ) UNSIGNED NOT NULL ,
@@ -169,23 +175,23 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_links` ADD INDEX ( `userid` ) ;
 				ALTER TABLE `apx_links` ADD INDEX ( `starttime` , `endtime` ) ;
 				ALTER TABLE `apx_links_cat` ADD INDEX ( `parents` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Tags erzeugen
-			transformKeywords(PRE.'_links', PRE.'_links_tags');
-		
-		
-		case 110: //Zu 1.1.1
-			$mysql="
-				ALTER TABLE `apx_links` ADD `meta_description` TEXT NOT NULL AFTER `text` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-	}
-}
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
 
-?>
+            //Tags erzeugen
+            transformKeywords(PRE.'_links', PRE.'_links_tags');
+
+            // no break
+        case 110: //Zu 1.1.1
+            $mysql = '
+				ALTER TABLE `apx_links` ADD `meta_description` TEXT NOT NULL AFTER `text` ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
+}

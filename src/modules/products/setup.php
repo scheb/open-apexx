@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_products` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `prodid` int(11) unsigned NOT NULL,
@@ -150,36 +151,37 @@ if ( SETUPMODE=='install' ) {
 		('products', 'pic_popup_height', 'int', '', '480', 'IMAGES', 1220200390, 5000),
 		('products', 'pic_quality', 'switch', '', '1', 'IMAGES', 1220200390, 6000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Products-DIR
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('products');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Products-DIR
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('products');
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_products`;
 		DROP TABLE `apx_products_groups`;
 		DROP TABLE `apx_products_releases`;
 		DROP TABLE `apx_products_tags`;
 		DROP TABLE `apx_products_units`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				ALTER TABLE `apx_products` ADD `custom1` TINYTEXT NOT NULL AFTER `length` ,ADD `custom2` TINYTEXT NOT NULL AFTER `custom1` ,ADD `custom3` TINYTEXT NOT NULL AFTER `custom2` ,ADD `custom4` TINYTEXT NOT NULL AFTER `custom3` ,ADD `custom5` TINYTEXT NOT NULL AFTER `custom4` ,ADD `custom6` TINYTEXT NOT NULL AFTER `custom5` ,ADD `custom7` TINYTEXT NOT NULL AFTER `custom6` ,ADD `custom8` TINYTEXT NOT NULL AFTER `custom7` ,ADD `custom9` TINYTEXT NOT NULL AFTER `custom8` ,ADD `custom10` TINYTEXT NOT NULL AFTER `custom9` ;
 				INSERT INTO `apx_config` VALUES ('products', 'custom_normal', 'array', '', 'a:0:{}', '0', '820');
 				INSERT INTO `apx_config` VALUES ('products', 'custom_game', 'array', '', 'a:0:{}', '0', '830');
@@ -187,30 +189,36 @@ elseif ( SETUPMODE=='update' ) {
 				INSERT INTO `apx_config` VALUES ('products', 'custom_movie', 'array', '', 'a:0:{}', '0', '850');
 				INSERT INTO `apx_config` VALUES ('products', 'custom_book', 'array', '', 'a:0:{}', '0', '860');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = '
 				ALTER TABLE `apx_products` ADD `keywords` TINYTEXT NOT NULL AFTER `picture` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.0.3
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = '
 				ALTER TABLE `apx_products` ADD `active` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `addtime` ;
 				ALTER TABLE `apx_products` ADD INDEX ( `active` ) ;
 				UPDATE `apx_products` SET active =1;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //zu 1.0.4
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.0.4
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('products', 'sortby', 'select', 'a:2:{i:1;s:7:\"{TITLE}\";i:0;s:9:\"{RELEASE}\";}', '1', '0', '235');
 				INSERT INTO `apx_config` VALUES ('products', 'manu_epp', 'int', '', '20', '0', '265');
 				INSERT INTO `apx_config` VALUES ('products', 'custom_software', 'array', '', 'a:0:{}', '0', '833');
@@ -229,49 +237,55 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_products_units` ADD `fullname` TINYTEXT NOT NULL AFTER `title` ,ADD `picture` TINYTEXT NOT NULL AFTER `fullname` ,ADD `address` TINYTEXT NOT NULL AFTER `picture` ,ADD `email` TINYTEXT NOT NULL AFTER `address` ,ADD `phone` TINYTEXT NOT NULL AFTER `email` ;
 				ALTER TABLE `apx_products_units` ADD `founder` TINYTEXT NOT NULL AFTER `website` ,ADD `founding_year` TINYTEXT NOT NULL AFTER `founder` ,ADD `founding_country` TINYTEXT NOT NULL AFTER `founding_year` ,ADD `legalform` TINYTEXT NOT NULL AFTER `founding_country` ,ADD `headquaters` TINYTEXT NOT NULL AFTER `legalform` ,ADD `executive` TINYTEXT NOT NULL AFTER `headquaters` ,ADD `employees` TINYTEXT NOT NULL AFTER `executive` ,ADD `turnover` TINYTEXT NOT NULL AFTER `employees` ,ADD `sector` TINYTEXT NOT NULL AFTER `turnover` ,ADD `products` TINYTEXT NOT NULL AFTER `sector` ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 104: //zu 1.0.5
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 104: //zu 1.0.5
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('products', 'manuprod_epp', 'int', '', '20', '0', '275');
 				INSERT INTO `apx_config` VALUES ('products', 'filtermanu', 'switch', '', '1', 0, 1100);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Text-Feld erzeugen, falls nicht vorhanden
-			$textfound = false;
-			$data = $db->fetch("SHOW COLUMNS FROM ".PRE."_products_units");
-			foreach ( $data AS $res ) {
-				if ( $res['Field']=='text' ) {
-					$textfound = true;
-				}
-			}
-			if ( !$textfound ) {
-				$db->query("ALTER TABLE ".PRE."_products_units ADD `text` TEXT NOT NULL AFTER `title`");
-			}
-		
-		
-		case 105: //zu 1.0.6
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Text-Feld erzeugen, falls nicht vorhanden
+            $textfound = false;
+            $data = $db->fetch('SHOW COLUMNS FROM '.PRE.'_products_units');
+            foreach ($data as $res) {
+                if ('text' == $res['Field']) {
+                    $textfound = true;
+                }
+            }
+            if (!$textfound) {
+                $db->query('ALTER TABLE '.PRE.'_products_units ADD `text` TEXT NOT NULL AFTER `title`');
+            }
+
+            // no break
+        case 105: //zu 1.0.6
+            $mysql = '
 				ALTER TABLE `apx_products` ADD `hits` INT( 11 ) UNSIGNED NOT NULL AFTER `addtime` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 106: //zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_products');
-			clearIndices(PRE.'_products_groups');
-			clearIndices(PRE.'_products_releases');
-			clearIndices(PRE.'_products_units');
-			
-			//config Update
-			updateConfig('products', "
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 106: //zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_products');
+            clearIndices(PRE.'_products_groups');
+            clearIndices(PRE.'_products_releases');
+            clearIndices(PRE.'_products_units');
+
+            //config Update
+            updateConfig('products', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('products', 'epp', 'int', '', '20', 'VIEW', 1220200389, 1000),
 				('products', 'manu_epp', 'int', '', '20', 'VIEW', 1220200389, 2000),
@@ -308,8 +322,8 @@ elseif ( SETUPMODE=='update' ) {
 				('products', 'teaserpic_popup_height', 'int', '', '480', 'IMAGES', 1220200390, 11000),
 				('products', 'teaserpic_quality', 'switch', '', '1', 'IMAGES', 1220200390, 12000);
 			");
-			
-			$mysql="
+
+            $mysql = "
 				CREATE TABLE `apx_products_tags` (
 					`id` INT( 11 ) UNSIGNED NOT NULL ,
 					`tagid` INT( 11 ) UNSIGNED NOT NULL ,
@@ -327,33 +341,35 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_products_releases` ADD INDEX ( `stamp` ) ;
 				ALTER TABLE `apx_products_units` ADD INDEX ( `type` ) ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Media anpassen
-			$data = $db->fetch("SELECT id, type, media, systems FROM ".PRE."_products");
-			if ( count($data) ) {
-				foreach ( $data AS $res ) {
-					$db->query("UPDATE ".PRE."_products SET media='|".$res['media']."|', systems='".dash_serialize(unserialize($res['media']))."' WHERE id='".$res['id']."' LIMIT 1");
-					if ( in_array($res['type'], array('software', 'book', 'music')) ) {
-						$db->query("UPDATE ".PRE."_products_releases SET system='".$res['media']."' WHERE prodid='".$res['id']."'");
-					}
-				}
-			}
-			
-			//Tags erzeugen
-			transformKeywords(PRE.'_products', PRE.'_products_tags');
-			
-		
-		case 110: //zu 1.1.1
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_products');
-			clearIndices(PRE.'_products_groups');
-			clearIndices(PRE.'_products_releases');
-			clearIndices(PRE.'_products_units');
-			
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Media anpassen
+            $data = $db->fetch('SELECT id, type, media, systems FROM '.PRE.'_products');
+            if (count($data)) {
+                foreach ($data as $res) {
+                    $db->query('UPDATE '.PRE."_products SET media='|".$res['media']."|', systems='".dash_serialize(unserialize($res['media']))."' WHERE id='".$res['id']."' LIMIT 1");
+                    if (in_array($res['type'], ['software', 'book', 'music'])) {
+                        $db->query('UPDATE '.PRE."_products_releases SET system='".$res['media']."' WHERE prodid='".$res['id']."'");
+                    }
+                }
+            }
+
+            //Tags erzeugen
+            transformKeywords(PRE.'_products', PRE.'_products_tags');
+
+            // no break
+        case 110: //zu 1.1.1
+
+            //Indizes entfernen
+            clearIndices(PRE.'_products');
+            clearIndices(PRE.'_products_groups');
+            clearIndices(PRE.'_products_releases');
+            clearIndices(PRE.'_products_units');
+
+            $mysql = '
 				ALTER TABLE `apx_products` ADD `restricted` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `allowrating` ;
 				
 				ALTER TABLE `apx_products` ADD INDEX ( `type` ) ;
@@ -363,55 +379,64 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_products_releases` ADD INDEX ( `prodid` ) ;
 				ALTER TABLE `apx_products_releases` ADD INDEX ( `stamp` ) ;
 				ALTER TABLE `apx_products_units` ADD INDEX ( `type` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 111: //zu 1.1.2
-			
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 111: //zu 1.1.2
+
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('products', 'manu_searchepp', 'int', '', '20', 'VIEW', '0', '2500');
 				INSERT INTO `apx_config` VALUES ('products', 'searchepp', 'int', '', '20', 'VIEW', '0', '3500');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-		case 112: //zu 1.1.3
-			require_once(dirname(__FILE__).'/setup_funcs.php');
-			
-			$data = $db->fetch("
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 112: //zu 1.1.3
+            require_once dirname(__FILE__).'/setup_funcs.php';
+
+            $data = $db->fetch('
 				SELECT ord, data
-				FROM ".PRE."_products_releases
-			");
-			foreach ( $data AS $res ) {
-				list($trash, $stamp) = generate_release(unserialize($res['data']));
-				$db->query("
-					UPDATE ".PRE."_products_releases
+				FROM '.PRE.'_products_releases
+			');
+            foreach ($data as $res) {
+                list($trash, $stamp) = generate_release(unserialize($res['data']));
+                $db->query('
+					UPDATE '.PRE."_products_releases
 					SET stamp='".$stamp."'
 					WHERE ord='".$res['ord']."'
 				");
-			}
-			
-			$mysql="
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-	
-	
-		case 113: //zu 1.1.4
-			
-			$mysql="
+            }
+
+            $mysql = '
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 113: //zu 1.1.4
+
+            $mysql = '
 				ALTER TABLE `apx_products` ADD `meta_description` TEXT NOT NULL AFTER `website` ;
 				ALTER TABLE `apx_products_units` ADD `meta_description` TEXT NOT NULL AFTER `text` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-	
-		case 114: //zu 1.1.5
-			
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 114: //zu 1.1.5
+
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('products', 'collection', 'switch', '', '1', 'OPTIONS', '0', '5000');
 				
 				CREATE TABLE `apx_products_coll` (
@@ -420,31 +445,38 @@ elseif ( SETUPMODE=='update' ) {
 					PRIMARY KEY ( `userid` , `prodid` )
 				) ENGINE = MYISAM ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 115: //zu 1.1.6
-			
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 115: //zu 1.1.6
+
+            $mysql = "
 				ALTER TABLE `apx_products` CHANGE `sk` `sk` ENUM( '', 'all', 'none', '6', '12', '16', '18' ) NOT NULL DEFAULT '';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 116: //zu 1.1.7
-			
-			//Option hinzufügen, falls Neuinstallation und die Option nicht eingefügt wurde
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 116: //zu 1.1.7
+
+            //Option hinzufügen, falls Neuinstallation und die Option nicht eingefügt wurde
+            $mysql = "
 				INSERT IGNORE INTO `apx_config` VALUES ('products', 'collection', 'switch', '', '1', 'OPTIONS', '0', '5000');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		case 117: //zu 1.1.8
-			
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 117: //zu 1.1.8
+
+            $mysql = "
 				ALTER TABLE `apx_products` ADD `teaserpic` TINYTEXT NOT NULL AFTER `picture` ;
 				ALTER TABLE `apx_products` ADD `top` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `restricted` ;
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
@@ -455,13 +487,9 @@ elseif ( SETUPMODE=='update' ) {
 				('products', 'teaserpic_popup_height', 'int', '', '480', 'IMAGES', 1220200390, 11000),
 				('products', 'teaserpic_quality', 'switch', '', '1', 'IMAGES', 1220200390, 12000);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-			
-			
-	}
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
 }
-
-?>

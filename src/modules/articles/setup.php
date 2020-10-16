@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_articles` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `type` enum('normal','preview','review') NOT NULL default 'normal',
@@ -157,58 +158,63 @@ if ( SETUPMODE=='install' ) {
 		('articles', 'popup_resizeable', 'switch', '', '1', 'IMAGES', 1165596044, 15000),
 		('articles', 'artpic_quality', 'switch', '', '1', 'IMAGES', 1165596044, 16000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Order Artikelbilder + Bilder
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('articles');
-	$mm->createdir('gallery','articles');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Order Artikelbilder + Bilder
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('articles');
+    $mm->createdir('gallery', 'articles');
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_articles`;
 		DROP TABLE `apx_articles_cat`;
 		DROP TABLE `apx_articles_pages`;
 		DROP TABLE `apx_articles_previews`;
 		DROP TABLE `apx_articles_reviews`;
 		DROP TABLE `apx_articles_tags`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				ALTER TABLE `apx_articles` ADD `galid` INT( 11 ) UNSIGNED NOT NULL AFTER `teaser` ;
 				INSERT INTO `apx_config` VALUES ('articles', 'subcats', 'switch', '', '1', '0', '150');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				INSERT INTO `apx_config` ( `module` , `varname` , `type` , `addnl` , `value` , `lastchange` , `ord` ) VALUES ('articles', 'searchable', 'switch', '', '1', '0', '50');
 				ALTER TABLE `apx_articles` ADD `searchable` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `sticky` ;
 				ALTER TABLE `apx_articles` ADD `keywords` TINYTEXT NOT NULL AFTER `teaser` ;
 				UPDATE `apx_articles` SET searchable='1';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.1.0
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.1.0
+            $mysql = "
 				CREATE TABLE `apx_articles_previews` (
 				  `artid` int(11) unsigned NOT NULL default '0',
 				  `custom1` tinytext NOT NULL,
@@ -279,59 +285,69 @@ elseif ( SETUPMODE=='update' ) {
 				INSERT INTO `apx_config` VALUES ('articles', 'previews_conclusionpage', 'switch', '', '1', '0', '2025');
 				INSERT INTO `apx_config` VALUES ('articles', 'normalonly', 'switch', '', '1', '0', '2050');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			require_once(BASEDIR.'lib/class.mediamanager.php');
-			$mm=new mediamanager;
-			$mm->createdir('gallery','articles');
-		
-		
-		case 110: //zu 1.1.1
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            require_once BASEDIR.'lib/class.mediamanager.php';
+            $mm = new mediamanager();
+            $mm->createdir('gallery', 'articles');
+
+            // no break
+        case 110: //zu 1.1.1
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('articles', 'searchepp', 'int', '', '10', '0', '2800');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 111: //zu 1.1.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 111: //zu 1.1.2
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('articles', 'archiveentrysort', 'select', 'a:2:{i:1;s:10:\"{NEWFIRST}\";i:2;s:10:\"{OLDFIRST}\";}', '1', 1144936997, 2750);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 112: //zu 1.1.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 112: //zu 1.1.3
+            $mysql = '
 				ALTER TABLE `apx_articles` ADD `prodid` INT( 11 ) UNSIGNED NOT NULL AFTER `secid` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 113: //zu 1.1.4
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 113: //zu 1.1.4
+            $mysql = "
 				ALTER TABLE `apx_articles` CHANGE `sticky` `sticky` INT( 11 ) UNSIGNED NOT NULL DEFAULT '0' ;
 				UPDATE `apx_articles` SET sticky='3000000000' WHERE sticky=1;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 114: //zu 1.2.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_articles');
-			clearIndices(PRE.'_articles_cat');
-			clearIndices(PRE.'_articles_pages');
-			
-			//Tabellenformat ändern
-			convertRecursiveTable(PRE.'_articles_cat');
-			
-			//config Update
-			updateConfig('articles', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 114: //zu 1.2.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_articles');
+            clearIndices(PRE.'_articles_cat');
+            clearIndices(PRE.'_articles_pages');
+
+            //Tabellenformat ändern
+            convertRecursiveTable(PRE.'_articles_cat');
+
+            //config Update
+            updateConfig('articles', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('articles', 'epp', 'int', '', '10', 'VIEW', 1165596044, 1000),
 				('articles', 'searchepp', 'int', '', '10', 'VIEW', 1165596044, 2000),
@@ -373,8 +389,8 @@ elseif ( SETUPMODE=='update' ) {
 				('articles', 'popup_resizeable', 'switch', '', '1', 'IMAGES', 1165596044, 15000),
 				('articles', 'artpic_quality', 'switch', '', '1', 'IMAGES', 1165596044, 16000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				CREATE TABLE `apx_articles_tags` (
 					`id` INT( 11 ) UNSIGNED NOT NULL ,
 					`tagid` INT( 11 ) UNSIGNED NOT NULL ,
@@ -388,23 +404,23 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_articles` ADD INDEX (`starttime`,`endtime`) ;
 				ALTER TABLE `apx_articles_cat` ADD INDEX ( `parents` ) ;
 				ALTER TABLE `apx_articles_pages` ADD INDEX ( `artid` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Tags erzeugen
-			transformKeywords(PRE.'_articles', PRE.'_articles_tags');
-		
-		
-		case 120: //zu 1.2.1
-			$mysql="
-				ALTER TABLE `apx_articles` ADD `meta_description` TEXT NOT NULL AFTER `teaser` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-	}
-}
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
 
-?>
+            //Tags erzeugen
+            transformKeywords(PRE.'_articles', PRE.'_articles_tags');
+
+            // no break
+        case 120: //zu 1.2.1
+            $mysql = '
+				ALTER TABLE `apx_articles` ADD `meta_description` TEXT NOT NULL AFTER `teaser` ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
+}

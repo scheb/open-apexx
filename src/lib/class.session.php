@@ -1,16 +1,10 @@
-<?php 
-
+<?php
 
 global $set;
 
-
 //API-Version wählen
-if ( $set['session_api']=='db' ) {
-	require(BASEDIR.'lib/class.dbsession.php');
+if ('db' == $set['session_api']) {
+    require BASEDIR.'lib/class.dbsession.php';
+} else {
+    require BASEDIR.'lib/class.phpsession.php';
 }
-else {
-	require(BASEDIR.'lib/class.phpsession.php');
-}
-
-
-?>

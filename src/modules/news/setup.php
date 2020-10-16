@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_news` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `secid` tinytext NOT NULL,
@@ -92,113 +93,128 @@ if ( SETUPMODE=='install' ) {
 		('news', 'newspic_popup_height', 'int', '', '480', 'IMAGES', 1249584889, 5000),
 		('news', 'newspic_quality', 'switch', '', '1', 'IMAGES', 1249584889, 6000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Newsbilder-Ordner
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('news');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Newsbilder-Ordner
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('news');
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_news`;
 		DROP TABLE `apx_news_cat`;
 		DROP TABLE `apx_news_tags`;
 		DROP TABLE `apx_news_sources`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				ALTER TABLE `apx_news` ADD `galid` INT( 11 ) UNSIGNED NOT NULL AFTER `text` ;
 				INSERT INTO `apx_config` VALUES ('news', 'subcats', 'switch', '', '1', '0', '150');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('news', 'searchable', 'switch', '', '1', '0', '50');
 				INSERT INTO `apx_config` VALUES ('news', 'mailonnew', 'string', '', '', '0', '1800');
 				ALTER TABLE `apx_news` ADD `searchable` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `sticky` ;
 				ALTER TABLE `apx_news` ADD `keywords` TINYTEXT NOT NULL AFTER `text` ;
 				UPDATE `apx_news` SET searchable='1';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.0.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('news', 'captcha', 'switch', '', '0', 0, 1650);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //zu 1.0.4
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.0.4
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('news', 'searchepp', 'int', '', '10', '0', '1630');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 104: //zu 1.0.5
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 104: //zu 1.0.5
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('news', 'archiveentrysort', 'select', 'a:2:{i:1;s:10:\"{NEWFIRST}\";i:2;s:10:\"{OLDFIRST}\";}', '1', 1144936997, 1625);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 105: //zu 1.0.6
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 105: //zu 1.0.6
+            $mysql = '
 				ALTER TABLE `apx_news` ADD `prodid` INT( 11 ) UNSIGNED NOT NULL AFTER `secid` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 106: //zu 1.0.7
-			list($check)=$db->first("SELECT varname FROM ".PRE."_config WHERE module='news' AND varname='searchepp' LIMIT 1");
-			if ( !$check ) {
-				$db->query("INSERT INTO ".PRE."_config VALUES ('news', 'searchepp', 'int', '', '10', '0', '1630');");
-			}
-		
-		
-		case 107: //zu 1.0.8
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 106: //zu 1.0.7
+            list($check) = $db->first('SELECT varname FROM '.PRE."_config WHERE module='news' AND varname='searchepp' LIMIT 1");
+            if (!$check) {
+                $db->query('INSERT INTO '.PRE."_config VALUES ('news', 'searchepp', 'int', '', '10', '0', '1630');");
+            }
+
+            // no break
+        case 107: //zu 1.0.8
+            $mysql = "
 				ALTER TABLE `apx_news` CHANGE `sticky` `sticky` INT( 11 ) UNSIGNED NOT NULL DEFAULT '0' ;
 				UPDATE `apx_news` SET sticky='3000000000' WHERE sticky=1;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 108: //zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_news');
-			clearIndices(PRE.'_news_cat');
-			
-			//Tabellenformat ändern
-			convertRecursiveTable(PRE.'_news_cat');
-			
-			//config Update
-			updateConfig('news', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 108: //zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_news');
+            clearIndices(PRE.'_news_cat');
+
+            //Tabellenformat ändern
+            convertRecursiveTable(PRE.'_news_cat');
+
+            //config Update
+            updateConfig('news', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('news', 'epp', 'int', '', '5', 'VIEW', 1249584889, 1000),
 				('news', 'archiveepp', 'int', '', '5', 'VIEW', 1249584889, 2000),
@@ -225,8 +241,8 @@ elseif ( SETUPMODE=='update' ) {
 				('news', 'newspic_popup_height', 'int', '', '480', 'IMAGES', 1249584889, 5000),
 				('news', 'newspic_quality', 'switch', '', '1', 'IMAGES', 1249584889, 6000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				CREATE TABLE `apx_news_tags` (
 					`id` INT( 11 ) UNSIGNED NOT NULL ,
 					`tagid` INT( 11 ) UNSIGNED NOT NULL ,
@@ -239,22 +255,23 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_news` ADD INDEX ( `userid` ) ;
 				ALTER TABLE `apx_news` ADD INDEX ( `starttime` , `endtime` ) ;
 				ALTER TABLE `apx_news_cat` ADD INDEX ( `parents` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Tags erzeugen
-			transformKeywords(PRE.'_news', PRE.'_news_tags');
-			
-			
-		case 110: //zu 1.1.1
-			$mysql="
-				ALTER TABLE `apx_news` ADD `meta_description` TEXT NOT NULL AFTER `galid` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-	}
-}
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
 
-?>
+            //Tags erzeugen
+            transformKeywords(PRE.'_news', PRE.'_news_tags');
+
+            // no break
+        case 110: //zu 1.1.1
+            $mysql = '
+				ALTER TABLE `apx_news` ADD `meta_description` TEXT NOT NULL AFTER `galid` ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
+}

@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-$stopwords=array();
+$stopwords = [];
 
 //Stopwords Deutsch
 $stopwords[] = 'aber';
@@ -312,7 +312,6 @@ $stopwords[] = 'zur';
 $stopwords[] = 'zwar';
 $stopwords[] = 'zwischen';
 
-
 //Stopwords Englisch
 $stopwords[] = 'about';
 $stopwords[] = 'above';
@@ -572,5 +571,3 @@ $stopwords[] = 'your';
 $stopwords[] = 'yours';
 $stopwords[] = 'yourself';
 $stopwords[] = 'yourselves';
-
-?>

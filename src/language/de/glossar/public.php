@@ -1,39 +1,32 @@
-<?php 
+<?php
 
-#
-# German Language Pack
-# ====================
-#
+//
+// German Language Pack
+// ====================
+//
 
-$lang['global']=array(
-'HEADLINE' => 'Glossar',
-'HITS' => 'Klicks',
-'ENTRIES' => 'Begriffe'
-);
+$lang['global'] = [
+    'HEADLINE' => 'Glossar',
+    'HITS' => 'Klicks',
+    'ENTRIES' => 'Begriffe',
+];
 
+$lang['detail'] = [
+    'TOPIC' => 'Themengebiet',
+    'LETTER' => 'Buchstabe',
+    'COMMENTS' => 'Kommentare',
+];
 
-$lang['detail']=array(
-'TOPIC' => 'Themengebiet',
-'LETTER' => 'Buchstabe',
-'COMMENTS' => 'Kommentare'
-);
+$lang['highlights'] = [
+    'READMORE' => '&raquo; weiterlesen',
+];
 
+$lang['func_stats'] = [
+    'GLOSSAR_CATEGORIES' => 'Themengebiete',
+    'GLOSSAR_ENTRIES' => 'Glossar-Einträge',
+    'AVG_HITS' => 'Klicks durchschnittlich',
+];
 
-$lang['highlights'] = array(
-'READMORE' => '&raquo; weiterlesen'
-);
-
-
-$lang['func_stats'] = array (
-'GLOSSAR_CATEGORIES' => 'Themengebiete',
-'GLOSSAR_ENTRIES' => 'Glossar-Einträge',
-'AVG_HITS' => 'Klicks durchschnittlich'
-);
-
-
-$lang['func_search'] = array (
-'SEARCH_GLOSSAR' => 'Glossar'
-);
-
-
-?>
+$lang['func_search'] = [
+    'SEARCH_GLOSSAR' => 'Glossar',
+];

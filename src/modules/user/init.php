@@ -1,45 +1,46 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Modul registrieren
-$module = array(1,999999,
-'id' => 'user',
-'dependence' => array(),
-'requirement' => array('main' => '1.2.0'),
-'version' => '1.2.3',
-'author' => 'Christian Scheb',
-'contact' => 'http://www.stylemotion.de'
-);
-
+$module = [1, 999999,
+    'id' => 'user',
+    'dependence' => [],
+    'requirement' => ['main' => '1.2.0'],
+    'version' => '1.2.3',
+    'author' => 'Christian Scheb',
+    'contact' => 'http://www.stylemotion.de',
+];
 
 //Aktionen registrieren       S V O R
-$action['login']      = array(0,0,1,1);
-$action['logout']     = array(0,0,2,1);
-$action['autologout'] = array(0,0,3,1);
+$action['login'] = [0, 0, 1, 1];
+$action['logout'] = [0, 0, 2, 1];
+$action['autologout'] = [0, 0, 3, 1];
 
-$action['show']       = array(0,1,4,0);
-$action['add']        = array(0,1,5,0);
-$action['edit']       = array(0,0,6,0);
-$action['del']        = array(0,0,7,0);
-$action['enable']     = array(0,0,8,0);
+$action['show'] = [0, 1, 4, 0];
+$action['add'] = [0, 1, 5, 0];
+$action['edit'] = [0, 0, 6, 0];
+$action['del'] = [0, 0, 7, 0];
+$action['enable'] = [0, 0, 8, 0];
 
-$action['gshow']      = array(0,1,12,0);
-$action['gadd']       = array(0,0,13,0);
-$action['gedit']      = array(0,0,14,0);
-$action['gclean']     = array(0,0,15,0);
-$action['gdel']       = array(0,0,16,0);
+$action['gshow'] = [0, 1, 12, 0];
+$action['gadd'] = [0, 0, 13, 0];
+$action['gedit'] = [0, 0, 14, 0];
+$action['gclean'] = [0, 0, 15, 0];
+$action['gdel'] = [0, 0, 16, 0];
 
-$action['profile']    = array(0,0,98,0);
-$action['myprofile']  = array(0,1,99,1);
+$action['profile'] = [0, 0, 98, 0];
+$action['myprofile'] = [0, 1, 99, 1];
 
-$action['guestbook']  = array(0,1,991,0);
-$action['blog']       = array(0,1,992,0);
-$action['gallery']    = array(0,1,993,0);
+$action['guestbook'] = [0, 1, 991, 0];
+$action['blog'] = [0, 1, 992, 0];
+$action['gallery'] = [0, 1, 993, 0];
 
-$action['sendmail']  = array(0,1,2000,0);
-$action['sendpm']  = array(0,1,2001,0);
+$action['sendmail'] = [0, 1, 2000, 0];
+$action['sendpm'] = [0, 1, 2001, 0];
 
 /*
 S = Sonderrechte
@@ -48,39 +49,35 @@ O = Anordnung (Order)
 R = Rechte für Alle
 */
 
-
 //Template-Funktionen         F         V
-$func['USER_INFO']=array('user_info',true);
-$func['USERONLINE']=array('user_online',false);
-$func['NEWPMS']=array('user_newpms',false);
-$func['NEWGBENTRIES']=array('user_newgbs',false);
-$func['ONLINELIST']=array('user_onlinelist',true);
-$func['LOGINBOX']=array('user_loginbox',false);
-$func['BIRTHDAYS']=array('user_birthdays',true);
-$func['BIRTHDAYS_TOMORROW']=array('user_birthdays_tomorrow',true);
-$func['BIRTHDAYS_NEXTDAYS']=array('user_birthdays_nextdays',true);
-$func['BUDDYLIST']=array('user_buddylist',true);
-$func['NEWUSER']=array('user_new',true);
-$func['RANDOMUSER']=array('user_random',true);
-$func['PROFILE']=array('user_profile',true);
-$func['BOOKMARK']=array('user_bookmarklink',false);
-$func['SHOWBOOKMARKS']=array('user_bookmarks',true);
-$func['ONLINERECORD']=array('user_onlinerecord',true);
-$func['USERBLOGS']=array('user_blogs_last',true);
-$func['USERGALLERY_LAST']=array('user_gallery_last',true);
-$func['USERGALLERY_UPDATED']=array('user_gallery_updated',true);
-$func['USERGALLERY_LASTPICS']=array('user_gallery_lastpics',true);
-$func['USERGALLERY_POTM']=array('user_gallery_potm',true);
-$func['USER_STATS']=array('user_stats',true);
-$func['USERSTATUS']=array('user_status',true);
+$func['USER_INFO'] = ['user_info', true];
+$func['USERONLINE'] = ['user_online', false];
+$func['NEWPMS'] = ['user_newpms', false];
+$func['NEWGBENTRIES'] = ['user_newgbs', false];
+$func['ONLINELIST'] = ['user_onlinelist', true];
+$func['LOGINBOX'] = ['user_loginbox', false];
+$func['BIRTHDAYS'] = ['user_birthdays', true];
+$func['BIRTHDAYS_TOMORROW'] = ['user_birthdays_tomorrow', true];
+$func['BIRTHDAYS_NEXTDAYS'] = ['user_birthdays_nextdays', true];
+$func['BUDDYLIST'] = ['user_buddylist', true];
+$func['NEWUSER'] = ['user_new', true];
+$func['RANDOMUSER'] = ['user_random', true];
+$func['PROFILE'] = ['user_profile', true];
+$func['BOOKMARK'] = ['user_bookmarklink', false];
+$func['SHOWBOOKMARKS'] = ['user_bookmarks', true];
+$func['ONLINERECORD'] = ['user_onlinerecord', true];
+$func['USERBLOGS'] = ['user_blogs_last', true];
+$func['USERGALLERY_LAST'] = ['user_gallery_last', true];
+$func['USERGALLERY_UPDATED'] = ['user_gallery_updated', true];
+$func['USERGALLERY_LASTPICS'] = ['user_gallery_lastpics', true];
+$func['USERGALLERY_POTM'] = ['user_gallery_potm', true];
+$func['USER_STATS'] = ['user_stats', true];
+$func['USERSTATUS'] = ['user_status', true];
 
 //Admin-Template-Funktionen       F         V
-$afunc['USER']=array('user_team',true);
+$afunc['USER'] = ['user_team', true];
 
 /*
 F = Funktions-Name
 V = Variablen akzeptieren
 */
-
-
-?>

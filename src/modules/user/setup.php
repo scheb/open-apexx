@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_loginfailed` (
 		  `userid` int(11) unsigned NOT NULL default '0',
 		  `time` int(11) unsigned NOT NULL default '0',
@@ -294,90 +295,102 @@ if ( SETUPMODE=='install' ) {
 		('user', 'gallery_quality_resize', 'switch', '', '1', 'GALLERYCFG', 1219935740, 7000),
 		('user', 'gallery_maxpics', 'int', '', '0', 'GALLERYCFG', 1219935740, 8000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Locations einfügen
-	require_once(BASEDIR.'lib/class.linereader.php');
-	$locReader = new LineReader(BASEDIR.getmodulepath('user').'locations.sql', ";\n");
-	$command = '';
-	while ( ($line = $locReader->getNext())!==false ) {
-		if ( $line ) {
-			$line=str_replace('`apx_','`'.PRE.'_',$line);
-			$db->query($line);
-		}
-	}
-	
-	//User-DIR
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('user');
-	$mm->createdir('gallery','user');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Locations einfügen
+    require_once BASEDIR.'lib/class.linereader.php';
+    $locReader = new LineReader(BASEDIR.getmodulepath('user').'locations.sql', ";\n");
+    $command = '';
+    while (false !== ($line = $locReader->getNext())) {
+        if ($line) {
+            $line = str_replace('`apx_', '`'.PRE.'_', $line);
+            $db->query($line);
+        }
+    }
+
+    //User-DIR
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('user');
+    $mm->createdir('gallery', 'user');
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				ALTER TABLE `apx_user` ADD `skype` TINYTEXT NOT NULL AFTER `msn` ;
 				ALTER TABLE `apx_user` ADD `pub_theme` TINYTEXT NOT NULL AFTER `pub_poppm` ;
 				INSERT INTO `apx_config` VALUES ('user', 'searchable', 'switch', '', '1', '0', '50');
 				INSERT INTO `apx_config` VALUES ('user', 'captcha', 'switch', '', '0', '0', '450');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				UPDATE `apx_config` SET varname = 'captcha' WHERE module = 'user' AND varname = 'capcha';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.0.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('user', 'avatar_resize', 'switch', '', '0', '0', '950');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //zu 1.0.4
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.0.4
+            $mysql = "
 				ALTER TABLE `apx_user` ADD `pub_mailpm` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `pub_poppm` ;
 				INSERT INTO `apx_config` VALUES ('user', 'mailonnew', 'string', '', '', '0', '2000');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 104: //zu 1.0.5
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 104: //zu 1.0.5
+            $mysql = "
 				DELETE FROM `apx_config` WHERE ( module='user' AND varname='regkey' );
 				INSERT INTO `apx_config` VALUES ('user', 'userminlen', 'int', '', '4', '0', '420');
 				INSERT INTO `apx_config` VALUES ('user', 'pwdminlen', 'int', '', '6', '0', '430');
 				INSERT INTO `apx_config` VALUES ('user', 'useractivation', 'select', 'a:3:{i:1;s:14:\"{ACTIVATEAUTO}\";i:2;s:15:\"{ACTIVATEADMIN}\";i:3;s:16:\"{ACTIVATEREGKEY}\";}', '3', '0', '200');
 				INSERT INTO `apx_config` VALUES ('user', 'mailmultiacc', 'switch', '', '0', '0', '440');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 105: //zu 1.0.6
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 105: //zu 1.0.6
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('user', 'defaultgroup', 'int', 'BLOCK', '2', '0', '0');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 106: //zu 1.1.0
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 106: //zu 1.1.0
+            $mysql = "
 				CREATE TABLE `apx_user_blog` (
 				  `id` int(11) unsigned NOT NULL auto_increment,
 				  `userid` int(11) unsigned NOT NULL default '0',
@@ -474,28 +487,30 @@ elseif ( SETUPMODE=='update' ) {
 				INSERT INTO `apx_config` VALUES ('user', 'usermap_width', 'int', '', '651', '0', '6400');
 				INSERT INTO `apx_config` VALUES ('user', 'usermap_height', 'int', '', '843', '0', '6500');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Locations einfügen
-			/*require_once(BASEDIR.'lib/class.linereader.php');
-			$locReader = new LineReader(BASEDIR.getmodulepath('user').'locations.sql', ";\n");
-			$command = '';
-			while ( ($line = $locReader->getNext())!==false ) {
-				if ( $line ) {
-					$line=str_replace('`apx_','`'.PRE.'_',$line);
-					$db->query($line);
-				}
-			}*/
-			
-			//User-Gallery-DIR
-			require_once(BASEDIR.'lib/class.mediamanager.php');
-			$mm=new mediamanager;
-			$mm->createdir('gallery','user');
-		
-		
-		case 110: //zu 1.1.1
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Locations einfügen
+            /*require_once(BASEDIR.'lib/class.linereader.php');
+            $locReader = new LineReader(BASEDIR.getmodulepath('user').'locations.sql', ";\n");
+            $command = '';
+            while ( ($line = $locReader->getNext())!==false ) {
+                if ( $line ) {
+                    $line=str_replace('`apx_','`'.PRE.'_',$line);
+                    $db->query($line);
+                }
+            }*/
+
+            //User-Gallery-DIR
+            require_once BASEDIR.'lib/class.mediamanager.php';
+            $mm = new mediamanager();
+            $mm->createdir('gallery', 'user');
+
+            // no break
+        case 110: //zu 1.1.1
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('user', 'visitorself', 'switch', '', '', '0', '1450');
 				INSERT INTO `apx_config` VALUES ('user', 'gallery_maxpics', 'int', '', '', '0', '4550');
 				INSERT INTO `apx_config` VALUES ('user', 'friendsepp', 'int', '', '20', '0', '4800');
@@ -545,96 +560,100 @@ elseif ( SETUPMODE=='update' ) {
 				  KEY `stamp` (`stamp`)
 				) ENGINE=MyISAM;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Locations einfügen
-			/*require_once(BASEDIR.'lib/class.linereader.php');
-			$locReader = new LineReader(BASEDIR.getmodulepath('user').'locations.sql', ";\n");
-			$command = '';
-			while ( ($line = $locReader->getNext())!==false ) {
-				if ( $line ) {
-					$line=str_replace('`apx_','`'.PRE.'_',$line);
-					$db->query($line);
-				}
-			}*/
-			
-			//CityMatch laden
-			include(BASEDIR.getmodulepath('user').'citymatch.php');
-			
-			//Updates auf Tabellen durchführen
-			$data = $db->fetch("SELECT userid,city,plz,country,buddies,birthday FROM ".PRE."_user");
-			if ( count($data) ) {
-				foreach ( $data AS $res ) {
-					
-					//Buddies
-					$buddies = unserialize($res['buddies']);
-					if ( is_array($buddies) ) {
-						foreach ( $buddies AS $id ) {
-							$db->query("INSERT INTO ".PRE."_user_friends VALUES ('".$res['userid']."','".$id."')");
-						}
-					}
-					
-					//Location
-					$locid = user_get_location($res['plz'],$res['city'],$res['country']);
-					
-					//Geburtstag
-					$bd = explode('-',$res['birthday']);
-					if ( $bd[2] ) {
-						$birthday = sprintf('%02d-%02d-%04d',$bd[0],$bd[1],$bd[2]);
-					}
-					else {
-						$birthday = sprintf('%02d-%02d',$bd[0],$bd[1]);
-					}
-					
-					//Update Tabelle
-					$db->query("UPDATE ".PRE."_user SET locid='".$locid."',birthday='".$birthday."' WHERE userid='".$res['userid']."' LIMIT 1");
-				}
-			}
-			$db->query("UPDATE ".PRE."_user SET birthday='' WHERE birthday='00-00'");
-			$db->query("ALTER TABLE ".PRE."_user DROP `buddies` ;");
-		
-		
-		case 111: //zu 1.1.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Locations einfügen
+            /*require_once(BASEDIR.'lib/class.linereader.php');
+            $locReader = new LineReader(BASEDIR.getmodulepath('user').'locations.sql', ";\n");
+            $command = '';
+            while ( ($line = $locReader->getNext())!==false ) {
+                if ( $line ) {
+                    $line=str_replace('`apx_','`'.PRE.'_',$line);
+                    $db->query($line);
+                }
+            }*/
+
+            //CityMatch laden
+            include BASEDIR.getmodulepath('user').'citymatch.php';
+
+            //Updates auf Tabellen durchführen
+            $data = $db->fetch('SELECT userid,city,plz,country,buddies,birthday FROM '.PRE.'_user');
+            if (count($data)) {
+                foreach ($data as $res) {
+                    //Buddies
+                    $buddies = unserialize($res['buddies']);
+                    if (is_array($buddies)) {
+                        foreach ($buddies as $id) {
+                            $db->query('INSERT INTO '.PRE."_user_friends VALUES ('".$res['userid']."','".$id."')");
+                        }
+                    }
+
+                    //Location
+                    $locid = user_get_location($res['plz'], $res['city'], $res['country']);
+
+                    //Geburtstag
+                    $bd = explode('-', $res['birthday']);
+                    if ($bd[2]) {
+                        $birthday = sprintf('%02d-%02d-%04d', $bd[0], $bd[1], $bd[2]);
+                    } else {
+                        $birthday = sprintf('%02d-%02d', $bd[0], $bd[1]);
+                    }
+
+                    //Update Tabelle
+                    $db->query('UPDATE '.PRE."_user SET locid='".$locid."',birthday='".$birthday."' WHERE userid='".$res['userid']."' LIMIT 1");
+                }
+            }
+            $db->query('UPDATE '.PRE."_user SET birthday='' WHERE birthday='00-00'");
+            $db->query('ALTER TABLE '.PRE.'_user DROP `buddies` ;');
+
+            // no break
+        case 111: //zu 1.1.2
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('user', 'sendmail_data', 'array', 'BLOCK', '', '0', '0');
 				INSERT INTO `apx_config` VALUES ('user', 'sendpm_data', 'array', 'BLOCK', '', '0', '0');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 112: //zu 1.1.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 112: //zu 1.1.3
+            $mysql = "
 				ALTER TABLE `apx_user` ADD `pub_profileforfriends` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '0' AFTER `pub_usegb` ;
 				ALTER TABLE `apx_user_gallery` ADD `allowcoms` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `addtime` ;
 				ALTER TABLE `apx_user_blog` ADD `allowcoms` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `time` ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 113: //zu 1.1.4
-			list($check) = $db->first("SELECT module FROM ".PRE."_config WHERE module='user' AND varname='avatar_resize' LIMIT 1");
-			if ( !$check ) {
-				$db->query("INSERT INTO ".PRE."_config VALUES ('user', 'avatar_resize', 'switch', '', '0', '0', '950')");
-			}
-		
-		
-		case 114: //zu 1.2.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_user');
-			clearIndices(PRE.'_user_blog');
-			clearIndices(PRE.'_user_bookmarks');
-			clearIndices(PRE.'_user_gallery');
-			clearIndices(PRE.'_user_guestbook');
-			clearIndices(PRE.'_user_online');
-			clearIndices(PRE.'_user_pictures');
-			clearIndices(PRE.'_user_pms');
-			
-			//config Update
-			updateConfig('user', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 113: //zu 1.1.4
+            list($check) = $db->first('SELECT module FROM '.PRE."_config WHERE module='user' AND varname='avatar_resize' LIMIT 1");
+            if (!$check) {
+                $db->query('INSERT INTO '.PRE."_config VALUES ('user', 'avatar_resize', 'switch', '', '0', '0', '950')");
+            }
+
+            // no break
+        case 114: //zu 1.2.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_user');
+            clearIndices(PRE.'_user_blog');
+            clearIndices(PRE.'_user_bookmarks');
+            clearIndices(PRE.'_user_gallery');
+            clearIndices(PRE.'_user_guestbook');
+            clearIndices(PRE.'_user_online');
+            clearIndices(PRE.'_user_pictures');
+            clearIndices(PRE.'_user_pms');
+
+            //config Update
+            updateConfig('user', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('user', 'defaultgroup', 'int', 'BLOCK', '2', '', 0, 0),
 				('user', 'onlinerecord', 'int', 'BLOCK', '0', '', 0, 0),
@@ -705,8 +724,8 @@ elseif ( SETUPMODE=='update' ) {
 				('user', 'gallery_quality_resize', 'switch', '', '1', 'GALLERYCFG', 1219935740, 7000),
 				('user', 'gallery_maxpics', 'int', '', '0', 'GALLERYCFG', 1219935740, 8000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				CREATE TABLE `apx_user_navord` (
 				  `userid` int(11) unsigned NOT NULL,
 				  `module` varchar(30) NOT NULL,
@@ -730,66 +749,71 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_user_pictures` ADD INDEX ( `galid` ) ;
 				ALTER TABLE `apx_user_pms` ADD INDEX ( `fromuser` , `del_from` ) ;
 				ALTER TABLE `apx_user_pms` ADD INDEX ( `touser` , `del_to` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 120: //zu 1.2.1
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 120: //zu 1.2.1
+            $mysql = "
 				INSERT IGNORE INTO `apx_user_locations_plz` VALUES (20112, '04328', 'DE-04328');
 				ALTER TABLE `apx_user` ADD `ageconfirmed` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `birthday` ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 121: //zu 1.2.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 121: //zu 1.2.2
+            $mysql = '
 				ALTER TABLE `apx_user` ADD `status` TINYTEXT NOT NULL AFTER `work`, ADD `status_smiley` VARCHAR( 10 ) NOT NULL AFTER `status` ;
 				TRUNCATE `apx_user_locations`;
 				TRUNCATE `apx_user_locations_plz`;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Locations einfügen
-			require_once(BASEDIR.'lib/class.linereader.php');
-			$locReader = new LineReader(BASEDIR.getmodulepath('user').'locations.sql', ";\n");
-			$command = '';
-			while ( ($line = $locReader->getNext())!==false ) {
-				if ( $line ) {
-					$line=str_replace('`apx_','`'.PRE.'_',$line);
-					$db->query($line);
-				}
-			}
-			
-			//CityMatch laden
-			include(BASEDIR.getmodulepath('user').'citymatch.php');
-			
-			//Locations aktualisieren
-			$data = $db->fetch("SELECT userid,city,plz,country FROM ".PRE."_user");
-			if ( count($data) ) {
-				foreach ( $data AS $res ) {
-					
-					//Location
-					$locid = user_get_location($res['plz'],$res['city'],$res['country']);
-					
-					//Update Tabelle
-					$db->query("UPDATE ".PRE."_user SET locid='".$locid."' WHERE userid='".$res['userid']."' LIMIT 1");
-				}
-			}
-		
-		
-		case 122: //zu 1.2.3
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Locations einfügen
+            require_once BASEDIR.'lib/class.linereader.php';
+            $locReader = new LineReader(BASEDIR.getmodulepath('user').'locations.sql', ";\n");
+            $command = '';
+            while (false !== ($line = $locReader->getNext())) {
+                if ($line) {
+                    $line = str_replace('`apx_', '`'.PRE.'_', $line);
+                    $db->query($line);
+                }
+            }
+
+            //CityMatch laden
+            include BASEDIR.getmodulepath('user').'citymatch.php';
+
+            //Locations aktualisieren
+            $data = $db->fetch('SELECT userid,city,plz,country FROM '.PRE.'_user');
+            if (count($data)) {
+                foreach ($data as $res) {
+                    //Location
+                    $locid = user_get_location($res['plz'], $res['city'], $res['country']);
+
+                    //Update Tabelle
+                    $db->query('UPDATE '.PRE."_user SET locid='".$locid."' WHERE userid='".$res['userid']."' LIMIT 1");
+                }
+            }
+
+            // no break
+        case 122: //zu 1.2.3
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('user', 'sendmail_guests', 'switch', '', '0', 'OPTIONS', '0', '14000');
 				INSERT INTO `apx_config` VALUES ('user', 'onlinelist', 'switch', '', '1', 'OPTIONS', '0', '11500');
 				INSERT INTO `apx_config` VALUES ('user', 'listactiveonly', 'switch', '', '1', 'VIEW', 1302091810, 1500);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-	}
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
 }
-
-?>

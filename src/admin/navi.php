@@ -1,35 +1,30 @@
-<?php 
+<?php
 
-define('APXRUN',true);
+define('APXRUN', true);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-require('includes/_start.php');  /////////////////////////////////////////////////////// SYSTEMSTART ///
+require 'includes/_start.php';  /////////////////////////////////////////////////////// SYSTEMSTART ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 $apx->tmpl->loaddesign('blank');
 
-
 //Sektionen
 $selsec = $apx->session->get('section');
-$secdata = array();
-foreach ( $apx->sections AS $id => $section ) {
-	$secdata[] = array(
-		'ID' => $id,
-		'TITLE' => compatible_hsc($section['title']),
-		'SELECTED' => ($selsec==$id)
-	);
+$secdata = [];
+foreach ($apx->sections as $id => $section) {
+    $secdata[] = [
+        'ID' => $id,
+        'TITLE' => compatible_hsc($section['title']),
+        'SELECTED' => ($selsec == $id),
+    ];
 }
 $apx->tmpl->assign('SECTION', $secdata);
 
 //Navigation
-$apx->tmpl->assign('NAVI',$html->navi());
+$apx->tmpl->assign('NAVI', $html->navi());
 
-$apx->tmpl->parse('navi','/');
-
+$apx->tmpl->parse('navi', '/');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-require('includes/_end.php');  ////////////////////////////////////////////////////// SCRIPT BEENDEN ///
+require 'includes/_end.php';  ////////////////////////////////////////////////////// SCRIPT BEENDEN ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-?>

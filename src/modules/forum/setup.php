@@ -1,11 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_forums` (
 		  `forumid` int(11) unsigned NOT NULL auto_increment,
 		  `iscat` tinyint(1) unsigned NOT NULL default '0',
@@ -235,19 +237,20 @@ if ( SETUPMODE=='install' ) {
 		('forum', 'autosubscribe', 'switch', '', '0', 'OPTIONS', 1213548598, 8000),
 		('forum', 'ratings', 'switch', '', '1', 'OPTIONS', 1213548598, 9000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Forum-DIR
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('forum');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Forum-DIR
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('forum');
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = "
 		DROP TABLE `apx_forums`;
 		DROP TABLE `apx_forum_attachments`;
 		DROP TABLE `apx_forum_filetypes`;
@@ -268,92 +271,100 @@ elseif ( SETUPMODE=='uninstall' ) {
 		
 		DELETE FROM `apx_cron` WHERE funcname IN ('subscr_instant','subscr_daily','subscr_weekly','subscr_forum_daily','subscr_forum_weekly');
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('forum', 'rate_digits', 'int', 'BLOCK', '0', '0', '0');
 				INSERT INTO `apx_config` VALUES ('forum', 'badwords', 'switch', '', '1', '0', '450');
 				ALTER TABLE `apx_forums` ADD `right_addattachment` TINYTEXT NOT NULL AFTER `right_delthread` , ADD `right_readattachment` TINYTEXT NOT NULL AFTER `right_addattachment` ;
 				UPDATE `apx_forums` SET `right_addattachment` = `right_read`, `right_readattachment` = 'all';
 				ALTER TABLE `apx_forum_attachments` ADD `mime` TINYTEXT NOT NULL AFTER `size` ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				ALTER TABLE `apx_forum_ranks` ADD `color` VARCHAR( 6 ) NOT NULL AFTER `title` ,ADD `image` TINYTEXT NOT NULL AFTER `color` ;
 				INSERT INTO `apx_config` VALUES ('forum', 'hot_posts', 'int', '', '', '30', '630');
 				INSERT INTO `apx_config` VALUES ('forum', 'hot_views', 'int', '', '', '1000', '660');
 				INSERT INTO `apx_config` VALUES ('forum', 'timeout', 'int', '', '10', '0', '750');
 			";
-				
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Thread- und Beitragszahlen berichtigen
-			$data = $db->fetch("SELECT forumid FROM ".PRE."_forums");
-			if ( count($data) ) {
-				foreach ( $data AS $res ) {
-					$forumid = $res['forumid'];
-					$threads = $posts = 0;
-					
-					//Threads auslesen
-					$threaddata = $db->fetch("SELECT threadid FROM ".PRE."_forum_threads WHERE del=0 AND moved=0 AND forumid='".$forumid."'");
-					if ( count($threaddata) ) {
-						foreach ( $threaddata AS $tres ) {
-							list($tposts) = $db->first("SELECT count(postid) FROM ".PRE."_forum_posts WHERE del=0 AND threadid='".$tres['threadid']."'");
-							$db->query("UPDATE ".PRE."_forum_threads SET posts='".$tposts."' WHERE threadid='".$tres['threadid']."'");
-							$posts += $tposts;
-						}
-					}
-					
-					//Forum aktualisieren
-					list($threads) = $db->first("SELECT count(threadid) FROM ".PRE."_forum_threads WHERE del=0 AND moved=0 AND forumid='".$forumid."'");
-					$db->query("UPDATE ".PRE."_forums SET threads='".$threads."',posts='".$posts."' WHERE forumid='".$forumid."' LIMIT 1");
-				}
-			}
-		
-		
-		case 102: //zu 1.0.3
-			$mysql="
+
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Thread- und Beitragszahlen berichtigen
+            $data = $db->fetch('SELECT forumid FROM '.PRE.'_forums');
+            if (count($data)) {
+                foreach ($data as $res) {
+                    $forumid = $res['forumid'];
+                    $threads = $posts = 0;
+
+                    //Threads auslesen
+                    $threaddata = $db->fetch('SELECT threadid FROM '.PRE."_forum_threads WHERE del=0 AND moved=0 AND forumid='".$forumid."'");
+                    if (count($threaddata)) {
+                        foreach ($threaddata as $tres) {
+                            list($tposts) = $db->first('SELECT count(postid) FROM '.PRE."_forum_posts WHERE del=0 AND threadid='".$tres['threadid']."'");
+                            $db->query('UPDATE '.PRE."_forum_threads SET posts='".$tposts."' WHERE threadid='".$tres['threadid']."'");
+                            $posts += $tposts;
+                        }
+                    }
+
+                    //Forum aktualisieren
+                    list($threads) = $db->first('SELECT count(threadid) FROM '.PRE."_forum_threads WHERE del=0 AND moved=0 AND forumid='".$forumid."'");
+                    $db->query('UPDATE '.PRE."_forums SET threads='".$threads."',posts='".$posts."' WHERE forumid='".$forumid."' LIMIT 1");
+                }
+            }
+
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('forum', 'spamprot', 'int', '', '1', '0', '775');
 				INSERT INTO `apx_config` VALUES ('forum', 'autosubscribe', 'switch', '', '', '0', '850');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //zu 1.0.4
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.0.4
+            $mysql = "
 				ALTER TABLE `apx_user` ADD `forum_autosubscribe` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '0' AFTER `forum_posts` ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 104: //zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_forums');
-			clearIndices(PRE.'_forum_attachments');
-			clearIndices(PRE.'_forum_index');
-			clearIndices(PRE.'_forum_ranks');
-			clearIndices(PRE.'_forum_search');
-			clearIndices(PRE.'_forum_subscriptions');
-			clearIndices(PRE.'_forum_threads');
-			
-			//config Update
-			updateConfig('forum', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 104: //zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_forums');
+            clearIndices(PRE.'_forum_attachments');
+            clearIndices(PRE.'_forum_index');
+            clearIndices(PRE.'_forum_ranks');
+            clearIndices(PRE.'_forum_search');
+            clearIndices(PRE.'_forum_subscriptions');
+            clearIndices(PRE.'_forum_threads');
+
+            //config Update
+            updateConfig('forum', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('forum', 'icons', 'array', 'BLOCK', 'a:6:{i:0;a:2:{s:4:\"file\";s:25:\"/design/smilies/smile.gif\";s:3:\"ord\";i:1;}i:1;a:2:{s:4:\"file\";s:27:\"/design/smilies/shinner.gif\";s:3:\"ord\";i:5;}i:2;a:2:{s:4:\"file\";s:29:\"/design/smilies/angryfire.gif\";s:3:\"ord\";i:4;}i:3;a:2:{s:4:\"file\";s:25:\"/design/smilies/frown.gif\";s:3:\"ord\";i:3;}i:4;a:2:{s:4:\"file\";s:27:\"/design/smilies/biggrin.gif\";s:3:\"ord\";i:0;}i:5;a:2:{s:4:\"file\";s:25:\"/design/smilies/frage.gif\";s:3:\"ord\";i:2;}}', '', 0, 0),
 				('forum', 'rate_possible', 'array_keys', 'BLOCK', 'a:5:{i:1;s:1:\"1\";i:2;s:1:\"2\";i:3;s:1:\"3\";i:4;s:1:\"4\";i:5;s:1:\"5\";}', '', 1146074744, 0),
@@ -376,8 +387,8 @@ elseif ( SETUPMODE=='update' ) {
 				('forum', 'autosubscribe', 'switch', '', '0', 'OPTIONS', 1213548598, 8000),
 				('forum', 'ratings', 'switch', '', '1', 'OPTIONS', 1213548598, 9000);
 			");
-			
-			$mysql="
+
+            $mysql = "
 				ALTER TABLE `apx_forum_search` CHANGE `hash` `hash` VARCHAR( 32 ) NOT NULL ;
 				ALTER TABLE `apx_forum_search` CHANGE `time` `time` INT UNSIGNED NOT NULL DEFAULT '0';
 				ALTER TABLE `apx_forums` CHANGE `children` `children` TEXT NOT NULL ;
@@ -393,32 +404,36 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_forum_threads` ADD INDEX ( `forumid` ) ;
 				ALTER TABLE `apx_forum_threads` ADD INDEX ( `forumid` , `del` ) ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 110: //zu 1.1.1
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_forum_threads');
-			
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 110: //zu 1.1.1
+
+            //Indizes entfernen
+            clearIndices(PRE.'_forum_threads');
+
+            $mysql = '
 				ALTER TABLE `apx_forum_threads` ADD INDEX ( `forumid` , `del` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 111: //zu 1.2.0
-			
-			//Beiträge gelöschter Themen als nicht-gelöscht markieren
-			$data = $db->fetch("SELECT threadid FROM ".PRE."_forum_threads WHERE del!=0");
-			$threadIds = get_ids($data, 'threadid');
-			if ( $threadIds ) {
-				$db->query("UPDATE ".PRE."_forum_posts SET del=0 WHERE threadid IN (".implode(',', $threadIds).")");
-			}
-			
-			$mysql="
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 111: //zu 1.2.0
+
+            //Beiträge gelöschter Themen als nicht-gelöscht markieren
+            $data = $db->fetch('SELECT threadid FROM '.PRE.'_forum_threads WHERE del!=0');
+            $threadIds = get_ids($data, 'threadid');
+            if ($threadIds) {
+                $db->query('UPDATE '.PRE.'_forum_posts SET del=0 WHERE threadid IN ('.implode(',', $threadIds).')');
+            }
+
+            $mysql = "
 				ALTER TABLE `apx_forums` ADD `stylesheet` TINYTEXT NOT NULL AFTER `inherit` ;
 				ALTER TABLE `apx_forum_threads` ADD `prefix` INT( 11 ) UNSIGNED NOT NULL AFTER `forumid` ;
 				ALTER TABLE `apx_forum_attachments` ADD `thumbnail` TINYTEXT NOT NULL AFTER `file` ; 
@@ -464,79 +479,81 @@ elseif ( SETUPMODE=='update' ) {
 				  PRIMARY KEY  (`prefixid`)
 				) ENGINE=MyISAM ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Anhänge aktualisieren
-			$attachments='';
-			$data=$db->fetch("
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Anhänge aktualisieren
+            $attachments = '';
+            $data = $db->fetch('
 				SELECT id, file FROM
-				".PRE."_forum_attachments
-			");
-			if ( count($data) ) {
-				require(BASEDIR.'lib/class.mediamanager.php');
-				require(BASEDIR.'lib/class.image.php');
-				$mm=new mediamanager;
-				$img=new image;
-				foreach ( $data AS $res ) {
-					$ext=strtolower($mm->getext($res['file']));
-					if ( in_array($ext, array('gif', 'jpg', 'jpe', 'jpeg', 'png')) ) {
-						$fileid = substr($res['file'], 0, -1*(strlen($ext)-1));
-						$thumbnailPath = $fileid.'_thumb.'.$ext;
-						list($picture,$picturetype)=$img->getimage($res['file']);
-						
-						//////// THUMBNAIL
-						$thumbnail=$img->resize($picture, 120, 90, true);
-						$img->saveimage($thumbnail,$picturetype,$thumbnailPath);
-						
-						//Cleanup
-						imagedestroy($picture);
-						imagedestroy($thumbnail);
-						unset($picture,$thumbnail);
-						
-						//Update SQL
-						$db->query("UPDATE ".PRE."_forum_attachments SET thumbnail='".addslashes($thumbnailPath)."' WHERE id='".$res['id']."' LIMIT 1");
-					}
-				}
-			}
-			
-			//Thread- und Beitragszahlen berichtigen
-			@set_time_limit(600);
-			$data = $db->fetch("
+				'.PRE.'_forum_attachments
+			');
+            if (count($data)) {
+                require BASEDIR.'lib/class.mediamanager.php';
+                require BASEDIR.'lib/class.image.php';
+                $mm = new mediamanager();
+                $img = new image();
+                foreach ($data as $res) {
+                    $ext = strtolower($mm->getext($res['file']));
+                    if (in_array($ext, ['gif', 'jpg', 'jpe', 'jpeg', 'png'])) {
+                        $fileid = substr($res['file'], 0, -1 * (strlen($ext) - 1));
+                        $thumbnailPath = $fileid.'_thumb.'.$ext;
+                        list($picture, $picturetype) = $img->getimage($res['file']);
+
+                        //////// THUMBNAIL
+                        $thumbnail = $img->resize($picture, 120, 90, true);
+                        $img->saveimage($thumbnail, $picturetype, $thumbnailPath);
+
+                        //Cleanup
+                        imagedestroy($picture);
+                        imagedestroy($thumbnail);
+                        unset($picture,$thumbnail);
+
+                        //Update SQL
+                        $db->query('UPDATE '.PRE."_forum_attachments SET thumbnail='".addslashes($thumbnailPath)."' WHERE id='".$res['id']."' LIMIT 1");
+                    }
+                }
+            }
+
+            //Thread- und Beitragszahlen berichtigen
+            @set_time_limit(600);
+            $data = $db->fetch('
 				SELECT forumid
-				FROM ".PRE."_forums
-			");
-			if ( count($data) ) {
-				foreach ( $data AS $res ) {
-					$forumid = $res['forumid'];
-					$forumThreads = 0;
-					$forumPosts = 0;
-					$forumLastpost = array();
-					$forumLastthread = array();
-					
-					//Threads auslesen
-					$threaddata = $db->fetch("
+				FROM '.PRE.'_forums
+			');
+            if (count($data)) {
+                foreach ($data as $res) {
+                    $forumid = $res['forumid'];
+                    $forumThreads = 0;
+                    $forumPosts = 0;
+                    $forumLastpost = [];
+                    $forumLastthread = [];
+
+                    //Threads auslesen
+                    $threaddata = $db->fetch('
 						SELECT threadid, prefix, title, icon, del
-						FROM ".PRE."_forum_threads
+						FROM '.PRE."_forum_threads
 						WHERE del=0 AND moved=0 AND forumid='".$forumid."'
 					");
-					if ( count($threaddata) ) {
-						foreach ( $threaddata AS $tres ) {
-							$threadid = $tres['threadid'];
-							list($threadPosts) = $db->first("
+                    if (count($threaddata)) {
+                        foreach ($threaddata as $tres) {
+                            $threadid = $tres['threadid'];
+                            list($threadPosts) = $db->first('
 								SELECT count(postid)
-								FROM ".PRE."_forum_posts
+								FROM '.PRE."_forum_posts
 								WHERE del=0 AND threadid='".$threadid."'
 							");
-							$threadLastpost = $db->first("
+                            $threadLastpost = $db->first('
 								SELECT postid, userid, username, time
-								FROM ".PRE."_forum_posts
+								FROM '.PRE."_forum_posts
 								WHERE del=0 AND threadid='".$threadid."'
 								ORDER BY time DESC
 								LIMIT 1
 							");
-							$db->query("
-								UPDATE ".PRE."_forum_threads
+                            $db->query('
+								UPDATE '.PRE."_forum_threads
 								SET
 									posts='".$threadPosts."',
 									lastpost='".$threadLastpost['postid']."',
@@ -545,24 +562,24 @@ elseif ( SETUPMODE=='update' ) {
 									lastposttime='".$threadLastpost['time']."'
 								WHERE threadid='".$threadid."'
 							");
-							
-							//Themen/Beiträge im Forum
-							if ( !$tres['del'] ) {
-								++$forumThreads;
-							}
-							$forumPosts += $threadPosts;
-							
-							//Lastpost im Forum
-							if ( !$forumLastpost || $forumLastpost['time']<$threadLastpost['time'] ) {
-								$forumLastthread = $tres;
-								$forumLastpost = $threadLastpost;
-							}
-						}
-					}
-					
-					//Forum aktualisieren
-					$db->query("
-						UPDATE ".PRE."_forums
+
+                            //Themen/Beiträge im Forum
+                            if (!$tres['del']) {
+                                ++$forumThreads;
+                            }
+                            $forumPosts += $threadPosts;
+
+                            //Lastpost im Forum
+                            if (!$forumLastpost || $forumLastpost['time'] < $threadLastpost['time']) {
+                                $forumLastthread = $tres;
+                                $forumLastpost = $threadLastpost;
+                            }
+                        }
+                    }
+
+                    //Forum aktualisieren
+                    $db->query('
+						UPDATE '.PRE."_forums
 						SET
 							threads='".$forumThreads."',
 							posts='".$forumPosts."',
@@ -576,20 +593,18 @@ elseif ( SETUPMODE=='update' ) {
 							lastthread_prefix='".addslashes($forumLastthread['prefix'])."'
 						WHERE forumid='".$forumid."'
 						LIMIT 1");
-				}
-			}
-		
-		
-		case 120: //zu 1.2.1
-			
-			$mysql="
-				ALTER TABLE `apx_forums` ADD `meta_description` TEXT NOT NULL AFTER `description` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-	}
-}
+                }
+            }
 
-?>
+            // no break
+        case 120: //zu 1.2.1
+
+            $mysql = '
+				ALTER TABLE `apx_forums` ADD `meta_description` TEXT NOT NULL AFTER `description` ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
+}

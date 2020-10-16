@@ -1,31 +1,25 @@
-<?php 
+<?php
 
-define('APXRUN',true);
+define('APXRUN', true);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-require('includes/_start.php');  /////////////////////////////////////////////////////// SYSTEMSTART ///
+require 'includes/_start.php';  /////////////////////////////////////////////////////// SYSTEMSTART ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 //CKEditor-Funcnum
-if ( $_REQUEST['CKEditorFuncNum'] ) {
-	$apx->session->set('CKEditorFuncNum', $_REQUEST['CKEditorFuncNum']);
+if ($_REQUEST['CKEditorFuncNum']) {
+    $apx->session->set('CKEditorFuncNum', $_REQUEST['CKEditorFuncNum']);
 }
 
-
-if ( $apx->user->info['userid'] ) {
-	$apx->tmpl->loaddesign('blank');
-	$apx->tmpl->parse('mediamanager','/');
+if ($apx->user->info['userid']) {
+    $apx->tmpl->loaddesign('blank');
+    $apx->tmpl->parse('mediamanager', '/');
+} else {
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: action.php?action=user.login');
+    exit;
 }
-else {
-	header("HTTP/1.1 301 Moved Permanently");
-	header('Location: action.php?action=user.login');
-	exit;
-}
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-require('includes/_end.php');  ////////////////////////////////////////////////////// SCRIPT BEENDEN ///
+require 'includes/_end.php';  ////////////////////////////////////////////////////// SCRIPT BEENDEN ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-?>

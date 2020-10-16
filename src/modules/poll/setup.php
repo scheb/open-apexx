@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_poll` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `secid` tinytext NOT NULL,
@@ -108,41 +109,44 @@ if ( SETUPMODE=='install' ) {
 		('poll', 'archcoms', 'switch', '', '1', 'OPTIONS', 1164754067, 7000),
 		('poll', 'archvote', 'switch', '', '0', 'OPTIONS', 1164754067, 8000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_poll`;
 		DROP TABLE `apx_poll_iplog`;
 		DROP TABLE `apx_poll_tags`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				ALTER TABLE `apx_poll` ADD `starttime` INT( 11 ) UNSIGNED NOT NULL AFTER `addtime` ;
 				ALTER TABLE `apx_poll` ADD `days` SMALLINT( 3 ) UNSIGNED NOT NULL AFTER `endtime` ;
 				UPDATE `apx_poll` SET days=ROUND((endtime-addtime)/(24*3600)) ;
 				UPDATE `apx_poll` SET starttime=addtime,endtime='3000000000' WHERE active=1 ;
 				ALTER TABLE `apx_poll` DROP `active` ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				INSERT INTO `apx_config` ( `module` , `varname` , `type` , `addnl` , `value` , `lastchange` , `ord` ) VALUES ('poll', 'searchable', 'switch', '', '1', '0', '50');
 				ALTER TABLE `apx_poll` ADD `searchable` TINYINT( 1 ) UNSIGNED NOT NULL AFTER `multiple` ;
 				ALTER TABLE `apx_poll` ADD `color` TINYTEXT NOT NULL AFTER `a20_c` ;
@@ -150,33 +154,39 @@ elseif ( SETUPMODE=='update' ) {
 				ALTER TABLE `apx_poll` ADD `keywords` TINYTEXT NOT NULL AFTER `question` ;
 				UPDATE `apx_poll` SET searchable='1';
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.0.3
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.0.3
+            $mysql = "
 				INSERT INTO `apx_config` VALUES ('poll', 'archall', 'switch', '', '0', '0', '700');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 103: //zu 1.0.4
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 103: //zu 1.0.4
+            $mysql = '
 				ALTER TABLE `apx_poll_iplog` ADD `userid` INT( 11 ) UNSIGNED NOT NULL AFTER `id` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 104: //zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_poll');
-			
-			//config Update
-			updateConfig('poll', "
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 104: //zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_poll');
+
+            //config Update
+            updateConfig('poll', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('poll', 'maxfirst', 'switch', '', '1', 'VIEW', 1164754067, 1000),
 				('poll', 'archall', 'switch', '', '1', 'VIEW', 1164754067, 2000),
@@ -188,8 +198,8 @@ elseif ( SETUPMODE=='update' ) {
 				('poll', 'archcoms', 'switch', '', '1', 'OPTIONS', 1164754067, 7000),
 				('poll', 'archvote', 'switch', '', '0', 'OPTIONS', 1164754067, 8000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				CREATE TABLE `apx_poll_tags` (
 				`id` INT( 11 ) UNSIGNED NOT NULL ,
 				`tagid` INT( 11 ) UNSIGNED NOT NULL ,
@@ -201,24 +211,23 @@ elseif ( SETUPMODE=='update' ) {
 				
 				ALTER TABLE `apx_poll` ADD INDEX ( `starttime` , `endtime` ) ;
 				ALTER TABLE `apx_poll_iplog` ADD INDEX ( `id` , `time` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Tags erzeugen
-			transformKeywords(PRE.'_poll', PRE.'_poll_tags');
-		
-		
-		
-		case 110: //zu 1.1.1
-			$mysql="
-				ALTER TABLE `apx_poll` ADD `meta_description` TEXT NOT NULL AFTER `question` ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-	}
-}
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
 
-?>
+            //Tags erzeugen
+            transformKeywords(PRE.'_poll', PRE.'_poll_tags');
+
+            // no break
+        case 110: //zu 1.1.1
+            $mysql = '
+				ALTER TABLE `apx_poll` ADD `meta_description` TEXT NOT NULL AFTER `question` ;
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
+}

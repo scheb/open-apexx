@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 // MYSQL ///////////////////////////////////////////////////////////////////////////////////
 
@@ -29,16 +30,12 @@ $set['mysql_pre'] = '';
 // (Standardmäßig auf false lassen, außer Sie wissen was Sie tun)
 $set['mysql_utf8'] = false;
 
-
-
 // SESSION ///////////////////////////////////////////////////////////////////////////////////
 
 // Session-Management
 // Standardmäßig werden die Sessions von PHP verwaltet ("php"), sollte dies nicht problemlos
 // funktionieren, versuchen sie es mit der Einstellung "db"
 $set['session_api'] = 'db';
-
-
 
 // DEBUG ///////////////////////////////////////////////////////////////////////////////////
 
@@ -62,7 +59,5 @@ $set['tmplwhois'] = 0;
 
 // Ab PHP 5.6 muss das Charset ISO-8859-1 erzwungen werden
 if (version_compare(PHP_VERSION, '5.6.0') >= 0) {
-	ini_set("default_charset", "ISO-8859-1");
+    ini_set('default_charset', 'ISO-8859-1');
 }
-
-?>

@@ -1,30 +1,29 @@
-<?php 
+<?php
 
-define('APXRUN',true);
-define('NOSTATS',true);
-define('BASEREL','../');
+define('APXRUN', true);
+define('NOSTATS', true);
+define('BASEREL', '../');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-require('../lib/_start.php');  ///////////////////////////////////////////////////////// SYSTEMSTART ///
+require '../lib/_start.php';  ///////////////////////////////////////////////////////// SYSTEMSTART ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 //Funktionen laden
-foreach ( $apx->modules AS $module => $info ) {
-	if ( !file_exists(BASEDIR.getmodulepath($module).'misc.php') ) continue;
-	include_once(BASEDIR.getmodulepath($module).'misc.php');
+foreach ($apx->modules as $module => $info) {
+    if (!file_exists(BASEDIR.getmodulepath($module).'misc.php')) {
+        continue;
+    }
+    include_once BASEDIR.getmodulepath($module).'misc.php';
 }
 
-
-$call='misc_'.$_REQUEST['action'];
-if ( !function_exists($call) ) die('action does not exist!');
+$call = 'misc_'.$_REQUEST['action'];
+if (!function_exists($call)) {
+    die('action does not exist!');
+}
 
 //Aktion ausführen
 $call();
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-require('../lib/_end.php');  //////////////////////////////////////////////////////// SCRIPT BEENDEN ///
+require '../lib/_end.php';  //////////////////////////////////////////////////////// SCRIPT BEENDEN ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-?>

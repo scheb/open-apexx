@@ -1,13 +1,14 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$since = mktime(0,0,0,date('m'),date('j'),date('Y'));
-	$mysql="
+if (SETUPMODE == 'install') {
+    $since = mktime(0, 0, 0, date('m'), date('j'), date('Y'));
+    $mysql = "
 		INSERT INTO `apx_cron` VALUES('twitter', 'twitter', 300, ".$since.", '');
 		
 		INSERT INTO `apx_config` VALUES
@@ -38,27 +39,28 @@ if ( SETUPMODE=='install' ) {
 		('twitter', 'tpl_user_blog', 'string', '', '{TITLE}: {LINK}', 'FORMAT', 0, 11000),
 		('twitter', 'tpl_user_gallery', 'string', '', '{TITLE}: {LINK}', 'FORMAT', 0, 12000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
-
 
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = "
 		DELETE FROM `apx_cron` WHERE module='twitter';
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 110: //Zu 1.1.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 110: //Zu 1.1.1
+            $mysql = "
 			INSERT INTO `apx_config` VALUES
 			('twitter', 'tpl_news', 'string', '', '{TITLE}: {LINK}', 'FORMAT', 0, 1000),
 			('twitter', 'tpl_articles', 'string', '', '{TITLE}: {LINK}', 'FORMAT', 0, 2000),
@@ -73,12 +75,14 @@ elseif ( SETUPMODE=='update' ) {
 			('twitter', 'tpl_user_blog', 'string', '', '{TITLE}: {LINK}', 'FORMAT', 0, 11000),
 			('twitter', 'tpl_user_gallery', 'string', '', '{TITLE}: {LINK}', 'FORMAT', 0, 12000);
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			
-		case 111: //Zu 1.1.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 111: //Zu 1.1.2
+            $mysql = "
 			DELETE FROM `apx_config` WHERE module='twitter' AND varname='acc_pwd';
 			DELETE FROM `apx_config` WHERE module='twitter' AND varname='acc_user';
 			
@@ -86,9 +90,9 @@ elseif ( SETUPMODE=='update' ) {
 			('twitter', 'oauth_token', 'string', '', '', 'ACCOUNT', '0', '1000'),
 			('twitter', 'oauth_secret', 'string', '', '', 'ACCOUNT', '0', '2000');
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-	}
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
 }
-
-?>

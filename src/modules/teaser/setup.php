@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE IF NOT EXISTS `apx_teaser` (
 		  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 		  `secid` tinytext NOT NULL,
@@ -29,39 +30,38 @@ if ( SETUPMODE=='install' ) {
 		('teaser', 'orderby', 'select', 'a:3:{i:1;s:12:\"{ORDERADMIN}\";i:2;s:10:\"{ORDERPUB}\";i:3;s:13:\"{ORDERRANDOM}\";}', '2', '', 1129897415, 1000),
 		('teaser', 'groups', 'array', 'BLOCK', 'a:0:{}', '', 0, 0);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Ordner für Bilder
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('teaser');
-}
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 
+    //Ordner für Bilder
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('teaser');
+}
 
 //Deinstallieren
-elseif ( SETUPMODE=='uninstall' ) {
-	$mysql="
+elseif (SETUPMODE == 'uninstall') {
+    $mysql = '
 		DROP TABLE `apx_teaser`;
-	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
+	';
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
 }
-
 
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //Zu 1.1.0
-			/*
-			$mysql="
-				
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			*/
-	}
-}
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //Zu 1.1.0
+            /*
+            $mysql="
 
-?>
+            ";
+            $queries=split_sql($mysql);
+            foreach ( $queries AS $query ) $db->query($query);
+            */
+    }
+}

@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
 
 //Installieren
-if ( SETUPMODE=='install' ) {
-	$mysql="
+if (SETUPMODE == 'install') {
+    $mysql = "
 		CREATE TABLE `apx_inlinescreens` (
 		  `id` int(11) unsigned NOT NULL auto_increment,
 		  `module` varchar(50) NOT NULL default '',
@@ -57,22 +58,22 @@ if ( SETUPMODE=='install' ) {
 		('mediamanager', 'watermark_position', 'select', 'a:9:{i:1;s:18:\"{POSTOP} {POSLEFT}\";i:2;s:20:\"{POSTOP} {POSCENTER}\";i:3;s:19:\"{POSTOP} {POSRIGHT}\";i:4;s:21:\"{POSMIDDLE} {POSLEFT}\";i:5;s:23:\"{POSMIDDLE} {POSCENTER}\";i:6;s:22:\"{POSMIDDLE} {POSRIGHT}\";i:7;s:21:\"{POSBOTTOM} {POSLEFT}\";i:8;s:23:\"{POSBOTTOM} {POSCENTER}\";i:9;s:22:\"{POSBOTTOM} {POSRIGHT}\";}', '9', '', 1111936901, 3000),
 		('mediamanager', 'quality_resize', 'switch', '', '1', '', 1111936901, 4000);
 	";
-	$queries=split_sql($mysql);
-	foreach ( $queries AS $query ) $db->query($query);
-	
-	//Ordner für Inline-Screens
-	require_once(BASEDIR.'lib/class.mediamanager.php');
-	$mm=new mediamanager;
-	$mm->createdir('inline');
+    $queries = split_sql($mysql);
+    foreach ($queries as $query) {
+        $db->query($query);
+    }
+
+    //Ordner für Inline-Screens
+    require_once BASEDIR.'lib/class.mediamanager.php';
+    $mm = new mediamanager();
+    $mm->createdir('inline');
 }
 
-
 //Update
-elseif ( SETUPMODE=='update' ) {
-	switch ( $installed_version ) {
-		
-		case 100: //zu 1.0.1
-			$mysql="
+elseif (SETUPMODE == 'update') {
+    switch ($installed_version) {
+        case 100: //zu 1.0.1
+            $mysql = "
 				CREATE TABLE `apx_inlinescreens` (
 				  `id` int(11) unsigned NOT NULL auto_increment,
 				  `module` tinytext NOT NULL,
@@ -85,45 +86,48 @@ elseif ( SETUPMODE=='update' ) {
 				  PRIMARY KEY  (`id`)
 				) ENGINE=MyISAM;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-			
-			//Ordner für Inline-Screens
-			require_once(BASEDIR.'lib/class.mediamanager.php');
-			$mm=new mediamanager;
-			$mm->createdir('inline');
-		
-		
-		case 101: //zu 1.0.2
-			$mysql="
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            //Ordner für Inline-Screens
+            require_once BASEDIR.'lib/class.mediamanager.php';
+            $mm = new mediamanager();
+            $mm->createdir('inline');
+
+            // no break
+        case 101: //zu 1.0.2
+            $mysql = "
 				ALTER TABLE `apx_inlinescreens` ADD `align` ENUM( '','left', 'right') NOT NULL AFTER `popup` ;
 			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-		
-		case 102: //zu 1.1.0
-			
-			//Indizes entfernen
-			clearIndices(PRE.'_inlinescreens');
-			
-			//config Update
-			updateConfig('mediamanager', "
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+
+            // no break
+        case 102: //zu 1.1.0
+
+            //Indizes entfernen
+            clearIndices(PRE.'_inlinescreens');
+
+            //config Update
+            updateConfig('mediamanager', "
 				INSERT INTO `apx_config` (`module`, `varname`, `type`, `addnl`, `value`, `tab`, `lastchange`, `ord`) VALUES
 				('mediamanager', 'watermark', 'string', '', '', '', 1111936901, 1000),
 				('mediamanager', 'watermark_transp', 'int', '', '50', '', 1111936901, 2000),
 				('mediamanager', 'watermark_position', 'select', 'a:9:{i:1;s:18:\"{POSTOP} {POSLEFT}\";i:2;s:20:\"{POSTOP} {POSCENTER}\";i:3;s:19:\"{POSTOP} {POSRIGHT}\";i:4;s:21:\"{POSMIDDLE} {POSLEFT}\";i:5;s:23:\"{POSMIDDLE} {POSCENTER}\";i:6;s:22:\"{POSMIDDLE} {POSRIGHT}\";i:7;s:21:\"{POSBOTTOM} {POSLEFT}\";i:8;s:23:\"{POSBOTTOM} {POSCENTER}\";i:9;s:22:\"{POSBOTTOM} {POSRIGHT}\";}', '9', '', 1111936901, 3000),
 				('mediamanager', 'quality_resize', 'switch', '', '1', '', 1111936901, 4000);
 			");
-			
-			$mysql="
+
+            $mysql = '
 				ALTER TABLE `apx_inlinescreens` CHANGE `module` `module` VARCHAR( 50 ) NOT NULL; 
 				ALTER TABLE `apx_inlinescreens` ADD INDEX ( `module` , `mid` ) ;
-			";
-			$queries=split_sql($mysql);
-			foreach ( $queries AS $query ) $db->query($query);
-		
-	}
+			';
+            $queries = split_sql($mysql);
+            foreach ($queries as $query) {
+                $db->query($query);
+            }
+    }
 }
-
-?>

@@ -1,13 +1,10 @@
-<?php 
+<?php
 
-#
-# German Language Pack
-# ====================
-#
+//
+// German Language Pack
+// ====================
+//
 
-$lang['teaser'] = array (
-'HITS' => 'Klicks'
-);
-
-
-?>
+$lang['teaser'] = [
+    'HITS' => 'Klicks',
+];

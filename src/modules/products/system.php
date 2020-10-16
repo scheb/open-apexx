@@ -1,11 +1,9 @@
-<?php 
+<?php
 
-# GAMES CLASS
-# ===========
+// GAMES CLASS
+// ===========
 
 //Security-Check
-if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
-
-
-
-?>
+if (!defined('APXRUN')) {
+    die('You are not allowed to execute this file directly!');
+}
