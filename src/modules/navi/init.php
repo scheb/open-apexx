@@ -22,7 +22,7 @@ $module = array(1,99980,
 'id' => 'navi',
 'dependence' => array(),
 'requirement' => array('main' => '1.2.0'),
-'version' => '1.1.1',
+'version' => '1.1.2',
 'author' => 'Christian Scheb',
 'contact' => 'http://www.stylemotion.de',
 'mediainput' => array()
@@ -41,7 +41,7 @@ $action['group']   =  array(0,1,7,0);
 S = Sonderrechte
 V = Sichtbar (Visibility)
 O = Anordnung (Order)
-R = Rechte für Alle
+R = Rechte fÃ¼r Alle
 */
 
 
