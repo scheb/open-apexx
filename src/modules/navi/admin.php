@@ -44,6 +44,7 @@ function show() {
 		return;
 	}
 	
+	if ( !$_REQUEST['nid'] ) { $_REQUEST['nid']=1; }
 	quicklink('navi.add','action.php','nid='.$_REQUEST['nid']);
 	
 	$_REQUEST['nid']=(int)$_REQUEST['nid'];
@@ -287,7 +288,7 @@ function edit() {
 
 
 
-//***************************** Navigationspunkt löschen *****************************
+//***************************** Navigationspunkt lÃ¶schen *****************************
 function del() {
 	global $set,$db,$apx;
 	$_REQUEST['id']=(int)$_REQUEST['id'];
@@ -333,7 +334,7 @@ function group() {
 	$_REQUEST['id']=(int)$_REQUEST['id'];
 	$data=$set['navi']['groups'];
 	
-	//Kategorie löschen
+	//Kategorie lÃ¶schen
 	if ( $_REQUEST['do']=='del' && isset($data[$_REQUEST['id']]) ) {
 		list($count)=$db->first("SELECT count(*) FROM ".PRE."_navi WHERE nid='".$id."'");
 		if ( !$count ) {
@@ -341,13 +342,13 @@ function group() {
 				if ( !checkToken() ) infoInvalidToken();
 				else {
 					
-					//Navigationspunkte löschen
+					//Navigationspunkte lÃ¶schen
 					$queryData = $db->fetch("SELECT id FROM ".PRE."_navi WHERE nid='".$_REQUEST['id']."' AND parents='|'");
 					foreach ( $queryData AS $res ) {
 						$this->cat->deleteSubtree($res['id']);
 					}
 					
-					//Navigation löschen
+					//Navigation lÃ¶schen
 					unset($data[$_REQUEST['id']]);
 					$db->query("UPDATE ".PRE."_config SET value='".addslashes(serialize($data))."' WHERE module='navi' AND varname='groups' LIMIT 1");
 					logit('NAVI_CATDEL',$_REQUEST['id']);
