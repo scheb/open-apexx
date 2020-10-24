@@ -1,0 +1,9 @@
+daysUntilStale: 1
+daysUntilClose: 1
+staleLabel: wontfix
+markComment: >
+    Diese Issue wurde mit "wontfix" markiert, da dieses Projekt nicht mehr weiterentwickelt wird. Die Issue wird
+    innerhalb eines Tages automatisch geschlossen.
+    This issue has been automatically marked as "wontfix", because the project is no longer maintained. The issue
+    will be closed next day.
+closeComment: false
