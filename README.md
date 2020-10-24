@@ -21,7 +21,7 @@ Systemanforderung
 Bitte prüfen Sie die Systemanforderungen, bevor Sie die Software installieren:
 
  * 25MB Festplattenspeicher
- * PHP 4.3.0+
+ * PHP 5
  * PHP Safe-Mode = OFF
  * PHP Erweiterung gd
  * PHP Erweiterung curl
