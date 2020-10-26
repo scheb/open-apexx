@@ -1,5 +1,5 @@
-README
-======
+Open Apexx
+==========
 
 Status
 ------
@@ -13,6 +13,15 @@ das Projekt offiziell zu beenden.
 Interessierten Software-Archäologen, die ein Faible für Software aus dem PHP4-Zeitalter haben, steht es frei einen
 Fork zu machen und sie an anderer Stelle weiterzuentwickeln. Dieses offizielle *Open Apexx* Repository wird
 jedenfalls keine Issues und Pull Requests mehr annehmen.
+
+**Was heißt das für dieses Repository?**
+
+1) Dieses Repository wird weiterhin dauerhaft verfügbar bleiben.
+2) Es wird weiterhin möglich sein Issues zu erstellen, um einen Austausch zu ermöglichen.
+3) Es wird keine garantierte Weiterentwicklung der Software geben (neue Features, Bugfixes). D.h. Ideen und
+   Änderungswünsche werden in diesem Repository nicht mehr umgesetzt werden, Pull Requests werden nicht mehr angenommen.
+   Es kann gelegentliche kleine Updates zu Kompatibilitätszwecken geben, da ich die Software selbst noch einsetze. Diese
+   sind jedoch nicht garantiert.
 
 Was ist "Open Apexx"?
 ---------------------
