@@ -1,9 +1,10 @@
 daysUntilStale: 1
-daysUntilClose: 1
+daysUntilClose: 14
 staleLabel: wontfix
 markComment: >
-    Diese Issue wurde mit "wontfix" markiert, da dieses Projekt nicht mehr weiterentwickelt wird. Die Issue wird
-    innerhalb eines Tages automatisch geschlossen.
+    Diese Issue wurde mit "wontfix" markiert, da dieses Projekt nicht mehr weiterentwickelt wird. Diese Issue wird
+    innerhalb von 14 Tagen geschlossen, wenn es keine weitere Aktivität gibt.
+
     This issue has been automatically marked as "wontfix", because the project is no longer maintained. The issue
-    will be closed next day.
+    will be closed within 14 days if no further activity occurs.
 closeComment: false
