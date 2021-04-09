@@ -40,7 +40,7 @@ Das System ist nur auf Deutsch verfügbar, es besitzt jedoch Funktionen zur Loka
 Alternativen
 ------------
 
-- [Tropby/open-apexx](https://github.com/Tropby/open-apexx) - Weiterentwicklung von Open Apexx inklusive neuem Modul-Manager
+- [Tropby/open-apexx-core](https://github.com/Tropby/open-apexx-core) - Weiterentwicklung von Open Apexx inklusive neuem Modul-Manager
 
 Systemanforderung
 -----------------
