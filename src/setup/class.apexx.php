@@ -41,7 +41,7 @@ var $coremodules=array('main','mediamanager','user');
 ////////////////////////////////////////////////////////////////////////////////// -> STARTUP
 
 //System starten
-function apexx() {
+function __construct() {
 	global $set;
 
 	error_reporting(E_ALL ^ E_NOTICE);

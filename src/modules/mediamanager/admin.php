@@ -27,7 +27,7 @@ var $module;
 var $refresh;
 
 //Startup
-function action() {
+function __construct() {
 	global $apx;
 	
 	$this->module=$_REQUEST['module'];

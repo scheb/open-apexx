@@ -30,7 +30,7 @@ class action extends links_functions {
 var $cat;
 
 //Startup
-function action() {
+function __construct() {
 	require_once(BASEDIR.'lib/class.recursivetree.php');
 	$this->cat=new RecursiveTree(PRE.'_links_cat', 'id');
 	

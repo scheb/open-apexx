@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /***************************************************************\
 |                                                               |
@@ -27,8 +27,8 @@ var $active_section;
 
 
 //STARTUP
-function apexx_public() {
-	parent::apexx();
+function __construct() {
+	parent::__construct();
 }
 
 
@@ -36,7 +36,7 @@ function apexx_public() {
 function init_section() {
 	global $set;
 	$_REQUEST['sec']=(int)$_REQUEST['sec'];
-	
+
 	//Sektion auswählen
 	if ( $_REQUEST['sec'] && isset($this->sections[$_REQUEST['sec']]) && $this->sections[$_REQUEST['sec']]['active'] ) {
 		$this->section_check($_REQUEST['sec']);
@@ -45,18 +45,18 @@ function init_section() {
 	elseif ( $set['main']['forcesection'] ) {
 		$this->section_id($this->section_default);
 	}
-	
+
 	//Theme erzwingen
 	if ( $this->section_id() && $this->section['theme'] ) {
 		$this->tmpl->set_theme($this->section['theme']);
 	}
-	
+
 	//Sprache erzwingen
 	if ( $this->section_id() && $this->section['lang'] ) {
 		$this->lang->langid($this->section['lang']);
 	}
-	
-	$this->tmpl->assign_static('WEBSITE_NAME',$set['main']['websitename']); 
+
+	$this->tmpl->assign_static('WEBSITE_NAME',$set['main']['websitename']);
 	$this->tmpl->assign_static('SECTION_ID',$this->section_id());
 	$this->tmpl->assign_static('SECTION_TITLE',$this->section['title']);
 	$this->tmpl->assign_static('SECTION_LANG',$this->section['lang']);
@@ -69,13 +69,13 @@ function init_section() {
 //Darf man eine Sektion betreten?
 function section_check($id) {
 	global $user;
-	
-	if ( $user->info['section_access']=='all' ) $secacc='all'; 
+
+	if ( $user->info['section_access']=='all' ) $secacc='all';
 	else {
 		$secacc=unserialize($user->info['section_access']);
 		if ( !is_array($secacc) ) $secacc=array();
 	}
-	
+
 	//Beschränkung durch Benutzergruppe
 	if ( $secacc!='all' && !in_array($id,$secacc) && $id!=$this->section_default ) {
 		$this->lang->init(); //Sprachpaket ist noch nicht initialisiert!

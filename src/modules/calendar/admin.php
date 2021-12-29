@@ -28,7 +28,7 @@ include(BASEDIR.getmodulepath('calendar').'admin_extend.php');
 class action extends calendar_functions {
 
 //Startup
-function action() {
+function __construct() {
 	require_once(BASEDIR.'lib/class.recursivetree.php');
 	$this->cat=new RecursiveTree(PRE.'_calendar_cat', 'id');
 }

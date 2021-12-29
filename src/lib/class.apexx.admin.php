@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /***************************************************************\
 |                                                               |
@@ -29,14 +29,14 @@ var $session;
 
 
 //STARTUP
-function apexx_admin() {
-	parent::apexx();
+function __construct() {
+	parent::__construct();
 	if ( !$_REQUEST['action'] ) $_REQUEST['action']='main.index';
-	
+
 	$loadmodule=explode('.',$_REQUEST['action']);
 	$this->module($loadmodule[0]);
 	$this->action($loadmodule[1]);
-	
+
 	if ( count($loadmodule)!=2 ) {
 		die('WRONG SYNTAX OF ACTION PARAM!');
 	}
@@ -63,10 +63,10 @@ function execute_action() {
 	}
 	else {
 		$this->lang->dropaction(); //Action-Sprachpaket des Moduls laden
-		
+
 		require_once(BASEDIR.getmodulepath($this->module()).'admin.php');
 		$adminclass = new action;
-		
+
 		$action=$this->action();
 		if ( method_exists($adminclass,$action) ) $adminclass->$action();
 		else message($this->lang->get('CORE_METHODFAIL'));
@@ -78,18 +78,18 @@ function execute_action() {
 //Multifunktion ausführen
 function execute_multifunc(&$class) {
 	if ( !is_array($_POST['multi']) ) return;
-	
+
 	foreach ( $_POST['multi'] AS $key => $val ) {
 		if ( $val=='1' ) continue;
 		unset($_POST['multi'][$key]);
 	}
-	
+
 	if ( !count($_POST['multi']) ) return;
-	
+
 	foreach ( $this->actions[$this->module()] AS $action => $trash ) {
 		if ( !$_POST['multi_'.$action] ) continue;
 		if ( !$this->user->has_right($this->module().'.'.$action) ) continue;
-	
+
 		$callfunc='multi_'.$action;
 		return $class->$callfunc();
 	}

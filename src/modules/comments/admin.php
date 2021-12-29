@@ -28,7 +28,7 @@ var $mid;
 var $coms;
 
 //Startup
-function action() {
+function __construct() {
 	global $apx;
 	
 	//if ( $_REQUEST['module'] && !$apx->is_module($_REQUEST['module']) ) die('module does not exist!');

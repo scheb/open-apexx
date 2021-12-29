@@ -35,7 +35,7 @@ class database extends mysqli {
 	////////////////////////////////////////////////////////////////////////////////// -> STARTUP + END
 
 	//Verbindung herstellen
-	function database($server, $user, $password, $database, $utf8 = false) {
+	function __construct($server, $user, $password, $database, $utf8 = false) {
 		parent::__construct($server, $user, $password);
 		if ( $this->connect_error ) {
 			error("Verbindung konnte nicht hergestellt werden!<br />MySQL meldet: ".$this->connect_error, 1);
@@ -75,11 +75,11 @@ class database extends mysqli {
 	////////////////////////////////////////////////////////////////////////////////// -> INSERT / UPDATE
 
 	//Normale Datenbankanfrage
-	function query($query) {
+	function query($query, $result_mode = MYSQLI_STORE_RESULT) {
 	  $this->querystring=$query;
 
 		$this->bench_start();
-	  $result = parent::query($query);
+	  $result = parent::query($query, $result_mode);
 		$this->bench_end();
 
 		if ( !$result ) error($this->error());

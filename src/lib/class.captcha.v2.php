@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /***************************************************************\
 |                                                               |
@@ -64,7 +64,7 @@ var $colorconfig = array(
 
 
 //Konstruktor
-function captcha() {
+function __construct() {
 	srand((double)microtime()*1000000);
 }
 
@@ -73,17 +73,17 @@ function captcha() {
 //Captcha generieren
 function generate() {
 	global $db;
-	
+
 	//Cache leer machen
 	//$this->clear_cache();
-	
+
 	//Farb-Modus (schwarz oder weiß)
 	$this->colorsheme = $this->colorconfig[mt_rand(0,1)];
-	
+
 	//Bild erzeugen
 	$picture=imagecreatetruecolor($this->width,$this->height);
 	$picturetype='PNG';
-	
+
 	//Hintergrundrauschen erzeugen
 	if ( $this->bgnoise ) {
 		for ( $line=0; $line<=$this->height; $line++ ) {
@@ -91,26 +91,26 @@ function generate() {
 				$color = $this->get_background($picture);
 				imagesetpixel($picture,$col,$line,$color);
 			}
-		}	
+		}
 	}
-	
+
 	//Alternativ einfarbiges Hintergrund
 	else {
 		$bgColor = $this->get_background($picture);
 		imagefill($picture,0,0,$bgColor);
 	}
-	
+
 	//Linienzüge
 	/*for ( $i=0; $i<mt_rand(5,10); $i++ ) {
-		
+
 		//Linien-Attribute
 		$color = $this->get_middleground($picture);
 		imagesetthickness($picture,mt_rand(3,7));
-		
+
 		//Startpunkt
 		$lastx = mt_rand(10,$this->width-10);
 		$lasty = mt_rand(10,$this->height-10);
-		
+
 		//Linienzug zeichnen
 		for ( $j=0; $j<=mt_rand(2,4); $j++ ) {
 			$thisx = mt_rand($lastx-15,$lastx+15);
@@ -120,13 +120,13 @@ function generate() {
 			$lasty = $thisy;
 		}
 	}*/
-	
+
 	//Vorbereiten für Zahlenprint
 	shuffle($this->font);
 	$step = $this->width/3;
 	$printx = $this->width/6-6; //5 Zeichen
 	$value = 0;
-	
+
 	/*shuffle($this->charspace);
 	$number1 = $this->charspace[0];
 	//$operator = mt_rand(0,1) ? '+' : '-';
@@ -148,17 +148,17 @@ function generate() {
 		$value = $number1 + $number2;
 	}
 	$chars = array($number1, $operator, $number2);*/
-	
+
 	$chars = array();
 	for ( $i=0; $i<3; $i++ ) {
 		$charId = mt_rand(0, strlen($this->charspace)-1);
 		$chars[] = $this->charspace[$charId];
 	}
 	$value = implode('', $chars);
-	
+
 	//Zahlen schreiben
 	for ( $i=0; $i<3; $i++ ) {
-		
+
 		//$char = $this->charspace[array_rand($this->charspace)];
 		$char = $chars[$i];
 		//$value += $char*pow(10,4-$i);
@@ -166,17 +166,17 @@ function generate() {
 		$fontsize = $this->size[array_rand($this->size)];
 		//$angle = mt_rand($this->angle['min'],$this->angle['max']);
 		$angle = 0;
-		
+
 		//Operator
 		/*if ( $i==1 ) {
 			$fontsize = round($fontsize*1.3);
 		}*/
-		
+
 		//Bounding-Box
 		$bbox = imagettfbbox($fontsize,0,$fontfile,$char);
 		$charwidth = abs($bbox[4]-$bbox[0]);
 		$charheight = abs($bbox[1]-$bbox[5]);
-		
+
 		//Y-Position zufällig wählen
 		//$printy = mt_rand($charheight+15,$this->height); //+4 zum Fehlerausgleich
 		$printy = 20;
@@ -195,10 +195,10 @@ function generate() {
 		$color = $this->get_foreground($picture);
 		//imagettftext($picture,$fontsize,$angle,round($basex),round($basey),$color,$fontfile,$char);
 		imagettftext($picture,$fontsize,$angle,$printx,$printy,$color,$fontfile,$char);
-		
+
 		$printx += $step;
 	}
-	
+
 	//Sprenkeln
 	/*for ( $line=0; $line<=$this->height; $line++ ) {
 		for ( $col=0; $col<=$this->width; $col++ ) {
@@ -208,11 +208,11 @@ function generate() {
 			}
 		}
 	}*/
-	
+
 	$hash=md5($value.microtime().$value);
 	//$this->saveimage($picture,$picturetype,'temp/captcha_'.$hash.'.png');
 	$db->query("INSERT INTO ".PRE."_captcha (code,hash,time) VALUES ('".$value."','".$hash."','".time()."')");
-	
+
 	$code = $this->createCaptchaCode($picture, $bgColor).'<input type="hidden" name="captcha_hash" value="'.$hash.'" />';
 	//$code='<img src="'.HTTPDIR.getpath('uploads').'temp/captcha_'.$hash.'.png" alt="" style="vertical-align:middle;" /><input type="hidden" name="captcha_hash" value="'.$hash.'" />';
 	return $code;
@@ -244,7 +244,7 @@ function image2Html($picture, $bgColor) {
 			$rgb = imagecolorat($im, $x, $y);
 			$color_old = $this->hexcolor($rgb);
 			$color = $color_old;
-			
+
 			do {
 				$x++;
 				$rgb = imagecolorat($im, $x, $y);
@@ -252,7 +252,7 @@ function image2Html($picture, $bgColor) {
 			}
 			while( $x < $intWidth && $color==$color_old );
 			--$x;
-			
+
 			$width = $x - $beginx + 1;
 			if ( $color_old==$bgColor ) {
 				if ( $width <= 1 ) {
@@ -271,7 +271,7 @@ function image2Html($picture, $bgColor) {
 				}
 			}
 		}
-		
+
 	}
 	return $html;
 }

@@ -23,7 +23,7 @@ if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly
 
 class action {
 
-function action() {
+function __construct() {
 	echo '<link rel="stylesheet" href="../modules/stats/images/style.css" type="text/css" />';
 }
 

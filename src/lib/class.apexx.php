@@ -45,7 +45,7 @@ var $coremodules=array('main','mediamanager','user');
 ////////////////////////////////////////////////////////////////////////////////// -> STARTUP
 
 //System starten
-function apexx() {
+function __construct() {
 	global $set;
 
 	error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT ^ E_DEPRECATED);
@@ -108,7 +108,13 @@ function prepare_vars() {
 function strpsl($array) {
 	static $trimvars,$magicquotes;
 	if ( !isset($trimvars) ) $trimvars=iif((int)$_REQUEST['apx_notrim'] && MODE=='admin',0,1);
-	if ( !isset($magicquotes) ) $magicquotes=get_magic_quotes_gpc();
+	if ( !isset($magicquotes) ) {
+		if (function_exists('get_magic_quotes_gpc')) {
+			$magicquotes=get_magic_quotes_gpc();
+		} else {
+			$magicquotes=false;
+		}
+	}
 
 	foreach($array AS $key => $val) {
 		if( is_array($val) ) {

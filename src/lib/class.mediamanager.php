@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /***************************************************************\
 |                                                               |
@@ -24,9 +24,9 @@ if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly
 class mediamanager {
 
 //STARTUP
-function mediamanager() {
+function __construct() {
 	umask(0); //CHMOD
-	
+
 	if ( isset($_REQUEST['dir']) )     $_REQUEST['dir']=$this->securepath($_REQUEST['dir']);
 	if ( isset($_REQUEST['newdir']) )  $_REQUEST['newdir']=$this->securepath($_REQUEST['newdir']);
 	if ( isset($_REQUEST['file']) )    $_REQUEST['file']=$this->securefile($_REQUEST['file']);
@@ -42,9 +42,9 @@ function securepath($path) {
 	$path=str_replace('\\','',$path);         //Backslash entfernen!
 	$path=str_replace('.','',$path);          //Punkte entfernen
 	$path=preg_replace('#[/]{2,}#','/',$path); //Doppelte Slashes entfernen
-	
+
 	if ( strpos($path,'/')===0 ) $path=substr($path,1); //Slash am Anfang entfernen
-	
+
 	return $path;
 }
 
@@ -53,12 +53,12 @@ function securepath($path) {
 function securefile($path) {
 	$path=trim($path);
 	$last=strrpos($path,'/');
-	
+
 	if ( $last===false ) $p=array('',$path);
 	else $p=array($this->securepath(substr($path,0,$last)),substr($path,$last+1));
-	
+
 	$p[1]=str_replace('\\','',$p[1]);         //Backslash entfernen!
-	
+
 	return iif($p[0],$p[0].'/').$p[1];
 }
 
@@ -103,17 +103,17 @@ function getname($filepath) {
 function createdir($name,$dir='') {
 	if ( !$dir && MODE=='admin' ) $dir=$_REQUEST['dir'];
 	$newdir=iif($dir,$dir.'/').$name;
-	
+
 	if ( !is_writeable(BASEDIR.getpath('uploads').$dir) ) {
 		echo 'directory "'.BASEDIR.getpath('uploads').$dir.'" is not writeable!';
 		return;
 	}
-	
+
 	if ( !mkdir(BASEDIR.getpath('uploads').$newdir,0777) ) {
 		echo 'can not create directory!';
 		return;
 	}
-	
+
 	@chmod(BASEDIR.getpath('uploads').$newdir,0777);
 }
 
@@ -122,7 +122,7 @@ function createdir($name,$dir='') {
 function renamedir($oldpath,$newname) {
 	$dir=$this->getpath($oldpath);
 	$newpath=iif($dir,$dir.'/').$newname;
-	
+
 	if ( !rename(BASEDIR.getpath('uploads').$oldpath,BASEDIR.getpath('uploads').$newpath) ) {
 		echo('can not rename directory!');
 	}
@@ -144,29 +144,29 @@ function uploadfile($file,$dir='',$filename='') {
 	if ( !$dir && MODE=='admin' ) $dir=$_REQUEST['dir'];
 	if ( !$filename && MODE=='admin' ) $filename=$file['name'];
 	$uploadpath=iif($dir,$dir.'/').$filename;
-	
+
 	if ( !is_writeable(BASEDIR.getpath('uploads').$dir) ) {
 		echo 'directory "'.BASEDIR.getpath('uploads').$dir.'" is not writeable!';
 		return;
 	}
-	
+
 	$tmpfile=tempnam(BASEDIR.getpath('uploads'),'upload');
 	$feedback=move_uploaded_file($file['tmp_name'],$tmpfile);
 	if ( !$feedback ) {
 		echo $file['tmp_name'].' has not been found!';
 		return false;
 	}
-	
+
 	if ( file_exists(BASEDIR.getpath('uploads').$uploadpath) ) {
 		echo 'file '.getpath('uploads').$uploadpath.' already exists!';
 		unlink($tmpfile);
 		return false;
 	}
-	
+
 	rename($tmpfile,BASEDIR.getpath('uploads').$uploadpath);
-	
+
 	@chmod(BASEDIR.getpath('uploads').$uploadpath,0777);
-	
+
 	if ( $feedback ) return true;
 	else return false;
 }
@@ -176,7 +176,7 @@ function uploadfile($file,$dir='',$filename='') {
 function renamefile($oldpath,$newname) {
 	$dir=$this->getpath($oldpath);
 	$newpath=iif($dir,$dir.'/').$newname;
-	
+
 	if ( !rename(BASEDIR.getpath('uploads').$oldpath,BASEDIR.getpath('uploads').$newpath) ) echo('can not rename file!');
 
 }
@@ -209,15 +209,15 @@ function is_allowed($file) {
 	global $db;
 	static $cache;
 	$ext=$this->getext($file);
-	
+
 	if ( isset($cache[$ext]) ) return $cache[$ext];
-	
+
 	list($special)=$db->first("SELECT special FROM ".PRE."_mediarules WHERE extension='".$ext."' LIMIT 1");
 	if ( $special=='block' ) {
 		$cache[$ext]=false;
 		return false;
 	}
-	
+
 	$cache[$ext]=true;
 	return true;
 }
@@ -228,15 +228,15 @@ function is_protected($file) {
 	global $db;
 	static $cache;
 	$ext=$this->getext($file);
-	
+
 	if ( isset($cache[$ext]) ) return $cache[$ext];
-	
+
 	list($special)=$db->first("SELECT special FROM ".PRE."_mediarules WHERE extension='".$ext."' LIMIT 1");
 	if ( $special=='undel' ) {
 		$cache[$ext]=true;
 		return true;
 	}
-	
+
 	$cache[$ext]=false;
 	return false;
 }

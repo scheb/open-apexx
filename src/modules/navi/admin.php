@@ -26,7 +26,7 @@ class action {
 var $nav;
 
 //Startup
-function action() {
+function __construct() {
 	require_once(BASEDIR.'lib/class.recursivetree.php');
 	$this->cat=new RecursiveTree(PRE.'_navi', 'id');
 }

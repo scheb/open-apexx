@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /***************************************************************\
 |                                                               |
@@ -15,7 +15,7 @@
 
 
 class session {
-	
+
 	var $varname;
 	var $now;
 	var $sessionId = '';
@@ -23,33 +23,33 @@ class session {
 	var $data = array();
 	var $expires = 12;
 	var $modified = false;
-	
-	
-	
+
+
+
 	//Session erzeugen
-	function session($varname = 'sid') {
+	function __construct($varname = 'sid') {
 		$this->varname = $varname;
 		$this->now = time();
 		$this->ownerId = $this->getOwnerId();
-		
+
 		//Versuch aktuelle Session zu übernehmen
 		if ( $sid = $this->getRequestSid() ) {
 			$this->sessionId = $sid;
 			$this->resumeSession();
 		}
-		
+
 		//Neue Session erzeugen wenn Übernahme gescheitert oder keine Sid
 		if ( !$this->sessionId ) {
 			$this->createSession();
 		}
 	}
-	
-	
-	
+
+
+
 	//Neue Session erzeugen
 	function createSession() {
 		global $db,$set;
-		
+
 		/*
 		Keine Ahnung wozu das gut sein sollte... O_o
 		do {
@@ -62,7 +62,7 @@ class session {
 		}
 		while( $check );
 		*/
-		
+
 		//Session in DB erzeugen
 		$this->data = array();
 		do {
@@ -73,17 +73,17 @@ class session {
 			");
 		}
 		while ( $db->affected_rows()==0 );
-		
+
 		$cookiename = $set['main']['cookie_pre'].'_'.$this->varname;
 		setcookie($cookiename,$this->sessionId,0,'/');
 	}
-	
-	
-	
+
+
+
 	//Session wiederaufnehmen
 	function resumeSession() {
 		global $db;
-		
+
 		//Session-Daten auslesen
 		$res = $db->first("
 			SELECT *
@@ -91,28 +91,28 @@ class session {
 			WHERE id='".addslashes($this->sessionId)."' AND ownerid='".addslashes($this->ownerId)."' AND starttime>'".($this->now-$this->expires*3600)."'
 			LIMIT 1
 		");
-		
+
 		//Session existiert
 		if ( $res['id'] ) {
 			$this->sessionId = $res['id'];
 			$this->data = unserialize($res['data']);
 		}
-		
+
 		//Session existiert nicht => löschen
 		else {
 			$this->sessionId = '';
 		}
 	}
-	
-	
-	
+
+
+
 	//Session-ID zurückgeben
 	function getSid() {
 		return $this->sessionId;
 	}
-	
-	
-	
+
+
+
 	//Session-Variable setzen
 	function set($varname, $value, $forcesave = false) {
 		$this->data[$varname] = $value;
@@ -121,18 +121,18 @@ class session {
 			$this->save();
 		}
 	}
-	
-	
-	
+
+
+
 	//Session-Variable auslesen
 	function get($varname) {
 		if ( isset($this->data[$varname]) ) return $this->data[$varname];
 		else return null;
 	}
-	
-	
-	
-	
+
+
+
+
 	//Session-Variable löschen
 	function clear($varname, $forcesave = false) {
 		unset($this->data[$varname]);
@@ -141,9 +141,9 @@ class session {
 			$this->save();
 		}
 	}
-	
-	
-	
+
+
+
 	//Session-Daten speichern
 	function save() {
 		global $db;
@@ -158,9 +158,9 @@ class session {
 		");
 		$this->modified = false;
 	}
-	
-	
-	
+
+
+
 	//Session beenden
 	function destroy() {
 		global $db;
@@ -169,17 +169,17 @@ class session {
 			WHERE id='".addslashes($this->sessionId)."' AND ownerid='".addslashes($this->ownerId)."'
 		");
 	}
-	
-	
-	
+
+
+
 	//Owner-ID erzeugen
 	function getOwnerId() {
 		$ip = implode('.', array_slice(explode('.', get_remoteaddr()), 0, 3));
 		return md5(getenv('HTTP_USER_AGENT').$ip);
 	}
-	
-	
-	
+
+
+
 	//Session-ID aus Cookie auslesen
 	function getRequestSid() {
 		global $set;

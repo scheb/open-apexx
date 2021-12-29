@@ -24,7 +24,7 @@ if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly
 class action {
 
 //STARTUP
-function action() {
+function __construct() {
 	//Code um die Explorer-Leiste zu aktualisieren
 	$this->refresh=<<<CODE
 <script language="JavaScript" type="text/javascript">
