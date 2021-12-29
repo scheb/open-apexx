@@ -37,11 +37,6 @@ betreiben möglichen.
 
 Das System ist nur auf Deutsch verfügbar, es besitzt jedoch Funktionen zur Lokalisierung.
 
-Alternativen
-------------
-
-- [Tropby/open-apexx-core](https://github.com/Tropby/open-apexx-core) - Weiterentwicklung von Open Apexx inklusive neuem Modul-Manager
-
 Systemanforderung
 -----------------
 
