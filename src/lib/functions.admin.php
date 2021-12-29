@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 /***************************************************************\
@@ -162,18 +162,18 @@ function optionHTMLOverlay($icon, $actionid, $params, $title = false) {
 function choosetime($id,$empty=0,$sel=0) {
 	global $apx;
 	if ( $sel>0 ) $date=getdate($sel-TIMEDIFF);
-	
+
 	//JS
 	$string.='<script type="text/javascript" src="../lib/yui/calendar/calendar-min.js"></script>';
 	$string.='<script type="text/javascript" src="../lib/yui/container/container_core-min.js"></script>';
 	$string.='<script type="text/javascript" src="../lib/yui/element/element-min.js"></script>';
 	$string.='<script type="text/javascript" src="../lib/javascript/calendarselection.js"></script>';
-	
+
 	//Tage
 	$string.='<select name="t_day_'.$id.'">'.iif($empty,'<option value=""'.iif(!isset($date['mday']),' selected="selected"').'></option>');
 	for ($i=1; $i<=31; $i++ ) $string.='<option value="'.$i.'"'.iif($date['mday']==$i,' selected="selected"').'>'.sprintf("%02.d",$i).'</option>';
 	$string.='</select>. ';
-	
+
 	//Monate
 	$string.='<select name="t_mon_'.$id.'">'.iif($empty,'<option value=""'.iif(!isset($date['mon']),' selected="selected"').'></option>');
 	$string.='<option value="1"'.iif($date['mon']==1,' selected="selected"').'>'.$apx->lang->get('MONTH_JAN').'</option>';
@@ -189,29 +189,29 @@ function choosetime($id,$empty=0,$sel=0) {
 	$string.='<option value="11"'.iif($date['mon']==11,' selected="selected"').'>'.$apx->lang->get('MONTH_NOV').'</option>';
 	$string.='<option value="12"'.iif($date['mon']==12,' selected="selected"').'>'.$apx->lang->get('MONTH_DEC').'</option>';
 	$string.='</select> ';
-	
+
 	//Jahre
 	$string.='<select name="t_year_'.$id.'">'.iif($empty,'<option value=""'.iif(!isset($date['year']),' selected="selected"').'></option>');
-	for ($i=2000; $i<=2020; $i++ ) $string.='<option value="'.$i.'"'.iif($date['year']==$i,' selected="selected"').'>'.sprintf('%02.d',$i).'</option>';
+	for ($i=2000; $i<=2040; $i++ ) $string.='<option value="'.$i.'"'.iif($date['year']==$i,' selected="selected"').'>'.sprintf('%02.d',$i).'</option>';
 	$string.='</select> - ';
-	
+
 	//Ab hier === damit "kein Wert" als "ungleich" 0 erkannt wird
-	
+
 	//Stunden
 	$string.='<select name="t_hour_'.$id.'">'.iif($empty,'<option value=""'.iif(!isset($date['hours']),' selected="selected"').'></option>');
 	for ($i=0; $i<=23; $i++ ) $string.='<option value="'.$i.'"'.iif($date['hours']===$i,' selected="selected"').'>'.sprintf('%02.d',$i).'</option>';
 	$string.='</select>:';
-	
+
 	//Minuten
 	$string.='<select name="t_min_'.$id.'">'.iif($empty,'<option value=""'.iif(!isset($date['minutes']),' selected="selected"').'></option>');
 	for ($i=0; $i<=59; $i++ ) $string.='<option value="'.$i.'"'.iif($date['minutes']===$i,' selected="selected"').'>'.sprintf('%02.d',$i).'</option>';
 	$string.='</select>:';
-	
+
 	//Sekunden
 	$string.='<select name="t_sec_'.$id.'">'.iif($empty,'<option value=""'.iif(!isset($date['seconds']),' selected="selected"').'></option>');
 	for ($i=0; $i<=59; $i++ ) $string.='<option value="'.$i.'"'.iif($date['seconds']===$i,' selected="selected"').'>'.sprintf('%02.d',$i).'</option>';
 	$string.='</select> Uhr';
-	
+
 	//JS Init
 	$string.='<script language="JavaScript" type="text/javascript">';
 	$string.='yEvent.onDOMReady(function() { ';
@@ -219,7 +219,7 @@ function choosetime($id,$empty=0,$sel=0) {
 	$string.='	new CalendarSelection({day: form[\'t_day_'.$id.'\'], month: form[\'t_mon_'.$id.'\'], year: form[\'t_year_'.$id.'\']}, \'t_'.$id.'\');';
 	$string.='});';
 	$string.='</script>';
-	
+
 	return $string;
 }
 
@@ -238,7 +238,7 @@ function maketime($id) {
 	|| !isset($_POST['t_day_'.$id])
 	|| !isset($_POST['t_year_'.$id])
 	) return 0;
-	
+
 	$time=mktime(
 		$_POST['t_hour_'.$id],
 		$_POST['t_min_'.$id],
@@ -247,7 +247,7 @@ function maketime($id) {
 		$_POST['t_day_'.$id],
 		$_POST['t_year_'.$id]
 	)+TIMEDIFF;
-	
+
 	return $time;
 }
 
@@ -294,7 +294,7 @@ CODE;
 
 </script>
 CODE;
-	
+
 	$apx->tmpl->set_static('JS_FOOTER');
 	$apx->tmpl->extend('JS_FOOTER',$code);
 }
@@ -305,25 +305,25 @@ function mktemplates($fields) {
 	global $db,$apx;
 	return;
 	if ( is_string($fields) ) $fileds=array($fields);
-	
+
 	$sourcereplace=array(
 		"'" => "\\"."'",
 		"\r" => '',
 		"\n" => '\n'
 	);
-	
+
 	$data=$db->fetch("SELECT * FROM ".PRE."_templates ORDER BY title ASC");
 	if ( count($data) ) {
 		foreach ( $data AS $res ) {
 			$options.='<option value="'.$res['id'].'">'.$res['title'].'</option>';
 			$source.="templates[".$res['id']."] = '".strtr($res['code'],$sourcereplace)."';\n";
 		}
-		
+
 		foreach ( $fields AS $one ) {
 			$code=$apx->lang->get('CORE_INSERTTEMPLATE').': <select name="tmplid_'.$one.'" onchange="insert_template(this,\''.$one.'\'); "><option value="">'.$apx->lang->get('CORE_CHOOSETEMPLATE').'</option>'.$options.'</select>';
 			$apx->tmpl->assign('TEMPLATES_CHOOSE_'.strtoupper($one),$code);
 		}
-		
+
 		$footercode=<<<CODE
 <script language="JavaScript" type="text/javascript">
 <!--
@@ -334,11 +334,11 @@ var templates = new Array();
 //-->
 </script>
 CODE;
-		
+
 		$apx->tmpl->set_static('JS_FOOTER');
 		$apx->tmpl->extend('JS_FOOTER',$footercode);
 	}
-	
+
 	//Keine Vorlagen vorhanden
 	else {
 		foreach ( $fields AS $one ) {
@@ -356,7 +356,7 @@ CODE;
 function copy_with_thumbnail($oldImage, $newImage) {
 	$oldPoppic = str_replace('-thumb.','.',$oldImage);
 	$newPoppic = str_replace('-thumb.','.',$newImage);
-	
+
 	if ( $oldImage && file_exists(BASEDIR.getpath('uploads').$oldImage) ) {
 		copy(BASEDIR.getpath('uploads').$oldImage, BASEDIR.getpath('uploads').$newImage);
 		if ( $oldPoppic && file_exists(BASEDIR.getpath('uploads').$oldPoppic) ) {
@@ -374,10 +374,10 @@ function copy_with_thumbnail($oldImage, $newImage) {
 //Protokoll-Eintrag machen
 function logit($text,$affect=false) {
 	global $db,$apx;
-	
+
 	$text=strtoupper($text);
 	if ( $affect===false ) $affect='';
-	
+
 	$db->query("INSERT INTO ".PRE."_log VALUES ('".date('Y/m/d H:i:s',time()-TIMEDIFF)."','".$apx->user->info['userid']."','".get_remoteaddr()."','".addslashes('{LOG_'.$text.'}')."','".addslashes($affect)."')");
 }
 
@@ -396,12 +396,12 @@ function save_index($url,$action=false) {
 //Index-URL laden
 function get_index($action) {
 	global $apx;
-	
+
 	$url = $apx->session->get('indexpage_'.$action);
 	if ( $url ) {
 		return $url;
 	}
-	
+
 	return $_SERVER['PHP_SELF'].'?action='.$action;
 }
 
@@ -412,10 +412,10 @@ function get_index($action) {
 //Baumstruktur parsen
 function parse_tree($data,$img=false) {
 	if ( !count($data) ) return array(array(),array());
-	
+
 	$follow=parse_tree_follow($data);
 	$space=parse_tree_space($follow,$img);
-	
+
 	return array($space,$follow);
 }
 
@@ -424,11 +424,11 @@ function parse_tree($data,$img=false) {
 function parse_tree_follow($data) {
 	$follow=array();
 	$prev_in_level=array();
-	
+
 	foreach ( $data AS $res ) {
 		$level=$res['level'];
 		$id=$res['id'];
-		
+
 		//Alle höheren Level löschen, wenn ein Level tiefer als Vorgängerlevel
 		if ( $level<$lastlevel ) {
 			for ( $li=$level+1; ; $li++ ) {
@@ -436,11 +436,11 @@ function parse_tree_follow($data) {
 				unset($prev_in_level[$li]);
 			}
 		}
-		
+
 		//Vorgänger im gleichen Level bestimmen
 		$prev=$prev_in_level[$level];
 		$mother=$prev_in_level[$level-1];
-		
+
 		//Aktuelle ID
 		$follow[$id]=array(
 			'mother' => $mother,
@@ -448,16 +448,16 @@ function parse_tree_follow($data) {
 			'prev' => iif($prev,1,0),
 			'next' => 0
 		);
-		
+
 		//Vorgänger -> hat einen Nachfolger
 		if ( $prev ) {
 			$follow[$prev]['next']=1;
 		}
-		
+
 		$lastlevel=$level;
 		$prev_in_level[$level]=$id;
 	}
-	
+
 	return $follow;
 }
 
@@ -465,7 +465,7 @@ function parse_tree_follow($data) {
 //Einrückzeichen im Baum generieren
 function parse_tree_space($follow,$img) {
 	$space=array();
-	
+
 	if ( !is_array($img) ) {
 		$img=array(
 			'space' => '<img src="design/node_space.gif" alt="" style="vertical-align:middle;" />',
@@ -474,34 +474,34 @@ function parse_tree_space($follow,$img) {
 			'line' => '<img src="design/node_line.gif" alt="" style="vertical-align:middle;" />',
 		);
 	}
-	
+
 	foreach ( $follow AS $id => $info ) {
 		if ( $info['level']==1 ) {
 			$space[$id]='';
 			continue;
 		}
-		
+
 		$spacecode='';
-		
+
 		//Weiterführende Linien höherer Level
 		$mother=$info['mother'];
 		while ( true ) {
 			if ( !isset($follow[$mother]) || $follow[$mother]['level']==1 ) break; //Beenden, wenn kein Mutterelement existiert
-			
+
 			$motherinfo=$follow[$mother];
 			$mother=$motherinfo['mother'];
-			
+
 			if ( $motherinfo['next'] ) $spacecode=$img['line'].$spacecode;
 			else $spacecode=$img['space'].$spacecode;
 		}
-		
+
 		//Node-Symbol
 		if ( $info['next'] ) $spacecode.=$img['node'];
 		else $spacecode.=$img['node_end'];
-		
+
 		$space[$id]=$spacecode;
 	}
-	
+
 	return $space;
 }
 
@@ -534,7 +534,7 @@ function quicklink_multi($action,$file='action.php',$addurl='') {
 function quicklink_index($action) {
 	global $quicklink_dump,$apx;
 	if ( !$apx->user->has_right($action) ) return;
-	
+
 	$quicklink_dump.=iif($quicklink_dump,'<br />').'&raquo; <a href="'.get_index($action).'">'.$apx->lang->get('TITLE_'.strtoupper(str_replace('.','_',$action))).'</a>';
 }
 
@@ -552,11 +552,11 @@ function quicklink_out() {
 function quicklink_generate($action,$file='action.php',$addurl='') {
 	global $apx;
 	if ( !$apx->user->has_right($action) ) return;
-	
+
 	$out='&raquo; <a href="'.$file.'?action='.$action.iif($addurl,'&amp;'.$addurl).'">';
 	$out.=$apx->lang->get('TITLE_'.strtoupper(str_replace('.','_',$action)));
 	$out.='</a>';
-	
+
 	return $out;
 }
 
@@ -576,17 +576,17 @@ function pages($link,$count,$epp=0,$varname='p') {
 	global $set;
 	$count=(int)$count;
 	$epp=(int)$epp;
-	
+
 	//Variablen vorbereiten
 	$_REQUEST[$varname]=(int)$_REQUEST[$varname];
 	if ( strpos($link,'?') ) $sticky='&amp;'; else $sticky='?';
 	if ( !$epp ) $epp=$set['main']['admin_epp'];
 	$tmpl = new tengine;
-	
+
 	//Seitenzahlen bereichnen, evtl. REQUEST berichtigen
 	$pages=ceil($count/$epp);
 	if ( $_REQUEST[$varname]<1 || $_REQUEST[$varname]>$pages ) $_REQUEST[$varname]=1;
-	
+
 	//Wenn kein $epp, alle Einträge zeigen -> Seiten (1): [1]
 	if ( $epp==0 ) {
 		$tmpl->assign('PAGE_COUNT',1);
@@ -597,25 +597,25 @@ function pages($link,$count,$epp=0,$varname='p') {
 		$tmpl->parse('pages','/');
 		return;
 	}
-	
+
 	//Wenn es keine Einträge gibt
 	if ( !$count ) {
 		$tmpl->assign('PAGE_COUNT',0);
 		$tmpl->parse('pages','/');
 		return;
 	}
-	
+
 	//Seitenzahlen generieren
 	for ( $i=1; $i<=$pages; $i++ ) {
 		$pagedata[$i]['NUMBER']=$i;
 		$pagedata[$i]['LINK']=$link.$sticky.$varname.'='.$i;
 	}
-	
+
 	if ( $_REQUEST[$varname]>1 ) $previous=$link.$sticky.$varname.'='.($_REQUEST[$varname]-1);
 	if ( $_REQUEST[$varname]<$pages ) $next=$link.$sticky.$varname.'='.($_REQUEST[$varname]+1);
 	$first=$link.$sticky.$varname.'=1';
 	$last=$link.$sticky.$varname.'='.$pages;
-	
+
 	$tmpl->assign('PAGE_PREVIOUS',$previous);
 	$tmpl->assign('PAGE_NEXT',$next);
 	$tmpl->assign('PAGE_FIRST',$first);
@@ -632,36 +632,36 @@ function letters($link) {
 	global $apx;
 	static $letters;
 	if ( !isset($letters) ) $letters=array('#','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
-	
+
 	if ( strpos($link,'?')!==false ) $sticky='&amp;';
 	else $sticky='?';
-	
+
 	if ( strpos($link,'{LETTER}')!==false ) $fulllink=str_replace('{LETTER}','0',$link);
 	else $fulllink=$link;
-	
+
 	$letterdata[]=array(
 		'TEXT' => $apx->lang->get('CORE_NOLETTER'),
 		'LINK' => $fulllink,
 		'SELECTED' => iif(!$_REQUEST['letter'],1,0)
 	);
-	
+
 	//Buchstaben
 	foreach ( $letters AS $letter ) {
 		$selected=0;
 		if ( $letter=='#' && $_REQUEST['letter']=='spchar' ) $selected=1;
 		if ( $letter==$_REQUEST['letter'] ) $selected=1;
-		
+
 		if ( strpos($link,'{LETTER}')!==false ) $fulllink=str_replace('{LETTER}',iif($letter=='#','spchar',$letter),$link);
 		else $fulllink=$link.$sticky.'letter='.iif($letter=='#',iif($letter=='#','spchar',$letter),$letter);
-		
+
 		$letterdata[]=array(
 			'TEXT' => strtoupper($letter),
 			'LINK' => $fulllink,
 			'SELECTED' => $selected
 		);
 	}
-	
-	
+
+
 	$apx->tmpl->assign('LETTER_SELECTED',$_REQUEST['letter']);
 	$apx->tmpl->assign('LETTER',$letterdata);
 	$apx->tmpl->parse('letters','/');
@@ -674,16 +674,16 @@ function letters($link) {
 //Sektionen filtern
 function section_filter($and=true,$fieldname='secid') {
 	global $apx,$user;
-	
+
 	$sections = $apx->sections;
 	$secid = $apx->session->get('section');
-	
+
 	/////// Keine Sektionen verwendet -> Alles anzeigen
 	if ( !is_array($sections) || !count($sections) ) return iif($and,' AND ')." 1 "; //true
-	
+
 	/////// Nur gewählte Sektion
 	if ( $secid ) return iif($and,' AND ')." ( ".$fieldname."='all' OR ".$fieldname." LIKE '%|".$secid."|%' ) ";
-	
+
 	/////// Alle Sektionen auflisten
 	return iif($and, '', '1');
 }
@@ -693,14 +693,14 @@ function section_filter($and=true,$fieldname='secid') {
 //"Sortieren nach" Auswahlliste
 function orderstr($info,$link) {
 	global $apx;
-	
+
 	//Check ob Standard-Sortby definiert
 	if ( !is_array($info) || !count($info) ) return '';
 	if ( !$info[0] ) echo "WARNING: No default 'sort by' column defined!";
-	
+
 	$sort=explode('.',$_REQUEST['sortby']);
 	$sort[1]=strtoupper($sort[1]);
-	
+
 	//Wenn $sort ein gültiger Sortby-Index ist
 	if ( isset($info[$sort[0]]) ) {
 		//Wenn Sorttype ungültig
@@ -708,7 +708,7 @@ function orderstr($info,$link) {
 	}
 	//Wenn $sort kein gültiger Sortby Index ist -> Standard verwenden
 	else $sort=array($info[0],$info[$info[0]][1]);
-	
+
 	//Liste machen
 	foreach ( $info AS $id => $data ) {
 		if ( !$id ) continue;
@@ -718,7 +718,7 @@ function orderstr($info,$link) {
 		}
 		else $scache[]='<a href="'.$link.'&amp;sortby='.$id.'.'.$data[1].'">'.$apx->lang->get($data[2]).'</a>';
 	}
-	
+
 	echo '<p class="sortby">Sortieren nach: '.@implode(" | ",$scache).'</p>';
 }
 
@@ -732,14 +732,14 @@ function array_sort_def($array,$info) {
 	//Check ob Standard-Sortby definiert
 	if ( !is_array($info) || !count($info) ) return '';
 	if ( !$info[0] ) echo 'WARNING: No default "sort by" column defined!';
-	
+
 	$sort=explode('.',$_REQUEST['sortby']);
 	$sort[1]=strtoupper($sort[1]);
-	
+
 	if ( isset($info[$sort[0]]) ) {
 		if ( $sort[1]!='ASC' && $sort[1]!='DESC' ) $sort[1]=$info[$sort[0]][1];
 		return array_sort($array,$info[$sort[0]][0],$sort[1]);
-	} 
+	}
 	else return array_sort($array,$info[$info[0]][0],$info[$info[0]][1]);
 }
 
