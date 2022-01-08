@@ -46,7 +46,7 @@ if ( $_REQUEST['search'] ) {
 	
 	$apx->lang->drop('searchresult');
 	
-	//BEITRÄGE
+	//BEITRÃ„GE
 	if ( $search['display']=='posts' ) {
 		$apx->lang->drop('thread');
 		
@@ -67,7 +67,7 @@ if ( $_REQUEST['search'] ) {
 		//Daten auslesen
 		$data=$db->fetch("SELECT * FROM ".PRE."_forum_posts WHERE ( del=0 AND postid IN (".implode(',',$search['result']).") ) ".getorder($orderdef).getlimit($user->info['forum_ppp']));
 		
-		//Zugehörige Themen auslesen
+		//ZugehÃ¶rige Themen auslesen
 		$threads=get_ids($data,'threadid');
 		$threadinfo=array();
 		$threaddata=$db->fetch("SELECT threadid,forumid,prefix,title,sticky_text,lastposttime,open,posts,views FROM ".PRE."_forum_threads WHERE threadid IN (".implode(',',$threads).")");
@@ -81,7 +81,7 @@ if ( $_REQUEST['search'] ) {
 			}
 		}
 		
-		//Zugehörige Foren auslesen
+		//ZugehÃ¶rige Foren auslesen
 		$forums=get_ids($threaddata,'forumid');
 		$foruminfo=array();
 		$forumdata=$db->fetch("SELECT forumid,title FROM ".PRE."_forums WHERE forumid IN (".implode(',',$forums).")");
@@ -95,7 +95,7 @@ if ( $_REQUEST['search'] ) {
 			}
 		}
 		
-		//Beiträge auflisten
+		//BeitrÃ¤ge auflisten
 		if ( count($data) ) {
 			foreach ( $data AS $res ) {
 				++$i;
@@ -189,7 +189,7 @@ if ( $_REQUEST['search'] ) {
 		//Daten auslesen
 		$data=$db->fetch("SELECT * FROM ".PRE."_forum_threads WHERE ( del=0 AND threadid IN (".implode(',',$search['result']).") ) ".getorder($orderdef).getlimit($user->info['forum_tpp']));
 		
-		//Zugehörige Foren auslesen
+		//ZugehÃ¶rige Foren auslesen
 		$forums=get_ids($data,'forumid');
 		$foruminfo=array();
 		$forumdata=$db->fetch("SELECT forumid,title FROM ".PRE."_forums WHERE forumid IN (".implode(',',$forums).")");
@@ -289,7 +289,7 @@ if ( $_REQUEST['search'] ) {
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////// NEUE BEITRÄGE
+//////////////////////////////////////////////////////////////////////////////////////// NEUE BEITRÃ„GE
 
 $apx->lang->drop('search');
 
@@ -300,7 +300,7 @@ if ( $_REQUEST['newposts'] ) {
 	$data = forum_readout();
 	foreach ( $data AS $res ) {
 		
-		//Nicht sichtbare Foren überspringen
+		//Nicht sichtbare Foren Ã¼berspringen
 		if ( !forum_access_visible($res) || !forum_access_read($res) || !correct_forum_password($res) ) continue;
 		
 		//Keine Kategorien durchsuchen
@@ -353,7 +353,7 @@ if ( $_REQUEST['newposts'] ) {
 	require('../lib/_end.php');
 }
 
-//////////////////////////////////////////////////////////////////////////////////////// SUCHE AUSFÜHREN
+//////////////////////////////////////////////////////////////////////////////////////// SUCHE AUSFÃœHREN
 
 $apx->lang->drop('search');
 
@@ -390,7 +390,7 @@ if ( $_REQUEST['send'] ) {
 	if ( !isset($_POST['sortby_dir']) ) $_POST['sortby_dir']='DESC';
 	if ( !isset($_POST['display']) ) $_POST['display']='threads';
 	
-	//Beiträge eines Besuchers suchen
+	//BeitrÃ¤ge eines Besuchers suchen
 	if ( isset($_GET['author']) ) {
 		$_POST['author']=$_GET['author'];
 		$_POST['display']='posts';
@@ -412,7 +412,7 @@ if ( $_REQUEST['send'] ) {
 		$wherethread='';
 		$keywords=$ignored=array();
 		
-		//Suchstring erzeugen und prüfen
+		//Suchstring erzeugen und prÃ¼fen
 		if ( $_POST['keywords_req'] || $_POST['keywords_one'] || $_POST['keywords_not'] ) {
 			list($words_req,$ignored1)=searchstring_to_array($_POST['keywords_req']);
 			list($words_one,$ignored2)=searchstring_to_array($_POST['keywords_one']);
@@ -443,10 +443,10 @@ if ( $_REQUEST['send'] ) {
 			//Keine weiteren Unterforen vorhanden
 			if ( $res['level']<=$searchsubtill ) $searchsubtill=9999999;
 			
-			//Nicht sichtbare Foren überspringen
+			//Nicht sichtbare Foren Ã¼berspringen
 			if ( !forum_access_visible($res) || !forum_access_read($res) ) continue;
 			
-			//Forum nicht ausgewählt
+			//Forum nicht ausgewÃ¤hlt
 			if ( $_POST['forumid'][0]!='all' && !in_array($res['forumid'],$_POST['forumid']) && $res['level']<=$searchsubtill ) continue;
 			
 			//Unterforen ebenfalls durchsuchen
@@ -508,14 +508,14 @@ if ( $_REQUEST['send'] ) {
 						require('../lib/_end.php');
 					}
 					
-					//Erstes Teilergebnis so übernehmen wie es ist
+					//Erstes Teilergebnis so Ã¼bernehmen wie es ist
 					// => Nichts da, um eine Schnittmenge zu bestimmen
 					if ( $reqi==1 ) {
 						$result_req['threads']=$word2content[$word]['threads'];
 						$result_req['posts']=$word2content[$word]['posts'];
 					}
 					
-					//Schnittmenge bestimmen (Alle Beiträge/Themen, die alle Wörter besitzen)
+					//Schnittmenge bestimmen (Alle BeitrÃ¤ge/Themen, die alle WÃ¶rter besitzen)
 					else {
 						if ( isset($word2content[$word]['threads']) ) {
 							$result_req['threads']=array_intersect($result_req['threads'],$word2content[$word]['threads']);
@@ -531,7 +531,7 @@ if ( $_REQUEST['send'] ) {
 			$result_one=array('threads'=>array(),'posts'=>array());
 			if ( count($words_one) ) {
 				
-				//Summe bestimmen (Alle Beiträge/Themen, die eines der Wörter besitzen)
+				//Summe bestimmen (Alle BeitrÃ¤ge/Themen, die eines der WÃ¶rter besitzen)
 				foreach ( $words_one AS $word ) {
 					if ( isset($word2content[$word]['threads']) ) {
 						$result_one['threads']=array_merge($result_one['threads'], $word2content[$word]['threads']);
@@ -556,7 +556,7 @@ if ( $_REQUEST['send'] ) {
 			$result_not=array('threads'=>array(),'posts'=>array());
 			if ( count($words_not) ) {
 				
-				//Summe aller verbotenen Beiträge/Themen
+				//Summe aller verbotenen BeitrÃ¤ge/Themen
 				foreach ( $words_not AS $word ) {
 					if ( isset($word2content[$word]['threads']) ) {
 						$result_not['threads']=array_merge($result_not['threads'],$word2content[$word]['threads']);
@@ -588,7 +588,7 @@ if ( $_REQUEST['send'] ) {
 				$tempres['posts']=$result_one['posts'];
 			}
 			
-			//Themen und Beiträge herausfiltern, die nicht gewünscht sind
+			//Themen und BeitrÃ¤ge herausfiltern, die nicht gewÃ¼nscht sind
 			$keyword_threads=array_unique(array_diff($tempres['threads'],$result_not['threads']));
 			$keyword_posts=array_unique(array_diff($tempres['posts'],$result_not['posts']));
 			
@@ -598,11 +598,11 @@ if ( $_REQUEST['send'] ) {
 		
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////// ALS BEITRÄGE ANZEIGEN
+/////////////////////////////////////////////////////////////////////////// ALS BEITRÃ„GE ANZEIGEN
 /////////////////////////////////////////////////////////////////////////////////////////////////
 		if ( $_POST['display']=='posts' ) {
 			
-			//Nur Themen aus den gewählten Foren
+			//Nur Themen aus den gewÃ¤hlten Foren
 			$wherethread.=" forumid IN (".implode(',',$inforum).") ";
 			
 			//Nur Themen vom Autor suchen
@@ -616,7 +616,7 @@ if ( $_REQUEST['send'] ) {
 				$wherethread.=iif($wherethread,' AND ')." posts>='".(intval($_POST['answers'])+1)."' ";
 			}
 			
-			//Nach Präfixen suchen
+			//Nach PrÃ¤fixen suchen
 			if ( is_array($_POST['prefix']) && count($_POST['prefix']) ) {
 				$_POST['prefix'] = array_map('intval', $_POST['prefix']);
 				$wherethread.=iif($wherethread,' AND ')." prefix IN (".implode(',', $_POST['prefix']).") ";
@@ -637,7 +637,7 @@ if ( $_REQUEST['send'] ) {
 				$wherepost.=iif($wherepost,' AND ')." postid IN (".implode(',',$keyword_posts).") ";
 			}
 			
-			//Nur Beiträge vom Autor suchen
+			//Nur BeitrÃ¤ge vom Autor suchen
 			if ( $_REQUEST['author'] && $_POST['findposts'] ) {
 				if ( $_POST['exact'] ) $wherepost.=iif($wherepost,' AND ')." username='".addslashes($_REQUEST['author'])."' ";
 				else $wherepost.=iif($wherepost,' AND ')." username LIKE '%".addslashes($_REQUEST['author'])."%' ";
@@ -656,7 +656,7 @@ if ( $_REQUEST['send'] ) {
 				elseif ( $_POST['period']=='year' ) $wherepost.=iif($wherepost,' AND ')." time".$op."'".(time()-365*24*3600)."'";
 			}
 			
-			//Beiträge nach Suchkriterien filtern
+			//BeitrÃ¤ge nach Suchkriterien filtern
 			$data=$db->fetch("SELECT postid FROM ".PRE."_forum_posts WHERE ( ".$wherepost." AND del=0 ) ORDER BY postid ASC");
 			$result=get_ids($data,'postid');
 			$display='posts';
@@ -668,7 +668,7 @@ if ( $_REQUEST['send'] ) {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 		else {
 			
-			//Nur Beiträge vom Autor suchen
+			//Nur BeitrÃ¤ge vom Autor suchen
 			if ( $_REQUEST['author'] && $_POST['findposts'] ) {
 				if ( $_POST['exact'] ) $wherepost.=iif($wherepost,' AND ')." username='".addslashes($_REQUEST['author'])."' ";
 				else $wherepost.=iif($wherepost,' AND ')." username LIKE '%".addslashes($_REQUEST['author'])."%' ";
@@ -687,7 +687,7 @@ if ( $_REQUEST['send'] ) {
 				elseif ( $_POST['period']=='year' ) $wherepost.=iif($wherepost,' AND ')." time".$op."'".(time()-365*24*3600)."'";
 			}
 			
-			//Beiträge nach Kriterien filtern
+			//BeitrÃ¤ge nach Kriterien filtern
 			if ( $wherepost ) {
 				$data=$db->fetch("SELECT threadid FROM ".PRE."_forum_posts WHERE ( ".$wherepost." AND del=0 ) ORDER BY postid ASC");
 				$inthread=get_ids($data,'threadid');
@@ -696,7 +696,7 @@ if ( $_REQUEST['send'] ) {
 				$wherethread.=iif($wherethread,' AND ')." threadid IN (".implode(',',$inthread).") ";
 			}
 			
-			//Beiträge müssen nicht gefiltert werden => Keyword-Ergebnis übernehmen
+			//BeitrÃ¤ge mÃ¼ssen nicht gefiltert werden => Keyword-Ergebnis Ã¼bernehmen
 			elseif ( isset($keyword_threads) ) {
 				$inthread=$keyword_threads;
 				if ( !is_array($inthread) || !count($inthread) ) $inthread=array(-1);
@@ -705,7 +705,7 @@ if ( $_REQUEST['send'] ) {
 			
 			//////////////////////////////
 			
-			//Nur Themen aus den gewählten Foren
+			//Nur Themen aus den gewÃ¤hlten Foren
 			$wherethread.=iif($wherethread,' AND ')." forumid IN (".implode(',',$inforum).") ";
 			
 			//Nur Themen vom Autor suchen
@@ -719,7 +719,7 @@ if ( $_REQUEST['send'] ) {
 				$wherethread.=iif($wherethread,' AND ')." posts>='".(intval($_POST['answers'])+1)."' ";
 			}
 			
-			//Nach Präfixen suchen
+			//Nach PrÃ¤fixen suchen
 			if ( is_array($_POST['prefix']) && count($_POST['prefix']) ) {
 				$_POST['prefix'] = array_map('intval', $_POST['prefix']);
 				$wherethread.=iif($wherethread,' AND ')." prefix IN (".implode(',', $_POST['prefix']).") ";
@@ -749,7 +749,7 @@ if ( $_REQUEST['send'] ) {
 			$b1=((float)$usec+(float)$sec);
 			$searchtime=round($b2-$b1,5);
 			
-			if ( count($highlight) ) $highlightme=serialize($highlight);
+			if ( is_countable($highlight) && count($highlight) ) $highlightme=serialize($highlight);
 			else $highlightme='';
 			$resultstring=dash_serialize($result);
 			$hash=md5(uniqid(time()));
@@ -770,7 +770,7 @@ $data = forum_readout();
 foreach ( $data AS $res ) {
 	++$i;
 	
-	//Nicht sichtbare Foren überspringen
+	//Nicht sichtbare Foren Ã¼berspringen
 	if ( !forum_access_visible($res) || !forum_access_read($res) ) {
 		$jump=$res['level'];
 		continue;
