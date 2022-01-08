@@ -48,8 +48,6 @@ var $coremodules=array('main','mediamanager','user');
 function __construct() {
 	global $set;
 
-	error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT ^ E_DEPRECATED);
-
 	$version=file(BASEDIR.'lib/version.info');
 	define('VERSION',array_shift($version));
 	define('HTTP_HOST',$this->get_http());
