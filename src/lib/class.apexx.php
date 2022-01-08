@@ -13,12 +13,6 @@
 | SOFTWARE BELONGS TO ITS AUTHORS!                              |
 \***************************************************************/
 
-#
-# APEXX main class v0.1
-# =====================
-# Last Update: 05-05-2004
-#
-#
 
 //Security-Check
 if ( !defined('APXRUN') ) die('You are not allowed to execute this file directly!');
