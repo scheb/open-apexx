@@ -36,7 +36,7 @@ function user_city_match($city1,$city2) {
 
 
 
-//Stadtnamen für MySQL-LIKE anpassen
+//Stadtnamen fÃ¼r MySQL-LIKE anpassen
 function user_city_mysql_match($text) {
 	$replace = array(
 		'%' => '\\%',
@@ -90,12 +90,12 @@ function user_get_location($plz,$city,$country) {
 	}
 	
 	//Passenden Ort suchen
-	if ( count($data)==1 ) {
+	if ( is_countable($data) && count($data)==1 ) {
 		foreach ( $data AS $res ) {
 			return $res['id'];
 		}
 	}
-	elseif ( count($data)>1 && !isset($citysearch) && $city ) {
+	elseif ( is_countable($data) && count($data)>1 && !isset($citysearch) && $city ) {
 		foreach ( $data AS $res ) {
 			if ( user_city_match($res['name'],$city) ) {
 				return $res['id'];
