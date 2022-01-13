@@ -30,7 +30,7 @@ function cron_clear_cache($lastexec) {
 	while ( $file=readdir($handle) ) {
 		if ( $file=='.' || $file=='..' ) continue;
 		
-		//Datei löschen, wenn älter als 7 Tage
+		//Datei lÃ¶schen, wenn Ã¤lter als 7 Tage
 		$lastchange=filemtime(BASEDIR.getpath('cache').$file);
 		if ( $lastchange+7*24*3600+3600<time() ) { //7 Tage + 1 Std.
 			unlink(BASEDIR.getpath('cache').$file);
@@ -38,10 +38,10 @@ function cron_clear_cache($lastexec) {
 	}
 	closedir($handle);
 	
-	//Captchas löschen
+	//Captchas lÃ¶schen
 	$now = time();
 	$data = $db->fetch("SELECT hash FROM ".PRE."_captcha WHERE time<=".($now-3600));
-	$db->fetch("DELETE FROM ".PRE."_captcha WHERE time<=".($now-3600));
+	$db->query("DELETE FROM ".PRE."_captcha WHERE time<=".($now-3600));
 	foreach ( $data AS $res ) {
 		@unlink(BASEDIR.getpath('uploads').'temp/captcha_'.$res['hash'].'.png');
 	}
@@ -53,7 +53,7 @@ function cron_clear_cache($lastexec) {
 function cron_optimize_database($lastexec) {
 	global $db,$set;
 	
-	//Alte Searches löchen
+	//Alte Searches lÃ¶chen
 	$db->query("DELETE FROM ".PRE."_search WHERE time<='".(time()-12*3600)."'");
 	$db->query("DELETE FROM ".PRE."_search_item WHERE time<='".(time()-30*24*3600)."'");
 	$db->query("DELETE FROM ".PRE."_sessions WHERE starttime<='".(time()-12*3600)."'");
